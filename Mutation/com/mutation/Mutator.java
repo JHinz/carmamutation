@@ -1,11 +1,8 @@
 package com.mutation;
 
-import java.util.HashMap;
+import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
 import java.util.Iterator;
-
-import junit.framework.TestCase;
-import junit.framework.TestResult;
-import junit.textui.TestRunner;
 
 import org.apache.bcel.Repository;
 import org.apache.bcel.classfile.JavaClass;
@@ -19,56 +16,15 @@ import org.apache.bcel.generic.InstructionList;
 import org.apache.bcel.generic.MethodGen;
 import org.apache.bcel.util.InstructionFinder;
 
-import com.mutation.test.ClassUnderTest;
+public class Mutator {
 
-public class Mutator extends ClassLoader {
-
-	private HashMap<String, Class> loadedClasses = new HashMap<String, Class>();
+	private MutationClassLoader classLoader;
 
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
-
+	public static void main(String[] args) throws MalformedURLException {
 		new Mutator();
-
-	}
-
-	public Mutator(ClassLoader parent) {
-		super(parent);
-
-	}
-
-	public Class overrideClass(String name, byte[] b, int off, int len) {
-		Class clazz = defineClass(name, b, 0, b.length);
-		this.loadedClasses.put(name, clazz);
-		return clazz;
-	}
-
-	@Override
-	protected Class<?> findClass(String name) throws ClassNotFoundException {
-
-		if (loadedClasses.containsKey(name)) {
-			return loadedClasses.get(name);
-		}
-		return super.findClass(name);
-	}
-
-	@Override
-	public Class<?> loadClass(String arg0) throws ClassNotFoundException {
-		if (loadedClasses.containsKey(arg0)) {
-			return loadedClasses.get(arg0);
-		}
-		return super.loadClass(arg0);
-	}
-
-	@Override
-	protected synchronized Class<?> loadClass(String name, boolean resolve)
-			throws ClassNotFoundException {
-		if (loadedClasses.containsKey(name)) {
-			return loadedClasses.get(name);
-		}
-		return super.loadClass(name, resolve);
 	}
 
 	private byte[] getModifiedByteCodeForClass(String classToBeModified,
@@ -123,6 +79,9 @@ public class Mutator extends ClassLoader {
 	}
 
 	public Mutator() {
+		super();
+
+		this.classLoader = new MutationClassLoader();
 
 		try {
 
@@ -133,12 +92,10 @@ public class Mutator extends ClassLoader {
 			byte[] modifiedByteCode = getModifiedByteCodeForClass(
 					classToBeModified, methodToBeModified);
 
-			overrideClass(classToBeModified, modifiedByteCode, 0,
-					modifiedByteCode.length);
+			this.classLoader.overrideClass(classToBeModified, modifiedByteCode,
+					0, modifiedByteCode.length);
 
-			printResultWithStandardConstructor();
-
-			printResultWithWrapperInstance();
+			printResultWithReflectionButWrapperInstance();
 
 			printResultWithReflection();
 
@@ -152,7 +109,8 @@ public class Mutator extends ClassLoader {
 	private void printResultWithReflection() {
 		try {
 
-			Class clazzUnderTest = loadClass("com.mutation.test.ClassUnderTest");
+			Class clazzUnderTest = this.classLoader
+					.loadClass("com.mutation.test.ClassUnderTest");
 
 			Object o = clazzUnderTest.newInstance();
 
@@ -169,21 +127,52 @@ public class Mutator extends ClassLoader {
 	}
 
 	private void runJUnit() throws ClassNotFoundException,
-			InstantiationException, IllegalAccessException {
-		Class testCaseClazz = loadClass("com.mutation.test.TestClass");
+			InstantiationException, IllegalAccessException,
+			NoSuchMethodException, InvocationTargetException {
 
-		TestCase testCase = (TestCase) testCaseClazz.newInstance();
+		Class testCaseClazz = this.classLoader
+				.findClass("com.mutation.test.TestClass");
 
-		testCase.setName("testGet42");
-		TestResult testResult = TestRunner.run(testCase);
+		System.out.println("testCaseClass classloader: "
+				+ testCaseClazz.getClassLoader());
+
+		java.lang.reflect.Method setNameMethod = testCaseClazz.getMethod(
+				"setName", new Class[] { String.class });
+
+		Object testCaseObject = testCaseClazz.newInstance();
+
+		setNameMethod.invoke(testCaseObject, new Object[] { "testGet42" });
+
+		Class jUnitTestClazz = this.classLoader
+				.findClass("junit.framework.Test");
+
+		System.out.println("jUnitTestCaseClazz classloader: "
+				+ jUnitTestClazz.getClassLoader());
+
+		Class jUnitTestRunnerClazz = this.classLoader
+				.findClass("junit.textui.TestRunner");
+
+		System.out.println("jUnitTestRunnerClazz classloader: "
+				+ jUnitTestRunnerClazz.getClassLoader());
+
+		java.lang.reflect.Method doRunMethod = jUnitTestRunnerClazz.getMethod(
+				"run", new Class[] { jUnitTestClazz });
+
+		doRunMethod.invoke(jUnitTestRunnerClazz,
+				new Object[] { testCaseObject });
+
+		// TestResult testResult = TestRunner.run(testCase);
 	}
 
-	private void printResultWithStandardConstructor() {
-		ClassUnderTest bla = new ClassUnderTest();
-		System.out.println("Result locally: " + bla.get42());
-	}
+	private void printResultWithReflectionButWrapperInstance() {
 
-	private void printResultWithWrapperInstance() {
-		new WrapperInstance();
+		try {
+			Class wrapperClass = this.classLoader
+					.findClass("com.mutation.WrapperInstance");
+
+			wrapperClass.newInstance();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
