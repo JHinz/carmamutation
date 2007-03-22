@@ -28,7 +28,7 @@ public class ConsoleReportGenerator implements IReportGenerator {
 		}
 
 		out.println("-------------------------------------------------");
-		out.println("SURVIVERS:");
+		out.println("SURVIVORS:");
 		for(Mutant m: survived){
 			out.println(m.getName() +": OP=" +m.getMutationOperator() +" Change=" +m.getChangeDescription() +" source=" +m.getSourceMapping());
 			
