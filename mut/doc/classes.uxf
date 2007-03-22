@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><umlet_diagram><element><type>com.umlet.element.base.Class</type><coordinates><x>80</x><y>230</y><w>270</w><h>210</h></coordinates><panel_attributes>MutationTestDriver
+--
+-- drives execution of  mutation test</panel_attributes><additional_attributes></additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>330</x><y>90</y><w>320</w><h>170</h></coordinates><panel_attributes>lt=&lt;- 
+1. Determine Test Spec</panel_attributes><additional_attributes>300;20;20;150</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>330</x><y>340</y><w>320</w><h>290</h></coordinates><panel_attributes>lt=&lt;-
+4. Generate Reports</panel_attributes><additional_attributes>300;270;20;20</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>330</x><y>290</y><w>320</w><h>110</h></coordinates><panel_attributes>lt=&lt;-
+3. Execute Tests</panel_attributes><additional_attributes>300;90;20;20</additional_attributes></element><element><type>com.umlet.element.base.Relation</type><coordinates><x>330</x><y>150</y><w>320</w><h>150</h></coordinates><panel_attributes>lt=&lt;-
+2. Create Mutants</panel_attributes><additional_attributes>300;20;20;130</additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>630</x><y>100</y><w>140</w><h>30</h></coordinates><panel_attributes>MutationTestSpec</panel_attributes><additional_attributes></additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>630</x><y>580</y><w>670</w><h>190</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
+IReportGenerator
+--
+
+--
+void generateReport(MutationTestSpec mutationTest, Set&lt;Mutant&gt; inputMutants, Set&lt;Mutant&gt; survived);
+--
+Responsibilities
+--Generates a report for the mutation test results</panel_attributes><additional_attributes></additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>630</x><y>360</y><w>670</w><h>190</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
+ITestExecuter
+--
+
+--
+Set&lt;Mutant&gt; executeTests(List&lt;String&gt; testSet, Set&lt;Mutant&gt; mutantsToBeRun);
+--
+Responsibilities
+-- Executes tests using the given test set for all given mutants
+-- Determines which mutants survive</panel_attributes><additional_attributes></additional_attributes></element><element><type>com.umlet.element.base.Class</type><coordinates><x>630</x><y>150</y><w>670</w><h>190</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
+IMutantGenerator
+--
+
+--
+Set&lt;Mutant&gt; generateMutants(String classUnderTest, Set&lt;MutationOperator&gt; operators);
+--
+Responsibilities
+-- Generates mutants for a class</panel_attributes><additional_attributes></additional_attributes></element></umlet_diagram>
