@@ -5,7 +5,7 @@ import java.util.Set;
 
 /**
  * Executes a set of tests using a set of mutants. for each mutant, tests are executed until one fails, i.e. it killed the mutant.
- * The mutants which did not lead to a failed test are the survivers.
+ * The mutants which did not lead to a failed test are the survivors.
  * @author mike
  *
  */
