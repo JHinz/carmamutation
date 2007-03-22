@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="lib/asm-commons-3.0.jar"/>
 	<classpathentry kind="lib" path="lib/asm-tree-3.0.jar"/>
 	<classpathentry kind="lib" path="lib/asm-util-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/bcel-5.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
