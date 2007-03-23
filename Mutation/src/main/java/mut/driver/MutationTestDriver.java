@@ -79,7 +79,7 @@ public class MutationTestDriver {
 
 		// class name determined using Test Name - "Test" suffix
 		if (args.length == 0) {
-			System.out.println("Usage: " + MutationTestDriver.class
+			System.out.println("Usage: java " + MutationTestDriver.class.getName()
 					+ " unitTestClassName1 unitTestClassName2 ...");
 			return;
 		}
