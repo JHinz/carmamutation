@@ -36,8 +36,6 @@ public class MutationTestDriver {
 
 	private static IReportGenerator reportGenerator;
 
-	private static boolean useAnnotations = false;
-
 	private void setUpDriver(String originalClassesLoc, String testClassesLoc)
 			throws MalformedURLException {
 
@@ -94,11 +92,6 @@ public class MutationTestDriver {
 		String testClassesLoc = System
 				.getProperty("testclasses",
 						"F:/workspaces/mutationTesting/commons-codec-1.3/target/testclasses");
-
-		useAnnotations = System.getProperty("useAnnotations") != null;
-
-		System.out.println("Using annotations for unit / test pair matching: "
-				+ useAnnotations);
 
 		new MutationTestDriver(args, originalClassesLoc, testClassesLoc);
 
