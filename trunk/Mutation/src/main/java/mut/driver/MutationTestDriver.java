@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -16,6 +17,7 @@ import mut.ITestExecuter;
 import mut.Mutant;
 import mut.MutationOperator;
 import mut.MutationTestSpec;
+import mut.annotations.MutationPair;
 import mut.executer.JUnitExecuter;
 import mut.mutantgen.asm.ASMMutantCreator;
 import mut.report.ConsoleReportGenerator;
@@ -27,15 +29,17 @@ import mut.report.ConsoleReportGenerator;
  * 
  */
 public class MutationTestDriver {
-	private IMutantGenerator mutantGenerator;
 
-	private ITestExecuter testExecuter;
+	private static IMutantGenerator mutantGenerator;
 
-	private IReportGenerator reportGenerator;
+	private static ITestExecuter testExecuter;
 
-	static MutationTestDriver setUpDriver(String originalClassesLoc,
-			String testClassesLoc) throws MalformedURLException {
-		MutationTestDriver driver = new MutationTestDriver();
+	private static IReportGenerator reportGenerator;
+
+	private static boolean useAnnotations = false;
+
+	private void setUpDriver(String originalClassesLoc, String testClassesLoc)
+			throws MalformedURLException {
 
 		{
 			// - Initialize mutant generator
@@ -44,7 +48,7 @@ public class MutationTestDriver {
 			ASMMutantCreator mutantGenerator = new ASMMutantCreator(
 					originalClassPath);
 
-			driver.setMutantGenerator(mutantGenerator);
+			MutationTestDriver.setMutantGenerator(mutantGenerator);
 		}
 		{
 			// - Initialize test executer
@@ -58,15 +62,14 @@ public class MutationTestDriver {
 			// File(args[0]).toURL();
 			JUnitExecuter testExecuter = new JUnitExecuter();
 			testExecuter.setTestClassesLocations(testClassesLocations);
-			driver.setTestExecuter(testExecuter);
+			setTestExecuter(testExecuter);
 		}
 		{
 			// - Initialize report generator
 			IReportGenerator reportGenerator = new ConsoleReportGenerator();
-			driver.setReportGenerator(reportGenerator);
+			setReportGenerator(reportGenerator);
 		}
 
-		return driver;
 	}
 
 	/**
@@ -79,29 +82,69 @@ public class MutationTestDriver {
 
 		// class name determined using Test Name - "Test" suffix
 		if (args.length == 0) {
-			System.out.println("Usage: java " + MutationTestDriver.class.getName()
+			System.out.println("Usage: java "
+					+ MutationTestDriver.class.getName()
 					+ " unitTestClassName1 unitTestClassName2 ...");
 			return;
 		}
 
-		for (int i = 0; i < args.length; i++) {
-			String unitTestName = args[i]; // "org.apache.commons.codec.net.QCodecTest";
-			String classUnderTest = unitTestName.substring(0, unitTestName
-					.length()
-					- "Test".length());
+		String originalClassesLoc = System
+				.getProperty("classes",
+						"F:/workspaces/mutationTesting/commons-codec-1.3/target/classes");
+		String testClassesLoc = System
+				.getProperty("testclasses",
+						"F:/workspaces/mutationTesting/commons-codec-1.3/target/testclasses");
 
-			String originalClassesLoc = System
-					.getProperty("classes",
-							"F:/workspaces/mutationTesting/commons-codec-1.3/target/classes");
-			String testClassesLoc = System
-					.getProperty("testclasses",
-							"F:/workspaces/mutationTesting/commons-codec-1.3/target/testclasses");
+		useAnnotations = System.getProperty("useAnnotations") != null;
+
+		System.out.println("Using annotations for unit / test pair matching: "
+				+ useAnnotations);
+
+		new MutationTestDriver(args, originalClassesLoc, testClassesLoc);
+
+	}
+
+	private MutationTestDriver(String[] args, String originalClassesLoc,
+			String testClassesLoc) throws MalformedURLException {
+
+		setUpDriver(originalClassesLoc, testClassesLoc);
+
+		for (int i = 0; i < args.length; i++) {
+
+			String unitTestName = args[i]; // "org.apache.commons.codec.net.QCodecTest";
+
+			String classUnderTest = null;
+
+			try {
+				String urlString = "file:" + testClassesLoc;
+
+				URLClassLoader loader = new URLClassLoader(new URL[] { new URL(
+						urlString) });
+
+				Class unitTestClass = Class.forName(unitTestName, true, loader);
+
+				boolean classHasAnnotation = unitTestClass
+						.isAnnotationPresent(MutationPair.class);
+
+				if (classHasAnnotation) {
+
+					MutationPair pair = Class.forName(unitTestName, false,
+							loader).getAnnotation(MutationPair.class);
+
+					classUnderTest = pair.testCaseClassName();
+					System.out.println("Annotation found for class "
+							+ unitTestName);
+				} else {
+					classUnderTest = resolveTestNameForUnit(unitTestName);
+				}
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			List<String> unitTestClasses = new ArrayList<String>();
 			unitTestClasses.add(unitTestName);
-
-			MutationTestDriver driver = setUpDriver(originalClassesLoc,
-					testClassesLoc);
 
 			{
 				// Define test spec
@@ -115,9 +158,21 @@ public class MutationTestDriver {
 				testSpec.setTestSet(unitTestClasses);
 				testSpec.setOperators(operators);
 
-				driver.execute(testSpec);
+				execute(testSpec);
 			}
 		}
+	}
+
+	private String resolveTestNameForUnit(String unitTestName) {
+		if (unitTestName.toLowerCase().endsWith("testcase"))
+			return unitTestName.substring(0, unitTestName.length()
+					- "testcase".length());
+
+		if (unitTestName.toLowerCase().endsWith("test"))
+			return unitTestName.substring(0, unitTestName.length()
+					- "test".length());
+
+		return "";
 
 	}
 
@@ -125,6 +180,7 @@ public class MutationTestDriver {
 		if (true) {
 			return;
 		}
+
 		System.out.println(new Date() + " " + getClass().getSimpleName()
 				+ " ## " + msg);
 	}
@@ -151,27 +207,27 @@ public class MutationTestDriver {
 
 	}
 
-	public IMutantGenerator getMutantGenerator() {
+	public static IMutantGenerator getMutantGenerator() {
 		return mutantGenerator;
 	}
 
-	public void setMutantGenerator(IMutantGenerator mutantGenerator) {
-		this.mutantGenerator = mutantGenerator;
+	public static void setMutantGenerator(IMutantGenerator mutantGenerator) {
+		MutationTestDriver.mutantGenerator = mutantGenerator;
 	}
 
-	public ITestExecuter getTestExecuter() {
+	public static ITestExecuter getTestExecuter() {
 		return testExecuter;
 	}
 
-	public void setTestExecuter(ITestExecuter testExecuter) {
-		this.testExecuter = testExecuter;
+	public static void setTestExecuter(ITestExecuter testExecuter) {
+		MutationTestDriver.testExecuter = testExecuter;
 	}
 
-	public IReportGenerator getReportGenerator() {
+	public static IReportGenerator getReportGenerator() {
 		return reportGenerator;
 	}
 
-	public void setReportGenerator(IReportGenerator reportGenerator) {
-		this.reportGenerator = reportGenerator;
+	public static void setReportGenerator(IReportGenerator reportGenerator) {
+		MutationTestDriver.reportGenerator = reportGenerator;
 	}
 }
