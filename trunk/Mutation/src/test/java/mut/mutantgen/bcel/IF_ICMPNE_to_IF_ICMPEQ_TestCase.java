@@ -24,12 +24,12 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 	public void test_IF_CMPNE_to_IF_CMPEQ_CheckNumberOfMutants()
 			throws Exception {
 
-		JavaClass clazz = Repository.lookupClass(InputClass.class);
+		JavaClass clazz = Repository.lookupClass(IF_ICMPNE_to_IF_ICMPEQ_TemplateClass.class);
 
 		BCELMutantCreator bcel = new BCELMutantCreator();
 
 		byte[][] byteCode = bcel.getModifiedByteCodeForClass(clazz,
-				InputClass.class.getMethod("branch", new Class[] { int.class,
+				IF_ICMPNE_to_IF_ICMPEQ_TemplateClass.class.getMethod("branch", new Class[] { int.class,
 						int.class }), "IF_ICMPNE");
 
 		assertEquals("Number of first level mutants incorrect", 2,
@@ -37,25 +37,25 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 	}
 
 	public void test_OriginalClassConditionalCases() {
-		assertEquals("Unmodified expectation not met", 3, new InputClass()
+		assertEquals("Unmodified expectation not met", 3, new IF_ICMPNE_to_IF_ICMPEQ_TemplateClass()
 				.branch(5, 5));
-		assertEquals("Unmodified expectation not met", 2, new InputClass()
+		assertEquals("Unmodified expectation not met", 2, new IF_ICMPNE_to_IF_ICMPEQ_TemplateClass()
 				.branch(1, 5));
-		assertEquals("Unmodified expectation not met", 1, new InputClass()
+		assertEquals("Unmodified expectation not met", 1, new IF_ICMPNE_to_IF_ICMPEQ_TemplateClass()
 				.branch(1, 2));
-		assertEquals("Unmodified expectation not met", 3, new InputClass()
+		assertEquals("Unmodified expectation not met", 3, new IF_ICMPNE_to_IF_ICMPEQ_TemplateClass()
 				.branch(5, 2));
 	}
 
 	public void test_IF_CMPNE_to_IF_CMPEQ_FirstBranchModifiedOnlyMutant_Case1()
 			throws Exception {
 
-		JavaClass clazz = Repository.lookupClass(InputClass.class);
+		JavaClass clazz = Repository.lookupClass(IF_ICMPNE_to_IF_ICMPEQ_TemplateClass.class);
 
 		BCELMutantCreator bcel = new BCELMutantCreator();
 
 		byte[][] byteCode = bcel.getModifiedByteCodeForClass(clazz,
-				InputClass.class.getMethod("branch", new Class[] { int.class,
+				IF_ICMPNE_to_IF_ICMPEQ_TemplateClass.class.getMethod("branch", new Class[] { int.class,
 						int.class }), "IF_ICMPNE");
 
 		TestClassLoader loader = new TestClassLoader();
@@ -82,12 +82,12 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 	public void test_IF_CMPNE_to_IF_CMPEQ_FirstBranchModifiedOnlyMutant_Case2()
 			throws Exception {
 
-		JavaClass clazz = Repository.lookupClass(InputClass.class);
+		JavaClass clazz = Repository.lookupClass(IF_ICMPNE_to_IF_ICMPEQ_TemplateClass.class);
 
 		BCELMutantCreator bcel = new BCELMutantCreator();
 
 		byte[][] byteCode = bcel.getModifiedByteCodeForClass(clazz,
-				InputClass.class.getMethod("branch", new Class[] { int.class,
+				IF_ICMPNE_to_IF_ICMPEQ_TemplateClass.class.getMethod("branch", new Class[] { int.class,
 						int.class }), "IF_ICMPNE");
 
 		TestClassLoader loader = new TestClassLoader();
@@ -114,12 +114,12 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 	public void test_IF_CMPNE_to_IF_CMPEQ_FirstBranchModifiedOnlyMutant_Case3()
 			throws Exception {
 
-		JavaClass clazz = Repository.lookupClass(InputClass.class);
+		JavaClass clazz = Repository.lookupClass(IF_ICMPNE_to_IF_ICMPEQ_TemplateClass.class);
 
 		BCELMutantCreator bcel = new BCELMutantCreator();
 
 		byte[][] byteCode = bcel.getModifiedByteCodeForClass(clazz,
-				InputClass.class.getMethod("branch", new Class[] { int.class,
+				IF_ICMPNE_to_IF_ICMPEQ_TemplateClass.class.getMethod("branch", new Class[] { int.class,
 						int.class }), "IF_ICMPNE");
 
 		TestClassLoader loader = new TestClassLoader();
@@ -146,12 +146,12 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 	public void test_IF_CMPNE_to_IF_CMPEQ_FirstBranchModifiedOnlyMutant_Case4()
 			throws Exception {
 
-		JavaClass clazz = Repository.lookupClass(InputClass.class);
+		JavaClass clazz = Repository.lookupClass(IF_ICMPNE_to_IF_ICMPEQ_TemplateClass.class);
 
 		BCELMutantCreator bcel = new BCELMutantCreator();
 
 		byte[][] byteCode = bcel.getModifiedByteCodeForClass(clazz,
-				InputClass.class.getMethod("branch", new Class[] { int.class,
+				IF_ICMPNE_to_IF_ICMPEQ_TemplateClass.class.getMethod("branch", new Class[] { int.class,
 						int.class }), "IF_ICMPNE");
 
 		TestClassLoader loader = new TestClassLoader();
@@ -178,12 +178,12 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 	public void test_IF_CMPNE_to_IF_CMPEQ_SecondBranchModifiedOnlyMutant_Case1()
 			throws Exception {
 
-		JavaClass clazz = Repository.lookupClass(InputClass.class);
+		JavaClass clazz = Repository.lookupClass(IF_ICMPNE_to_IF_ICMPEQ_TemplateClass.class);
 
 		BCELMutantCreator bcel = new BCELMutantCreator();
 
 		byte[][] byteCode = bcel.getModifiedByteCodeForClass(clazz,
-				InputClass.class.getMethod("branch", new Class[] { int.class,
+				IF_ICMPNE_to_IF_ICMPEQ_TemplateClass.class.getMethod("branch", new Class[] { int.class,
 						int.class }), "IF_ICMPNE");
 
 		TestClassLoader loader = new TestClassLoader();
@@ -210,12 +210,12 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 	public void test_IF_CMPNE_to_IF_CMPEQ_SecondBranchModifiedOnlyMutant_Case2()
 			throws Exception {
 
-		JavaClass clazz = Repository.lookupClass(InputClass.class);
+		JavaClass clazz = Repository.lookupClass(IF_ICMPNE_to_IF_ICMPEQ_TemplateClass.class);
 
 		BCELMutantCreator bcel = new BCELMutantCreator();
 
 		byte[][] byteCode = bcel.getModifiedByteCodeForClass(clazz,
-				InputClass.class.getMethod("branch", new Class[] { int.class,
+				IF_ICMPNE_to_IF_ICMPEQ_TemplateClass.class.getMethod("branch", new Class[] { int.class,
 						int.class }), "IF_ICMPNE");
 
 		TestClassLoader loader = new TestClassLoader();
@@ -242,12 +242,12 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 	public void test_IF_CMPNE_to_IF_CMPEQ_SecondBranchModifiedOnlyMutant_Case3()
 			throws Exception {
 
-		JavaClass clazz = Repository.lookupClass(InputClass.class);
+		JavaClass clazz = Repository.lookupClass(IF_ICMPNE_to_IF_ICMPEQ_TemplateClass.class);
 
 		BCELMutantCreator bcel = new BCELMutantCreator();
 
 		byte[][] byteCode = bcel.getModifiedByteCodeForClass(clazz,
-				InputClass.class.getMethod("branch", new Class[] { int.class,
+				IF_ICMPNE_to_IF_ICMPEQ_TemplateClass.class.getMethod("branch", new Class[] { int.class,
 						int.class }), "IF_ICMPNE");
 
 		TestClassLoader loader = new TestClassLoader();
@@ -274,12 +274,12 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 	public void test_IF_CMPNE_to_IF_CMPEQ_SecondBranchModifiedOnlyMutant_Case4()
 			throws Exception {
 
-		JavaClass clazz = Repository.lookupClass(InputClass.class);
+		JavaClass clazz = Repository.lookupClass(IF_ICMPNE_to_IF_ICMPEQ_TemplateClass.class);
 
 		BCELMutantCreator bcel = new BCELMutantCreator();
 
 		byte[][] byteCode = bcel.getModifiedByteCodeForClass(clazz,
-				InputClass.class.getMethod("branch", new Class[] { int.class,
+				IF_ICMPNE_to_IF_ICMPEQ_TemplateClass.class.getMethod("branch", new Class[] { int.class,
 						int.class }), "IF_ICMPNE");
 
 		TestClassLoader loader = new TestClassLoader();
