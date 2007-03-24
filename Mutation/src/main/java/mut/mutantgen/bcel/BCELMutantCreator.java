@@ -3,17 +3,21 @@ package mut.mutantgen.bcel;
 import java.util.Iterator;
 import java.util.Vector;
 
+import mut.mutantgen.bcel.repository.MutationRepository;
+import mut.mutantgen.bcel.repository.Mutator;
+
 import org.apache.bcel.classfile.JavaClass;
 import org.apache.bcel.classfile.Method;
 import org.apache.bcel.generic.ClassGen;
 import org.apache.bcel.generic.IF_ICMPEQ;
-import org.apache.bcel.generic.IF_ICMPNE;
 import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 import org.apache.bcel.generic.MethodGen;
 import org.apache.bcel.util.InstructionFinder;
 
 public class BCELMutantCreator {
+
+	private MutationRepository mutationRepository = new MutationRepository();
 
 	public byte[][] getModifiedByteCodeForClass(JavaClass clazz,
 			java.lang.reflect.Method method, String byteCodeInstruction)
@@ -35,10 +39,10 @@ public class BCELMutantCreator {
 			InstructionHandle[] handles = (InstructionHandle[]) instructionIterator
 					.next();
 
-			handles[0].setInstruction(((IF_ICMPNE) handles[0].getInstruction())
-					.negate());
+			Mutator mutator = mutationRepository
+					.getMutator(MutationRepository.EMutation.IF_ICMPNE);
 
-			// instructions.setPositions();
+			mutator.performMutation_IF_ICMPNE(handles[0]);
 
 			ClassGen classGen = new ClassGen(clazz);
 
@@ -49,15 +53,10 @@ public class BCELMutantCreator {
 
 			classGen.replaceMethod(bcelMethod, methodGen.getMethod());
 
-			// methodGen.setMaxLocals();
-			// methodGen.setMaxStack();
-
 			byteCodeModifiedClasses.add(classGen.getJavaClass().getBytes());
 
 			handles[0].setInstruction(((IF_ICMPEQ) handles[0].getInstruction())
 					.negate());
-
-			// instructions.setPositions();
 
 		}
 
@@ -65,4 +64,5 @@ public class BCELMutantCreator {
 
 		return byteCodeModifiedClasses.toArray(new byte[0][]);
 	}
+
 }
