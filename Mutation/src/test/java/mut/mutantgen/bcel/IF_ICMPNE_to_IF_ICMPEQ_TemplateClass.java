@@ -1,6 +1,6 @@
 package mut.mutantgen.bcel;
 
-public class InputClass {
+public class IF_ICMPNE_to_IF_ICMPEQ_TemplateClass {
 
 	public int branch(int a, int b) {
 		if (a == 1) {
