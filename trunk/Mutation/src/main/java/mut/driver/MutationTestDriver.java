@@ -9,11 +9,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import mut.EMutationType;
 import mut.IMutantGenerator;
 import mut.IReportGenerator;
 import mut.ITestExecuter;
 import mut.Mutant;
-import mut.EMutationType;
 import mut.MutationTestSpec;
 import mut.log.ConsoleEventLogger;
 import mut.log.Event;
