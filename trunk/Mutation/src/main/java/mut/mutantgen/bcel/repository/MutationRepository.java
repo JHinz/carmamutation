@@ -17,6 +17,10 @@ public class MutationRepository {
 		List<EMutationOperator> operators = new ArrayList<EMutationOperator>();
 		operators.add(EMutationOperator.IF_ICMPNE);
 		operators.add(EMutationOperator.IF_ICMPEQ);
+		operators.add(EMutationOperator.IF_ACMPNE);
+		operators.add(EMutationOperator.IF_ACMPEQ);
+		operators.add(EMutationOperator.IFNE);
+		operators.add(EMutationOperator.IFEQ);
 		mutationOperatorMap.put(EMutationType.ROR, operators);
 	}
 
@@ -30,6 +34,14 @@ public class MutationRepository {
 			return new IF_ICMPNE_Mutator();
 		case IF_ICMPEQ:
 			return new IF_ICMPEQ_Mutator();
+		case IF_ACMPNE:
+			return new IF_ACMPNE_Mutator();
+		case IF_ACMPEQ:
+			return new IF_ACMPEQ_Mutator();
+		case IFNE:
+			return new IFNE_Mutator();
+		case IFEQ:
+			return new IFEQ_Mutator();
 		default:
 			throw new RuntimeException("No appropriate mutator known - Implementation Bug");
 		}
