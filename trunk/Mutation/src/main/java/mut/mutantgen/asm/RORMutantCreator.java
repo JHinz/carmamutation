@@ -54,7 +54,7 @@ public class RORMutantCreator {
 				e.printStackTrace();
 				throw new RuntimeException(e);
 			}
-			cr.accept(cv, ClassReader.SKIP_DEBUG);
+			cr.accept(cv, 0) ;//ClassReader.SKIP_DEBUG);
 			byte[] newBytecode = cw.toByteArray();
 
 			Mutant mutant = listener.mutant;
@@ -63,12 +63,8 @@ public class RORMutantCreator {
 			mutant.setClassName(classUnderTest);
 			mutant.setMutationOperator(MutationOperator.ROR);
 
-			// TODO implement source code ref
-			SourceCodeMapping sourceMapping = new SourceCodeMapping();
-			sourceMapping.setLineNo(-1);
-			sourceMapping.setClassName(classUnderTest);
-			sourceMapping.setSourceFile("not implemented");
-			mutant.setSourceMapping(sourceMapping);
+
+			mutant.getSourceMapping().setClassName(classUnderTest);
 
 			result.add(mutant);
 
@@ -82,6 +78,14 @@ public class RORMutantCreator {
 }
 
 class TransformingMethodAdapter extends MethodAdapter {
+	int currentLineNo = -2;
+
+	@Override
+	public void visitLineNumber(int no, Label start) {
+		currentLineNo = no;
+		super.visitLineNumber(no, start);
+	}
+
 	MutationListener listener;
 
 	@Override
@@ -94,22 +98,22 @@ class TransformingMethodAdapter extends MethodAdapter {
 
 		switch (opcode) {
 		case IFEQ:
-			super.visitJumpInsn(listener.take("IFEQ -> IFNE") ? IFNE : opcode,
+			super.visitJumpInsn(listener.take("IFEQ -> IFNE", currentLineNo) ? IFNE : opcode,
 					label);
 			break;
 		case IFNE:
-			super.visitJumpInsn(listener.take("IFNE -> IFEQ") ? IFEQ : opcode,
+			super.visitJumpInsn(listener.take("IFNE -> IFEQ", currentLineNo) ? IFEQ : opcode,
 					label);
 
 			break;
 		case IF_ICMPEQ:
 			super.visitJumpInsn(
-					listener.take("IF_ICMPEQ -> IF_ICMPNE") ? IF_ICMPNE
+					listener.take("IF_ICMPEQ -> IF_ICMPNE", currentLineNo) ? IF_ICMPNE
 							: opcode, label);
 			break;
 		case IF_ICMPNE:
 			super.visitJumpInsn(
-					listener.take("IF_ICMPNE -> IF_ICMPEQ") ? IF_ICMPEQ
+					listener.take("IF_ICMPNE -> IF_ICMPEQ",currentLineNo) ? IF_ICMPEQ
 							: opcode, label);
 			break;
 
@@ -129,6 +133,12 @@ class TransformingMethodAdapter extends MethodAdapter {
 
 class TransformingClassAdapter extends ClassAdapter {
 	MutationListener listener;
+	@Override
+	public void visitSource(String source, String debug) {
+		listener.mutant.getSourceMapping().setSourceFile(source);
+		super.visitSource(source, debug);
+	}
+
 
 	public TransformingClassAdapter(ClassVisitor cv, MutationListener listener) {
 		super(cv);
@@ -149,21 +159,27 @@ class TransformingClassAdapter extends ClassAdapter {
  * no == mutant no is applied
  */
 class MutationListener {
-	Mutant mutant = new Mutant();
+	Mutant mutant;
 
 	int possibleMutations;
 
 	int mutantNo = 0;
 
+	MutationListener(){
+		mutant = new Mutant();
+		mutant.setSourceMapping( new SourceCodeMapping());
+	}
 	/**
 	 * take the current mutation for this mutant?
 	 * 
 	 * @return
 	 */
-	public boolean take(String changeDescription) {
+	public boolean take(String changeDescription, int lineNo) {
 		boolean take;
 		if (possibleMutations == mutantNo) {
 			mutant.setChangeDescription(changeDescription);
+			mutant.getSourceMapping().setLineNo(lineNo);
+
 			take = true;
 		} else {
 			take = false;
