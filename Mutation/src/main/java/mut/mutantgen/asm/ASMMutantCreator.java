@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import mut.EMutationType;
 import mut.IMutantGenerator;
 import mut.Mutant;
-import mut.EMutationType;
 
 public class ASMMutantCreator implements IMutantGenerator {
 	private File originalClassPath;

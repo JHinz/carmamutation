@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-import mut.Mutant;
 import mut.EMutationType;
+import mut.Mutant;
 import mut.SourceCodeMapping;
 
 import org.objectweb.asm.ClassAdapter;
