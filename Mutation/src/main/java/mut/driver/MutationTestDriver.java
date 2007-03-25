@@ -13,7 +13,7 @@ import mut.IMutantGenerator;
 import mut.IReportGenerator;
 import mut.ITestExecuter;
 import mut.Mutant;
-import mut.MutationOperator;
+import mut.EMutationType;
 import mut.MutationTestSpec;
 import mut.log.ConsoleEventLogger;
 import mut.log.Event;
@@ -38,7 +38,7 @@ public class MutationTestDriver {
 
 	private IMutationTestsCreator testsCreator;
 
-	private Set<MutationOperator> operators;
+	private Set<EMutationType> operators;
 
 	private IEventLogger logger = new ConsoleEventLogger(
 			MutationTestDriver.class);
@@ -151,11 +151,11 @@ public class MutationTestDriver {
 		this.testsCreator = testsCreator;
 	}
 
-	public Set<MutationOperator> getOperators() {
+	public Set<EMutationType> getOperators() {
 		return operators;
 	}
 
-	public void setOperators(Set<MutationOperator> operators) {
+	public void setOperators(Set<EMutationType> operators) {
 		this.operators = operators;
 	}
 

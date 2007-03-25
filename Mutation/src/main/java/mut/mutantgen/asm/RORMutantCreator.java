@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import mut.Mutant;
-import mut.MutationOperator;
+import mut.EMutationType;
 import mut.SourceCodeMapping;
 
 import org.objectweb.asm.ClassAdapter;
@@ -61,7 +61,7 @@ public class RORMutantCreator {
 			mutant.setName(classUnderTest + "_ASM_ROR_" + listener.mutantNo);
 			mutant.setByteCode(newBytecode);
 			mutant.setClassName(classUnderTest);
-			mutant.setMutationOperator(MutationOperator.ROR);
+			mutant.setMutationOperator(EMutationType.ROR);
 
 
 			mutant.getSourceMapping().setClassName(classUnderTest);

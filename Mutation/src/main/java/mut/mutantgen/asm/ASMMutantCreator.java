@@ -7,7 +7,7 @@ import java.util.Set;
 
 import mut.IMutantGenerator;
 import mut.Mutant;
-import mut.MutationOperator;
+import mut.EMutationType;
 
 public class ASMMutantCreator implements IMutantGenerator {
 	private File originalClassPath;
@@ -17,14 +17,14 @@ public class ASMMutantCreator implements IMutantGenerator {
 	}
 
 	public List<Mutant> generateMutants(String classUnderTest,
-			Set<MutationOperator> operators) {
+			Set<EMutationType> operators) {
 
 		String path = originalClassPath.getAbsolutePath() + "/"
 				+ classUnderTest.replace('.', '/') + ".class";
 		File originalClassFile = new File(path);
 
 		List<Mutant> result = new ArrayList<Mutant>();
-		if (operators.contains(MutationOperator.ROR)) {
+		if (operators.contains(EMutationType.ROR)) {
 			RORMutantCreator creator = new RORMutantCreator();
 			result.addAll(creator.generateMutants(classUnderTest,
 					originalClassFile));

@@ -8,7 +8,7 @@ package mut;
  * @author mike
  * 
  */
-public enum MutationOperator {
+public enum EMutationType {
 	/**
 	 * Arithmetic Operator Replacement
 	 */
