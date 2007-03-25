@@ -1,8 +1,8 @@
 package mut;
 
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public interface IReportGenerator {
-	void generateReport(MutationTestSpec mutationTest, Set<Mutant> inputMutants, Set<Mutant> survived, Map<String, Object> statistics);
+	void generateReport(MutationTestSpec mutationTest, List<Mutant> inputMutants, List<Mutant> survived, Map<String, Object> statistics);
 }

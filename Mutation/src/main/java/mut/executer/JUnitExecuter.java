@@ -3,6 +3,7 @@ package mut.executer;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,10 +27,10 @@ public class JUnitExecuter implements ITestExecuter {
 	private IEventLogger logger = new ConsoleEventLogger(JUnitExecuter.class);
 	private URL[] testClassesLocations;
 	
-	public Set<Mutant> executeTests(List<String> testSet,
-			Set<Mutant> mutantsToBeRun) {
+	public List<Mutant> executeTests(List<String> testSet,
+			List<Mutant> mutantsToBeRun) {
 
-		Set<Mutant> survivors = new HashSet<Mutant>();
+		List<Mutant> survivors = new ArrayList<Mutant>();
 
 		// for each mutant
 		for(Mutant mutant : mutantsToBeRun){

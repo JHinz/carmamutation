@@ -8,7 +8,6 @@
 		<property name="location" value="config.properties" />
 	</bean>
 
-
 	<!-- location of the classes for the mutants -->
 	<bean id="classesDir" class="java.io.File">
 		<constructor-arg>
@@ -35,11 +34,9 @@
 		</constructor-arg>
 	</bean>
 
-
-
 	<bean id="eventLogger" class="mut.log.FileEventLogger">
 		<constructor-arg>
-			<value>mutDriver.log</value>
+			<value>${log.filename}</value>
 		</constructor-arg>
 	</bean>
 
@@ -55,7 +52,6 @@
 
 		<property name="testExecuter" ref="testExecuter" />
 		<property name="testsCreator" ref="testsCreater" />
-
 
 	</bean>
 

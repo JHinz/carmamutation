@@ -3,6 +3,7 @@ package mut.report;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,7 +25,7 @@ public class XMLReportGenerator implements IReportGenerator {
 		getOut().close();
 	}
 	public void generateReport(MutationTestSpec mutationTest,
-			Set<Mutant> inputMutants, Set<Mutant> survived, Map<String, Object> statistics) {
+			List<Mutant> inputMutants, List<Mutant> survived, Map<String, Object> statistics) {
 
 		String indent = "";
 		
@@ -47,7 +48,7 @@ public class XMLReportGenerator implements IReportGenerator {
 		out.println(indent +"<Mutants>");
 		indent += "  ";
 		
-		Set<Mutant> mutants = isReportSurvivorsOnly() ? survived : inputMutants;
+		List<Mutant> mutants = isReportSurvivorsOnly() ? survived : inputMutants;
 		
 		for(Mutant m: mutants){
 			out.println(indent +"<Mutant>");
