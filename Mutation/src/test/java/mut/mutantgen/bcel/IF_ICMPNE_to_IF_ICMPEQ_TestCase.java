@@ -9,9 +9,6 @@ import junit.framework.TestCase;
 import mut.Mutant;
 import mut.MutationOperator;
 
-import org.apache.bcel.Repository;
-import org.apache.bcel.classfile.JavaClass;
-
 public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 
 	// FileWriter writer = new FileWriter("mod.class");
