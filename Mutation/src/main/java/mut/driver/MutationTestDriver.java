@@ -18,6 +18,7 @@ import mut.MutationTestSpec;
 import mut.log.ConsoleEventLogger;
 import mut.log.Event;
 import mut.log.IEventLogger;
+import mut.report.OverallStatistics;
 import mut.util.StopWatch;
 
 import org.springframework.context.ApplicationContext;
@@ -42,8 +43,8 @@ public class MutationTestDriver {
 
 	private IEventLogger logger = new ConsoleEventLogger(
 			MutationTestDriver.class);
-
 	
+	private OverallStatistics statistics = new OverallStatistics();
 
 	public void start() {
 
@@ -58,15 +59,23 @@ public class MutationTestDriver {
 			params.put("numTests", tests.size());
 			getLogger().log(Event.TESTS_CREATED, params);
 		}
+		
+		
 		for (MutationTestSpec testSpec : tests) {
 			watch.start();
-			execute(testSpec);
+			OverallStatistics stats = execute(testSpec);
+			
+			statistics.setNumberOfMutants(statistics.getNumberOfMutants()+stats.getNumberOfMutants());
+			statistics.setNumberOfSurvivors(statistics.getNumberOfSurvivors()+stats.getNumberOfSurvivors());
+			
 			Map<String, Object> params = new TreeMap<String, Object>();
 			params.put("time", watch.stop());
 			params.put("classUnderTest", testSpec.getClassUnderTest());
 			getLogger().log(Event.EXECUTION_FINISHED, params);
 			
 		}
+		
+		getReportGenerator().generateReportOverall(statistics);
 	}
 
 	public static void main(String[] args) throws MalformedURLException,
@@ -89,7 +98,7 @@ public class MutationTestDriver {
 				+ " ## " + msg);
 	}
 
-	public void execute(MutationTestSpec testSpec) {
+	public OverallStatistics execute(MutationTestSpec testSpec) {
 		Map<String, Object> statistics = new HashMap<String, Object>();
 		StopWatch watch = new StopWatch();
 		StopWatch totalWatch = new StopWatch();
@@ -116,6 +125,12 @@ public class MutationTestDriver {
 				.generateReport(testSpec, mutantsToBeRun, survivors, statistics);
 
 		log("Finished.");
+		
+		OverallStatistics stats = new OverallStatistics();
+		stats.setNumberOfMutants(mutantsToBeRun.size());
+		stats.setNumberOfSurvivors(survivors.size());
+		
+		return stats;
 
 	}
 
