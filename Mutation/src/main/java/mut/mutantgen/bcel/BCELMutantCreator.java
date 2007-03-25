@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import mut.mutantgen.bcel.repository.MutationRepository;
-import mut.mutantgen.bcel.repository.Mutator;
+import mut.mutantgen.bcel.repository.IMutator;
 
 import org.apache.bcel.classfile.JavaClass;
 import org.apache.bcel.classfile.Method;
@@ -39,7 +39,7 @@ public class BCELMutantCreator {
 			InstructionHandle[] handles = (InstructionHandle[]) instructionIterator
 					.next();
 
-			Mutator mutator = mutationRepository
+			IMutator mutator = mutationRepository
 					.getMutator(MutationRepository.EMutation.IF_ICMPNE);
 
 			mutator.performMutation_IF_ICMPNE(handles[0]);
