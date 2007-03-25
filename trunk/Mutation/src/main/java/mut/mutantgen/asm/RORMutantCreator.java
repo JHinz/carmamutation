@@ -61,7 +61,7 @@ public class RORMutantCreator {
 			mutant.setName(classUnderTest + "_ASM_ROR_" + listener.mutantNo);
 			mutant.setByteCode(newBytecode);
 			mutant.setClassName(classUnderTest);
-			mutant.setMutationOperator(EMutationType.ROR);
+			mutant.setMutationType(EMutationType.ROR);
 
 
 			mutant.getSourceMapping().setClassName(classUnderTest);

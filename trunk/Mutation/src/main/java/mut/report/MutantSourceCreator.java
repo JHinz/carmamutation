@@ -33,7 +33,7 @@ public class MutantSourceCreator {
 		sourceMapping.setSourceFile("Sample.java");
 		mutant.setSourceMapping(sourceMapping);
 		mutant.setChangeDescription("Mike was here!");
-		mutant.setMutationOperator(EMutationType.AOI);
+		mutant.setMutationType(EMutationType.AOI);
 		mutant.setClassName("sample.Sample");
 		mutant.setName("Mutant_007");
 		MutantSourceCreator creator = new MutantSourceCreator();

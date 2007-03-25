@@ -101,7 +101,8 @@ public class BCELMutantCreator implements IMutantGenerator {
 					newMutant.setClassName(clazz.getClassName());
 					newMutant.setSourceMapping(sourceCodeMapping);
 					newMutant.setByteCode(classGen.getJavaClass().getBytes());
-					newMutant.setMutationOperator(EMutationType.ROR);
+					newMutant.setMutationType(mutationType);
+					newMutant.setMutationOperator(mutator.getMutationOperator());
 
 					mutants.add(newMutant);
 

@@ -1,4 +1,4 @@
-package mut.mutantgen.bcel;
+package mut.mutantgen.bcel.ROR;
 
 import java.lang.reflect.Method;
 import java.util.HashSet;
@@ -6,17 +6,18 @@ import java.util.List;
 import java.util.Set;
 
 import junit.framework.TestCase;
-import mut.Mutant;
 import mut.EMutationType;
+import mut.Mutant;
+import mut.mutantgen.bcel.BCELMutantCreator;
 
-public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
+public class ROR_TestCase extends TestCase {
 
 	// FileWriter writer = new FileWriter("mod.class");
 	// writer.write(new String(byteCode[0]));
 	// writer.flush();
 	// writer.close();
 
-	private static final String TEMPLATE_CLASS_NAME = "mut.mutantgen.bcel.IF_ICMPNE_to_IF_ICMPEQ_TemplateClass";
+	private static final String TEMPLATE_CLASS_NAME = "mut.mutantgen.bcel.ROR.IF_ICMPNE_and_IF_ICMPEQ_TemplateClass";
 
 	private class TestClassLoader extends ClassLoader {
 
@@ -68,7 +69,7 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 		assertNotNull(resultObject);
 		assertTrue(resultObject.getClass().isInstance(new Integer(2)));
 		assertTrue(resultObject.getClass().isAssignableFrom(Integer.class));
-		assertEquals(2, resultObject);
+		assertEquals(1, resultObject);
 	}
 
 	public void test_IF_CMPNE_to_IF_CMPEQ_FirstBranchModifiedOnlyMutant_Case2() throws Exception {
@@ -149,7 +150,7 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 		assertNotNull(resultObject);
 		assertTrue(resultObject.getClass().isInstance(new Integer(2)));
 		assertTrue(resultObject.getClass().isAssignableFrom(Integer.class));
-		assertEquals(1, resultObject);
+		assertEquals(2, resultObject);
 	}
 
 	public void test_IF_CMPNE_to_IF_CMPEQ_SecondBranchModifiedOnlyMutant_Case1() throws Exception {
@@ -203,7 +204,7 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 		assertNotNull(resultObject);
 		assertTrue(resultObject.getClass().isInstance(new Integer(2)));
 		assertTrue(resultObject.getClass().isAssignableFrom(Integer.class));
-		assertEquals(1, resultObject);
+		assertEquals(2, resultObject);
 	}
 
 	public void test_IF_CMPNE_to_IF_CMPEQ_SecondBranchModifiedOnlyMutant_Case3() throws Exception {
@@ -230,7 +231,7 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 		assertNotNull(resultObject);
 		assertTrue(resultObject.getClass().isInstance(new Integer(2)));
 		assertTrue(resultObject.getClass().isAssignableFrom(Integer.class));
-		assertEquals(2, resultObject);
+		assertEquals(1, resultObject);
 	}
 
 	public void test_IF_CMPNE_to_IF_CMPEQ_SecondBranchModifiedOnlyMutant_Case4() throws Exception {

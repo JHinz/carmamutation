@@ -59,8 +59,8 @@ public class XMLReportGenerator implements IReportGenerator {
 			}else{
 				out.println(indent +"<Survived>false</Survived>");
 			}
-			out.println(indent +"<MutationOperator>" +m.getMutationOperator() +"</MutationOperator>");
-			out.println(indent +"<Change>" +m.getMutationOperator() +"</Change>");
+			out.println(indent +"<MutationOperator>" +m.getMutationType() +"</MutationOperator>");
+			out.println(indent +"<Change>" +m.getMutationType() +"</Change>");
 			out.println(indent +"<SourceMapping>");
 			indent = indent += "  ";
 			SourceCodeMapping mapping = m.getSourceMapping();

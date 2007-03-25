@@ -1,4 +1,4 @@
-package mut.mutantgen.bcel;
+package mut.mutantgen.bcel.ROR;
 
 public class IF_ICMPNE_to_IF_ICMPEQ_TemplateClass {
 
