@@ -13,6 +13,7 @@ import mut.mutantgen.bcel.repository.IMutator;
 import mut.mutantgen.bcel.repository.MutationRepository;
 
 import org.apache.bcel.Repository;
+import org.apache.bcel.classfile.Code;
 import org.apache.bcel.classfile.JavaClass;
 import org.apache.bcel.classfile.Method;
 import org.apache.bcel.generic.ClassGen;
@@ -51,6 +52,12 @@ public class BCELMutantCreator implements IMutantGenerator {
 			throws ClassNotFoundException {
 
 		List<Mutant> mutants = new ArrayList<Mutant>();
+
+		Code code = bcelMethod.getCode();
+
+		if (code == null) {
+			return mutants;
+		}
 
 		InstructionList instructions = new InstructionList(bcelMethod.getCode().getCode());
 
