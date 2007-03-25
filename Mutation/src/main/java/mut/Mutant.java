@@ -19,7 +19,7 @@ public class Mutant {
 	}
 	@Override
 	public String toString() {
-		return name + " " +className +" " +mutationOperator +" " +changeDescription;
+		return name + " " +className +" " +mutationType +" " +changeDescription;
 	}
 	
 	private String name;
@@ -27,7 +27,8 @@ public class Mutant {
 	private byte[] byteCode;
 	private SourceCodeMapping sourceMapping;
 	private String changeDescription;
-	private EMutationType mutationOperator;
+	private EMutationType mutationType;
+	private EMutationOperator mutationOperator;
 	public byte[] getByteCode() {
 		return byteCode;
 	}
@@ -40,11 +41,11 @@ public class Mutant {
 	public void setChangeDescription(String changeDescription) {
 		this.changeDescription = changeDescription;
 	}
-	public EMutationType getMutationOperator() {
-		return mutationOperator;
+	public EMutationType getMutationType() {
+		return mutationType;
 	}
-	public void setMutationOperator(EMutationType mutationOperator) {
-		this.mutationOperator = mutationOperator;
+	public void setMutationType(EMutationType mutationType) {
+		this.mutationType = mutationType;
 	}
 	public SourceCodeMapping getSourceMapping() {
 		return sourceMapping;
@@ -63,5 +64,11 @@ public class Mutant {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public EMutationOperator getMutationOperator() {
+		return mutationOperator;
+	}
+	public void setMutationOperator(EMutationOperator mutationOperator) {
+		this.mutationOperator = mutationOperator;
 	}
 }
