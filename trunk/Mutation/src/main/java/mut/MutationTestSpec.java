@@ -22,7 +22,7 @@ public class MutationTestSpec {
 	/**
 	 * mutation operators to be applied
 	 */
-	private Set<MutationOperator> operators;
+	private Set<EMutationType> operators;
 
 	public String getClassUnderTest() {
 		return classUnderTest;
@@ -32,11 +32,11 @@ public class MutationTestSpec {
 		this.classUnderTest = classUnderTest;
 	}
 
-	public Set<MutationOperator> getOperators() {
+	public Set<EMutationType> getOperators() {
 		return operators;
 	}
 
-	public void setOperators(Set<MutationOperator> operators) {
+	public void setOperators(Set<EMutationType> operators) {
 		this.operators = operators;
 	}
 

@@ -19,5 +19,5 @@ public interface IMutantGenerator {
 	 * @return set of mutants
 	 */
 
-	public List<Mutant> generateMutants(String classUnderTest, Set<MutationOperator> operators);
+	public List<Mutant> generateMutants(String classUnderTest, Set<EMutationType> operators);
 }

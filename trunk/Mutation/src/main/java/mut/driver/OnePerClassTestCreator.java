@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import mut.MutationOperator;
+import mut.EMutationType;
 import mut.MutationTestSpec;
 import mut.log.ConsoleEventLogger;
 import mut.log.Event;
@@ -37,7 +37,7 @@ public class OnePerClassTestCreator implements IMutationTestsCreator {
 	 */
 	private String testCaseSuffix = "Test";
 
-	public List<MutationTestSpec> createTests(Set<MutationOperator> operators) {
+	public List<MutationTestSpec> createTests(Set<EMutationType> operators) {
 		Map<String, Object> params = new TreeMap<String, Object>();
 		params.put("classesBaseDir", classesBaseDir);
 		params.put("testClassesBaseDir", testClassesBaseDir);

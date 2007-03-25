@@ -27,7 +27,7 @@ public class Mutant {
 	private byte[] byteCode;
 	private SourceCodeMapping sourceMapping;
 	private String changeDescription;
-	private MutationOperator mutationOperator;
+	private EMutationType mutationOperator;
 	public byte[] getByteCode() {
 		return byteCode;
 	}
@@ -40,10 +40,10 @@ public class Mutant {
 	public void setChangeDescription(String changeDescription) {
 		this.changeDescription = changeDescription;
 	}
-	public MutationOperator getMutationOperator() {
+	public EMutationType getMutationOperator() {
 		return mutationOperator;
 	}
-	public void setMutationOperator(MutationOperator mutationOperator) {
+	public void setMutationOperator(EMutationType mutationOperator) {
 		this.mutationOperator = mutationOperator;
 	}
 	public SourceCodeMapping getSourceMapping() {

@@ -11,7 +11,7 @@ import java.io.Reader;
 import java.io.Writer;
 
 import mut.Mutant;
-import mut.MutationOperator;
+import mut.EMutationType;
 import mut.SourceCodeMapping;
 import mut.util.ClassNameConverter;
 
@@ -33,7 +33,7 @@ public class MutantSourceCreator {
 		sourceMapping.setSourceFile("Sample.java");
 		mutant.setSourceMapping(sourceMapping);
 		mutant.setChangeDescription("Mike was here!");
-		mutant.setMutationOperator(MutationOperator.AOI);
+		mutant.setMutationOperator(EMutationType.AOI);
 		mutant.setClassName("sample.Sample");
 		mutant.setName("Mutant_007");
 		MutantSourceCreator creator = new MutantSourceCreator();
@@ -73,7 +73,7 @@ public class MutantSourceCreator {
 		mutantDir.mkdirs();
 		File origFile = new File(this.sourceBaseDir, relFileName); 
 		File mutantFile = new File(this.mutantOutputDir, relMutantName);
-		createMutantSourceCode(mutant, new FileReader(origFile), new FileWriter(mutantFile));
+		//createMutantSourceCode(mutant, new FileReader(origFile), new FileWriter(mutantFile));
 		return mutantFile;
 	}
 
