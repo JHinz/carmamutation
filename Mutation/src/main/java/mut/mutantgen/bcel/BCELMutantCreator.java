@@ -83,7 +83,7 @@ public class BCELMutantCreator implements IMutantGenerator {
 
 			SourceCodeMapping sourceCodeMapping = new SourceCodeMapping();
 			sourceCodeMapping.setClassName(clazz.getClassName());
-			sourceCodeMapping.setSourceFile(clazz.getFileName());
+			sourceCodeMapping.setSourceFile(clazz.getSourceFileName());
 			sourceCodeMapping.setLineNo(bcelMethod.getCode().getLineNumberTable().getSourceLine(
 					handles[0].getPosition()));
 
