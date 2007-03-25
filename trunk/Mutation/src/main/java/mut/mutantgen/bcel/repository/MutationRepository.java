@@ -6,7 +6,7 @@ public class MutationRepository {
 		IF_ICMPNE
 	}
 
-	public Mutator getMutator(EMutation mutation) {
+	public IMutator getMutator(EMutation mutation) {
 		switch (mutation) {
 		case IF_ICMPNE:
 			return new IF_ICMPNE_Mutator();
