@@ -1,7 +1,6 @@
 package mut;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Executes a set of tests using a set of mutants. for each mutant, tests are executed until one fails, i.e. it killed the mutant.
@@ -16,5 +15,5 @@ public interface ITestExecuter {
 	 * @param mutantsToBeRun mutants to be run
 	 * @return mutants that survived  - those that were not detected by a test
 	 */
-	Set<Mutant> executeTests(List<String> testSet, Set<Mutant> mutantsToBeRun);
+	List<Mutant> executeTests(List<String> testSet, List<Mutant> mutantsToBeRun);
 }

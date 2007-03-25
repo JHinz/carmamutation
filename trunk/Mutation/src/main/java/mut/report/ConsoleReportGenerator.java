@@ -1,8 +1,8 @@
 package mut.report;
 
 import java.io.PrintStream;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import mut.IReportGenerator;
 import mut.Mutant;
@@ -11,7 +11,7 @@ import mut.MutationTestSpec;
 public class ConsoleReportGenerator implements IReportGenerator {
 	private PrintStream out = System.out;
 	public void generateReport(MutationTestSpec mutationTest,
-			Set<Mutant> inputMutants, Set<Mutant> survived, Map<String, Object> statistics) {
+			List<Mutant> inputMutants, List<Mutant> survived, Map<String, Object> statistics) {
 		out.println("-------------------------------------------------");
 		out.println("-------------- REPORT ---------------------------");
 		out.println("Class under Test:   " +mutationTest.getClassUnderTest());

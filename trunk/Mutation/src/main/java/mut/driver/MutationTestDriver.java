@@ -97,14 +97,14 @@ public class MutationTestDriver {
 		totalWatch.start();
 		watch.start();
 		log("Creating mutants");
-		Set<Mutant> mutantsToBeRun = getMutantGenerator().generateMutants(
+		List<Mutant> mutantsToBeRun = getMutantGenerator().generateMutants(
 				testSpec.getClassUnderTest(), testSpec.getOperators());
 		statistics.put("mutantCreationTime", watch.stop());
 		
 		log("Executing tests for: " +testSpec.getClassUnderTest());
 	
 		watch.start();
-		Set<Mutant> survivors = getTestExecuter().executeTests(
+		List<Mutant> survivors = getTestExecuter().executeTests(
 				testSpec.getTestSet(), mutantsToBeRun);
 		statistics.put("testExecution", watch.stop());
 

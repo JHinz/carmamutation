@@ -3,10 +3,6 @@ package mut.executer;
 import java.net.URL;
 import java.net.URLClassLoader;
 
-import mut.log.ConsoleEventLogger;
-import mut.log.Event;
-import mut.log.IEventLogger;
-
 /**
  * This class loader loads unit test and mutant.
  * 
