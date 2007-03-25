@@ -3,6 +3,10 @@ package mut.executer;
 import java.net.URL;
 import java.net.URLClassLoader;
 
+import mut.log.ConsoleEventLogger;
+import mut.log.Event;
+import mut.log.IEventLogger;
+
 /**
  * This class loader loads unit test and mutant.
  * 
@@ -15,7 +19,6 @@ import java.net.URLClassLoader;
  *
  */
 public class MutationClassLoader extends URLClassLoader {
-
 	private byte[] mutantByteCode;
 	private String mutantClassName;
 	public MutationClassLoader(String mutantClassName, byte[] mutantByteCode) {
@@ -34,23 +37,13 @@ public class MutationClassLoader extends URLClassLoader {
 		Class clazz;
 		if(name.equals(mutantClassName)){
 			clazz = super.defineClass(name, this.mutantByteCode, 0, this.mutantByteCode.length);
-			log("Loading mutant class: " + name);
 		}else{
 			try{
 				clazz = findClass(name);
-				log("Loaded locally: " + name);
 			}catch(ClassNotFoundException e){
 				clazz = super.loadClass(name, false);
-				log("Loaded by parent: " + name);
 			}
 		}
 		return clazz;
 	}
-
-
-	private void log(String string) {
-		//System.out.println(getClass().getSimpleName() +" # MyClassLoader: " + string);
-
-	}
-	
 }
