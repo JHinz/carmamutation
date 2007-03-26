@@ -1,13 +1,17 @@
 package mut.driver;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.net.MalformedURLException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
 import mut.EMutationType;
 import mut.IMutantGenerator;
@@ -18,11 +22,14 @@ import mut.MutationTestSpec;
 import mut.log.ConsoleEventLogger;
 import mut.log.Event;
 import mut.log.IEventLogger;
-import mut.report.OverallStatistics;
 import mut.util.StopWatch;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+
+import com.mutation.report.om.MutationRun;
+import com.mutation.report.om.MutationSet;
+import com.mutation.report.om.ObjectFactory;
 
 /**
  * Drives complete mutation test for a provided test set
@@ -31,6 +38,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  * 
  */
 public class MutationTestDriver {
+
 	private IMutantGenerator mutantGenerator;
 
 	private ITestExecuter testExecuter;
@@ -41,17 +49,27 @@ public class MutationTestDriver {
 
 	private Set<EMutationType> operators;
 
-	private IEventLogger logger = new ConsoleEventLogger(
-			MutationTestDriver.class);
-	
-	private OverallStatistics statistics = new OverallStatistics();
+	private IEventLogger logger = new ConsoleEventLogger(MutationTestDriver.class);
+
+	private JAXBContext jaxbContext;
+
+	private ObjectFactory jaxbObjectFactory;
+
+	private Marshaller marshaller;
+
+	private MutationRun mutationRun;
 
 	public void start() {
 
+		jaxbObjectFactory = new ObjectFactory();
+
+		mutationRun = jaxbObjectFactory.createMutationRun();
+
+		mutationRun.setGenerated(System.currentTimeMillis());
+
 		StopWatch watch = new StopWatch();
 		watch.start();
-		List<MutationTestSpec> tests = getTestsCreator().createTests(
-				getOperators());
+		List<MutationTestSpec> tests = getTestsCreator().createTests(getOperators());
 
 		{
 			Map<String, Object> params = new TreeMap<String, Object>();
@@ -59,78 +77,87 @@ public class MutationTestDriver {
 			params.put("numTests", tests.size());
 			getLogger().log(Event.TESTS_CREATED, params);
 		}
-		
-		
+
 		for (MutationTestSpec testSpec : tests) {
 			watch.start();
-			OverallStatistics stats = execute(testSpec);
-			
-			statistics.setNumberOfMutants(statistics.getNumberOfMutants()+stats.getNumberOfMutants());
-			statistics.setNumberOfSurvivors(statistics.getNumberOfSurvivors()+stats.getNumberOfSurvivors());
-			
+
+			execute(testSpec);
+
 			Map<String, Object> params = new TreeMap<String, Object>();
 			params.put("time", watch.stop());
 			params.put("classUnderTest", testSpec.getClassUnderTest());
 			getLogger().log(Event.EXECUTION_FINISHED, params);
-			
+
 		}
-		
-		getReportGenerator().generateReportOverall(statistics);
+
+		dumpWithJAXB(mutationRun);
+
 	}
 
-	public static void main(String[] args) throws MalformedURLException,
-			FileNotFoundException {
+	private void dumpWithJAXB(MutationRun report) {
+		try {
+			jaxbContext = JAXBContext.newInstance("com.mutation.report.om");
+			marshaller = jaxbContext.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, new Boolean(true));
+			marshaller.marshal(report, new FileOutputStream("jaxbOutput2.xml"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void main(String[] args) throws MalformedURLException, FileNotFoundException {
 		ApplicationContext factory = new FileSystemXmlApplicationContext("testconfig.xml");
 
-		MutationTestDriver driver = (MutationTestDriver) factory
-				.getBean("testDriver");
+		MutationTestDriver driver = (MutationTestDriver) factory.getBean("testDriver");
 		driver.start();
 
 	}
-
-
 
 	private void log(String msg) {
 		if (false) {
 			return;
 		}
-		System.out.println(new Date() + " " + getClass().getSimpleName()
-				+ " ## " + msg);
+		System.out.println(new Date() + " " + getClass().getSimpleName() + " ## " + msg);
 	}
 
-	public OverallStatistics execute(MutationTestSpec testSpec) {
-		Map<String, Object> statistics = new HashMap<String, Object>();
+	public void execute(MutationTestSpec testSpec) {
+
+		MutationSet mutationSet = jaxbObjectFactory.createMutationSet();
+		mutationSet.setMutatedClass(testSpec.getClassUnderTest());
+		mutationRun.getMutationSet().add(mutationSet);
+
 		StopWatch watch = new StopWatch();
 		StopWatch totalWatch = new StopWatch();
 
 		totalWatch.start();
 		watch.start();
+
 		log("Creating mutants");
-		List<Mutant> mutantsToBeRun = getMutantGenerator().generateMutants(
-				testSpec.getClassUnderTest(), testSpec.getOperators());
-		statistics.put("mutantCreationTime", watch.stop());
-		
-		log("Executing tests for: " +testSpec.getClassUnderTest());
-	
+		List<Mutant> mutantsToBeRun = getMutantGenerator().generateMutants(testSpec.getClassUnderTest(),
+				testSpec.getOperators());
+
+		// statistics.put("mutantCreationTime", watch.stop());
+
+		log("Executing tests for: " + testSpec.getClassUnderTest());
+
 		watch.start();
-		List<Mutant> survivors = getTestExecuter().executeTests(
-				testSpec.getTestSet(), mutantsToBeRun);
-		statistics.put("testExecution", watch.stop());
+
+		List<Mutant> survivors = getTestExecuter().executeTests(mutationSet, testSpec.getTestSet(), mutantsToBeRun);
+		// statistics.put("testExecution", watch.stop());
 
 		// generate report
 		log("Generating report");
-		statistics.put("totalExecution", totalWatch.stop());
+		// statistics.put("totalExecution", totalWatch.stop());
 
-		getReportGenerator()
-				.generateReport(testSpec, mutantsToBeRun, survivors, statistics);
+		// getReportGenerator().generateReport(testSpec, mutantsToBeRun,
+		// survivors, statistics);
 
 		log("Finished.");
-		
-		OverallStatistics stats = new OverallStatistics();
-		stats.setNumberOfMutants(mutantsToBeRun.size());
-		stats.setNumberOfSurvivors(survivors.size());
-		
-		return stats;
+
+		mutationRun.setMutantCount(mutationRun.getMutantCount() + mutantsToBeRun.size());
+		mutationRun.setSurvivors(mutationRun.getSurvivors() + survivors.size());
 
 	}
 

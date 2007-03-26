@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="1.0">
 
-<xs:element name="Report">
+<xs:element name="MutationRun">
   <xs:complexType>
   <xs:sequence>
   
@@ -12,13 +12,13 @@
     <xs:element name="mutantCount" type="xs:long"/>
     <xs:element name="survivors" type="xs:long"/>
 
-    <xs:element name="mutationClassSubReport" type="MutationClassSubReport" minOccurs="0" maxOccurs="unbounded"/>
+    <xs:element name="mutationSet" type="MutationSet" minOccurs="0" maxOccurs="unbounded"/>
     
   </xs:sequence>
   </xs:complexType>
 </xs:element>
 
-<xs:complexType name="MutationClassSubReport">
+<xs:complexType name="MutationSet">
   <xs:sequence>
     <xs:element name="name" type="xs:string"/>
     <xs:element name="mutatedClass" type="xs:string"/>
@@ -29,15 +29,23 @@
     <xs:element name="mutantCount" type="xs:long"/>
     <xs:element name="survivors" type="xs:long"/>
 
-    <xs:element name="mutationOperatorSubReport" type="MutationOperatorSubReport" minOccurs="0" maxOccurs="unbounded"/>
+    <xs:element name="mutation" type="Mutation" minOccurs="0" maxOccurs="unbounded"/>
   </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="MutationOperatorSubReport" >
+<xs:complexType name="Mutation" >
   <xs:sequence>
    <xs:element name="name" type="xs:string"/>
-   <xs:element name="sourceLine" type="xs:long"/>
    <xs:element name="survived" type="xs:boolean"/>
+   <xs:element name="sourceMapping" type="SourceMapping" minOccurs="1" maxOccurs="1"/>
+  </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="SourceMapping" >
+  <xs:sequence>
+   <xs:element name="className" type="xs:string"/>
+   <xs:element name="file" type="xs:string"/>
+   <xs:element name="sourceLine" type="xs:long"/>
   </xs:sequence>
 </xs:complexType>
 
