@@ -1,0 +1,422 @@
+<HTML>
+  
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    
+    
+<LINK href="style/default.css" rel="stylesheet" type="text/css">
+  
+<title>
+        JAXB RI 2.0.5 fcs -- Vendor Customizations</title>
+<link rel="alternate" type="application/rss+xml" href="https://jaxb.dev.java.net/servlets/ProjectNewsRSS">
+</HEAD>
+  
+<BODY>
+    
+<h1>
+      Java<sup><font size="-2">TM</font></sup> Architecture for XML Binding
+      <br>Vendor Customizations</h1>
+<center>
+<b>Specification Version:</b> 2.0<br>
+<b>Reference Implementation (RI) Version:</b> 2.0.5 fcs<br>
+</center>
+<!--
+ The contents of this file are subject to the terms
+ of the Common Development and Distribution License
+ (the "License").  You may not use this file except
+ in compliance with the License.
+ 
+ You can obtain a copy of the license at
+ https://jwsdp.dev.java.net/CDDLv1.0.html
+ See the License for the specific language governing
+ permissions and limitations under the License.
+ 
+ When distributing Covered Code, include this CDDL
+ HEADER in each file and include the License file at
+ https://jwsdp.dev.java.net/CDDLv1.0.html  If applicable,
+ add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your
+ own identifying information: Portions Copyright [yyyy]
+ [name of copyright owner]
+-->
+<table class="navbar" cellspacing="0">
+<tr>
+<td class="inactive"><a href="index.html">JAXB 2.0</a></td><td class="inactive"><a href="xjc.html">Tools</a></td><td class="inactive"><a href="jaxb-1_0.html">JAXB 1.0.x</a></td><td class="active"><a>JAXB RI Extensions</a></td><td class="inactive"><a href="community.html">JAXB Community</a></td>
+</tr>
+</table>
+<div class="subnavbar">
+<ul>
+<li class="first">
+<a href="vendor.html"><span>Overview</span></a>
+</li>
+<li>
+<a href="vendorProperties.html"><span>Runtime Properties</span></a>
+</li>
+<li>
+<a href="vendorCustomizations.html"><span class="active">XJC Customizations</span></a>
+</li>
+<li>
+<a href="vendorSchemaLangs.html"><span>DTD</span></a>
+</li>
+<li>
+<a href="developPlugins.html"><span>Develop Plugins</span></a>
+</li>
+</ul>
+</div>
+
+	
+<H2>Customizations</H2>
+	
+	
+<P>
+	The JAXB RI provides additional customizations that are not defined
+	by the JAXB specification.  Note the following: </P>
+	
+	
+<UL>
+		
+<LI>These features may only be used when the JAXB XJC binding compiler 
+		    is run in the <TT>"-extension"</TT> mode.</LI>
+		
+<LI>All of the JAXB RI vendor extensions are defined in the 
+		    <TT>"http://java.sun.com/xml/ns/jaxb/xjc"</TT> namespace.</LI>
+		
+<LI>The namespaces containing extension binding declarations are specified 
+			to a JAXB processor by the occurrence of the global attribute 
+			<TT>@jaxb:extensionBindingPrefixes</TT> within an instance of 
+			<TT>&lt;xs:schema&gt;</TT> element. The value of this attribute is a 
+			whitespace-separated list of namespace prefixes.  For more information, 
+			please refer to section 6.1.1 of the JAXB Specification.</LI>
+	
+</UL>
+		
+	
+<H3>Index of Customizations</H3>
+	
+<UL>
+		
+<LI>
+<A href="#superclass">&lt;xjc:superClass&gt;</A> - Extending a Common Super Class</LI>
+		
+<LI>
+<A href="#superinterface">&lt;xjc:superInterface&gt;</A> - Extending a Common Super Interface</LI>
+		
+<LI>
+<A href="#javaType">&lt;xjc:javaType&gt;</A> - Enhanced &lt;jaxb:javaType&gt; customization</LI>
+		
+<LI>
+<A href="#simple">&lt;xjc:simple&gt;</A> - Experimental simpler&amp;better binding mode</LI>
+		<!--
+		<li><a href="">&lt;></a></li>
+		-->
+	
+</UL>
+	
+	
+	
+<A name="superclass"></A>
+	
+<H3>Extending a Common Super Class</H3>
+	
+<P>The <TT>&lt;xjc:superClass&gt;</TT> customization allows you to specify the
+	fully qualified name of the Java class that is to be used as the super class of all the generated implementation classes.
+	The  
+	<TT>&lt;xjc:superClass&gt;</TT> customization can only occur within your
+	<TT>&lt;jaxb:globalBindings&gt;</TT> customization on the <TT>&lt;xs:schema&gt;</TT> 
+	element:</P>
+
+
+<PRE class="code">
+&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           <FONT color="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+           jaxb:extensionBindingPrefixes="xjc"</FONT>
+           jaxb:version="2.0"&gt;
+
+    &lt;xs:annotation&gt;
+       &lt;xs:appinfo&gt;
+          &lt;jaxb:globalBindings&gt;
+           <FONT color="red">&lt;xjc:superClass name="org.acme.RocketBooster"/&gt;</FONT>
+          &lt;/jaxb:globalBindings&gt;
+       &lt;/xs:appinfo&gt;
+    &lt;/xs:annotation&gt;
+.
+.
+.
+&lt;/xs:schema&gt;
+</PRE>
+
+	
+<P>In the sample above, the <TT>&lt;xjc:superClass&gt;</TT> customization will
+	cause all of the generated implementation classes to extend the named class,
+	<TT>org.acme.RocketBooster</TT>.</P>
+  
+  
+  
+	
+	
+	
+<A name="superinterface"></A>
+	
+<H3>Extending a Common Super Interface</H3>
+	
+<P>The <TT>&lt;xjc:superInterface&gt;</TT> customization allows you to specify the
+	fully qualified name of the Java interface that is to be used as the root interface of all the generated interfaces. This customization has no effect unless you are specifically generating interfaces with the <TT>&lt;globalBindings generateValueClass="false"</TT> switch.
+	
+	The  
+	<TT>&lt;xjc:superInterface&gt;</TT> customization can only occur within your
+	<TT>&lt;jaxb:globalBindings&gt;</TT> customization on the <TT>&lt;xs:schema&gt;</TT> 
+	element:</P>
+
+
+<PRE class="code">
+&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           <FONT color="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+           jaxb:extensionBindingPrefixes="xjc"</FONT>
+           jaxb:version="2.0"&gt;
+
+    &lt;xs:annotation&gt;
+       &lt;xs:appinfo&gt;
+          &lt;jaxb:globalBindings generateValueClass="false"&gt;
+           <FONT color="red">&lt;xjc:superInterface name="org.acme.RocketBooster"/&gt;</FONT>
+          &lt;/jaxb:globalBindings&gt;
+       &lt;/xs:appinfo&gt;
+    &lt;/xs:annotation&gt;
+.
+.
+.
+&lt;/xs:schema&gt;
+</PRE>
+
+	
+<P>In the sample above, the <TT>&lt;xjc:superInterface&gt;</TT> customization will
+	cause all of the generated interfaces to extend the named interface,
+	<TT>org.acme.RocketBooster</TT>.</P>
+
+
+
+	
+<A name="javaType"></A>
+	
+<H3>Enhanced &lt;jaxb:javaType&gt;</H3>
+	
+<P>
+		The &lt;xjc:javaType&gt; customization can be used just like the standard &lt;jaxb:javaType&gt; customization, except that it allows you to specify an <CODE>XmlAdapter</CODE>-derived class, instead of parse&amp;print method pair.
+	
+	</P>
+<P>
+		This customization can be used in all the places &lt;jaxb:javaType&gt; is used, but nowhere else:
+<PRE class="code">
+&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           <FONT color="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+           jaxb:extensionBindingPrefixes="xjc"</FONT>
+           jaxb:version="2.0"&gt;
+  .
+  .
+  .
+  &lt;xsd:simpleType name="LayerRate_T"&gt;
+    &lt;xsd:annotation&gt;&lt;xsd:appinfo&gt;
+      <FONT color="red">&lt;xjc:javaType name="org.acme.foo.LayerRate"
+        adapter="org.acme.foo.LayerRateAdapter" /&gt;</FONT>
+    &lt;/xsd:appinfo&gt;&lt;/xsd:annotation&gt;
+    ... gory simple type definition here ...
+  &lt;/xsd:simpleType&gt;
+&lt;/xsd:schema&gt;
+</PRE>
+
+	
+</P>
+<P>
+		In the above example, <TT>LayerRate_T</TT> simple type is adapted by <TT>org.acme.foo.LayerRateAdapter</TT>, which extends from <TT>XmlAdapter</TT>.
+	
+	
+	
+	
+	<A name="simple"></A>
+	
+</P>
+<H3>Experimental simpler&amp;better binding mode</H3>
+	
+<P>
+		This experimental binding mode can be enabled as a part of the global binding. See below:
+	
+<PRE class="code">
+&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           <FONT color="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+           jaxb:extensionBindingPrefixes="xjc"</FONT>
+           jaxb:version="2.0"&gt;
+
+    &lt;xs:annotation&gt;
+       &lt;xs:appinfo&gt;
+          &lt;jaxb:globalBindings generateValueClass="false"&gt;
+           <FONT color="red">&lt;xjc:simple /&gt;</FONT>
+          &lt;/jaxb:globalBindings&gt;
+       &lt;/xs:appinfo&gt;
+    &lt;/xs:annotation&gt;
+.
+.
+.
+&lt;/xs:schema&gt;
+</PRE>
+	
+	
+</P>
+<P>
+		When enabled, XJC produces Java source code that are more concise and easier to use. Improvements include:
+	
+	<OL>
+		
+<LI>
+			Some content model definitoins, such as <TT>A,B,A</TT>, which used to cause an XJC compilation error and required manual intervention, now compile out of the box without any customization.
+		
+		</LI>
+<LI>
+			Some content model definitions that used to bind to a non-intuitive Java class now binds to a much better Java class:
+<PRE class="code">
+// schema
+&lt;xs:complexType name="foo"&gt;
+	&lt;xs:choice&gt;
+		&lt;xs:sequence&gt;
+			&lt;xs:element name="a" type="xs:int" /&gt;
+			&lt;xs:element name="b" type="xs:int" /&gt;
+		&lt;/xs:sequence&gt;
+		&lt;xs:sequence&gt;
+			&lt;xs:element name="b" type="xs:int" /&gt;
+			&lt;xs:element name="c" type="xs:int" /&gt;
+		&lt;/xs:sequence&gt;
+	&lt;/xs:choice&gt;
+&lt;/xs:complexType&gt;
+
+// before
+class Foo {
+    List&lt;JAXBElement&lt;Integer&gt;&gt; content;
+}
+
+// in &lt;xjc:simple&gt; binding
+class Foo {
+    Integer a;
+    int b; // notice that b is effectively mandatory, hence primitive
+    Integer c;
+}
+</PRE>
+		
+		
+</LI>
+<LI>
+			When repetable elements are bound, the method name will become plural.
+<PRE class="code">
+// schema
+&lt;xs:complexType name="person"&gt;
+	&lt;xs:sequence&gt;
+		&lt;xs:element name="child"  type="xs:string" maxOccurs="unbounded" /&gt;
+		&lt;xs:element name="parent" type="xs:string" maxOccurs="unbounded" /&gt;
+	&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+
+// before
+public class Person {
+    protected List&lt;String&gt; child;
+    protected List&lt;String&gt; parent;
+}
+
+// in &lt;xjc:simple&gt; binding
+public class Person {
+    protected List&lt;String&gt; children;
+    protected List&lt;String&gt; parents;
+}
+</PRE>
+	
+</LI>
+</OL>
+
+	
+</P>
+<P>
+		Once again, readers are warned that this is an <B>experimental binding mode</B>, and therefore the binding is subject to change in future versions of the JAXB RI without notice. Please send feedbacks on this binding to <TT>users@jaxb.dev.java.net</TT>
+
+<!-- NOT AVAILABLE FOR 2.0 EA
+	<a name="dom"></a>
+	<h3>Mapping to DOM</h3>
+	
+	<p>
+		This customization is not yet implemented in this early access.
+	
+<strike>
+	<p>The <tt>&lt;xjc:dom></tt> customization allows you to map a certain part of
+	the schema into a DOM tree. This customization can be attached to the following
+	schema components:</p>
+	
+	<ul>
+		<li>Wildcards (<tt>&lt;xs:any></tt>)
+		<li>Model groups (<tt>&lt;xs:choice>,&lt;xs:all>,&lt;xs:sequence></tt>)
+		<li>Model group declarations (<tt>&lt;xs:group></tt>)
+		<li>Particles
+		<li>Element declarations (<tt>&lt;xs:element</tt>)
+	</ul>
+	
+	<p>For example, in the following example, a wildcard is mapped
+	to a DOM node. Each element that matches to the wildcard will be
+	turned into a DOM tree.</p>
+	
+	<blockquote>
+		<pre>
+&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           <font color="red"
+          >xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+           jaxb:extensionBindingPrefixes="xjc"</font>
+           jaxb:version="1.0">
+    &lt;xs:element>
+       &lt;xs:complexType>
+          &lt;xs:sequence>
+             &lt;xs:any maxOccurs="unbounded" processContents="skip">
+                &lt;xs:annotation>&lt;xs:appinfo>
+                <font color="red">  &lt;xjc:dom /></font>
+                &lt;/xs:appinfo>&lt;/xs:annotation>
+             &lt;/xs:any>
+          &lt;/xs:sequence>
+       &lt;/xs:complexType>
+    &lt;/xs:element>
+.
+.
+.
+&lt;/xs:schema>
+		</pre>
+	</blockquote>
+	
+	<p>This extension can be used to access wildcard content or can be used to 
+	   process a part of a document by using other technologies that require 
+	   "raw" XML.  By default, JAXB generates a getObject() method for accessing
+	   wildcard content, but it only supports "lax" handling which means that
+	   unknown content is discarded.  Since this probably isn't the expected 
+	   behavior, you should use the <tt>&lt;xjc:dom /></tt> customization which
+	   will preserve all of the wildcard content.
+	   </p>
+	
+	<p>You can use the optional <tt>type</tt> attribute to specify the type 
+	   of DOM. By default, it is W3C DOM, but you can write 
+	   <tt>&lt;xjc:dom type="dom4j" /></tt> to map it to 
+	   <a href="http://www.dom4j.org/">dom4j</a>.</p>
+	   
+	<p>Unfortunately, due to the lack of JDOM's functionality to write a 
+	   single element to SAX events, at this moment JDOM is not supported.</p>
+</strike>
+-->
+
+
+    
+</P>
+<HR>
+    
+<DIV class="footer">
+      $Revision: 1.6 $<BR>
+      $Date: 2006/03/17 20:44:58 $
+    </DIV>
+  
+ 
+
+</BODY>
+</HTML>
