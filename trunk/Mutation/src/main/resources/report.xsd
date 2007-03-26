@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="1.0">
+
+<xs:element name="MutationReport">
+  <xs:complexType>
+  <xs:sequence>
+  
+    <xs:element name="generated" type="xs:long"/>
+    <xs:element name="duration" type="xs:long"/>
+    <xs:element name="finished" type="xs:long"/>
+    <xs:element name="mutantCount" type="xs:long"/>
+    <xs:element name="survivors" type="xs:long"/>
+
+    <xs:element name="mutationClass" type="MutationClass" minOccurs="0" maxOccurs="unbounded"/>
+    
+  </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+<xs:complexType name="MutationClass">
+  <xs:sequence>
+    <xs:element name="name" type="xs:string"/>
+    <xs:element name="mutatedClass" type="xs:string"/>
+    <xs:element name="sourceFile" type="xs:string"/>
+
+    <xs:element name="mutationOperators" type="MutationOperator" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="MutationOperator" >
+  <xs:sequence>
+   <xs:element name="sourceLine" type="xs:string"/>
+   <xs:element name="survived" type="xs:boolean"/>
+  </xs:sequence>
+</xs:complexType>
+
+</xs:schema>
