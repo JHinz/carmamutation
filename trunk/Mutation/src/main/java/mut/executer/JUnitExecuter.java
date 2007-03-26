@@ -16,50 +16,47 @@ import mut.log.Event;
 import mut.log.IEventLogger;
 import mut.util.StopWatch;
 
+import com.mutation.report.om.Mutation;
+import com.mutation.report.om.MutationSet;
+import com.mutation.report.om.ObjectFactory;
+import com.mutation.report.om.SourceMapping;
+
 /**
  * Executes mutation tests using junit tests
+ * 
  * @author mike
- *
+ * 
  */
 public class JUnitExecuter implements ITestExecuter {
+
 	private IEventLogger logger = new ConsoleEventLogger(JUnitExecuter.class);
+
 	private URL[] testClassesLocations;
-	
-	public List<Mutant> executeTests(List<String> testSet,
-			List<Mutant> mutantsToBeRun) {
+
+	public List<Mutant> executeTests(MutationSet mutationSet, List<String> testSet, List<Mutant> mutantsToBeRun) {
 
 		List<Mutant> survivors = new ArrayList<Mutant>();
 
-		// for each mutant
-		for(Mutant mutant : mutantsToBeRun){
-			// execute tests until killed
-			boolean killed = tryKillMutant(testSet, mutant);
-			if(!killed){
-				survivors.add(mutant);
+		for (Mutant mutant : mutantsToBeRun) {
+
+			for (String testCase : testSet) {
+				if (runTest(mutationSet, testCase, mutant)) {
+					survivors.add(mutant);
+					break;
+				}
 			}
+
 		}
-		
 
 		return survivors;
 	}
 
-	private boolean tryKillMutant(List<String> testSet, Mutant mutant) {
-		for(String testCase : testSet){
-			boolean success = runTest(testCase, mutant);
-			if(!success){
-				return true;
-			}
-		}
-
-		return false;
-	}
-	
-	private boolean runTest(String testCase, Mutant mutant) {
+	private boolean runTest(MutationSet mutationSet, String testCase, Mutant mutant) {
 		StopWatch watch = new StopWatch();
 		watch.start();
 		MutantJUnitRunner runner = new MutantJUnitRunner(getTestClassesLocations(), mutant);
-		
-		Test suite= runner.getTest(testCase);
+
+		Test suite = runner.getTest(testCase);
 		TestResult result = runner.doRun(suite, false);
 		int errors = result.errorCount();
 		int failures = result.failureCount();
@@ -70,6 +67,21 @@ public class JUnitExecuter implements ITestExecuter {
 		stats.setTestResult(result);
 		stats.setExecuTime(watch.stop());
 		logger.log(Event.UNITTEST_FINISHED, stats);
+
+		ObjectFactory factory = new ObjectFactory();
+
+		Mutation op = factory.createMutation();
+		op.setSurvived(!result.wasSuccessful());
+		op.setName(mutant.getName());
+		
+		SourceMapping sourceMapping = new SourceMapping();
+		sourceMapping.setClassName(mutant.getSourceMapping().getClassName());
+		sourceMapping.setFile(mutant.getSourceMapping().getSourceFile());
+		sourceMapping.setSourceLine(mutant.getSourceMapping().getLineNo());
+
+		op.setSourceMapping(sourceMapping);
+		mutationSet.getMutation().add(op);
+
 		return (errors + failures) == 0;
 	}
 
@@ -83,16 +95,15 @@ public class JUnitExecuter implements ITestExecuter {
 
 	public void setTestClassesLocationsAsFiles(List<File> testClassesLocPaths) throws MalformedURLException {
 		URL[] urls = new URL[testClassesLocPaths.size()];
-		for(int i=0; i < testClassesLocPaths.size(); i++){
+		for (int i = 0; i < testClassesLocPaths.size(); i++) {
 			urls[i] = testClassesLocPaths.get(i).toURL();
 		}
-		
+
 		this.testClassesLocations = urls;
 	}
 
 	public void setLogger(IEventLogger logger) {
 		this.logger = logger;
 	}
-
 
 }
