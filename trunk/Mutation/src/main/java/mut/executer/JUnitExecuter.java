@@ -14,12 +14,14 @@ import mut.executer.event.UnitTestFinished;
 import mut.log.ConsoleEventLogger;
 import mut.log.Event;
 import mut.log.IEventLogger;
+import mut.util.ProcessingInfoProvider;
 import mut.util.StopWatch;
 
 import com.mutation.report.om.MutationInstruction;
 import com.mutation.report.om.MutationOperator;
 import com.mutation.report.om.MutationSet;
 import com.mutation.report.om.ObjectFactory;
+import com.mutation.report.om.ProcessingInfo;
 import com.mutation.report.om.SourceMapping;
 
 /**
@@ -36,6 +38,8 @@ public class JUnitExecuter implements ITestExecuter {
 
 	public List<Mutant> executeTests(MutationSet mutationSet, List<String> testSet, List<Mutant> mutantsToBeRun) {
 
+		long start = System.currentTimeMillis();
+
 		List<Mutant> survivors = new ArrayList<Mutant>();
 
 		for (Mutant mutant : mutantsToBeRun) {
@@ -49,10 +53,15 @@ public class JUnitExecuter implements ITestExecuter {
 
 		}
 
+		long stop = System.currentTimeMillis();
+
+		mutationSet.setProcessingInfo(new ProcessingInfoProvider().fillProcessInfo(start, stop));
+
 		return survivors;
 	}
 
 	private boolean runTest(MutationSet mutationSet, String testCase, Mutant mutant) {
+
 		StopWatch watch = new StopWatch();
 		watch.start();
 		MutantJUnitRunner runner = new MutantJUnitRunner(getTestClassesLocations(), mutant);
@@ -69,9 +78,7 @@ public class JUnitExecuter implements ITestExecuter {
 		stats.setExecuTime(watch.stop());
 		logger.log(Event.UNITTEST_FINISHED, stats);
 
-		ObjectFactory factory = new ObjectFactory();
-
-		MutationInstruction instruction = factory.createMutationInstruction();
+		MutationInstruction instruction = new MutationInstruction();
 		instruction.setSurvived(!result.wasSuccessful());
 		instruction.setName(mutant.getName());
 

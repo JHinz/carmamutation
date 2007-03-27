@@ -25,6 +25,7 @@ import mut.MutationTestSpec;
 import mut.log.ConsoleEventLogger;
 import mut.log.Event;
 import mut.log.IEventLogger;
+import mut.util.ProcessingInfoProvider;
 import mut.util.StopWatch;
 
 import org.springframework.context.ApplicationContext;
@@ -58,12 +59,12 @@ public class MutationTestDriver {
 
 	private MutationRun mutationRun;
 
-	private GregorianCalendar calendar = new GregorianCalendar();
-
 	public void start() {
 
 		mutationRun = new MutationRun();
 		mutationRun.setMutationRatio(new MutationRatio());
+
+		long start = System.currentTimeMillis();
 
 		StopWatch watch = new StopWatch();
 		watch.start();
@@ -88,18 +89,9 @@ public class MutationTestDriver {
 
 		}
 
-		try {
+		long stop = System.currentTimeMillis();
 
-			ProcessingInfo info = new ProcessingInfo();
-
-			calendar.setTimeInMillis(watch.getStartTime());
-			info.setStart(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
-			calendar.setTimeInMillis(watch.stop());
-			info.setEnd(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
-			mutationRun.setProcessingInfo(info);
-		} catch (DatatypeConfigurationException e) {
-			e.printStackTrace();
-		}
+		mutationRun.setProcessingInfo(new ProcessingInfoProvider().fillProcessInfo(start, stop));
 
 		dumpWithJAXB(mutationRun);
 
