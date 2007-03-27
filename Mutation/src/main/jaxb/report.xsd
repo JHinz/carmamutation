@@ -5,9 +5,9 @@
 <xs:element name="mutationRun">
   <xs:complexType>
   <xs:sequence>
+    <xs:element name="processingInfo" type="ProcessingInfo" minOccurs="1" maxOccurs="1"/>
 	<xs:element name="mutationRatio" type="MutationRatio" minOccurs="1" maxOccurs="1"/>
     <xs:element name="mutationSet" type="MutationSet" minOccurs="0" maxOccurs="unbounded"/>
-    <xs:element name="processingInfo" type="ProcessingInfo" minOccurs="1" maxOccurs="1"/>
   </xs:sequence>
   </xs:complexType>
 </xs:element>
@@ -16,10 +16,10 @@
   <xs:sequence>
     <xs:element name="name" type="xs:string"/>
     <xs:element name="targetClass" type="xs:string"/>
+    <xs:element name="processingInfo" type="ProcessingInfo" minOccurs="1" maxOccurs="1"/>
 	<xs:element name="mutationRatio" type="MutationRatio" minOccurs="1" maxOccurs="1"/>
     <xs:element name="sourceMapping" type="ProcessingInfo" minOccurs="1" maxOccurs="1"/>
     <xs:element name="mutation" type="MutationOperator" minOccurs="0" maxOccurs="unbounded"/>
-    <xs:element name="processingInfo" type="ProcessingInfo" minOccurs="1" maxOccurs="1"/>
   </xs:sequence>
 </xs:complexType>
 
