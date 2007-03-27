@@ -1,12 +1,18 @@
 package mut.util;
 
 public class StopWatch {
+	
 	private long startTime;
-	public void start(){
+
+	public void start() {
 		startTime = System.currentTimeMillis();
 	}
-	
-	public long stop(){
-		return System.currentTimeMillis() -startTime;
+
+	public long stop() {
+		return System.currentTimeMillis() - startTime;
+	}
+
+	public long getStartTime() {
+		return startTime;
 	}
 }

@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.net.MalformedURLException;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,6 +13,8 @@ import java.util.TreeMap;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 
 import mut.EMutationType;
 import mut.IMutantGenerator;
@@ -27,9 +30,11 @@ import mut.util.StopWatch;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+import com.mutation.report.om.MutationRatio;
 import com.mutation.report.om.MutationRun;
 import com.mutation.report.om.MutationSet;
 import com.mutation.report.om.ObjectFactory;
+import com.mutation.report.om.ProcessingInfo;
 
 /**
  * Drives complete mutation test for a provided test set
@@ -51,21 +56,14 @@ public class MutationTestDriver {
 
 	private IEventLogger logger = new ConsoleEventLogger(MutationTestDriver.class);
 
-	private JAXBContext jaxbContext;
-
-	private ObjectFactory jaxbObjectFactory;
-
-	private Marshaller marshaller;
-
 	private MutationRun mutationRun;
+
+	private GregorianCalendar calendar = new GregorianCalendar();
 
 	public void start() {
 
-		jaxbObjectFactory = new ObjectFactory();
-
-		mutationRun = jaxbObjectFactory.createMutationRun();
-
-		mutationRun.setGenerated(System.currentTimeMillis());
+		mutationRun = new MutationRun();
+		mutationRun.setMutationRatio(new MutationRatio());
 
 		StopWatch watch = new StopWatch();
 		watch.start();
@@ -90,14 +88,27 @@ public class MutationTestDriver {
 
 		}
 
+		try {
+
+			ProcessingInfo info = new ProcessingInfo();
+
+			calendar.setTimeInMillis(watch.getStartTime());
+			info.setStart(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
+			calendar.setTimeInMillis(watch.stop());
+			info.setEnd(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
+			mutationRun.setProcessingInfo(info);
+		} catch (DatatypeConfigurationException e) {
+			e.printStackTrace();
+		}
+
 		dumpWithJAXB(mutationRun);
 
 	}
 
 	private void dumpWithJAXB(MutationRun report) {
 		try {
-			jaxbContext = JAXBContext.newInstance("com.mutation.report.om");
-			marshaller = jaxbContext.createMarshaller();
+			JAXBContext jaxbContext = JAXBContext.newInstance("com.mutation.report.om");
+			Marshaller marshaller = jaxbContext.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, new Boolean(true));
 			marshaller.marshal(report, new FileOutputStream("jaxbOutput2.xml"));
 		} catch (FileNotFoundException e) {
@@ -124,8 +135,8 @@ public class MutationTestDriver {
 
 	public void execute(MutationTestSpec testSpec) {
 
-		MutationSet mutationSet = jaxbObjectFactory.createMutationSet();
-		mutationSet.setMutatedClass(testSpec.getClassUnderTest());
+		MutationSet mutationSet = new ObjectFactory().createMutationSet();
+		mutationSet.setTargetClass(testSpec.getClassUnderTest());
 		mutationRun.getMutationSet().add(mutationSet);
 
 		StopWatch watch = new StopWatch();
@@ -138,26 +149,25 @@ public class MutationTestDriver {
 		List<Mutant> mutantsToBeRun = getMutantGenerator().generateMutants(testSpec.getClassUnderTest(),
 				testSpec.getOperators());
 
-		// statistics.put("mutantCreationTime", watch.stop());
-
 		log("Executing tests for: " + testSpec.getClassUnderTest());
 
 		watch.start();
 
 		List<Mutant> survivors = getTestExecuter().executeTests(mutationSet, testSpec.getTestSet(), mutantsToBeRun);
-		// statistics.put("testExecution", watch.stop());
 
-		// generate report
 		log("Generating report");
-		// statistics.put("totalExecution", totalWatch.stop());
 
-		// getReportGenerator().generateReport(testSpec, mutantsToBeRun,
-		// survivors, statistics);
+		getReportGenerator().generateReport(testSpec, mutantsToBeRun, survivors);
 
 		log("Finished.");
 
-		mutationRun.setMutantCount(mutationRun.getMutantCount() + mutantsToBeRun.size());
-		mutationRun.setSurvivors(mutationRun.getSurvivors() + survivors.size());
+		mutationRun.setMutationRatio(new MutationRatio());
+
+		mutationRun.getMutationRatio().setMutationCount(
+				mutationRun.getMutationRatio().getMutationCount() + mutantsToBeRun.size());
+
+		mutationRun.getMutationRatio().setSurvivorCount(
+				mutationRun.getMutationRatio().getSurvivorCount() + survivors.size());
 
 	}
 
