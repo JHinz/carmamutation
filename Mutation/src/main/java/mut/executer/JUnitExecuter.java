@@ -16,7 +16,8 @@ import mut.log.Event;
 import mut.log.IEventLogger;
 import mut.util.StopWatch;
 
-import com.mutation.report.om.Mutation;
+import com.mutation.report.om.MutationInstruction;
+import com.mutation.report.om.MutationOperator;
 import com.mutation.report.om.MutationSet;
 import com.mutation.report.om.ObjectFactory;
 import com.mutation.report.om.SourceMapping;
@@ -70,17 +71,20 @@ public class JUnitExecuter implements ITestExecuter {
 
 		ObjectFactory factory = new ObjectFactory();
 
-		Mutation op = factory.createMutation();
-		op.setSurvived(!result.wasSuccessful());
-		op.setName(mutant.getName());
-		
+		MutationInstruction instruction = factory.createMutationInstruction();
+		instruction.setSurvived(!result.wasSuccessful());
+		instruction.setName(mutant.getName());
+
 		SourceMapping sourceMapping = new SourceMapping();
 		sourceMapping.setClassName(mutant.getSourceMapping().getClassName());
 		sourceMapping.setFile(mutant.getSourceMapping().getSourceFile());
 		sourceMapping.setSourceLine(mutant.getSourceMapping().getLineNo());
 
-		op.setSourceMapping(sourceMapping);
-		mutationSet.getMutation().add(op);
+		instruction.setSourceMapping(sourceMapping);
+
+		MutationOperator operator = new MutationOperator();
+		operator.getMutationInstructions().add(instruction);
+		mutationSet.getMutation().add(operator);
 
 		return (errors + failures) == 0;
 	}
