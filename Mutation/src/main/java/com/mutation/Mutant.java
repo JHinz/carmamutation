@@ -1,4 +1,5 @@
-package mut;
+package com.mutation;
+
 
 /**
  * Specification of a mutant
@@ -27,8 +28,8 @@ public class Mutant {
 	private byte[] byteCode;
 	private SourceCodeMapping sourceMapping;
 	private String changeDescription;
-	private EMutationType mutationType;
-	private EMutationOperator mutationOperator;
+	private EMutationOperator mutationType;
+	private EMutationInstruction mutationOperator;
 	public byte[] getByteCode() {
 		return byteCode;
 	}
@@ -41,10 +42,10 @@ public class Mutant {
 	public void setChangeDescription(String changeDescription) {
 		this.changeDescription = changeDescription;
 	}
-	public EMutationType getMutationType() {
+	public EMutationOperator getMutationType() {
 		return mutationType;
 	}
-	public void setMutationType(EMutationType mutationType) {
+	public void setMutationType(EMutationOperator mutationType) {
 		this.mutationType = mutationType;
 	}
 	public SourceCodeMapping getSourceMapping() {
@@ -65,10 +66,10 @@ public class Mutant {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public EMutationOperator getMutationOperator() {
+	public EMutationInstruction getMutationOperator() {
 		return mutationOperator;
 	}
-	public void setMutationOperator(EMutationOperator mutationOperator) {
+	public void setMutationOperator(EMutationInstruction mutationOperator) {
 		this.mutationOperator = mutationOperator;
 	}
 }

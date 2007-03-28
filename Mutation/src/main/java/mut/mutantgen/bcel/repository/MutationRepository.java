@@ -1,37 +1,16 @@
 package mut.mutantgen.bcel.repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import com.mutation.EMutationInstruction;
 
-import mut.EMutationOperator;
-import mut.EMutationType;
 
-public class MutationRepository {
-
-	HashMap<EMutationType, List<EMutationOperator>> mutationOperatorMap;
+public class MutationRepository  {
 
 	public MutationRepository() {
-		mutationOperatorMap = new HashMap<EMutationType, List<EMutationOperator>>();
-
-		List<EMutationOperator> operators = new ArrayList<EMutationOperator>();
-		operators.add(EMutationOperator.IF_ICMPNE);
-		operators.add(EMutationOperator.IF_ICMPEQ);
-		operators.add(EMutationOperator.IF_ACMPNE);
-		operators.add(EMutationOperator.IF_ACMPEQ);
-		operators.add(EMutationOperator.IFNE);
-		operators.add(EMutationOperator.IFEQ);
-		operators.add(EMutationOperator.IFNULL);
-		operators.add(EMutationOperator.IFNONNULL);
-		mutationOperatorMap.put(EMutationType.ROR, operators);
 	}
 
-	public List<EMutationOperator> getOperatorMapping(EMutationType eMutation) {
-		return mutationOperatorMap.get(eMutation);
-	}
 
-	public IMutator getMutator(EMutationOperator operator) {
-		switch (operator) {
+	public IMutator getMutator(EMutationInstruction instruction) {
+		switch (instruction) {
 		case IF_ICMPNE:
 			return new IF_ICMPNE_Mutator();
 		case IF_ICMPEQ:

@@ -1,10 +1,11 @@
 package mut.mutantgen.bcel.repository;
 
-import mut.EMutationOperator;
 
 import org.apache.bcel.generic.IFEQ;
 import org.apache.bcel.generic.IFNE;
 import org.apache.bcel.generic.InstructionHandle;
+
+import com.mutation.EMutationInstruction;
 
 public class IFNE_Mutator implements IMutator {
 
@@ -17,8 +18,8 @@ public class IFNE_Mutator implements IMutator {
 
 	}
 
-	public EMutationOperator getMutationOperator() {
-		return EMutationOperator.IFNE;
+	public EMutationInstruction getMutationOperator() {
+		return EMutationInstruction.IFNE;
 	}
 
 }

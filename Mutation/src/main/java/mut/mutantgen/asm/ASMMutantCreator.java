@@ -3,11 +3,12 @@ package mut.mutantgen.asm;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-import mut.EMutationType;
-import mut.IMutantGenerator;
-import mut.Mutant;
+import com.mutation.EMutationOperator;
+import com.mutation.IMutantGenerator;
+import com.mutation.Mutant;
+import com.mutation.events.IEventListener;
+
 
 public class ASMMutantCreator implements IMutantGenerator {
 	private File originalClassPath;
@@ -17,14 +18,14 @@ public class ASMMutantCreator implements IMutantGenerator {
 	}
 
 	public List<Mutant> generateMutants(String classUnderTest,
-			Set<EMutationType> operators) {
+			EMutationOperator operator, IEventListener listener) {
 
 		String path = originalClassPath.getAbsolutePath() + "/"
 				+ classUnderTest.replace('.', '/') + ".class";
 		File originalClassFile = new File(path);
 
 		List<Mutant> result = new ArrayList<Mutant>();
-		if (operators.contains(EMutationType.ROR)) {
+		if (operator.equals(EMutationOperator.ROR)) {
 			RORMutantCreator creator = new RORMutantCreator();
 			result.addAll(creator.generateMutants(classUnderTest,
 					originalClassFile));

@@ -3,7 +3,8 @@ package mut.driver;
 import java.util.List;
 import java.util.Set;
 
-import mut.EMutationType;
+import com.mutation.EMutationOperator;
+
 import mut.MutationTestSpec;
 
 /**
@@ -17,5 +18,5 @@ public interface IMutationTestsCreator {
 	 * @param operators the operators to be considered
 	 * @return test set
 	 */
-	List<MutationTestSpec> createTests(Set<EMutationType> operators);
+	List<MutationTestSpec> createTests(Set<EMutationOperator> operators);
 }

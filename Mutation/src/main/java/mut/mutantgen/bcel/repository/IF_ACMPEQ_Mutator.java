@@ -1,9 +1,10 @@
 package mut.mutantgen.bcel.repository;
 
-import mut.EMutationOperator;
 
 import org.apache.bcel.generic.IF_ACMPEQ;
 import org.apache.bcel.generic.InstructionHandle;
+
+import com.mutation.EMutationInstruction;
 
 public class IF_ACMPEQ_Mutator implements IMutator {
 
@@ -16,8 +17,8 @@ public class IF_ACMPEQ_Mutator implements IMutator {
 
 	}
 
-	public EMutationOperator getMutationOperator() {
-		return EMutationOperator.IF_ACMPEQ;
+	public EMutationInstruction getMutationOperator() {
+		return EMutationInstruction.IF_ACMPEQ;
 	}
 
 }

@@ -8,9 +8,10 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 
-import mut.EMutationType;
-import mut.Mutant;
-import mut.SourceCodeMapping;
+import com.mutation.EMutationOperator;
+import com.mutation.Mutant;
+import com.mutation.SourceCodeMapping;
+
 import mut.util.ClassNameConverter;
 
 public class MutantSourceCreator {
@@ -31,7 +32,7 @@ public class MutantSourceCreator {
 		sourceMapping.setSourceFile("Sample.java");
 		mutant.setSourceMapping(sourceMapping);
 		mutant.setChangeDescription("Mike was here!");
-		mutant.setMutationType(EMutationType.AOI);
+		mutant.setMutationType(EMutationOperator.AOI);
 		mutant.setClassName("sample.Sample");
 		mutant.setName("Mutant_007");
 		MutantSourceCreator creator = new MutantSourceCreator();

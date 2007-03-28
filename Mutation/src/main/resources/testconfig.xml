@@ -43,7 +43,7 @@
 	<bean id="testDriver" class="mut.driver.MutationTestDriver">
 		<property name="logger" ref="eventLogger" />
 		<property name="mutantGenerator" ref="mutantGenerator" />
-		<property name="reportGenerator" ref="reportGenerator" />
+		<!--  <property name="reportGenerator" ref="reportGenerator" /> -->
 		<property name="operators">
 			<set>
 				<value>ROR</value>
@@ -73,7 +73,7 @@
 		</property>
 	</bean>
 
-	<bean id="reportGenerator" class="mut.report.XMLReportGenerator" init-method="init" destroy-method="destroy">
+	<!--   <bean id="reportGenerator" class="mut.report.XMLReportGenerator" init-method="init" destroy-method="destroy">
 		<property name="reportSurvivorsOnly"
 			value="${report.reportSurvivorsOnly}" />
 		<property name="sourceCreator" ref="mutantSourceCreator" />
@@ -84,7 +84,7 @@
 				</constructor-arg>
 			</bean>
 		</property>
-	</bean>
+	</bean> -->
 
 	<bean id="mutantSourceCreator"
 		class="mut.report.MutantSourceCreator">

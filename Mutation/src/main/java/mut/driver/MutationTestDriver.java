@@ -16,11 +16,8 @@ import javax.xml.bind.Marshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 
-import mut.EMutationType;
-import mut.IMutantGenerator;
 import mut.IReportGenerator;
 import mut.ITestExecuter;
-import mut.Mutant;
 import mut.MutationTestSpec;
 import mut.log.ConsoleEventLogger;
 import mut.log.Event;
@@ -31,6 +28,9 @@ import mut.util.StopWatch;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+import com.mutation.EMutationOperator;
+import com.mutation.IMutantGenerator;
+import com.mutation.Mutant;
 import com.mutation.report.om.MutationRatio;
 import com.mutation.report.om.MutationRun;
 import com.mutation.report.om.MutationSet;
@@ -53,7 +53,7 @@ public class MutationTestDriver {
 
 	private IMutationTestsCreator testsCreator;
 
-	private Set<EMutationType> operators;
+	private Set<EMutationOperator> operators;
 
 	private IEventLogger logger = new ConsoleEventLogger(MutationTestDriver.class);
 
@@ -102,7 +102,7 @@ public class MutationTestDriver {
 			JAXBContext jaxbContext = JAXBContext.newInstance("com.mutation.report.om");
 			Marshaller marshaller = jaxbContext.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, new Boolean(true));
-			marshaller.marshal(report, new FileOutputStream("jaxbOutput2.xml"));
+			marshaller.marshal(report.getMutationSet().get(0), new FileOutputStream("jaxbOutput2.xml"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (JAXBException e) {
@@ -139,7 +139,7 @@ public class MutationTestDriver {
 
 		log("Creating mutants");
 		List<Mutant> mutantsToBeRun = getMutantGenerator().generateMutants(testSpec.getClassUnderTest(),
-				testSpec.getOperators());
+				testSpec.getOperators(),null);
 
 		log("Executing tests for: " + testSpec.getClassUnderTest());
 
@@ -149,7 +149,7 @@ public class MutationTestDriver {
 
 		log("Generating report");
 
-		getReportGenerator().generateReport(testSpec, mutantsToBeRun, survivors);
+		//getReportGenerator().generateReport(testSpec, mutantsToBeRun, survivors);
 
 		log("Finished.");
 
@@ -195,11 +195,11 @@ public class MutationTestDriver {
 		this.testsCreator = testsCreator;
 	}
 
-	public Set<EMutationType> getOperators() {
+	public Set<EMutationOperator> getOperators() {
 		return operators;
 	}
 
-	public void setOperators(Set<EMutationType> operators) {
+	public void setOperators(Set<EMutationOperator> operators) {
 		this.operators = operators;
 	}
 

@@ -1,13 +1,14 @@
 package mut.mutantgen.bcel.repository;
 
-import mut.EMutationOperator;
 
 import org.apache.bcel.generic.InstructionHandle;
+
+import com.mutation.EMutationInstruction;
 
 public interface IMutator {
 
 	public void performMutation(InstructionHandle handle);
 
-	public EMutationOperator getMutationOperator();
+	public EMutationInstruction getMutationOperator();
 
 }

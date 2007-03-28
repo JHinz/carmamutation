@@ -4,10 +4,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.mutation.EMutationInstruction;
+import com.mutation.EMutationOperator;
+import com.mutation.Mutant;
+
 import junit.framework.TestCase;
-import mut.EMutationOperator;
-import mut.EMutationType;
-import mut.Mutant;
 import mut.mutantgen.bcel.BCELMutantCreator;
 
 public class MultipleMethods_TestCase extends TestCase {
@@ -23,8 +24,8 @@ public class MultipleMethods_TestCase extends TestCase {
 
 		BCELMutantCreator bcel = new BCELMutantCreator();
 
-		Set<EMutationType> operators = new HashSet<EMutationType>();
-		operators.add(EMutationType.ROR);
+		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
+		operators.add(EMutationOperator.ROR);
 
 		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, operators);
 
@@ -34,9 +35,9 @@ public class MultipleMethods_TestCase extends TestCase {
 		int numberOf_IF_ICMPEQ = 0;
 
 		for (Mutant mutant : mutants) {
-			if (mutant.getMutationOperator() == EMutationOperator.IF_ICMPEQ)
+			if (mutant.getMutationOperator() == EMutationInstruction.IF_ICMPEQ)
 				numberOf_IF_ICMPEQ++;
-			if (mutant.getMutationOperator() == EMutationOperator.IF_ICMPNE)
+			if (mutant.getMutationOperator() == EMutationInstruction.IF_ICMPNE)
 				numberOf_IF_ICMPNE++;
 		}
 

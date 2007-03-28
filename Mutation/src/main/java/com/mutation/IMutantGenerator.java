@@ -1,7 +1,9 @@
-package mut;
+package com.mutation;
 
 import java.util.List;
-import java.util.Set;
+
+
+import com.mutation.events.IEventListener;
 
 /**
  * Generator interface to generate a set of mutants
@@ -19,5 +21,5 @@ public interface IMutantGenerator {
 	 * @return set of mutants
 	 */
 
-	public List<Mutant> generateMutants(String classUnderTest, Set<EMutationType> operators);
+	public List<Mutant> generateMutants(String classUnderTest, EMutationOperator operator, IEventListener eventListener);
 }
