@@ -1,4 +1,4 @@
-package mut.annotations;
+package com.mutation.annotations;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

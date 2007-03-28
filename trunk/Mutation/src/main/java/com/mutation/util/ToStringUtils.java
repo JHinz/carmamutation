@@ -19,7 +19,7 @@ public final class ToStringUtils {
 		if(null == objectToBeStringified){
 			return "null";
 		}
-		StringBuffer sb = new StringBuffer();
+		StringBuffer sb = new StringBuffer(objectToBeStringified.getClass().getSimpleName() +": ");
 
 		Hashtable fields = getReflectionFields(objectToBeStringified, baseClass);
 		Enumeration enu = fields.keys();
