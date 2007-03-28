@@ -35,7 +35,7 @@
 	</bean>
 
 	<!--  set of operators considered for tests -->
-	<bean name="operator" class="java.util.TreeSet">
+	<bean name="operators" class="java.util.TreeSet">
 		<constructor-arg>
 			<set>
 				<value>ROR</value>
