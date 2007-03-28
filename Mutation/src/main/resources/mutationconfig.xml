@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 
-<beans>
+<beans >
 	<!-- property placeholder post-processor -->
 	<bean id="placeholderConfig"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -58,7 +58,10 @@
 		<property name="mutantGenerator" ref="mutantGenerator" />
 	</bean>
 
-	<bean id="eventListener" class="com.mutation.events.ConsoleEventListener">
+	<bean id="file.eventListener" class="com.mutation.events.listener.FileEventListener" destroy-method="destroy" >
+		<constructor-arg><value>${log.filename}</value></constructor-arg>
+	</bean>
+	<bean id="eventListener" class="com.mutation.events.listener.ConsoleEventListener" >
 	</bean>
 
 	<bean id="testRunner" class="com.mutation.testrunner.JUnitRunner">
