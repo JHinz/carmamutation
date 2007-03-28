@@ -14,10 +14,6 @@ public class MutantGenerator implements IMutantGenerator {
 
 	private File originalClassPath;
 
-	public MutantGenerator(File originalClassPath) {
-		this.originalClassPath = originalClassPath;
-	}
-
 	public List<Mutant> generateMutants(String classUnderTest, EMutationOperator operator, IEventListener listener) {
 
 		String path = originalClassPath.getAbsolutePath() + "/" + classUnderTest.replace('.', '/') + ".class";
@@ -32,6 +28,10 @@ public class MutantGenerator implements IMutantGenerator {
 		listener.notifyEvent(new MutantsGenerated(result, classUnderTest, operator));
 
 		return result;
+	}
+
+	public void setOriginalClassPath(File originalClassPath) {
+		this.originalClassPath = originalClassPath;
 	}
 
 }
