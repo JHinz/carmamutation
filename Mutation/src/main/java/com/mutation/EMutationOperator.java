@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.sun.org.apache.xpath.internal.compiler.OpMap;
+
 /**
  * This enum defines the possible mutation operators.
  * See http://ise.gmu.edu/~offutt/mujava/mutopsMethod.pdf for description of each
@@ -89,5 +91,17 @@ public enum EMutationOperator {
 		return instructions;
 	}
 
-
+	/**
+	 * set operators from comma-separated list of operator names
+	 * @param csvList
+	 * @return
+	 */
+	public static Set<EMutationOperator> getFromCsvList(String csvList){
+		String[] opNames = csvList.split(",");
+		Set<EMutationOperator> set = new TreeSet<EMutationOperator>();
+		for(String name : opNames){
+			set.add(EMutationOperator.valueOf(name));
+		}
+		return set;
+	}
 }

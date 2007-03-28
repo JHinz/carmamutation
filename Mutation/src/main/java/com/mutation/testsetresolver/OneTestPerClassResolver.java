@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.mutation.ITestSetResolver;
 import com.mutation.events.IEventListener;
+import com.mutation.events.TestSetDetermined;
 
 /**
  * determines test set as a single test per class using a suffix naming convention.
@@ -17,6 +18,7 @@ public class OneTestPerClassResolver implements ITestSetResolver {
 		String testClassName = classUnderTestName + this.testCaseSuffix;
 		Set<String> tests = new HashSet<String>();
 		tests.add(testClassName);
+		eventListener.notifyEvent(new TestSetDetermined(classUnderTestName, tests));
 		return tests;
 	}
 	public void setTestCaseSuffix(String testCaseSuffix) {
