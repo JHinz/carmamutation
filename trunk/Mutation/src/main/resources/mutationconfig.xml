@@ -55,6 +55,7 @@
 		<property name="classSetResolver" ref="classUnderTestResolver" />
 		<property name="testSetResolver" ref="testSetResolver" />
 		<property name="eventListener" ref="eventListener" />
+		<property name="mutantGenerator" ref="mutantGenerator" />
 	</bean>
 
 	<bean id="eventListener" class="com.mutation.events.ConsoleEventListener">
@@ -80,6 +81,7 @@
 		<property name="testCaseSuffix" value="${testCaseSuffix}" />
 	</bean>
 
-
+	<bean id="mutantGenerator" class="com.mutation.transform.bcel.MutantGenerator">
+	</bean>
 
 </beans>
