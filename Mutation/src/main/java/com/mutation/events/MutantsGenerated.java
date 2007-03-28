@@ -2,10 +2,10 @@ package com.mutation.events;
 
 import java.util.List;
 
-import mut.util.ToStringUtils;
 
 import com.mutation.EMutationOperator;
 import com.mutation.Mutant;
+import com.mutation.util.ToStringUtils;
 
 public class MutantsGenerated implements IEvent{
 	private List<Mutant> generateMutants;
