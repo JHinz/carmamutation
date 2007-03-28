@@ -68,24 +68,6 @@
 		<property name="testCaseSuffix" ref="${testCaseSuffix}" />
 	</bean>
 
-<!--  OLD STUFF TO BE DELETED -->
 
-	<bean id="testsCreater" class="mut.driver.OnePerClassTestCreator">
-		<property name="logger" ref="eventLogger" />
-		<property name="classesBaseDir" ref="classesDir" />
-		<property name="testClassesBaseDir" ref="testClassesDir" />
-		<property name="testCaseSuffix" value="${testCaseSuffix}" />
-	</bean>
-
-	<bean id="mutantSourceCreator"
-		class="mut.report.MutantSourceCreator">
-		<property name="sourceBaseDir" ref="sourceDir" />
-		<property name="mutantOutputDir" ref="mutantSourceDir" />
-	</bean>
-	<bean id="mutantGenerator"
-		class="mut.mutantgen.asm.ASMMutantCreator">
-		<constructor-arg ref="classesDir" />
-
-	</bean>
 
 </beans>
