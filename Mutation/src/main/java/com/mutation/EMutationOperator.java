@@ -9,7 +9,9 @@ import static com.mutation.EMutationInstruction.IF_ACMPNE;
 import static com.mutation.EMutationInstruction.IF_ICMPEQ;
 import static com.mutation.EMutationInstruction.IF_ICMPNE;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -96,12 +98,12 @@ public enum EMutationOperator {
 	 * @param csvList
 	 * @return
 	 */
-	public static Set<EMutationOperator> getFromCsvList(String csvList){
+	public static List<EMutationOperator> getFromCsvList(String csvList){
 		String[] opNames = csvList.split(",");
-		Set<EMutationOperator> set = new TreeSet<EMutationOperator>();
+		List<EMutationOperator> list = new ArrayList<EMutationOperator>();
 		for(String name : opNames){
-			set.add(EMutationOperator.valueOf(name));
+			list.add(EMutationOperator.valueOf(name));
 		}
-		return set;
+		return list;
 	}
 }
