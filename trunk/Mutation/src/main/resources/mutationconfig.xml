@@ -65,7 +65,7 @@
 	</bean>
 
 	<bean id="testSetResolver" class="com.mutation.testsetresolver.OneTestPerClassResolver">
-		<property name="testCaseSuffix" ref="${testCaseSuffix}" />
+		<property name="testCaseSuffix" value="${testCaseSuffix}" />
 	</bean>
 
 
