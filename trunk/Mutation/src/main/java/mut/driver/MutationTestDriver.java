@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.net.MalformedURLException;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,8 +12,6 @@ import java.util.TreeMap;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
 
 import mut.IReportGenerator;
 import mut.ITestExecuter;
@@ -35,7 +32,6 @@ import com.mutation.report.om.MutationRatio;
 import com.mutation.report.om.MutationRun;
 import com.mutation.report.om.MutationSet;
 import com.mutation.report.om.ObjectFactory;
-import com.mutation.report.om.ProcessingInfo;
 
 /**
  * Drives complete mutation test for a provided test set

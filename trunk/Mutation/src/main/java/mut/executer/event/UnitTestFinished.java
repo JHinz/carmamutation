@@ -1,9 +1,9 @@
 package mut.executer.event;
 
-import com.mutation.Mutant;
-
 import junit.framework.TestResult;
 import mut.util.ToStringUtils;
+
+import com.mutation.Mutant;
 
 public class UnitTestFinished {
 	@Override

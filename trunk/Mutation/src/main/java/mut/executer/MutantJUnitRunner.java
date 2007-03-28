@@ -2,12 +2,12 @@ package mut.executer;
 
 import java.net.URL;
 
-import com.mutation.Mutant;
-
 import junit.framework.Test;
 import junit.framework.TestResult;
 import junit.runner.TestSuiteLoader;
 import junit.textui.TestRunner;
+
+import com.mutation.Mutant;
 
 /**
  * JUnit Runner for mutation tests. Uses specific class loeader to load thze mutants

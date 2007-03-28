@@ -4,11 +4,11 @@ import java.io.PrintStream;
 import java.util.List;
 import java.util.Map;
 
-import com.mutation.Mutant;
-import com.mutation.report.om.MutationRun;
-
 import mut.IReportGenerator;
 import mut.MutationTestSpec;
+
+import com.mutation.Mutant;
+import com.mutation.report.om.MutationRun;
 
 public class ConsoleReportGenerator implements IReportGenerator {
 	private PrintStream out = System.out;

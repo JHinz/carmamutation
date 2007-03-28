@@ -7,12 +7,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import com.mutation.EMutationOperator;
-
 import mut.MutationTestSpec;
 import mut.log.ConsoleEventLogger;
 import mut.log.Event;
 import mut.log.IEventLogger;
+
+import com.mutation.EMutationOperator;
 
 /**
  * this class creates mutation tests following a naming policy that defines one

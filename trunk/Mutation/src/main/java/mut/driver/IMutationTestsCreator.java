@@ -3,9 +3,9 @@ package mut.driver;
 import java.util.List;
 import java.util.Set;
 
-import com.mutation.EMutationOperator;
-
 import mut.MutationTestSpec;
+
+import com.mutation.EMutationOperator;
 
 /**
  * creates a set of mutation tests
