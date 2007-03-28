@@ -5,11 +5,8 @@ import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Set;
 
-import mut.driver.MutationTestDriver;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
-
 
 import com.mutation.events.IEventListener;
 

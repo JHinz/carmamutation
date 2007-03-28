@@ -8,11 +8,11 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 
+import mut.util.ClassNameConverter;
+
 import com.mutation.EMutationOperator;
 import com.mutation.Mutant;
 import com.mutation.SourceCodeMapping;
-
-import mut.util.ClassNameConverter;
 
 public class MutantSourceCreator {
 

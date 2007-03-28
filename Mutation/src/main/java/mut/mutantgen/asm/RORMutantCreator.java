@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-
 import org.objectweb.asm.ClassAdapter;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;

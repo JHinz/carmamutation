@@ -20,8 +20,6 @@ import com.mutation.Mutant;
 import com.mutation.report.om.MutationInstruction;
 import com.mutation.report.om.MutationOperator;
 import com.mutation.report.om.MutationSet;
-import com.mutation.report.om.ObjectFactory;
-import com.mutation.report.om.ProcessingInfo;
 import com.mutation.report.om.SourceMapping;
 
 /**
