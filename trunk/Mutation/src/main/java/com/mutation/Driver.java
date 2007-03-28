@@ -23,7 +23,7 @@ public class Driver {
 	private IMutantGenerator mutantGenerator;
 
 	public static void main(String[] args) throws MalformedURLException, FileNotFoundException {
-		ApplicationContext factory = new FileSystemXmlApplicationContext("muntationconfig.xml");
+		ApplicationContext factory = new FileSystemXmlApplicationContext("mutationconfig.xml");
 
 		Set<EMutationOperator> operators = (Set<EMutationOperator>) factory.getBean("operators");;
 		Driver driver = (Driver) factory.getBean("testDriver");
