@@ -8,6 +8,7 @@ import junit.runner.TestSuiteLoader;
 import junit.textui.TestRunner;
 
 import com.mutation.Mutant;
+import com.mutation.testrunner.MutationClassLoader;
 
 /**
  * JUnit Runner for mutation tests. Uses specific class loeader to load thze mutants
