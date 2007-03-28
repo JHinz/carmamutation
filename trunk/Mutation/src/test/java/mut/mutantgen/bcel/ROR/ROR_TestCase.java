@@ -5,11 +5,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import junit.framework.TestCase;
+import mut.mutantgen.bcel.common.EventListenerMock;
+
 import com.mutation.EMutationOperator;
 import com.mutation.Mutant;
-
-import junit.framework.TestCase;
-import mut.mutantgen.bcel.BCELMutantCreator;
+import com.mutation.transform.bcel.MutantGenerator;
 
 public class ROR_TestCase extends TestCase {
 
@@ -29,12 +30,11 @@ public class ROR_TestCase extends TestCase {
 
 	public void test_IF_CMPNE_to_IF_CMPEQ_CheckNumberOfMutants() throws Exception {
 
-		BCELMutantCreator bcel = new BCELMutantCreator();
+		EventListenerMock listenerMock = new EventListenerMock();
 
-		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
-		operators.add(EMutationOperator.ROR);
+		MutantGenerator bcel = new MutantGenerator();
 
-		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, operators);
+		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, EMutationOperator.ROR, listenerMock);
 
 		assertEquals("Number of first level mutants incorrect", 2, mutants.size());
 	}
@@ -48,12 +48,11 @@ public class ROR_TestCase extends TestCase {
 
 	public void test_IF_CMPNE_to_IF_CMPEQ_FirstBranchModifiedOnlyMutant_Case1() throws Exception {
 
-		BCELMutantCreator bcel = new BCELMutantCreator();
+		EventListenerMock listenerMock = new EventListenerMock();
 
-		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
-		operators.add(EMutationOperator.ROR);
+		MutantGenerator bcel = new MutantGenerator();
 
-		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, operators);
+		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, EMutationOperator.ROR, listenerMock);
 
 		TestClassLoader loader = new TestClassLoader();
 
@@ -75,12 +74,11 @@ public class ROR_TestCase extends TestCase {
 
 	public void test_IF_CMPNE_to_IF_CMPEQ_FirstBranchModifiedOnlyMutant_Case2() throws Exception {
 
-		BCELMutantCreator bcel = new BCELMutantCreator();
+		EventListenerMock listenerMock = new EventListenerMock();
 
-		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
-		operators.add(EMutationOperator.ROR);
+		MutantGenerator bcel = new MutantGenerator();
 
-		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, operators);
+		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, EMutationOperator.ROR, listenerMock);
 
 		TestClassLoader loader = new TestClassLoader();
 
@@ -102,12 +100,11 @@ public class ROR_TestCase extends TestCase {
 
 	public void test_IF_CMPNE_to_IF_CMPEQ_FirstBranchModifiedOnlyMutant_Case3() throws Exception {
 
-		BCELMutantCreator bcel = new BCELMutantCreator();
+		EventListenerMock listenerMock = new EventListenerMock();
 
-		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
-		operators.add(EMutationOperator.ROR);
+		MutantGenerator bcel = new MutantGenerator();
 
-		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, operators);
+		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, EMutationOperator.ROR, listenerMock);
 
 		TestClassLoader loader = new TestClassLoader();
 
@@ -129,12 +126,11 @@ public class ROR_TestCase extends TestCase {
 
 	public void test_IF_CMPNE_to_IF_CMPEQ_FirstBranchModifiedOnlyMutant_Case4() throws Exception {
 
-		BCELMutantCreator bcel = new BCELMutantCreator();
+		EventListenerMock listenerMock = new EventListenerMock();
 
-		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
-		operators.add(EMutationOperator.ROR);
+		MutantGenerator bcel = new MutantGenerator();
 
-		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, operators);
+		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, EMutationOperator.ROR, listenerMock);
 
 		TestClassLoader loader = new TestClassLoader();
 
@@ -156,12 +152,11 @@ public class ROR_TestCase extends TestCase {
 
 	public void test_IF_CMPNE_to_IF_CMPEQ_SecondBranchModifiedOnlyMutant_Case1() throws Exception {
 
-		BCELMutantCreator bcel = new BCELMutantCreator();
+		EventListenerMock listenerMock = new EventListenerMock();
 
-		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
-		operators.add(EMutationOperator.ROR);
+		MutantGenerator bcel = new MutantGenerator();
 
-		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, operators);
+		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, EMutationOperator.ROR, listenerMock);
 
 		TestClassLoader loader = new TestClassLoader();
 
@@ -183,12 +178,11 @@ public class ROR_TestCase extends TestCase {
 
 	public void test_IF_CMPNE_to_IF_CMPEQ_SecondBranchModifiedOnlyMutant_Case2() throws Exception {
 
-		BCELMutantCreator bcel = new BCELMutantCreator();
+		EventListenerMock listenerMock = new EventListenerMock();
 
-		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
-		operators.add(EMutationOperator.ROR);
+		MutantGenerator bcel = new MutantGenerator();
 
-		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, operators);
+		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, EMutationOperator.ROR, listenerMock);
 
 		TestClassLoader loader = new TestClassLoader();
 
@@ -210,12 +204,11 @@ public class ROR_TestCase extends TestCase {
 
 	public void test_IF_CMPNE_to_IF_CMPEQ_SecondBranchModifiedOnlyMutant_Case3() throws Exception {
 
-		BCELMutantCreator bcel = new BCELMutantCreator();
+		EventListenerMock listenerMock = new EventListenerMock();
 
-		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
-		operators.add(EMutationOperator.ROR);
+		MutantGenerator bcel = new MutantGenerator();
 
-		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, operators);
+		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, EMutationOperator.ROR, listenerMock);
 
 		TestClassLoader loader = new TestClassLoader();
 
@@ -237,12 +230,11 @@ public class ROR_TestCase extends TestCase {
 
 	public void test_IF_CMPNE_to_IF_CMPEQ_SecondBranchModifiedOnlyMutant_Case4() throws Exception {
 
-		BCELMutantCreator bcel = new BCELMutantCreator();
+		EventListenerMock listenerMock = new EventListenerMock();
 
-		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
-		operators.add(EMutationOperator.ROR);
+		MutantGenerator bcel = new MutantGenerator();
 
-		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, operators);
+		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, EMutationOperator.ROR, listenerMock);
 
 		TestClassLoader loader = new TestClassLoader();
 
@@ -264,12 +256,14 @@ public class ROR_TestCase extends TestCase {
 
 	public void test_SourceMappings() throws Exception {
 
-		BCELMutantCreator bcel = new BCELMutantCreator();
+		EventListenerMock listenerMock = new EventListenerMock();
+
+		MutantGenerator bcel = new MutantGenerator();
 
 		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
 		operators.add(EMutationOperator.ROR);
 
-		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, operators);
+		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, EMutationOperator.ROR, listenerMock);
 
 		assertEquals("Incorrect line number", 6, mutants.get(0).getSourceMapping().getLineNo());
 		assertEquals("Incorrect source reference class name", TEMPLATE_CLASS_NAME, mutants.get(0).getSourceMapping()

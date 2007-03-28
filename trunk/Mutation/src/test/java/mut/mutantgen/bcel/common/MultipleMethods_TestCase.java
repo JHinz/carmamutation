@@ -1,15 +1,16 @@
 package mut.mutantgen.bcel.common;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Vector;
+
+import junit.framework.TestCase;
 
 import com.mutation.EMutationInstruction;
 import com.mutation.EMutationOperator;
 import com.mutation.Mutant;
-
-import junit.framework.TestCase;
-import mut.mutantgen.bcel.BCELMutantCreator;
+import com.mutation.events.IEvent;
+import com.mutation.events.IEventListener;
+import com.mutation.transform.bcel.MutantGenerator;
 
 public class MultipleMethods_TestCase extends TestCase {
 
@@ -22,12 +23,10 @@ public class MultipleMethods_TestCase extends TestCase {
 
 	public void test_IF_CMPNE_to_IF_CMPEQ_CheckNumberOfMutants() throws Exception {
 
-		BCELMutantCreator bcel = new BCELMutantCreator();
+		EventListenerMock listenerMock = new EventListenerMock();
+		MutantGenerator bcel = new MutantGenerator();
 
-		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
-		operators.add(EMutationOperator.ROR);
-
-		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, operators);
+		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, EMutationOperator.ROR, listenerMock);
 
 		assertEquals("Number of first level mutants incorrect", 4, mutants.size());
 
@@ -43,6 +42,9 @@ public class MultipleMethods_TestCase extends TestCase {
 
 		assertEquals("Number of IF_ICMPNE found does not match", 2, numberOf_IF_ICMPNE);
 		assertEquals("Number of IF_ICMPEQ found does not match", 2, numberOf_IF_ICMPEQ);
+		
+		assertEquals("Wrong number of events fired.", 1, listenerMock.events.size());
+		//TODO: add more detailed assertions for events
 	}
 
 }
