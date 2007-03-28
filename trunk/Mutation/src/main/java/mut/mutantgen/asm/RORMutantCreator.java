@@ -6,9 +6,6 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-import mut.EMutationType;
-import mut.Mutant;
-import mut.SourceCodeMapping;
 
 import org.objectweb.asm.ClassAdapter;
 import org.objectweb.asm.ClassReader;
@@ -18,6 +15,10 @@ import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodAdapter;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.util.CheckClassAdapter;
+
+import com.mutation.EMutationOperator;
+import com.mutation.Mutant;
+import com.mutation.SourceCodeMapping;
 
 /**
  * Implementation of the ROR mutation operators using ASM lib
@@ -61,7 +62,7 @@ public class RORMutantCreator {
 			mutant.setName(classUnderTest + "_ASM_ROR_" + listener.mutantNo);
 			mutant.setByteCode(newBytecode);
 			mutant.setClassName(classUnderTest);
-			mutant.setMutationType(EMutationType.ROR);
+			mutant.setMutationType(EMutationOperator.ROR);
 
 
 			mutant.getSourceMapping().setClassName(classUnderTest);

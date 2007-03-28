@@ -1,4 +1,4 @@
-package mut;
+package com.mutation;
 
 /**
  * Information about the mapping of a change to the original source code

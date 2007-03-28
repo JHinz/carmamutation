@@ -2,6 +2,7 @@ package mut;
 
 import java.util.List;
 
+import com.mutation.Mutant;
 import com.mutation.report.om.MutationSet;
 
 /**

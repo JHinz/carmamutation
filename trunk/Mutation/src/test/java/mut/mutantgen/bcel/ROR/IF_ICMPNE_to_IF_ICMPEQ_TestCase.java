@@ -5,9 +5,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.mutation.EMutationOperator;
+import com.mutation.Mutant;
+
 import junit.framework.TestCase;
-import mut.EMutationType;
-import mut.Mutant;
 import mut.mutantgen.bcel.BCELMutantCreator;
 
 public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
@@ -30,8 +31,8 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 
 		BCELMutantCreator bcel = new BCELMutantCreator();
 
-		Set<EMutationType> operators = new HashSet<EMutationType>();
-		operators.add(EMutationType.ROR);
+		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
+		operators.add(EMutationOperator.ROR);
 
 		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, operators);
 
@@ -49,8 +50,8 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 
 		BCELMutantCreator bcel = new BCELMutantCreator();
 
-		Set<EMutationType> operators = new HashSet<EMutationType>();
-		operators.add(EMutationType.ROR);
+		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
+		operators.add(EMutationOperator.ROR);
 
 		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, operators);
 
@@ -76,8 +77,8 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 
 		BCELMutantCreator bcel = new BCELMutantCreator();
 
-		Set<EMutationType> operators = new HashSet<EMutationType>();
-		operators.add(EMutationType.ROR);
+		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
+		operators.add(EMutationOperator.ROR);
 
 		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, operators);
 
@@ -103,8 +104,8 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 
 		BCELMutantCreator bcel = new BCELMutantCreator();
 
-		Set<EMutationType> operators = new HashSet<EMutationType>();
-		operators.add(EMutationType.ROR);
+		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
+		operators.add(EMutationOperator.ROR);
 
 		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, operators);
 
@@ -130,8 +131,8 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 
 		BCELMutantCreator bcel = new BCELMutantCreator();
 
-		Set<EMutationType> operators = new HashSet<EMutationType>();
-		operators.add(EMutationType.ROR);
+		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
+		operators.add(EMutationOperator.ROR);
 
 		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, operators);
 
@@ -157,8 +158,8 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 
 		BCELMutantCreator bcel = new BCELMutantCreator();
 
-		Set<EMutationType> operators = new HashSet<EMutationType>();
-		operators.add(EMutationType.ROR);
+		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
+		operators.add(EMutationOperator.ROR);
 
 		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, operators);
 
@@ -184,8 +185,8 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 
 		BCELMutantCreator bcel = new BCELMutantCreator();
 
-		Set<EMutationType> operators = new HashSet<EMutationType>();
-		operators.add(EMutationType.ROR);
+		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
+		operators.add(EMutationOperator.ROR);
 
 		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, operators);
 
@@ -211,8 +212,8 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 
 		BCELMutantCreator bcel = new BCELMutantCreator();
 
-		Set<EMutationType> operators = new HashSet<EMutationType>();
-		operators.add(EMutationType.ROR);
+		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
+		operators.add(EMutationOperator.ROR);
 
 		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, operators);
 
@@ -238,8 +239,8 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 
 		BCELMutantCreator bcel = new BCELMutantCreator();
 
-		Set<EMutationType> operators = new HashSet<EMutationType>();
-		operators.add(EMutationType.ROR);
+		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
+		operators.add(EMutationOperator.ROR);
 
 		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, operators);
 
@@ -265,8 +266,8 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 
 		BCELMutantCreator bcel = new BCELMutantCreator();
 
-		Set<EMutationType> operators = new HashSet<EMutationType>();
-		operators.add(EMutationType.ROR);
+		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
+		operators.add(EMutationOperator.ROR);
 
 		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, operators);
 

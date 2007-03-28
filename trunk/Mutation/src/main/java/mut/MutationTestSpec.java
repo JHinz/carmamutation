@@ -3,6 +3,8 @@ package mut;
 import java.util.List;
 import java.util.Set;
 
+import com.mutation.EMutationOperator;
+
 /**
  * Specification of a mutation test
  * @author mike
@@ -22,7 +24,7 @@ public class MutationTestSpec {
 	/**
 	 * mutation operators to be applied
 	 */
-	private Set<EMutationType> operators;
+	private Set<EMutationOperator> operators;
 
 	public String getClassUnderTest() {
 		return classUnderTest;
@@ -32,11 +34,11 @@ public class MutationTestSpec {
 		this.classUnderTest = classUnderTest;
 	}
 
-	public Set<EMutationType> getOperators() {
+	public Set<EMutationOperator> getOperators() {
 		return operators;
 	}
 
-	public void setOperators(Set<EMutationType> operators) {
+	public void setOperators(Set<EMutationOperator> operators) {
 		this.operators = operators;
 	}
 

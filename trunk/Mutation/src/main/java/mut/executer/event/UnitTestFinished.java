@@ -1,7 +1,8 @@
 package mut.executer.event;
 
+import com.mutation.Mutant;
+
 import junit.framework.TestResult;
-import mut.Mutant;
 import mut.util.ToStringUtils;
 
 public class UnitTestFinished {

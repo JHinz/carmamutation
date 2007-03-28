@@ -5,11 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import mut.EMutationOperator;
-import mut.EMutationType;
-import mut.IMutantGenerator;
-import mut.Mutant;
-import mut.SourceCodeMapping;
 import mut.mutantgen.bcel.repository.IMutator;
 import mut.mutantgen.bcel.repository.MutationRepository;
 
@@ -24,9 +19,16 @@ import org.apache.bcel.generic.InstructionList;
 import org.apache.bcel.generic.MethodGen;
 import org.apache.bcel.util.InstructionFinder;
 
+import com.mutation.EMutationInstruction;
+import com.mutation.EMutationOperator;
+import com.mutation.IMutantGenerator;
+import com.mutation.Mutant;
+import com.mutation.SourceCodeMapping;
+import com.mutation.events.IEventListener;
+
 public class BCELMutantCreator implements IMutantGenerator {
 
-	public List<Mutant> generateMutants(String classUnderTest, Set<EMutationType> operators) {
+	public List<Mutant> generateMutants(String classUnderTest, EMutationOperator operator, IEventListener listener) {
 
 		List<Mutant> result = new ArrayList<Mutant>();
 
@@ -36,7 +38,7 @@ public class BCELMutantCreator implements IMutantGenerator {
 
 			Method[] methods = clazz.getMethods();
 			for (int methodCounter = 0; methodCounter < methods.length; methodCounter++) {
-				List<Mutant> mutants = generateMutants(clazz, methods[methodCounter], operators);
+				List<Mutant> mutants = generateMutants(clazz, methods[methodCounter], operator);
 				result.addAll(mutants);
 			}
 
@@ -49,68 +51,66 @@ public class BCELMutantCreator implements IMutantGenerator {
 
 	private MutationRepository mutationRepository = new MutationRepository();
 
-	private List<Mutant> generateMutants(JavaClass clazz, Method bcelMethod, Set<EMutationType> mutationTypes)
+	private List<Mutant> generateMutants(JavaClass clazz, Method bcelMethod, EMutationOperator operator)
 			throws ClassNotFoundException {
 
 		List<Mutant> mutants = new ArrayList<Mutant>();
 
-		for (EMutationType mutationType : mutationTypes) {
+		Set<EMutationInstruction> instructions = operator.getInstructions();
 
-			List<EMutationOperator> operators = mutationRepository.getOperatorMapping(mutationType);
+		if (instructions == null || instructions.size() == 0)
+			return mutants;
 
-			if (operators == null || operators.size() == 0)
-				return mutants;
+		Code code = bcelMethod.getCode();
 
-			Code code = bcelMethod.getCode();
+		if (code == null)
+			return mutants;
 
-			if (code == null)
-				return mutants;
+		InstructionList bcelInstructions = new InstructionList(bcelMethod.getCode().getCode());
 
-			InstructionList instructions = new InstructionList(bcelMethod.getCode().getCode());
+		InstructionFinder finder = new InstructionFinder(bcelInstructions);
 
-			InstructionFinder finder = new InstructionFinder(instructions);
+		for (EMutationInstruction instruction : instructions) {
+			Iterator instructionIterator = finder.search(instruction.name());
 
-			for (EMutationOperator operator : operators) {
-				Iterator instructionIterator = finder.search(operator.name());
+			while (instructionIterator.hasNext()) {
 
-				while (instructionIterator.hasNext()) {
+				InstructionHandle[] handles = (InstructionHandle[]) instructionIterator.next();
 
-					InstructionHandle[] handles = (InstructionHandle[]) instructionIterator.next();
+				IMutator mutator = mutationRepository.getMutator(instruction);
 
-					IMutator mutator = mutationRepository.getMutator(operator);
+				Instruction originalInstruction = handles[0].getInstruction().copy();
 
-					Instruction originalInstruction = handles[0].getInstruction().copy();
+				mutator.performMutation(handles[0]);
 
-					mutator.performMutation(handles[0]);
+				ClassGen classGen = new ClassGen(clazz);
 
-					ClassGen classGen = new ClassGen(clazz);
+				MethodGen methodGen = new MethodGen(bcelMethod, clazz.getClassName(), classGen.getConstantPool());
 
-					MethodGen methodGen = new MethodGen(bcelMethod, clazz.getClassName(), classGen.getConstantPool());
+				methodGen.setInstructionList(bcelInstructions);
 
-					methodGen.setInstructionList(instructions);
+				classGen.replaceMethod(bcelMethod, methodGen.getMethod());
 
-					classGen.replaceMethod(bcelMethod, methodGen.getMethod());
+				SourceCodeMapping sourceCodeMapping = new SourceCodeMapping();
+				sourceCodeMapping.setClassName(clazz.getClassName());
+				sourceCodeMapping.setSourceFile(clazz.getSourceFileName());
+				sourceCodeMapping.setLineNo(bcelMethod.getCode().getLineNumberTable().getSourceLine(
+						handles[0].getPosition()));
 
-					SourceCodeMapping sourceCodeMapping = new SourceCodeMapping();
-					sourceCodeMapping.setClassName(clazz.getClassName());
-					sourceCodeMapping.setSourceFile(clazz.getSourceFileName());
-					sourceCodeMapping.setLineNo(bcelMethod.getCode().getLineNumberTable().getSourceLine(
-							handles[0].getPosition()));
+				Mutant newMutant = new Mutant();
+				newMutant.setClassName(clazz.getClassName());
+				newMutant.setSourceMapping(sourceCodeMapping);
+				newMutant.setByteCode(classGen.getJavaClass().getBytes());
+				newMutant.setMutationType(operator);
+				newMutant.setMutationOperator(mutator.getMutationOperator());
 
-					Mutant newMutant = new Mutant();
-					newMutant.setClassName(clazz.getClassName());
-					newMutant.setSourceMapping(sourceCodeMapping);
-					newMutant.setByteCode(classGen.getJavaClass().getBytes());
-					newMutant.setMutationType(mutationType);
-					newMutant.setMutationOperator(mutator.getMutationOperator());
+				mutants.add(newMutant);
 
-					mutants.add(newMutant);
+				handles[0].setInstruction(originalInstruction);
 
-					handles[0].setInstruction(originalInstruction);
-
-				}
 			}
-			instructions.dispose();
+
+			bcelInstructions.dispose();
 		}
 
 		return mutants;

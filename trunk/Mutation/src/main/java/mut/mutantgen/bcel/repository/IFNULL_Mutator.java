@@ -1,9 +1,10 @@
 package mut.mutantgen.bcel.repository;
 
-import mut.EMutationOperator;
 
 import org.apache.bcel.generic.IFNULL;
 import org.apache.bcel.generic.InstructionHandle;
+
+import com.mutation.EMutationInstruction;
 
 public class IFNULL_Mutator implements IMutator {
 
@@ -16,8 +17,8 @@ public class IFNULL_Mutator implements IMutator {
 
 	}
 
-	public EMutationOperator getMutationOperator() {
-		return EMutationOperator.IFNULL;
+	public EMutationInstruction getMutationOperator() {
+		return EMutationInstruction.IFNULL;
 	}
 
 }

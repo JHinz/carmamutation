@@ -1,10 +1,11 @@
 package mut.mutantgen.bcel.repository;
 
-import mut.EMutationOperator;
 
 import org.apache.bcel.generic.IF_ICMPEQ;
 import org.apache.bcel.generic.IF_ICMPNE;
 import org.apache.bcel.generic.InstructionHandle;
+
+import com.mutation.EMutationInstruction;
 
 public class IF_ICMPNE_Mutator implements IMutator {
 
@@ -16,8 +17,8 @@ public class IF_ICMPNE_Mutator implements IMutator {
 		handle.setInstruction(new IF_ICMPEQ(instruction.getTarget()));
 	}
 
-	public EMutationOperator getMutationOperator() {
-		return EMutationOperator.IF_ICMPNE;
+	public EMutationInstruction getMutationOperator() {
+		return EMutationInstruction.IF_ICMPNE;
 	}
 
 }

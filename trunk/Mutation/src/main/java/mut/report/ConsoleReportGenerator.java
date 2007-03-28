@@ -4,18 +4,20 @@ import java.io.PrintStream;
 import java.util.List;
 import java.util.Map;
 
+import com.mutation.Mutant;
+import com.mutation.report.om.MutationRun;
+
 import mut.IReportGenerator;
-import mut.Mutant;
 import mut.MutationTestSpec;
 
 public class ConsoleReportGenerator implements IReportGenerator {
 	private PrintStream out = System.out;
 
-	public void generateReportOverall(OverallStatistics statistics) {
+	public void generateReportOverall(MutationRun run) {
 		out.println("---------------------------------------------------------");
 		out.println("-------------- Overall REPORT ---------------------------");
-		out.println("Number of overall mutants  : " + statistics.getNumberOfMutants());
-		out.println("Number of overall survivors: " + statistics.getNumberOfSurvivors());
+		out.println("Number of overall mutants  : " + run.getMutationRatio().getMutationCount());
+		out.println("Number of overall survivors: " + run.getMutationRatio().getSurvivorCount());
 		out.println("-------------------------------------------------");
 
 	}

@@ -9,7 +9,6 @@ import java.util.List;
 import junit.framework.Test;
 import junit.framework.TestResult;
 import mut.ITestExecuter;
-import mut.Mutant;
 import mut.executer.event.UnitTestFinished;
 import mut.log.ConsoleEventLogger;
 import mut.log.Event;
@@ -17,6 +16,7 @@ import mut.log.IEventLogger;
 import mut.util.ProcessingInfoProvider;
 import mut.util.StopWatch;
 
+import com.mutation.Mutant;
 import com.mutation.report.om.MutationInstruction;
 import com.mutation.report.om.MutationOperator;
 import com.mutation.report.om.MutationSet;
