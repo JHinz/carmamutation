@@ -14,6 +14,7 @@ import junit.framework.TestResult;
 import com.mutation.ITestRunner;
 import com.mutation.Mutant;
 import com.mutation.events.IEventListener;
+import com.mutation.events.TestNotExecuted;
 import com.mutation.events.TestsExecuted;
 
 /**
@@ -35,17 +36,11 @@ public class JUnitRunner implements ITestRunner {
 	private int runTest(String testCase, Mutant mutant) {
 
 		MutantJUnitRunner runner = new MutantJUnitRunner(getTestClassesLocations(), mutant);
-		try{
 		Test suite = runner.getTest(testCase);
 		TestResult result = runner.doRun(suite, false);
 		int errors = result.errorCount();
 		int failures = result.failureCount();
-
 		return errors + failures;
-		}catch(Exception e){
-			e.printStackTrace();
-			throw new RuntimeException("shit");
-		}
 	}
 
 	public URL[] getTestClassesLocations() {
@@ -69,13 +64,18 @@ public class JUnitRunner implements ITestRunner {
 		boolean survived = true;
 		Set<String> killerTestNames = new TreeSet<String>();
 		for (String testCase : testNames) {
-			int failures = runTest(testCase, mutant);
-			if (failures > 0) {
-				survived = false;
-				killerTestNames.add(testCase);
-				if (stopOnFirstFailedTest) {
-					break;
+			try {
+				int failures = runTest(testCase, mutant);
+				if (failures > 0) {
+					survived = false;
+					killerTestNames.add(testCase);
+					if (stopOnFirstFailedTest) {
+						break;
+					}
 				}
+				
+			} catch (Exception e) {
+				eventListener.notifyEvent(new TestNotExecuted(mutant, testCase, e));
 			}
 		}
 		eventListener.notifyEvent(new TestsExecuted(mutant, testNames, survived, killerTestNames));
