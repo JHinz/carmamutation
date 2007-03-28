@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+	<!-- property placeholder post-processor -->
+	<bean id="placeholderConfig"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="config.properties" />
+	</bean>
+
+	<!-- location of the classes for the mutants -->
+	<bean id="classesDir" class="java.io.File">
+		<constructor-arg>
+			<value>${classesDir}</value>
+		</constructor-arg>
+	</bean>
+
+	<!-- location of the unit tests -->
+	<bean id="testClassesDir" class="java.io.File">
+		<constructor-arg>
+			<value>${testClassesDir}</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="sourceDir" class="java.io.File">
+		<constructor-arg>
+			<value>${sourceDir}</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="mutantSourceDir" class="java.io.File">
+		<constructor-arg>
+			<value>${mutantSourceDir}</value>
+		</constructor-arg>
+	</bean>
+
+	<!--  set of operators considered for tests -->
+	<bean name="operator" class="java.util.TreeSet">
+		<constructor-arg>
+			<set>
+				<value>ROR</value>
+			</set>
+		</constructor-arg>
+	</bean>
+
+	<!-- the driver main class which executes the tests -->
+	<bean id="testDriver" class="com.mutation.Driver">
+		<property name="testRunner" ref="testRunner" />
+	</bean>
+
+	<bean id="testsCreater" class="mut.driver.OnePerClassTestCreator">
+		<property name="logger" ref="eventLogger" />
+		<property name="classesBaseDir" ref="classesDir" />
+		<property name="testClassesBaseDir" ref="testClassesDir" />
+		<property name="testCaseSuffix" value="${testCaseSuffix}" />
+	</bean>
+
+	<bean id="testRunner" class="com.mutation.testrunner.JUnitRunner">
+		<property name="stopOnFirstFailedTest" value="true" />
+		<property name="testClassesLocationsAsFiles">
+			<list>
+				<ref bean="classesDir" />
+				<ref bean="testClassesDir" />
+			</list>
+		</property>
+	</bean>
+
+
+
+<!--  OLD STUFF TO BE DELETED -->
+
+
+	<bean id="mutantSourceCreator"
+		class="mut.report.MutantSourceCreator">
+		<property name="sourceBaseDir" ref="sourceDir" />
+		<property name="mutantOutputDir" ref="mutantSourceDir" />
+	</bean>
+	<bean id="mutantGenerator"
+		class="mut.mutantgen.asm.ASMMutantCreator">
+		<constructor-arg ref="classesDir" />
+
+	</bean>
+
+</beans>
