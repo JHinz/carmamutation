@@ -8,6 +8,7 @@ import java.util.Set;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+import com.mutation.events.DriverStarted;
 import com.mutation.events.IEventListener;
 
 public class Driver {
@@ -25,13 +26,13 @@ public class Driver {
 	public static void main(String[] args) throws MalformedURLException, FileNotFoundException {
 		ApplicationContext factory = new FileSystemXmlApplicationContext("mutationconfig.xml");
 
-		Set<EMutationOperator> operators = (Set<EMutationOperator>) factory.getBean("operators");;
+		List<EMutationOperator> operators = (List<EMutationOperator>) factory.getBean("operators");;
 		Driver driver = (Driver) factory.getBean("testDriver");
 		driver.execute(operators);
 
 	}	
-	public void execute(Set<EMutationOperator> operators) {
-
+	public void execute(List<EMutationOperator> operators) {
+		eventListener.notifyEvent(new DriverStarted(operators));
 		Set<String> classUnderTestNames = classSetResolver.determineClassNames(eventListener);
 
 		for (String classUnderTestName : classUnderTestNames) {
