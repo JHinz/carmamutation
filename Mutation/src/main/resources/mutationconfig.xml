@@ -46,13 +46,8 @@
 	<!-- the driver main class which executes the tests -->
 	<bean id="testDriver" class="com.mutation.Driver">
 		<property name="testRunner" ref="testRunner" />
-	</bean>
-
-	<bean id="testsCreater" class="mut.driver.OnePerClassTestCreator">
-		<property name="logger" ref="eventLogger" />
-		<property name="classesBaseDir" ref="classesDir" />
-		<property name="testClassesBaseDir" ref="testClassesDir" />
-		<property name="testCaseSuffix" value="${testCaseSuffix}" />
+		<property name="classSetResolver" ref="classUnderTestResolver" />
+		<property name="testSetResolver" ref="testSetResolver" />
 	</bean>
 
 	<bean id="testRunner" class="com.mutation.testrunner.JUnitRunner">
@@ -65,10 +60,22 @@
 		</property>
 	</bean>
 
+	<bean id="classUnderTestResolver" class="com.mutation.classesresolver.DirectoryBasedResolver">
+		<property name="classesBaseDir" ref="classesDir" />
+	</bean>
 
+	<bean id="testSetResolver" class="com.mutation.testsetresolver.OneTestPerClassResolver">
+		<property name="testCaseSuffix" ref="${testCaseSuffix}" />
+	</bean>
 
 <!--  OLD STUFF TO BE DELETED -->
 
+	<bean id="testsCreater" class="mut.driver.OnePerClassTestCreator">
+		<property name="logger" ref="eventLogger" />
+		<property name="classesBaseDir" ref="classesDir" />
+		<property name="testClassesBaseDir" ref="testClassesDir" />
+		<property name="testCaseSuffix" value="${testCaseSuffix}" />
+	</bean>
 
 	<bean id="mutantSourceCreator"
 		class="mut.report.MutantSourceCreator">
