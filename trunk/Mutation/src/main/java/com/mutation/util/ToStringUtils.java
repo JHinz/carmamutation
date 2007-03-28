@@ -1,4 +1,4 @@
-package mut.util;
+package com.mutation.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

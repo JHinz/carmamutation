@@ -1,6 +1,6 @@
 package com.mutation.events;
 
-import mut.util.ToStringUtils;
+import com.mutation.util.ToStringUtils;
 
 public class ProcessingClassUnderTest implements IEvent {
 	private String classUnderTest;
