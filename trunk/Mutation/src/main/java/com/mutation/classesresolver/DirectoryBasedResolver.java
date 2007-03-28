@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.mutation.IClassSetResolver;
+import com.mutation.events.ClassesUnderTestResolved;
 import com.mutation.events.IEventListener;
 
 /**
@@ -21,6 +22,8 @@ public class DirectoryBasedResolver implements IClassSetResolver {
 	public Set<String> determineClassNames(IEventListener eventListener) {
 		Set<String> classNames = new HashSet<String>();
 		iterate(this.classesBaseDir, "", "", classNames);
+		
+		eventListener.notifyEvent(new ClassesUnderTestResolved(classNames));
 		return classNames;
 	}
 

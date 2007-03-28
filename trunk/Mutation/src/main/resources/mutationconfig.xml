@@ -35,12 +35,18 @@
 	</bean>
 
 	<!--  set of operators considered for tests -->
-	<bean name="operators" class="java.util.TreeSet">
-		<constructor-arg>
-			<set>
-				<value>ROR</value>
-			</set>
-		</constructor-arg>
+
+	<bean id="operators"
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetClass">
+			<value>com.mutation.EMutationOperator</value>
+		</property>
+		<property name="targetMethod">
+			<value>getFromCsvList</value>
+		</property>
+		<property name="arguments">
+			<value>ROR</value>
+		</property>
 	</bean>
 
 	<!-- the driver main class which executes the tests -->
@@ -48,6 +54,10 @@
 		<property name="testRunner" ref="testRunner" />
 		<property name="classSetResolver" ref="classUnderTestResolver" />
 		<property name="testSetResolver" ref="testSetResolver" />
+		<property name="eventListener" ref="eventListener" />
+	</bean>
+
+	<bean id="eventListener" class="com.mutation.events.ConsoleEventListener">
 	</bean>
 
 	<bean id="testRunner" class="com.mutation.testrunner.JUnitRunner">
@@ -60,11 +70,13 @@
 		</property>
 	</bean>
 
-	<bean id="classUnderTestResolver" class="com.mutation.classesresolver.DirectoryBasedResolver">
+	<bean id="classUnderTestResolver"
+		class="com.mutation.classesresolver.DirectoryBasedResolver">
 		<property name="classesBaseDir" ref="classesDir" />
 	</bean>
 
-	<bean id="testSetResolver" class="com.mutation.testsetresolver.OneTestPerClassResolver">
+	<bean id="testSetResolver"
+		class="com.mutation.testsetresolver.OneTestPerClassResolver">
 		<property name="testCaseSuffix" value="${testCaseSuffix}" />
 	</bean>
 
