@@ -9,7 +9,6 @@ import java.util.List;
 import junit.framework.Test;
 import junit.framework.TestResult;
 import mut.ITestExecuter;
-import mut.executer.event.UnitTestFinished;
 import mut.log.ConsoleEventLogger;
 import mut.log.Event;
 import mut.log.IEventLogger;
