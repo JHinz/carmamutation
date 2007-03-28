@@ -35,13 +35,17 @@ public class JUnitRunner implements ITestRunner {
 	private int runTest(String testCase, Mutant mutant) {
 
 		MutantJUnitRunner runner = new MutantJUnitRunner(getTestClassesLocations(), mutant);
-
+		try{
 		Test suite = runner.getTest(testCase);
 		TestResult result = runner.doRun(suite, false);
 		int errors = result.errorCount();
 		int failures = result.failureCount();
 
 		return errors + failures;
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new RuntimeException("shit");
+		}
 	}
 
 	public URL[] getTestClassesLocations() {

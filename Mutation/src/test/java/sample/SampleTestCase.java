@@ -1,7 +1,8 @@
 package sample;
 
+import com.mutation.annotations.MutationPair;
+
 import junit.framework.TestCase;
-import mut.annotations.MutationPair;
 
 @MutationPair(testCaseClassName = "sample.Sample")
 public class SampleTestCase extends TestCase {
