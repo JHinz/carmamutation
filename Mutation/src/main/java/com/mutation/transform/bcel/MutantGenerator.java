@@ -1,12 +1,9 @@
-package mut.mutantgen.bcel;
+package com.mutation.transform.bcel;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
-import mut.mutantgen.bcel.repository.IMutator;
-import mut.mutantgen.bcel.repository.MutationRepository;
 
 import org.apache.bcel.Repository;
 import org.apache.bcel.classfile.Code;
@@ -24,9 +21,13 @@ import com.mutation.EMutationOperator;
 import com.mutation.IMutantGenerator;
 import com.mutation.Mutant;
 import com.mutation.SourceCodeMapping;
+import com.mutation.events.ClassUnderTestNotFound;
 import com.mutation.events.IEventListener;
+import com.mutation.events.MutantsGenerated;
 
-public class BCELMutantCreator implements IMutantGenerator {
+public class MutantGenerator implements IMutantGenerator {
+
+	private BCELMutatorRepository mutatorRepository = new BCELMutatorRepository();
 
 	public List<Mutant> generateMutants(String classUnderTest, EMutationOperator operator, IEventListener listener) {
 
@@ -43,13 +44,15 @@ public class BCELMutantCreator implements IMutantGenerator {
 			}
 
 		} catch (ClassNotFoundException e) {
+			listener.notifyEvent(new ClassUnderTestNotFound(classUnderTest));
 			e.printStackTrace();
 		}
+
+		listener.notifyEvent(new MutantsGenerated(result, classUnderTest, operator));
+
 		return result;
 
 	}
-
-	private MutationRepository mutationRepository = new MutationRepository();
 
 	private List<Mutant> generateMutants(JavaClass clazz, Method bcelMethod, EMutationOperator operator)
 			throws ClassNotFoundException {
@@ -77,7 +80,7 @@ public class BCELMutantCreator implements IMutantGenerator {
 
 				InstructionHandle[] handles = (InstructionHandle[]) instructionIterator.next();
 
-				IMutator mutator = mutationRepository.getMutator(instruction);
+				IMutator mutator = mutatorRepository.getMutator(instruction);
 
 				Instruction originalInstruction = handles[0].getInstruction().copy();
 

@@ -1,4 +1,4 @@
-package com.mutation.bcel;
+package com.mutation.transform.bcel;
 
 import com.mutation.EMutationInstruction;
 
