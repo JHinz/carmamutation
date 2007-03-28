@@ -81,7 +81,11 @@
 		<property name="testCaseSuffix" value="${testCaseSuffix}" />
 	</bean>
 
-	<bean id="mutantGenerator" class="com.mutation.transform.bcel.MutantGenerator">
+	<bean id="bcel.mutantGenerator" class="com.mutation.transform.bcel.MutantGenerator">
+	</bean>
+
+	<bean id="mutantGenerator" class="com.mutation.transform.asm.MutantGenerator">
+		<property name="originalClassPath" ref="classesDir"></property>
 	</bean>
 
 </beans>
