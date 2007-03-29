@@ -42,8 +42,6 @@ public class MutantGenerator implements IMutantGenerator {
 
 		try {
 
-			// JavaClass clazz = Repository.lookupClass(classUnderTest);
-
 			JavaClass clazz = classReader.parse();
 
 			Method[] methods = clazz.getMethods();
