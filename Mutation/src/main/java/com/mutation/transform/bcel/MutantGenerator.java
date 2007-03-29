@@ -1,11 +1,13 @@
 package com.mutation.transform.bcel;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.bcel.Repository;
+import org.apache.bcel.classfile.ClassParser;
 import org.apache.bcel.classfile.Code;
 import org.apache.bcel.classfile.JavaClass;
 import org.apache.bcel.classfile.Method;
@@ -29,13 +31,20 @@ public class MutantGenerator implements IMutantGenerator {
 
 	private BCELMutatorRepository mutatorRepository = new BCELMutatorRepository();
 
-	public List<Mutant> generateMutants(String classUnderTest, EMutationOperator operator, IEventListener listener) {
+	public List<Mutant> generateMutants(String classUnderTest, byte[] originalClassByteCode,
+			EMutationOperator operator, IEventListener listener) {
+
+		ByteArrayInputStream classByteCodeInputStream = new ByteArrayInputStream(originalClassByteCode);
+
+		ClassParser classReader = new ClassParser(classByteCodeInputStream, null);
 
 		List<Mutant> result = new ArrayList<Mutant>();
 
 		try {
 
-			JavaClass clazz = Repository.lookupClass(classUnderTest);
+			// JavaClass clazz = Repository.lookupClass(classUnderTest);
+
+			JavaClass clazz = classReader.parse();
 
 			Method[] methods = clazz.getMethods();
 			for (int methodCounter = 0; methodCounter < methods.length; methodCounter++) {
@@ -44,6 +53,9 @@ public class MutantGenerator implements IMutantGenerator {
 			}
 
 		} catch (ClassNotFoundException e) {
+			listener.notifyEvent(new ClassUnderTestNotFound(classUnderTest));
+			e.printStackTrace();
+		} catch (IOException e) {
 			listener.notifyEvent(new ClassUnderTestNotFound(classUnderTest));
 			e.printStackTrace();
 		}
