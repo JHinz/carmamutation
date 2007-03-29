@@ -16,6 +16,7 @@ public class MutantGenerator implements IMutantGenerator {
 
 	public List<Mutant> generateMutants(String classUnderTest, byte[] originalClassByteCode,
 			EMutationOperator operator, IEventListener listener) {
+		//TODO: remove loading class from file system but use the passed bytecode directly
 
 		String path = originalClassPath.getAbsolutePath() + "/" + classUnderTest.replace('.', '/') + ".class";
 		File originalClassFile = new File(path);
