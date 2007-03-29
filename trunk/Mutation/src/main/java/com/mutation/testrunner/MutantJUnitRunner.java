@@ -5,11 +5,9 @@ import java.net.URL;
 import junit.framework.Test;
 import junit.framework.TestResult;
 import junit.runner.BaseTestRunner;
-import junit.runner.StandardTestSuiteLoader;
 import junit.runner.TestSuiteLoader;
 
 import com.mutation.Mutant;
-import com.sun.xml.bind.v2.model.runtime.RuntimeReferencePropertyInfo;
 
 /**
  * JUnit Runner for mutation tests. Uses specific class loeader to load thze mutants
