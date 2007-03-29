@@ -38,8 +38,8 @@ public class ConsoleEventListener  implements IEventListener {
 			}
 		}else if(event instanceof MutantsGenerated){
 			MutantsGenerated e = (MutantsGenerated)event;
-			totalMutants.addAll(e.getGenerateMutants());
-			suvivers.addAll(e.getGenerateMutants());
+			totalMutants.addAll(e.getGeneratedMutants());
+			suvivers.addAll(e.getGeneratedMutants());
 		}
 	}
 

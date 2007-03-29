@@ -7,21 +7,21 @@ import com.mutation.Mutant;
 import com.mutation.util.ToStringUtils;
 
 public class MutantsGenerated implements IEvent{
-	private List<Mutant> generateMutants;
+	private List<Mutant> generatedMutants;
 	private String classUnderTest;
 	private EMutationOperator operator;
 	public String getClassUnderTest() {
 		return classUnderTest;
 	}
-	public List<Mutant> getGenerateMutants() {
-		return generateMutants;
+	public List<Mutant> getGeneratedMutants() {
+		return generatedMutants;
 	}
 	public EMutationOperator getOperator() {
 		return operator;
 	}
 	public MutantsGenerated(List<Mutant> generateMutants, String classUnderTest, EMutationOperator operator) {
 		super();
-		this.generateMutants = generateMutants;
+		this.generatedMutants = generateMutants;
 		this.classUnderTest = classUnderTest;
 		this.operator = operator;
 	}
