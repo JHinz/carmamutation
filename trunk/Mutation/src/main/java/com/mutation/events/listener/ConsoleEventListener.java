@@ -42,5 +42,9 @@ public class ConsoleEventListener  implements IEventListener {
 			suvivers.addAll(e.getGeneratedMutants());
 		}
 	}
+	public void destroy() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
