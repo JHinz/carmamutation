@@ -15,8 +15,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.sun.org.apache.xpath.internal.compiler.OpMap;
-
 /**
  * This enum defines the possible mutation operators.
  * See http://ise.gmu.edu/~offutt/mujava/mutopsMethod.pdf for description of each

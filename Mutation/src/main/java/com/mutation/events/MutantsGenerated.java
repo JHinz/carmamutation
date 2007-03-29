@@ -2,7 +2,6 @@ package com.mutation.events;
 
 import java.util.List;
 
-
 import com.mutation.EMutationOperator;
 import com.mutation.Mutant;
 import com.mutation.util.ToStringUtils;
