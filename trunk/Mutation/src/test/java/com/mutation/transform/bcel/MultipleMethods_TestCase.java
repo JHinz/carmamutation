@@ -18,7 +18,7 @@ public class MultipleMethods_TestCase extends TestCase {
 	// writer.flush();
 	// writer.close();
 
-	private static final String TEMPLATE_CLASS_NAME = "mut.mutantgen.bcel.common.MultipleMethods_TemplateClass";
+	private static final String TEMPLATE_CLASS_NAME = "com.mutation.transform.bcel.MultipleMethods_TemplateClass";
 
 	public void test_IF_CMPNE_to_IF_CMPEQ_CheckNumberOfMutants() throws Exception {
 
