@@ -7,13 +7,15 @@ import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.mutation.events.ClassUnderTestNotFound;
 import com.mutation.events.DriverFinished;
 import com.mutation.events.DriverStarted;
 import com.mutation.events.IEventListener;
+import com.mutation.events.ProcessingClassUnderTest;
+import com.mutation.events.ProcessingMutationOperator;
 import com.mutation.util.ByteCodeFileReader;
 
 public class Driver {
@@ -31,7 +33,8 @@ public class Driver {
 	private File originalClassPath;
 
 	public static void main(String[] args) throws MalformedURLException, FileNotFoundException {
-		ApplicationContext factory = new FileSystemXmlApplicationContext("mutationconfig.xml");
+		AbstractApplicationContext factory = new FileSystemXmlApplicationContext("mutationconfig.xml");
+		factory.registerShutdownHook();
 
 		List<EMutationOperator> operators = (List<EMutationOperator>) factory.getBean("operators");
 		Driver driver = (Driver) factory.getBean("testDriver");
@@ -47,6 +50,8 @@ public class Driver {
 
 		for (String classUnderTestName : classUnderTestNames) {
 
+			eventListener.notifyEvent(new ProcessingClassUnderTest(classUnderTestName));
+
 			try {
 
 				byte[] byteCode = loadClass(byteCodeFileReader, classUnderTestName);
@@ -55,10 +60,15 @@ public class Driver {
 
 				for (EMutationOperator operator : operators) {
 
+					eventListener.notifyEvent(new ProcessingMutationOperator(operator.name()));
+
 					List<Mutant> mutants = mutantGenerator.generateMutants(classUnderTestName, byteCode, operator,
 							eventListener);
 
 					for (Mutant mutant : mutants) {
+						
+						eventListener.notifyEvent(new ProcessingMutationOperator(operator.name()));
+						
 						testRunner.execute(mutant, testNames, eventListener);
 					}
 				}
