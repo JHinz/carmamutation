@@ -19,7 +19,7 @@ public class IF_ICMPEQ_to_IF_ICMPNE_TestCase extends TestCase {
 	// writer.flush();
 	// writer.close();
 
-	private static final String TEMPLATE_CLASS_NAME = "mut.mutantgen.bcel.ROR.IF_ICMPEQ_to_IF_ICMPNE_TemplateClass";
+	private static final String TEMPLATE_CLASS_NAME = "com.mutation.transform.bcel.ROR.IF_ICMPEQ_to_IF_ICMPNE_TemplateClass";
 
 	private class TestClassLoader extends ClassLoader {
 

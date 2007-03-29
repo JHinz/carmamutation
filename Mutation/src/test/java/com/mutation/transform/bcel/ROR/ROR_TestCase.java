@@ -21,10 +21,8 @@ public class ROR_TestCase extends TestCase {
 	// writer.flush();
 	// writer.close();
 
-	private static final String TEMPLATE_CLASS_NAME = "mut.mutantgen.bcel.ROR.IF_ICMPNE_and_IF_ICMPEQ_TemplateClass";
-
-	private byte[] classCode;
-
+	private static final String TEMPLATE_CLASS_NAME = "com.mutation.transform.bcel.ROR.IF_ICMPNE_and_IF_ICMPEQ_TemplateClass";
+	
 	private class TestClassLoader extends ClassLoader {
 
 		private void override(String binaryName, byte[] byteCode) {
