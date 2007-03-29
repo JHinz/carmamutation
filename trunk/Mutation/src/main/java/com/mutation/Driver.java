@@ -10,6 +10,7 @@ import java.util.Set;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+import com.mutation.events.ClassUnderTestNotFound;
 import com.mutation.events.DriverFinished;
 import com.mutation.events.DriverStarted;
 import com.mutation.events.IEventListener;
@@ -38,39 +39,46 @@ public class Driver {
 	}
 
 	public void execute(List<EMutationOperator> operators) {
-		
+
 		eventListener.notifyEvent(new DriverStarted(operators));
 		Set<String> classUnderTestNames = classSetResolver.determineClassNames(eventListener);
-		
+
 		ByteCodeFileReader byteCodeFileReader = new ByteCodeFileReader();
 
 		for (String classUnderTestName : classUnderTestNames) {
 
-			String path = originalClassPath.getAbsolutePath() + "/" + classUnderTestName.replace('.', '/') + ".class";
-			File originalClassFile = new File(path);
-
-			byte[] byteCode = null;
-
 			try {
-				byteCode = byteCodeFileReader.readByteCodeFromDisk(originalClassFile);
-			} catch (IOException e) {
-				e.printStackTrace();
-				continue;
-			}
 
-			Set<String> testNames = testSetResolver.determineTests(classUnderTestName, eventListener);
+				byte[] byteCode = loadClass(byteCodeFileReader, classUnderTestName);
 
-			for (EMutationOperator operator : operators) {
+				Set<String> testNames = testSetResolver.determineTests(classUnderTestName, eventListener);
 
-				List<Mutant> mutants = mutantGenerator.generateMutants(classUnderTestName, byteCode, operator,
-						eventListener);
+				for (EMutationOperator operator : operators) {
 
-				for (Mutant mutant : mutants) {
-					testRunner.execute(mutant, testNames, eventListener);
+					List<Mutant> mutants = mutantGenerator.generateMutants(classUnderTestName, byteCode, operator,
+							eventListener);
+
+					for (Mutant mutant : mutants) {
+						testRunner.execute(mutant, testNames, eventListener);
+					}
 				}
+
+			} catch (IOException e) {
+				eventListener.notifyEvent(new ClassUnderTestNotFound(classUnderTestName));
+				e.printStackTrace();
 			}
+
 		}
 		eventListener.notifyEvent(new DriverFinished());
+	}
+
+	private byte[] loadClass(ByteCodeFileReader byteCodeFileReader, String classUnderTestName) throws IOException {
+
+		String path = originalClassPath.getAbsolutePath() + "/" + classUnderTestName.replace('.', '/') + ".class";
+
+		File originalClassFile = new File(path);
+
+		return byteCodeFileReader.readByteCodeFromDisk(originalClassFile);
 	}
 
 	public void setClassSetResolver(IClassSetResolver classSetResolver) {
