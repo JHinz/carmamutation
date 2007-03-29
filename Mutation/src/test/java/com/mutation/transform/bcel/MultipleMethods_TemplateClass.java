@@ -1,4 +1,4 @@
-package mut.mutantgen.bcel.common;
+package com.mutation.transform.bcel;
 
 public class MultipleMethods_TemplateClass {
 

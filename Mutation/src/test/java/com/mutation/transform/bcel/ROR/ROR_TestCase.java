@@ -1,23 +1,29 @@
-package mut.mutantgen.bcel.ROR;
+package com.mutation.transform.bcel.ROR;
 
 import java.lang.reflect.Method;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import junit.framework.TestCase;
-import mut.mutantgen.bcel.common.EventListenerMock;
+
+import org.apache.bcel.Repository;
 
 import com.mutation.EMutationOperator;
 import com.mutation.Mutant;
 import com.mutation.transform.bcel.MutantGenerator;
+import com.mutation.transform.util.EventListenerMock;
 
-public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
+public class ROR_TestCase extends TestCase {
 
 	// FileWriter writer = new FileWriter("mod.class");
 	// writer.write(new String(byteCode[0]));
 	// writer.flush();
 	// writer.close();
 
-	private static final String TEMPLATE_CLASS_NAME = "mut.mutantgen.bcel.ROR.IF_ICMPNE_to_IF_ICMPEQ_TemplateClass";
+	private static final String TEMPLATE_CLASS_NAME = "mut.mutantgen.bcel.ROR.IF_ICMPNE_and_IF_ICMPEQ_TemplateClass";
+
+	private byte[] classCode;
 
 	private class TestClassLoader extends ClassLoader {
 
@@ -32,7 +38,8 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 
 		MutantGenerator bcel = new MutantGenerator();
 
-		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, EMutationOperator.ROR, listenerMock);
+		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, Repository.lookupClass(TEMPLATE_CLASS_NAME)
+				.getBytes(), EMutationOperator.ROR, listenerMock);
 
 		assertEquals("Number of first level mutants incorrect", 2, mutants.size());
 	}
@@ -50,7 +57,8 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 
 		MutantGenerator bcel = new MutantGenerator();
 
-		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, EMutationOperator.ROR, listenerMock);
+		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, Repository.lookupClass(TEMPLATE_CLASS_NAME)
+				.getBytes(), EMutationOperator.ROR, listenerMock);
 
 		TestClassLoader loader = new TestClassLoader();
 
@@ -67,7 +75,7 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 		assertNotNull(resultObject);
 		assertTrue(resultObject.getClass().isInstance(new Integer(2)));
 		assertTrue(resultObject.getClass().isAssignableFrom(Integer.class));
-		assertEquals(2, resultObject);
+		assertEquals(1, resultObject);
 	}
 
 	public void test_IF_CMPNE_to_IF_CMPEQ_FirstBranchModifiedOnlyMutant_Case2() throws Exception {
@@ -76,7 +84,8 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 
 		MutantGenerator bcel = new MutantGenerator();
 
-		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, EMutationOperator.ROR, listenerMock);
+		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, Repository.lookupClass(TEMPLATE_CLASS_NAME)
+				.getBytes(), EMutationOperator.ROR, listenerMock);
 
 		TestClassLoader loader = new TestClassLoader();
 
@@ -102,7 +111,8 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 
 		MutantGenerator bcel = new MutantGenerator();
 
-		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, EMutationOperator.ROR, listenerMock);
+		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, Repository.lookupClass(TEMPLATE_CLASS_NAME)
+				.getBytes(), EMutationOperator.ROR, listenerMock);
 
 		TestClassLoader loader = new TestClassLoader();
 
@@ -128,7 +138,8 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 
 		MutantGenerator bcel = new MutantGenerator();
 
-		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, EMutationOperator.ROR, listenerMock);
+		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, Repository.lookupClass(TEMPLATE_CLASS_NAME)
+				.getBytes(), EMutationOperator.ROR, listenerMock);
 
 		TestClassLoader loader = new TestClassLoader();
 
@@ -145,7 +156,7 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 		assertNotNull(resultObject);
 		assertTrue(resultObject.getClass().isInstance(new Integer(2)));
 		assertTrue(resultObject.getClass().isAssignableFrom(Integer.class));
-		assertEquals(1, resultObject);
+		assertEquals(2, resultObject);
 	}
 
 	public void test_IF_CMPNE_to_IF_CMPEQ_SecondBranchModifiedOnlyMutant_Case1() throws Exception {
@@ -154,7 +165,8 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 
 		MutantGenerator bcel = new MutantGenerator();
 
-		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, EMutationOperator.ROR, listenerMock);
+		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, Repository.lookupClass(TEMPLATE_CLASS_NAME)
+				.getBytes(), EMutationOperator.ROR, listenerMock);
 
 		TestClassLoader loader = new TestClassLoader();
 
@@ -180,7 +192,8 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 
 		MutantGenerator bcel = new MutantGenerator();
 
-		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, EMutationOperator.ROR, listenerMock);
+		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, Repository.lookupClass(TEMPLATE_CLASS_NAME)
+				.getBytes(), EMutationOperator.ROR, listenerMock);
 
 		TestClassLoader loader = new TestClassLoader();
 
@@ -197,7 +210,7 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 		assertNotNull(resultObject);
 		assertTrue(resultObject.getClass().isInstance(new Integer(2)));
 		assertTrue(resultObject.getClass().isAssignableFrom(Integer.class));
-		assertEquals(1, resultObject);
+		assertEquals(2, resultObject);
 	}
 
 	public void test_IF_CMPNE_to_IF_CMPEQ_SecondBranchModifiedOnlyMutant_Case3() throws Exception {
@@ -206,7 +219,8 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 
 		MutantGenerator bcel = new MutantGenerator();
 
-		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, EMutationOperator.ROR, listenerMock);
+		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, Repository.lookupClass(TEMPLATE_CLASS_NAME)
+				.getBytes(), EMutationOperator.ROR, listenerMock);
 
 		TestClassLoader loader = new TestClassLoader();
 
@@ -223,7 +237,7 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 		assertNotNull(resultObject);
 		assertTrue(resultObject.getClass().isInstance(new Integer(2)));
 		assertTrue(resultObject.getClass().isAssignableFrom(Integer.class));
-		assertEquals(2, resultObject);
+		assertEquals(1, resultObject);
 	}
 
 	public void test_IF_CMPNE_to_IF_CMPEQ_SecondBranchModifiedOnlyMutant_Case4() throws Exception {
@@ -232,7 +246,8 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 
 		MutantGenerator bcel = new MutantGenerator();
 
-		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, EMutationOperator.ROR, listenerMock);
+		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, Repository.lookupClass(TEMPLATE_CLASS_NAME)
+				.getBytes(), EMutationOperator.ROR, listenerMock);
 
 		TestClassLoader loader = new TestClassLoader();
 
@@ -258,7 +273,11 @@ public class IF_ICMPNE_to_IF_ICMPEQ_TestCase extends TestCase {
 
 		MutantGenerator bcel = new MutantGenerator();
 
-		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, EMutationOperator.ROR, listenerMock);
+		Set<EMutationOperator> operators = new HashSet<EMutationOperator>();
+		operators.add(EMutationOperator.ROR);
+
+		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, Repository.lookupClass(TEMPLATE_CLASS_NAME)
+				.getBytes(), EMutationOperator.ROR, listenerMock);
 
 		assertEquals("Incorrect line number", 6, mutants.get(0).getSourceMapping().getLineNo());
 		assertEquals("Incorrect source reference class name", TEMPLATE_CLASS_NAME, mutants.get(0).getSourceMapping()
