@@ -1,16 +1,16 @@
-package mut.mutantgen.bcel.common;
+package com.mutation.transform.bcel;
 
 import java.util.List;
-import java.util.Vector;
 
 import junit.framework.TestCase;
+
+import org.apache.bcel.Repository;
 
 import com.mutation.EMutationInstruction;
 import com.mutation.EMutationOperator;
 import com.mutation.Mutant;
-import com.mutation.events.IEvent;
-import com.mutation.events.IEventListener;
 import com.mutation.transform.bcel.MutantGenerator;
+import com.mutation.transform.util.EventListenerMock;
 
 public class MultipleMethods_TestCase extends TestCase {
 
@@ -26,7 +26,8 @@ public class MultipleMethods_TestCase extends TestCase {
 		EventListenerMock listenerMock = new EventListenerMock();
 		MutantGenerator bcel = new MutantGenerator();
 
-		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, EMutationOperator.ROR, listenerMock);
+		List<Mutant> mutants = bcel.generateMutants(TEMPLATE_CLASS_NAME, Repository.lookupClass(TEMPLATE_CLASS_NAME)
+				.getBytes(), EMutationOperator.ROR, listenerMock);
 
 		assertEquals("Number of first level mutants incorrect", 4, mutants.size());
 
@@ -42,9 +43,9 @@ public class MultipleMethods_TestCase extends TestCase {
 
 		assertEquals("Number of IF_ICMPNE found does not match", 2, numberOf_IF_ICMPNE);
 		assertEquals("Number of IF_ICMPEQ found does not match", 2, numberOf_IF_ICMPEQ);
-		
-		assertEquals("Wrong number of events fired.", 1, listenerMock.events.size());
-		//TODO: add more detailed assertions for events
+
+		assertEquals("Wrong number of events fired.", 1, listenerMock.getEvents().size());
+		// TODO: add more detailed assertions for events
 	}
 
 }

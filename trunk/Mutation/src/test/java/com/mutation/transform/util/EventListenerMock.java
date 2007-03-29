@@ -1,4 +1,4 @@
-package mut.mutantgen.bcel.common;
+package com.mutation.transform.util;
 
 import java.util.Vector;
 
@@ -7,7 +7,7 @@ import com.mutation.events.IEventListener;
 
 public class EventListenerMock implements IEventListener {
 
-	Vector<IEvent> events = new Vector<IEvent>();
+	private Vector<IEvent> events = new Vector<IEvent>();
 	
 	public void notifyEvent(IEvent event) {
 		events.add(event);
