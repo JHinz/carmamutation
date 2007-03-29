@@ -20,5 +20,5 @@ public interface IMutantGenerator {
 	 * @return set of mutants
 	 */
 
-	public List<Mutant> generateMutants(String classUnderTest, EMutationOperator operator, IEventListener eventListener);
+	public List<Mutant> generateMutants(String classUnderTest, byte[] originalClassBytecode, EMutationOperator operator, IEventListener eventListener);
 }

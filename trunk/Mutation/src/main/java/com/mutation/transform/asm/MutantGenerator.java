@@ -14,7 +14,8 @@ public class MutantGenerator implements IMutantGenerator {
 
 	private File originalClassPath;
 
-	public List<Mutant> generateMutants(String classUnderTest, EMutationOperator operator, IEventListener listener) {
+	public List<Mutant> generateMutants(String classUnderTest, byte[] originalClassByteCode,
+			EMutationOperator operator, IEventListener listener) {
 
 		String path = originalClassPath.getAbsolutePath() + "/" + classUnderTest.replace('.', '/') + ".class";
 		File originalClassFile = new File(path);
