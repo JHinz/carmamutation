@@ -125,8 +125,8 @@ public class MutantGenerator implements IMutantGenerator {
 
 			}
 
-			bcelInstructions.dispose();
 		}
+		bcelInstructions.dispose();
 
 		return mutants;
 	}
