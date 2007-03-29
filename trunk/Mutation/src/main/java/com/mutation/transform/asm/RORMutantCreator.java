@@ -41,7 +41,7 @@ public class RORMutantCreator {
 			cr = new ClassReader(new FileInputStream(originalClassFile));
 		} catch (IOException e) {
 			e.printStackTrace();
-			eventListener.notifyEvent(new ClassUnderTestNotFound("classUnderTest"));
+			eventListener.notifyEvent(new ClassUnderTestNotFound(classUnderTest));
 			return result;
 		}
 
