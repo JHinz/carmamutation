@@ -1,17 +1,17 @@
 package com.mutation.events;
 
+import com.mutation.IClassSetResolver.ClassDescription;
 import com.mutation.util.ToStringUtils;
 
 public class ProcessingClassUnderTest implements IEvent {
-	private String classUnderTest;
+	
+	private ClassDescription classUnderTest;
 
-	private String classUnderTestFile;
-
-	public String getClassUnderTest() {
+	public ClassDescription getClassUnderTest() {
 		return classUnderTest;
 	}
 
-	public ProcessingClassUnderTest(String classUnderTest) {
+	public ProcessingClassUnderTest(ClassDescription classUnderTest) {
 		super();
 		this.classUnderTest = classUnderTest;
 	}
@@ -21,11 +21,4 @@ public class ProcessingClassUnderTest implements IEvent {
 		return ToStringUtils.toString(this);
 	}
 
-	public String getClassUnderTestFile() {
-		return classUnderTestFile;
-	}
-
-	public void setClassUnderTestFile(String classUnderTestFile) {
-		this.classUnderTestFile = classUnderTestFile;
-	}
 }

@@ -10,6 +10,7 @@ import java.util.Set;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+import com.mutation.IClassSetResolver.ClassDescription;
 import com.mutation.events.ClassUnderTestNotFound;
 import com.mutation.events.DriverFinished;
 import com.mutation.events.DriverStarted;
@@ -46,40 +47,41 @@ public class Driver {
 	public void execute(List<EMutationOperator> operators) {
 
 		eventListener.notifyEvent(new DriverStarted(operators));
-		Set<String> classUnderTestNames = classSetResolver.determineClassNames(eventListener);
+		Set<ClassDescription> classUnderTestNames = classSetResolver.determineClassNames(eventListener);
 
 		ByteCodeFileReader byteCodeFileReader = new ByteCodeFileReader();
 
-		for (String classUnderTestName : classUnderTestNames) {
+		for (ClassDescription classUnderTestDescription : classUnderTestNames) {
 
-			eventListener.notifyEvent(new ProcessingClassUnderTest(classUnderTestName));
+			eventListener.notifyEvent(new ProcessingClassUnderTest(classUnderTestDescription));
 
 			try {
 
-				byte[] byteCode = loadClass(byteCodeFileReader, classUnderTestName);
+				byte[] byteCode = loadClass(byteCodeFileReader, classUnderTestDescription.getClassName());
 
-				Set<String> testNames = testSetResolver.determineTests(classUnderTestName, eventListener);
+				Set<String> testNames = testSetResolver.determineTests(classUnderTestDescription.getClassName(),
+						eventListener);
 
 				for (EMutationOperator operator : operators) {
 
 					eventListener.notifyEvent(new ProcessingMutationOperator(operator.name()));
 
-					List<Mutant> mutants = mutantGenerator.generateMutants(classUnderTestName, byteCode, operator,
-							eventListener);
+					List<Mutant> mutants = mutantGenerator.generateMutants(classUnderTestDescription.className,
+							byteCode, operator, eventListener);
 
 					for (Mutant mutant : mutants) {
-						
+
 						eventListener.notifyEvent(new ProcessingMutant(mutant));
-						
+
 						testRunner.execute(mutant, testNames, eventListener);
 					}
 				}
 
 			} catch (IOException e) {
-				eventListener.notifyEvent(new ClassUnderTestNotFound(classUnderTestName));
+				eventListener.notifyEvent(new ClassUnderTestNotFound(classUnderTestDescription.className));
 				e.printStackTrace();
 			}
-			
+
 			eventListener.notifyEvent(new ProcessingClassUnderTestFinished());
 
 		}
