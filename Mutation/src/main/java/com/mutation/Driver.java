@@ -15,6 +15,8 @@ import com.mutation.events.DriverFinished;
 import com.mutation.events.DriverStarted;
 import com.mutation.events.IEventListener;
 import com.mutation.events.ProcessingClassUnderTest;
+import com.mutation.events.ProcessingClassUnderTestFinished;
+import com.mutation.events.ProcessingMutant;
 import com.mutation.events.ProcessingMutationOperator;
 import com.mutation.util.ByteCodeFileReader;
 
@@ -67,7 +69,7 @@ public class Driver {
 
 					for (Mutant mutant : mutants) {
 						
-						eventListener.notifyEvent(new ProcessingMutationOperator(operator.name()));
+						eventListener.notifyEvent(new ProcessingMutant(mutant));
 						
 						testRunner.execute(mutant, testNames, eventListener);
 					}
@@ -77,6 +79,8 @@ public class Driver {
 				eventListener.notifyEvent(new ClassUnderTestNotFound(classUnderTestName));
 				e.printStackTrace();
 			}
+			
+			eventListener.notifyEvent(new ProcessingClassUnderTestFinished());
 
 		}
 		eventListener.notifyEvent(new DriverFinished());

@@ -1,66 +1,53 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="1.0">
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="1.0">
 
-<xs:element name="mutationRun">
-  <xs:complexType>
-  <xs:sequence>
-    <xs:element name="processingInfo" type="ProcessingInfo" minOccurs="1" maxOccurs="1"/>
-	<xs:element name="mutationRatio" type="MutationRatio" minOccurs="1" maxOccurs="1"/>
-    <xs:element name="mutationSet" type="MutationSet" minOccurs="0" maxOccurs="unbounded"/>
-  </xs:sequence>
-  </xs:complexType>
-</xs:element>
+	<xs:element name="mutationRun">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="processingInfo" type="ProcessingInfo" />
+				<xs:element name="mutationRatio" type="MutationRatio" />
+				<xs:element name="classUnderTest" type="ClassUnderTest"
+					minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 
-<xs:complexType name="MutationSet">
-  <xs:sequence>
-    <xs:element name="name" type="xs:string"/>
-    <xs:element name="targetClass" type="xs:string"/>
-    <xs:element name="processingInfo" type="ProcessingInfo" minOccurs="1" maxOccurs="1"/>
-	<xs:element name="mutationRatio" type="MutationRatio" minOccurs="1" maxOccurs="1"/>
-    <xs:element name="sourceMapping" type="ProcessingInfo" minOccurs="1" maxOccurs="1"/>
-    <xs:element name="mutation" type="MutationOperator" minOccurs="0" maxOccurs="unbounded"/>
-  </xs:sequence>
-</xs:complexType>
+	<xs:complexType name="ClassUnderTest">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" />
+			<xs:element name="processingInfo" type="ProcessingInfo" />
+			<xs:element name="mutationRatio" type="MutationRatio" />
+			<xs:element name="baseClassFile" type="xs:string" />
+			<xs:element name="mutant" type="Mutant" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
 
-<xs:complexType name="MutationOperator" >
-  <xs:sequence>
-    <xs:element name="name" type="xs:string"/>
-    <xs:element name="mutationInstructions" type="MutationInstruction" minOccurs="0" maxOccurs="unbounded"/>
-  </xs:sequence>
-</xs:complexType>
+	<xs:complexType name="Mutant">
+		<xs:sequence>
+			<xs:element name="survived" type="xs:boolean" />
+			<xs:element name="name" type="xs:string" />
+			<xs:element name="operatorName" type="xs:string" />
+			<xs:element name="sourceInstruction" type="xs:string" />
+			<xs:element name="targetInstruction" type="xs:string" />
+			<xs:element name="baseSourceLine" type="xs:long" />
+		</xs:sequence>
+	</xs:complexType>
 
-<xs:complexType name="MutationInstruction" >
-  <xs:sequence>
-   <xs:element name="name" type="xs:string"/>
-   <xs:element name="sourceInstruction" type="xs:boolean"/>
-   <xs:element name="targetInstruction" type="xs:boolean"/>
-   <xs:element name="survived" type="xs:boolean"/>
-   <xs:element name="sourceMapping" type="SourceMapping" minOccurs="1" maxOccurs="1"/>
-  </xs:sequence>
-</xs:complexType>
+	<xs:complexType name="ProcessingInfo">
+		<xs:sequence>
+			<xs:element name="start" type="xs:dateTime" />
+			<xs:element name="duration" type="xs:long" />
+			<xs:element name="end" type="xs:dateTime" />
+		</xs:sequence>
+	</xs:complexType>
 
-<xs:complexType name="SourceMapping" >
-  <xs:sequence>
-   <xs:element name="className" type="xs:string"/>
-   <xs:element name="file" type="xs:string"/>
-   <xs:element name="sourceLine" type="xs:long"/>
-  </xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="ProcessingInfo" >
-  <xs:sequence>
-    <xs:element name="start" type="xs:dateTime"/>
-    <xs:element name="duration" type="xs:long"/>
-    <xs:element name="end" type="xs:dateTime"/>
-  </xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="MutationRatio" >
-  <xs:sequence>
-    <xs:element name="mutationCount" type="xs:long"/>
-    <xs:element name="survivorCount" type="xs:long"/>
-  </xs:sequence>
-</xs:complexType>
+	<xs:complexType name="MutationRatio">
+		<xs:sequence>
+			<xs:element name="mutationCount" type="xs:long" />
+			<xs:element name="survivorCount" type="xs:long" />
+		</xs:sequence>
+	</xs:complexType>
 
 </xs:schema>

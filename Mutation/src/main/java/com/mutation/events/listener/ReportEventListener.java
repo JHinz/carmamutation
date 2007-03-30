@@ -3,46 +3,89 @@ package com.mutation.events.listener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.GregorianCalendar;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 
 import com.mutation.events.IEvent;
 import com.mutation.events.IEventListener;
 import com.mutation.events.ProcessingClassUnderTest;
-import com.mutation.events.ProcessingMutationOperator;
-import com.mutation.report.om.MutationOperator;
+import com.mutation.events.ProcessingClassUnderTestFinished;
+import com.mutation.events.ProcessingMutant;
+import com.mutation.events.TestsExecuted;
+import com.mutation.report.om.ClassUnderTest;
+import com.mutation.report.om.Mutant;
+import com.mutation.report.om.MutationRatio;
 import com.mutation.report.om.MutationRun;
-import com.mutation.report.om.MutationSet;
+import com.mutation.report.om.ProcessingInfo;
 
 public class ReportEventListener implements IEventListener {
 
-	private MutationRun report;
+	private MutationRun run;
 
-	private MutationSet currentSet;
+	private ClassUnderTest currentClassUnderTestSubReport;
 
-	private MutationOperator currentOperator;
+	private Mutant currentMutantReport;
 
 	private String outputFile;
+
+	private GregorianCalendar calendar;
+
+	private long classProcessingStart;
+
+	private long classProcessingEnd;
+
+	private long runProcessingStart;
+
+	private long runProcessingEnd;
+
+	private long numberOfMutantsForRun;
+
+	private long numberOfSurvivorsForRun;
+
+	private long numberOfMutantsForClass;
+
+	private long numberOfSurvivorsForClass;
 
 	public ReportEventListener(String fileName) throws JAXBException {
 
 		System.out.print("Initializing XML report");
 
-		report = new MutationRun();
+		run = new MutationRun();
 		this.outputFile = fileName;
+
+		calendar = new GregorianCalendar();
+		runProcessingStart = System.currentTimeMillis();
 
 	}
 
 	public void destroy() {
 
 		System.out.print("Finishing XML report");
+
+		runProcessingEnd = System.currentTimeMillis();
+
+		try {
+			ProcessingInfo info = new ProcessingInfo();
+			info.setDuration(runProcessingEnd - runProcessingStart);
+			calendar.setTimeInMillis(runProcessingStart);
+			info.setStart(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
+			calendar.setTimeInMillis(runProcessingEnd);
+			info.setEnd(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
+			run.setProcessingInfo(info);
+		} catch (DatatypeConfigurationException e) {
+			e.printStackTrace();
+		}
+
 		try {
 			JAXBContext context = JAXBContext.newInstance(MutationRun.class);
 			Marshaller marshaller = context.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			marshaller.marshal(report, new FileOutputStream(new File(outputFile)));
+			marshaller.marshal(run, new FileOutputStream(new File(outputFile)));
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
@@ -57,24 +100,74 @@ public class ReportEventListener implements IEventListener {
 
 		if (event instanceof ProcessingClassUnderTest) {
 
+			classProcessingStart = System.currentTimeMillis();
+
 			ProcessingClassUnderTest eventObj = (ProcessingClassUnderTest) event;
 
-			currentSet = new MutationSet();
-			currentSet.setTargetClass(eventObj.getClassUnderTest());
+			currentClassUnderTestSubReport = new ClassUnderTest();
+			currentClassUnderTestSubReport.setName(eventObj.getClassUnderTest());
+			currentClassUnderTestSubReport.setBaseClassFile(eventObj.getClassUnderTestFile());
 
-			report.getMutationSet().add(currentSet);
+			MutationRatio ratio = new MutationRatio();
+			currentClassUnderTestSubReport.setMutationRatio(new MutationRatio());
+
+			run.getClassUnderTest().add(currentClassUnderTestSubReport);
 			return;
 
 		}
 
-		if (event instanceof ProcessingMutationOperator) {
+		if (event instanceof ProcessingClassUnderTestFinished) {
 
-			ProcessingMutationOperator eventObj = (ProcessingMutationOperator) event;
+			ClassUnderTest classUnderTest = run.getClassUnderTest().get(run.getClassUnderTest().size() - 1);
 
-			currentOperator = new MutationOperator();
-			currentOperator.setName(eventObj.getOperatorName());
+			classProcessingEnd = System.currentTimeMillis();
+			try {
+				ProcessingInfo info = new ProcessingInfo();
+				info.setDuration(classProcessingEnd - classProcessingStart);
+				calendar.setTimeInMillis(classProcessingStart);
+				info.setStart(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
+				calendar.setTimeInMillis(classProcessingEnd);
+				info.setEnd(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
+				classUnderTest.setProcessingInfo(info);
+			} catch (DatatypeConfigurationException e) {
+				e.printStackTrace();
+			}
 
-			currentSet.getMutation().add(currentOperator);
+			return;
+
+		}
+
+		if (event instanceof ProcessingMutant) {
+
+			ProcessingMutant eventObj = (ProcessingMutant) event;
+
+			Mutant mutant = new Mutant();
+			mutant.setName(eventObj.getMutant().getName());
+			mutant.setBaseSourceLine(eventObj.getMutant().getSourceMapping().getLineNo());
+			mutant.setOperatorName(eventObj.getMutant().getMutationType().name());
+
+			currentMutantReport = mutant;
+
+			currentClassUnderTestSubReport.getMutant().add(currentMutantReport);
+
+			return;
+
+		}
+
+		if (event instanceof TestsExecuted) {
+
+			TestsExecuted eventObj = (TestsExecuted) event;
+
+			currentMutantReport.setSurvived(eventObj.isMutantSurvived());
+
+			currentClassUnderTestSubReport.getMutationRatio().setMutationCount(
+					currentClassUnderTestSubReport.getMutationRatio().getMutationCount() + 1);
+
+			if (eventObj.isMutantSurvived()) {
+				currentClassUnderTestSubReport.getMutationRatio().setSurvivorCount(
+
+				currentClassUnderTestSubReport.getMutationRatio().getSurvivorCount() + 1);
+			}
 
 			return;
 

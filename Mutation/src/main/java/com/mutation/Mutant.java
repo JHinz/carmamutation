@@ -30,6 +30,13 @@ public class Mutant {
 	private String changeDescription;
 	private EMutationOperator mutationType;
 	private EMutationInstruction mutationOperator;
+	private boolean survived;
+	public boolean isSurvived() {
+		return survived;
+	}
+	public void setSurvived(boolean survived) {
+		this.survived = survived;
+	}
 	public byte[] getByteCode() {
 		return byteCode;
 	}
