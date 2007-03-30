@@ -81,6 +81,11 @@ public class ReportEventListener implements IEventListener {
 			e.printStackTrace();
 		}
 
+		MutationRatio ratio = new MutationRatio();
+		ratio.setMutationCount(numberOfMutantsForRun);
+		ratio.setSurvivorCount(numberOfSurvivorsForRun);
+		run.setMutationRatio(ratio);
+
 		try {
 			JAXBContext context = JAXBContext.newInstance(MutationRun.class);
 			Marshaller marshaller = context.createMarshaller();
@@ -108,9 +113,6 @@ public class ReportEventListener implements IEventListener {
 			currentClassUnderTestSubReport.setName(eventObj.getClassUnderTest());
 			currentClassUnderTestSubReport.setBaseClassFile(eventObj.getClassUnderTestFile());
 
-			MutationRatio ratio = new MutationRatio();
-			currentClassUnderTestSubReport.setMutationRatio(new MutationRatio());
-
 			run.getClassUnderTest().add(currentClassUnderTestSubReport);
 			return;
 
@@ -132,6 +134,13 @@ public class ReportEventListener implements IEventListener {
 			} catch (DatatypeConfigurationException e) {
 				e.printStackTrace();
 			}
+
+			MutationRatio ratio = new MutationRatio();
+
+			ratio.setMutationCount(numberOfMutantsForClass);
+			ratio.setSurvivorCount(numberOfSurvivorsForClass);
+
+			classUnderTest.setMutationRatio(ratio);
 
 			return;
 
@@ -160,13 +169,12 @@ public class ReportEventListener implements IEventListener {
 
 			currentMutantReport.setSurvived(eventObj.isMutantSurvived());
 
-			currentClassUnderTestSubReport.getMutationRatio().setMutationCount(
-					currentClassUnderTestSubReport.getMutationRatio().getMutationCount() + 1);
+			numberOfMutantsForClass++;
+			numberOfMutantsForRun++;
 
 			if (eventObj.isMutantSurvived()) {
-				currentClassUnderTestSubReport.getMutationRatio().setSurvivorCount(
-
-				currentClassUnderTestSubReport.getMutationRatio().getSurvivorCount() + 1);
+				numberOfSurvivorsForClass++;
+				numberOfSurvivorsForRun++;
 			}
 
 			return;
@@ -174,5 +182,4 @@ public class ReportEventListener implements IEventListener {
 		}
 
 	}
-
 }
