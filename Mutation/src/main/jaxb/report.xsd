@@ -19,6 +19,7 @@
 			<xs:element name="processingInfo" type="ProcessingInfo" />
 			<xs:element name="mutationRatio" type="MutationRatio" />
 			<xs:element name="baseClassFile" type="xs:string" />
+			<xs:element name="baseSourceFile" type="xs:string" />
 			<xs:element name="mutant" type="Mutant" minOccurs="0"
 				maxOccurs="unbounded" />
 		</xs:sequence>
