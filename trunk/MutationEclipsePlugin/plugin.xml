@@ -26,5 +26,18 @@
 			name="Mutation Test">
 		</page>
 	</extension>
+	
+	<extension
+         point="org.eclipse.ui.propertyPages">
+
+      <page
+            objectClass="org.eclipse.core.resources.IProject"
+            adaptable="true"
+            name="MutationPropertyPage"
+            class="com.mutation.eclipse.preferences.ProjectPropertyPage"
+            id="com.mutation.eclipse.preferences.ProjectPropertyPage">
+      </page>
+
+   </extension>
 
 </plugin>
