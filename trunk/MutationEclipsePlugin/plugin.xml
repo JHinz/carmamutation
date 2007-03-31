@@ -39,5 +39,16 @@
       </page>
 
    </extension>
+   
+ 
+<extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="com.mutation.eclipse.MutationLauncher"
+            id="com.mutation.eclipse.MutationLaunchConfigurationType"
+            modes="run"
+            name="Mutation Runner"
+            public="true"/>
+   </extension>
 
 </plugin>
