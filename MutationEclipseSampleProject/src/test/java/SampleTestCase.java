@@ -1,10 +1,6 @@
 
-
 import junit.framework.TestCase;
 
-import com.mutation.annotations.MutationPair;
-
-@MutationPair(testCaseClassName = "sample.Sample")
 public class SampleTestCase extends TestCase {
 
 	public void testDecide() {
