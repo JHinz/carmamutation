@@ -56,6 +56,8 @@
 		<property name="testSetResolver" ref="testSetResolver" />
 		<property name="eventListener" ref="eventListener" />
 		<property name="mutantGenerator" ref="mutantGenerator" />
+		<property name="originalClassPath" ref="classesDir" />
+		
 	</bean>
 
 	<bean id="file.eventListener" class="com.mutation.events.listener.FileEventListener" destroy-method="destroy" >
