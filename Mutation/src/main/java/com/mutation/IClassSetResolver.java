@@ -3,6 +3,7 @@ package com.mutation;
 import java.util.Set;
 
 import com.mutation.events.IEventListener;
+import com.mutation.util.ToStringUtils;
 
 public interface IClassSetResolver {
 
@@ -26,6 +27,11 @@ public interface IClassSetResolver {
 
 		public void setClassName(String className) {
 			this.className = className;
+		}
+
+		@Override
+		public String toString() {
+			return ToStringUtils.toString(this);
 		}
 	}
 
