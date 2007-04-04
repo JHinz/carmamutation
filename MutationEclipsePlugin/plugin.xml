@@ -11,6 +11,7 @@
 			id="mutationeclipseplugin.views.SampleView">
 		</view>
 	</extension>
+	
 	<extension point="org.eclipse.ui.perspectiveExtensions">
 		<perspectiveExtension
 			targetID="org.eclipse.ui.resourcePerspective">
@@ -26,29 +27,30 @@
 			name="Mutation Test">
 		</page>
 	</extension>
-	
+
+	<extension point="org.eclipse.ui.propertyPages">
+		<page objectClass="org.eclipse.core.resources.IProject"
+			adaptable="true" name="MutationPropertyPage"
+			class="com.mutation.eclipse.preferences.ProjectPropertyPage"
+			id="com.mutation.eclipse.preferences.ProjectPropertyPage">
+		</page>
+	</extension>
+
 	<extension
-         point="org.eclipse.ui.propertyPages">
+		point="org.eclipse.debug.core.launchConfigurationTypes">
+		<launchConfigurationType
+			delegate="com.mutation.eclipse.launch.Launcher"
+			id="com.mutation.eclipse.LaunchConfigurationType" modes="run"
+			name="Mutation Runner" public="true" />
+	</extension>
 
-      <page
-            objectClass="org.eclipse.core.resources.IProject"
-            adaptable="true"
-            name="MutationPropertyPage"
-            class="com.mutation.eclipse.preferences.ProjectPropertyPage"
-            id="com.mutation.eclipse.preferences.ProjectPropertyPage">
-      </page>
-
-   </extension>
-   
- 
-<extension
-         point="org.eclipse.debug.core.launchConfigurationTypes">
-      <launchConfigurationType
-            delegate="com.mutation.eclipse.MutationLauncher"
-            id="com.mutation.eclipse.MutationLaunchConfigurationType"
-            modes="run"
-            name="Mutation Runner"
-            public="true"/>
-   </extension>
+	<extension
+		point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+		<launchConfigurationTabGroup
+			class="com.mutation.eclipse.launch.LaunchConfigurationTabGroup"
+			description="Create a new mutation run"
+			id="com.mutation.eclipse.launch.LaunchConfigurationTabGroup"
+			type="com.mutation.eclipse.LaunchConfigurationType" />
+	</extension>
 
 </plugin>
