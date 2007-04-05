@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.mutation.IClassSetResolver.ClassDescription;
@@ -36,7 +37,7 @@ public class Driver {
 	private File originalClassPath;
 
 	public static void main(String[] args) throws MalformedURLException, FileNotFoundException {
-		AbstractApplicationContext factory = new FileSystemXmlApplicationContext("mutationconfig.xml");
+		AbstractApplicationContext factory = new ClassPathXmlApplicationContext("mutationconfig.xml");
 		factory.registerShutdownHook();
 
 		List<EMutationOperator> operators = (List<EMutationOperator>) factory.getBean("operators");
