@@ -1,0 +1,19 @@
+<assembly>
+	<id>with-packed-dependencies</id>
+	<formats>
+		<format>zip</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<dependencySets>
+		<dependencySet>
+			<outputDirectory>lib</outputDirectory>
+			<scope>runtime</scope>
+		</dependencySet>
+	</dependencySets>
+	<fileSets>
+		<fileSet>
+			<directory>target/classes</directory>
+			<outputDirectory></outputDirectory>
+		</fileSet>
+	</fileSets>
+</assembly>
