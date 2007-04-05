@@ -40,7 +40,7 @@
 		point="org.eclipse.debug.core.launchConfigurationTypes">
 		<launchConfigurationType
 			delegate="com.mutation.eclipse.launch.Launcher"
-			id="com.mutation.eclipse.LaunchConfigurationType" modes="run"
+			id="com.mutation.eclipse.LaunchConfigurationType" modes="run,debug"
 			name="Mutation Runner" public="true" />
 	</extension>
 
