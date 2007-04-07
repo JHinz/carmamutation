@@ -4,11 +4,11 @@
   http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.mutation</groupId>
-	<artifactId>Mutation</artifactId>
+	<groupId>com.mutation.core</groupId>
+	<artifactId>MutationCore</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>Mutation</name>
+	<name>Mutation Core</name>
 
 	<dependencies>
 		<dependency>
@@ -67,6 +67,32 @@
 					<descriptors>
 						<descriptor>src/assembly/src.xml</descriptor>
 					</descriptors>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<additionalProjectnatures>
+						<projectnature>
+							org.eclipse.pde.PluginNature
+						</projectnature>
+						<projectnature>
+							org.eclipse.jdt.core.javanature
+						</projectnature>
+					</additionalProjectnatures>
+					<additionalBuildcommands>
+						<buildcommand>
+							org.eclipse.jdt.core.javabuilder
+						</buildcommand>
+						<buildcommand>
+							org.eclipse.pde.SchemaBuilder
+						</buildcommand>
+						<buildcommand>
+							org.eclipse.pde.ManifestBuilder
+						</buildcommand>
+					</additionalBuildcommands>
 				</configuration>
 			</plugin>
 		</plugins>
