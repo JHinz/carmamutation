@@ -2,7 +2,6 @@ package com.mutation;
 
 import java.util.Set;
 
-import com.mutation.events.IEventListener;
 import com.mutation.util.ToStringUtils;
 
 public interface IClassSetResolver {
@@ -35,6 +34,6 @@ public interface IClassSetResolver {
 		}
 	}
 
-	Set<ClassDescription> determineClassNames(IEventListener eventListener);
+	Set<ClassDescription> determineClassNames();
 
 }

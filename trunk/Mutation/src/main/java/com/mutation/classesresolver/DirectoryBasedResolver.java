@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.mutation.IClassSetResolver;
-import com.mutation.events.ClassesUnderTestResolved;
-import com.mutation.events.IEventListener;
 
 /**
  * determines set of all classes within a directory of class files
@@ -20,11 +18,10 @@ public class DirectoryBasedResolver implements IClassSetResolver {
 	 */
 	private File classesBaseDir;
 
-	public Set<ClassDescription> determineClassNames(IEventListener eventListener) {
+	public Set<ClassDescription> determineClassNames() {
 		Set<ClassDescription> classDescriptions = new HashSet<ClassDescription>();
 		iterate(this.classesBaseDir, "", "", classDescriptions);
 
-		eventListener.notifyEvent(new ClassesUnderTestResolved(classDescriptions));
 		return classDescriptions;
 	}
 
@@ -65,7 +62,7 @@ public class DirectoryBasedResolver implements IClassSetResolver {
 
 					ClassDescription desc = new ClassDescription();
 					desc.setClassName(packagePrefix + "." + relClassName);
-					desc.setClassFile(file.getPath() );
+					desc.setClassFile(file.getPath());
 					classNames.add(desc);
 				}
 			}
