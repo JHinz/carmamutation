@@ -39,7 +39,7 @@
 	<bean id="operators"
 		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 		<property name="targetClass">
-			<value>com.mutation.EMutationOperator</value>
+			<value>com.mutation.runner.EMutationOperator</value>
 		</property>
 		<property name="targetMethod">
 			<value>getFromCsvList</value>
@@ -57,7 +57,7 @@
 	</bean>
 
 	<!-- the core mutation runner class which executes the tests -->
-	<bean id="runner" class="com.mutation.MutationRunner">
+	<bean id="runner" class="com.mutation.runner.MutationRunner">
 		<property name="testRunner" ref="testRunner" />
 		<property name="eventListener" ref="report.eventListener" />
 		<property name="mutantGenerator" ref="bcel.mutantGenerator" />
