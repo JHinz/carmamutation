@@ -3,10 +3,12 @@ package com.mutation;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import com.mutation.IClassSetResolver.ClassDescription;
+import com.mutation.events.IEvent;
 import com.mutation.events.IEventListener;
 import com.mutation.events.ProcessingClassUnderTest;
 import com.mutation.events.ProcessingClassUnderTestFinished;
@@ -55,7 +57,7 @@ public class MutationRunner {
 				testRunner.execute(mutant, testNames, eventListener);
 			}
 		}
-		
+
 		eventListener.notifyEvent(new ProcessingClassUnderTestFinished());
 
 	}
@@ -70,8 +72,14 @@ public class MutationRunner {
 	 * @param testNames
 	 * @throws IOException
 	 */
-	public void performMutations(List<String> operators, String classUnderTest, String classUnderTestFile,
+	private void performMutations(List<String> operators, String classUnderTest, String classUnderTestFile,
 			Set<String> testNames) throws IOException {
+
+		this.eventListener = new IEventListener() {
+
+			public void notifyEvent(IEvent event) {
+			};
+		};
 
 		List<EMutationOperator> convertedOperators = new ArrayList<EMutationOperator>();
 
@@ -81,6 +89,30 @@ public class MutationRunner {
 
 		performMutations(convertedOperators, new ByteCodeFileReader(), classUnderTestDescription, testNames);
 
+	}
+
+	public static void main(String[] argv) {
+
+		MutationRunner runner = new MutationRunner();
+
+		List<String> operators = new ArrayList<String>();
+		operators.add(EMutationOperator.ROR.name());
+
+		String classUnderTest = "Sample";
+
+		String classUnderTestFile = "Sample.class";
+
+		Set<String> testNames = new HashSet<String>();
+		testNames.add("SampleTestCase");
+
+		runner.setOriginalClassPath(new File(
+				"/Users/raua/Documents/runtime-EclipseApplication/MutationEclipseSampleProject/target/classes"));
+
+		try {
+			runner.performMutations(operators, classUnderTest, classUnderTestFile, testNames);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private byte[] loadClass(ByteCodeFileReader byteCodeFileReader, String classUnderTestName) throws IOException {
