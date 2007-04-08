@@ -24,6 +24,16 @@ public class MutationRunner {
 
 	private IEventListener eventListener;
 
+	/**
+	 * 
+	 * Integration interface method for direct access using complex datatypes.
+	 * 
+	 * @param operators
+	 * @param byteCodeFileReader
+	 * @param classUnderTestDescription
+	 * @param testNames
+	 * @throws IOException
+	 */
 	public void performMutations(List<EMutationOperator> operators, ByteCodeFileReader byteCodeFileReader,
 			ClassDescription classUnderTestDescription, Set<String> testNames) throws IOException {
 
