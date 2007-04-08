@@ -6,9 +6,9 @@ import junit.framework.TestCase;
 
 import org.apache.bcel.Repository;
 
-import com.mutation.EMutationInstruction;
-import com.mutation.EMutationOperator;
-import com.mutation.Mutant;
+import com.mutation.runner.EMutationInstruction;
+import com.mutation.runner.EMutationOperator;
+import com.mutation.runner.Mutant;
 import com.mutation.transform.util.EventListenerMock;
 
 public class MultipleMethods_TestCase extends TestCase {

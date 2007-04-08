@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.mutation.IClassSetResolver;
+import com.mutation.runner.IClassSetResolver;
 
 /**
  * determines set of all classes within a directory of class files

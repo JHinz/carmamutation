@@ -7,8 +7,8 @@ import junit.framework.TestCase;
 
 import org.apache.bcel.Repository;
 
-import com.mutation.EMutationOperator;
-import com.mutation.Mutant;
+import com.mutation.runner.EMutationOperator;
+import com.mutation.runner.Mutant;
 import com.mutation.transform.bcel.MutantGenerator;
 import com.mutation.transform.util.EventListenerMock;
 

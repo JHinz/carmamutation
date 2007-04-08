@@ -4,15 +4,15 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.mutation.Mutant;
 import com.mutation.events.ClassesUnderTestResolved;
 import com.mutation.events.DriverFinished;
 import com.mutation.events.DriverStarted;
-import com.mutation.events.IEvent;
-import com.mutation.events.IEventListener;
-import com.mutation.events.MutantsGenerated;
 import com.mutation.events.TestsExecuted;
-import com.mutation.util.StopWatch;
+import com.mutation.runner.Mutant;
+import com.mutation.runner.events.IEvent;
+import com.mutation.runner.events.IEventListener;
+import com.mutation.runner.events.MutantsGenerated;
+import com.mutation.runner.utililties.StopWatch;
 
 public class ConsoleEventListener  implements IEventListener {
 	int numSurvivers;

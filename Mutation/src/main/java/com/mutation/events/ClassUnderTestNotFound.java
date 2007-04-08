@@ -1,6 +1,6 @@
 package com.mutation.events;
 
-import com.mutation.util.ToStringUtils;
+import com.mutation.runner.utililties.ToStringUtils;
 
 public class ClassUnderTestNotFound implements IErrorEvent {
 

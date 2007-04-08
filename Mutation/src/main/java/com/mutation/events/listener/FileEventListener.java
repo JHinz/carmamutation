@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Date;
 
-import com.mutation.events.IEvent;
-import com.mutation.events.IEventListener;
+import com.mutation.runner.events.IEvent;
+import com.mutation.runner.events.IEventListener;
 
 public class FileEventListener implements IEventListener {
 	private PrintWriter writer;

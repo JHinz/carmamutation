@@ -3,7 +3,7 @@ package com.mutation.testsetresolver;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.mutation.ITestSetResolver;
+import com.mutation.runner.ITestSetResolver;
 
 /**
  * determines test set as a single test per class using a suffix naming

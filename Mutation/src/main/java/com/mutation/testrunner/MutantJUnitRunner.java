@@ -7,7 +7,7 @@ import junit.framework.TestResult;
 import junit.runner.BaseTestRunner;
 import junit.runner.TestSuiteLoader;
 
-import com.mutation.Mutant;
+import com.mutation.runner.Mutant;
 
 /**
  * JUnit Runner for mutation tests. Uses specific class loeader to load thze mutants
