@@ -53,7 +53,7 @@ public class ReportEventListener implements IEventListener {
 
 	public ReportEventListener(String fileName) throws JAXBException {
 
-		System.out.print("Initializing XML report");
+		System.out.print("Initializing XML report: " + fileName);
 
 		run = new MutationRun();
 		this.outputFile = fileName;

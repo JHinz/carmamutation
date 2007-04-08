@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 
-<beans >
+<beans>
 	<!-- property placeholder post-processor -->
 	<bean id="placeholderConfig"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -49,21 +49,39 @@
 		</property>
 	</bean>
 
-	<!-- the driver main class which executes the tests -->
-	<bean id="testDriver" class="com.mutation.Driver">
-		<property name="testRunner" ref="testRunner" />
+	<!-- the driver main class which constructs a proper mutation runner -->
+	<bean id="testDriver" class="com.mutation.BasicDriver">
 		<property name="classSetResolver" ref="classUnderTestResolver" />
 		<property name="testSetResolver" ref="testSetResolver" />
-		<property name="eventListener" ref="eventListener" />
-		<property name="mutantGenerator" ref="mutantGenerator" />
-		<property name="originalClassPath" ref="classesDir" />
-		
+		<property name="runner" ref="runner" />
 	</bean>
 
-	<bean id="file.eventListener" class="com.mutation.events.listener.FileEventListener" destroy-method="destroy" >
-		<constructor-arg><value>${log.filename}</value></constructor-arg>
+	<!-- the core mutation runner class which executes the tests -->
+	<bean id="runner" class="com.mutation.MutationRunner">
+		<property name="testRunner" ref="testRunner" />
+		<property name="eventListener" ref="report.eventListener" />
+		<property name="mutantGenerator" ref="bcel.mutantGenerator" />
+		<property name="originalClassPath" ref="classesDir" />
 	</bean>
-	<bean id="eventListener" class="com.mutation.events.listener.ConsoleEventListener" >
+
+	<bean id="file.eventListener"
+		class="com.mutation.events.listener.FileEventListener"
+		destroy-method="destroy">
+		<constructor-arg>
+			<value>${log.filename}</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="report.eventListener"
+		class="com.mutation.events.listener.ReportEventListener"
+		destroy-method="destroy">
+		<constructor-arg>
+			<value>${report.filename}</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="eventListener"
+		class="com.mutation.events.listener.ConsoleEventListener">
 	</bean>
 
 	<bean id="testRunner" class="com.mutation.testrunner.JUnitRunner">
@@ -86,10 +104,12 @@
 		<property name="testCaseSuffix" value="${testCaseSuffix}" />
 	</bean>
 
-	<bean id="bcel.mutantGenerator" class="com.mutation.transform.bcel.MutantGenerator">
+	<bean id="bcel.mutantGenerator"
+		class="com.mutation.transform.bcel.MutantGenerator">
 	</bean>
 
-	<bean id="mutantGenerator" class="com.mutation.transform.asm.MutantGenerator">
+	<bean id="mutantGenerator"
+		class="com.mutation.transform.asm.MutantGenerator">
 		<property name="originalClassPath" ref="classesDir"></property>
 	</bean>
 
