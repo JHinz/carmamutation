@@ -61,40 +61,6 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<descriptors>
-						<descriptor>src/assembly/src.xml</descriptor>
-					</descriptors>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<configuration>
-					<additionalProjectnatures>
-						<projectnature>
-							org.eclipse.pde.PluginNature
-						</projectnature>
-						<projectnature>
-							org.eclipse.jdt.core.javanature
-						</projectnature>
-					</additionalProjectnatures>
-					<additionalBuildcommands>
-						<buildcommand>
-							org.eclipse.jdt.core.javabuilder
-						</buildcommand>
-						<buildcommand>
-							org.eclipse.pde.SchemaBuilder
-						</buildcommand>
-						<buildcommand>
-							org.eclipse.pde.ManifestBuilder
-						</buildcommand>
-					</additionalBuildcommands>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 
