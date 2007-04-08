@@ -2,8 +2,8 @@ package com.mutation.transform.util;
 
 import java.util.Vector;
 
-import com.mutation.events.IEvent;
-import com.mutation.events.IEventListener;
+import com.mutation.runner.events.IEvent;
+import com.mutation.runner.events.IEventListener;
 
 public class EventListenerMock implements IEventListener {
 

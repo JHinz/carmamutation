@@ -9,8 +9,12 @@ import java.util.Set;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.mutation.IClassSetResolver.ClassDescription;
-import com.mutation.util.ByteCodeFileReader;
+import com.mutation.runner.EMutationOperator;
+import com.mutation.runner.IClassSetResolver;
+import com.mutation.runner.ITestSetResolver;
+import com.mutation.runner.MutationRunner;
+import com.mutation.runner.IClassSetResolver.ClassDescription;
+import com.mutation.runner.utililties.ByteCodeFileReader;
 
 public class BasicDriver {
 

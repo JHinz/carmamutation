@@ -1,6 +1,7 @@
 package com.mutation.events;
 
-import com.mutation.util.ToStringUtils;
+import com.mutation.runner.events.IEvent;
+import com.mutation.runner.utililties.ToStringUtils;
 
 public class DriverFinished implements IEvent {
 	@Override

@@ -10,11 +10,11 @@ import java.util.TreeSet;
 import junit.framework.Test;
 import junit.framework.TestResult;
 
-import com.mutation.ITestRunner;
-import com.mutation.Mutant;
-import com.mutation.events.IEventListener;
 import com.mutation.events.TestNotExecuted;
 import com.mutation.events.TestsExecuted;
+import com.mutation.runner.ITestRunner;
+import com.mutation.runner.Mutant;
+import com.mutation.runner.events.IEventListener;
 
 /**
  * Executes mutation tests using junit tests
