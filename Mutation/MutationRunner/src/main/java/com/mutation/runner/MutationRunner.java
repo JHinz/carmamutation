@@ -2,6 +2,8 @@ package com.mutation.runner;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +17,7 @@ import com.mutation.runner.events.ProcessingClassUnderTestFinished;
 import com.mutation.runner.events.ProcessingMutant;
 import com.mutation.runner.events.ProcessingMutationOperator;
 import com.mutation.runner.utililties.ByteCodeFileReader;
+import com.mutation.testrunner.JUnitRunner;
 
 public class MutationRunner {
 
@@ -81,7 +84,10 @@ public class MutationRunner {
 			};
 		};
 
+		this.mutantGenerator = new com.mutation.transform.bcel.MutantGenerator();
+
 		List<EMutationOperator> convertedOperators = new ArrayList<EMutationOperator>();
+		convertedOperators.add(EMutationOperator.ROR);
 
 		ClassDescription classUnderTestDescription = new ClassDescription();
 		classUnderTestDescription.setClassFile(classUnderTestFile);
@@ -91,22 +97,38 @@ public class MutationRunner {
 
 	}
 
+	/**
+	 * Public main method for integration via creation of a new JVM (e.g. from
+	 * eclipse).
+	 * 
+	 * @param argv
+	 */
 	public static void main(String[] argv) {
 
+		JUnitRunner testRunner = new JUnitRunner();
+		testRunner.setStopOnFirstFailedTest(false);
+		try {
+			testRunner.setTestClassesLocations(new URL[] { new URL(
+					"file:/Users/raua/Documents/workspace/SampleProjectUnderTest/target/test-classes") });
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
+			return;
+		}
+
 		MutationRunner runner = new MutationRunner();
+		runner.setTestRunner(testRunner);
 
 		List<String> operators = new ArrayList<String>();
 		operators.add(EMutationOperator.ROR.name());
 
-		String classUnderTest = "Sample";
+		String classUnderTest = "com.mutation.test.Sample";
 
-		String classUnderTestFile = "Sample.class";
+		String classUnderTestFile = "com/mutation/test/Sample.class";
 
 		Set<String> testNames = new HashSet<String>();
-		testNames.add("SampleTestCase");
+		testNames.add("com.mutation.test.SampleTestCase");
 
-		runner.setOriginalClassPath(new File(
-				"/Users/raua/Documents/runtime-EclipseApplication/MutationEclipseSampleProject/target/classes"));
+		runner.setOriginalClassPath(new File("../../../SampleProjectUnderTest/target/classes"));
 
 		try {
 			runner.performMutations(operators, classUnderTest, classUnderTestFile, testNames);
