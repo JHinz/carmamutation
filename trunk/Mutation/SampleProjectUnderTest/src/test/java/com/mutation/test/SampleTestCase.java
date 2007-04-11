@@ -1,3 +1,4 @@
+package com.mutation.test;
 
 import junit.framework.TestCase;
 
