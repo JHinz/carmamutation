@@ -1,13 +1,18 @@
 package com.mutation.testrunner;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.net.URL;
 
 import junit.framework.Test;
 import junit.framework.TestResult;
+import junit.framework.TestSuite;
 import junit.runner.BaseTestRunner;
 import junit.runner.TestSuiteLoader;
 
 import com.mutation.runner.Mutant;
+import com.mutation.runner.utililties.ClassLoaderInfo;
 
 /**
  * JUnit Runner for mutation tests. Uses specific class loeader to load thze mutants
@@ -26,10 +31,65 @@ public class MutantJUnitRunner extends BaseTestRunner {
 
 	public MutantJUnitRunner(URL[] testClassesLocation, Mutant mutant) {
 
+//		ClassLoaderInfo.printLoader(getClass());
 		mutantLoader = new MutationClassLoader(testClassesLocation, mutant
-				.getClassName(), mutant.getByteCode());
+				.getClassName(), mutant.getByteCode(), getClass().getClassLoader());
 		loader = new MyTestSuiteLoader();
 	}
+	
+	/**
+	 * Returns the Test corresponding to the given suite. This is
+	 * a template method, subclasses override runFailed(), clearStatus().
+	 */
+	public Test getTest(String suiteClassName) {
+		if (suiteClassName.length() <= 0) {
+			clearStatus();
+			return null;
+		}
+		Class testClass= null;
+		try {
+			testClass= loadSuiteClass(suiteClassName);
+		} catch (ClassNotFoundException e) {
+			String clazz= e.getMessage();
+			if (clazz == null)
+				clazz= suiteClassName;
+			runFailed("Class not found \""+clazz+"\"");
+			return null;
+		} catch(Exception e) {
+			runFailed("Error: "+e.toString());
+			return null;
+		}
+		Method suiteMethod= null;
+		try {
+			suiteMethod= testClass.getMethod(SUITE_METHODNAME, new Class[0]);
+	 	} catch(Exception e) {
+	 		// try to extract a test suite automatically
+			clearStatus();
+			return new TestSuite(testClass);
+		}
+		if (! Modifier.isStatic(suiteMethod.getModifiers())) {
+			runFailed("Suite() method must be static");
+			return null;
+		}
+		Test test= null;
+		try {
+			Object testO = suiteMethod.invoke(null, (Object[])new Class[0]); // static method
+			test= (Test)testO;
+			if (test == null)
+				return test;
+		}
+		catch (InvocationTargetException e) {
+			runFailed("Failed to invoke suite():" + e.getTargetException().toString());
+			return null;
+		}
+		catch (IllegalAccessException e) {
+			runFailed("Failed to invoke suite():" + e.toString());
+			return null;
+		}
+
+		clearStatus();
+		return test;
+	}	
 
 	class MyTestSuiteLoader implements TestSuiteLoader {
 		public Class load(String suiteClassName) throws ClassNotFoundException {
@@ -79,5 +139,4 @@ public class MutantJUnitRunner extends BaseTestRunner {
 		// TODO Auto-generated method stub
 		
 	}	
-
-}
+	}
