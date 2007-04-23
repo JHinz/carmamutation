@@ -3,6 +3,7 @@ package com.mutation.driver.maven;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Driver;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,8 +17,8 @@ import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.ClassPathResource;
 
-import com.mutation.Driver;
-import com.mutation.EMutationOperator;
+import com.mutation.BasicDriver;
+import com.mutation.runner.EMutationOperator;
 import com.mutation.testrunner.JUnitRunner;
 
 /**
@@ -152,7 +153,7 @@ public class MutationTestMojo extends AbstractMojo {
 
 		// TODO read from config
 		List<EMutationOperator> operators = (List<EMutationOperator>) factory.getBean("operators");
-		Driver driver = (Driver) factory.getBean("testDriver");
+		BasicDriver driver = (BasicDriver) factory.getBean("testDriver");
 		driver.execute(operators);
 		
 		factory.destroySingletons();

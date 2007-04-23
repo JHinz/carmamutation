@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 
-<beans >
+<beans>
 
 	<!-- location of the classes for the mutants -->
 	<bean id="classesDir" class="java.io.File">
@@ -28,7 +28,7 @@
 	<bean id="operators"
 		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 		<property name="targetClass">
-			<value>com.mutation.EMutationOperator</value>
+			<value>com.mutation.runner.EMutationOperator</value>
 		</property>
 		<property name="targetMethod">
 			<value>getFromCsvList</value>
@@ -39,25 +39,41 @@
 	</bean>
 
 	<!-- the driver main class which executes the tests -->
-	<bean id="testDriver" class="com.mutation.Driver">
-		<property name="testRunner" ref="testRunner" />
+	<bean id="testDriver" class="com.mutation.BasicDriver">
+		<property name="runner" ref="mutationRunner" />
 		<property name="classSetResolver" ref="classUnderTestResolver" />
 		<property name="testSetResolver" ref="testSetResolver" />
-		<property name="eventListener" ref="eventListener" />
-		<property name="mutantGenerator" ref="mutantGenerator" />
-		<property name="originalClassPath" ref="classesDir" />
+		<!-- 
+			<property name="eventListener" ref="eventListener" />
+			<property name="mutantGenerator" ref="mutantGenerator" />
+			<property name="originalClassPath" ref="classesDir" />
+		-->
 	</bean>
 
-	<bean id="file.eventListener" class="com.mutation.events.listener.FileEventListener" destroy-method="destroy" >
-		<constructor-arg><value>${log.filename}</value></constructor-arg>
+	<bean id="file.eventListener"
+		class="com.mutation.events.listener.FileEventListener"
+		destroy-method="destroy">
+		<constructor-arg>
+			<value>${log.filename}</value>
+		</constructor-arg>
 	</bean>
-	<bean id="console.eventListener" class="com.mutation.events.listener.ConsoleEventListener" >
+	<bean id="console.eventListener"
+		class="com.mutation.events.listener.ConsoleEventListener">
 	</bean>
 
-	<bean id="eventListener" class="com.mutation.events.listener.ReportEventListener" destroy-method="destroy" >
+	<bean id="eventListener"
+		class="com.mutation.events.listener.ReportEventListener"
+		destroy-method="destroy">
 		<constructor-arg value="${report.filename}"></constructor-arg>
 	</bean>
 
+	<bean id="mutationRunner"
+		class="com.mutation.runner.MutationRunner">
+		<property name="eventListener" ref="eventListener"></property>
+		<property name="mutantGenerator" ref="mutantGenerator"></property>
+		<property name="originalClassPath" ref="classesDir"></property>
+		<property name="testRunner" ref="testRunner"></property>
+	</bean>
 	<bean id="testRunner" class="com.mutation.testrunner.JUnitRunner">
 		<property name="stopOnFirstFailedTest" value="true" />
 		<property name="testClassesLocationsAsFiles">
@@ -78,10 +94,14 @@
 		<property name="testCaseSuffix" value="${testCaseSuffix}" />
 	</bean>
 
-	<bean id="bcel.mutantGenerator" class="com.mutation.transform.bcel.MutantGenerator">
+	<bean id="mutantGenerator" parent="asm.mutantGenerator"></bean>
+
+	<bean id="bcel.mutantGenerator"
+		class="com.mutation.transform.bcel.MutantGenerator">
 	</bean>
 
-	<bean id="mutantGenerator" class="com.mutation.transform.asm.MutantGenerator">
+	<bean id="asm.mutantGenerator"
+		class="com.mutation.transform.asm.MutantGenerator">
 		<property name="originalClassPath" ref="classesDir"></property>
 	</bean>
 
