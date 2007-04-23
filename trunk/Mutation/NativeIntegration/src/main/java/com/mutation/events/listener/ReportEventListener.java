@@ -101,7 +101,7 @@ public class ReportEventListener implements IEventListener {
 
 	public void notifyEvent(IEvent event) {
 
-		System.out.println("Added event " + event.toString() + " to XML report");
+//		System.out.println("Added event " + event.toString() + " to XML report");
 
 		if (event instanceof ProcessingClassUnderTest) {
 
