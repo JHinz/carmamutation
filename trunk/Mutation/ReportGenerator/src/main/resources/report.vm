@@ -1,0 +1,25 @@
+<html>
+<header>
+</header>
+<body>
+<h1>Mutation Report</h1>
+created on $report.processingInfo.start <br>
+processing took $report.processingInfo.duration ms<br>
+creation finished on $report.processingInfo.end <br>
+<br><br>
+Number of overall created mutations: $report.mutationRatio.mutationCount<br>
+Number of survived mutations: $report.mutationRatio.survivorCount<br>
+<br>
+Classes mutated:<br>
+<ul>
+#foreach( $class in $report.classUnderTest )
+    <li>$class.name</li>
+    <ul>
+    <li>
+    Number of overall created mutations: $class.mutationRatio.mutationCount</li>
+<li>Number of survived mutations: $class.mutationRatio.survivorCount</li>
+</ul>
+#end
+</ul>
+</body>
+</html>
