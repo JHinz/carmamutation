@@ -1,6 +1,6 @@
 <html>
-<header>
-</header>
+<head>
+</head>
 <body>
 <h1>Mutation Report</h1>
 created on $report.processingInfo.start <br>
@@ -13,12 +13,12 @@ Number of survived mutations: $report.mutationRatio.survivorCount<br>
 Classes mutated:<br>
 <ul>
 #foreach( $class in $report.classUnderTest )
-    <li>$class.name</li>
+    <li>$class.name
     <ul>
     <li>
     Number of overall created mutations: $class.mutationRatio.mutationCount</li>
 <li>Number of survived mutations: $class.mutationRatio.survivorCount</li>
-</ul>
+</ul></li>
 #end
 </ul>
 </body>
