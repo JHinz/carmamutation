@@ -49,17 +49,9 @@ public class ReportGenerator {
 			VelocityEngine engine = new VelocityEngine();
 			engine.init();
 
-			JAXBContext context = JAXBContext.newInstance(MutationRun.class);
-			Unmarshaller unmarshaller = context.createUnmarshaller();
-			MutationRun report = (MutationRun) unmarshaller.unmarshal(new FileInputStream(new File(source)));
+			MutationRun report = loadReportModel();
 
-			VelocityContext vcontext = new VelocityContext();
-			vcontext.put("report", report);
-
-			StringWriter w = new StringWriter();
-
-			Velocity.mergeTemplate(template, "UTF-8", vcontext, w);
-			System.out.println(" template : " + w);
+			StringWriter w = createVelocityOutput(report);
 
 			FileWriter writer = new FileWriter(destination);
 			writer.write(w.toString());
@@ -72,5 +64,23 @@ public class ReportGenerator {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private StringWriter createVelocityOutput(MutationRun report) throws Exception {
+		VelocityContext vcontext = new VelocityContext();
+		vcontext.put("report", report);
+
+		StringWriter w = new StringWriter();
+
+		Velocity.mergeTemplate(template, "UTF-8", vcontext, w);
+		System.out.println(" template : " + w);
+		return w;
+	}
+
+	private MutationRun loadReportModel() throws JAXBException, FileNotFoundException {
+		JAXBContext context = JAXBContext.newInstance(MutationRun.class);
+		Unmarshaller unmarshaller = context.createUnmarshaller();
+		MutationRun report = (MutationRun) unmarshaller.unmarshal(new FileInputStream(new File(source)));
+		return report;
 	}
 }
