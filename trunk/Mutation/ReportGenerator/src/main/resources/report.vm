@@ -1,14 +1,32 @@
 <html>
 <head>
+
+<STYLE TYPE='text/css'>
+
+/* CSS generated at csscreator.com */
+BODY{background-color:#FFFFFF;  color:#003399;  font-family:sans-serif;  font-size:small; }
+    </STYLE>
+    
 </head>
 <body>
 <h1>Mutation Report</h1>
-created on $report.processingInfo.start <br>
-processing took $report.processingInfo.duration ms<br>
-creation finished on $report.processingInfo.end <br>
-<br><br>
-Number of overall created mutations: $report.mutationRatio.mutationCount<br>
-Number of survived mutations: $report.mutationRatio.survivorCount<br>
+<table border="1">
+	<tr>
+		<td>Created</td><td>$report.processingInfo.start</td>
+	</tr>
+	<tr>
+		<td>Duration (ms)</td><td>$report.processingInfo.duration</td>
+	</tr>
+	<tr>
+		<td>Finished</td><td>$report.processingInfo.end</td>
+	</tr>
+	<tr>
+		<td>Number of overall created mutations</td><td>$report.mutationRatio.mutationCount</td>
+	</tr>
+	<tr>
+		<td>Number of survived mutations</td><td>$report.mutationRatio.survivorCount</td>
+	</tr>
+</table>
 <br>
 Classes mutated:<br>
 <ul>
