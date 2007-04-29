@@ -112,6 +112,9 @@ public class ReportEventListener implements IEventListener {
 			currentClassUnderTestSubReport = new ClassUnderTest();
 			currentClassUnderTestSubReport.setName(eventObj.getClassUnderTest().getClassName());
 			currentClassUnderTestSubReport.setBaseClassFile(eventObj.getClassUnderTest().getClassFile());
+			
+			numberOfMutantsForClass = 0;
+			numberOfSurvivorsForClass = 0;
 
 			run.getClassUnderTest().add(currentClassUnderTestSubReport);
 			return;
