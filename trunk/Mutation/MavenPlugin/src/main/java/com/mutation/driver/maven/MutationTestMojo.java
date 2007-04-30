@@ -3,7 +3,6 @@ package com.mutation.driver.maven;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.Driver;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
