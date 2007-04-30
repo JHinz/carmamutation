@@ -109,7 +109,7 @@ public class MutationRunner {
 		testRunner.setStopOnFirstFailedTest(false);
 		try {
 			testRunner.setTestClassesLocations(new URL[] { new URL(
-					"file:/Users/raua/Documents/workspace/SampleProjectUnderTest/target/test-classes") });
+					"file:/Users/raua/Documents/workspace/SampleProjectUnderTest/target/test-classes/") });
 		} catch (MalformedURLException e1) {
 			e1.printStackTrace();
 			return;
