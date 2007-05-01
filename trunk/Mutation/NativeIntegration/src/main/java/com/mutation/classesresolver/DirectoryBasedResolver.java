@@ -61,7 +61,8 @@ public class DirectoryBasedResolver implements IClassSetResolver {
 					String relClassName = fileName.substring(0, fileName.length() - ".class".length());
 
 					ClassDescription desc = new ClassDescription();
-					desc.setClassName(packagePrefix + "." + relClassName);
+					desc.setClassName(relClassName);
+					desc.setPackageName(packagePrefix);
 					desc.setClassFile(file.getPath());
 					classNames.add(desc);
 				}

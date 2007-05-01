@@ -44,7 +44,16 @@ public class MutationRunner {
 
 		eventListener.notifyEvent(new ProcessingClassUnderTest(classUnderTestDescription));
 
-		byte[] byteCode = loadClass(byteCodeFileReader, classUnderTestDescription.getClassName());
+		String fqClassName;
+
+		if (classUnderTestDescription.getPackageName() == null
+				|| classUnderTestDescription.getPackageName().trim().equals("")) {
+			fqClassName = classUnderTestDescription.getClassName();
+		} else {
+			fqClassName = classUnderTestDescription.getPackageName() + "." + classUnderTestDescription.getClassName();
+		}
+
+		byte[] byteCode = loadClass(byteCodeFileReader, fqClassName);
 
 		for (EMutationOperator operator : operators) {
 
@@ -91,7 +100,17 @@ public class MutationRunner {
 
 		ClassDescription classUnderTestDescription = new ClassDescription();
 		classUnderTestDescription.setClassFile(classUnderTestFile);
-		classUnderTestDescription.setClassName(classUnderTest);
+
+		int lastDotIndex = classUnderTest.lastIndexOf(".");
+
+		if (lastDotIndex > 0) {
+			classUnderTestDescription.setPackageName(classUnderTest.substring(0, lastDotIndex - 1));
+			classUnderTestDescription.setClassName(classUnderTest.substring(lastDotIndex));
+		} else {
+			classUnderTestDescription.setPackageName("");
+			classUnderTestDescription.setClassName(classUnderTest);
+
+		}
 
 		performMutations(convertedOperators, new ByteCodeFileReader(), classUnderTestDescription, testNames);
 
