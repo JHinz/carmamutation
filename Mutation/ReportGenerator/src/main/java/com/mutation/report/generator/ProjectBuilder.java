@@ -49,7 +49,7 @@ public class ProjectBuilder {
 
 	private String extractPackageName(String folderName, String sourceFileName) {
 		String nameWithoutSourceFolder = sourceFileName.substring(folderName.length() );
-
+		
 		String packageName = "";
 
 		int lastSlashIndex = nameWithoutSourceFolder.lastIndexOf(System.getProperty("file.separator"));
@@ -58,9 +58,10 @@ public class ProjectBuilder {
 			packageName = nameWithoutSourceFolder.substring(0, lastSlashIndex);
 		}
 
+		//TODO /\ OS independent handling
 		String javaPackageName;
-		if (System.getProperty("file.separator") == "\\" ) {
-			javaPackageName = packageName.replaceAll("\\", ".");
+		if (System.getProperty("file.separator").equals("\\") ) {
+			javaPackageName = packageName.replaceAll("\\\\", ".");
 		} else {
 			javaPackageName = packageName.replaceAll("/", ".");
 		}
