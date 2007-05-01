@@ -1,8 +1,10 @@
 package com.mutation.report.source.om;
 
+import java.util.List;
+
 public class SourceFile {
 
-	private String sourceText;
+	private List<String> sourceText;
 
 	private String packageName;
 
@@ -34,11 +36,11 @@ public class SourceFile {
 		this.packageName = packageName;
 	}
 
-	public String getSourceText() {
+	public List<String> getSourceText() {
 		return sourceText;
 	}
 
-	public void setSourceText(String sourceText) {
+	public void setSourceText(List<String> sourceText) {
 		this.sourceText = sourceText;
 	}
 
