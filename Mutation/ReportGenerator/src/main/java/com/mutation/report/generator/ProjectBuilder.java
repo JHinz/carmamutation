@@ -1,0 +1,120 @@
+package com.mutation.report.generator;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.mutation.report.source.om.Project;
+import com.mutation.report.source.om.SourceFile;
+
+public class ProjectBuilder {
+
+	public Project buildProject(List<String> sourceFolders) {
+
+		Project project = new Project();
+
+		for (String folderName : sourceFolders) {
+
+			try {
+				List<String> sourceFileNames = getSourceFiles(folderName);
+
+				for (String sourceFileName : sourceFileNames) {
+					try {
+						SourceFile sourceFile = new SourceFile();
+						sourceFile.setFileName(sourceFileName);
+						sourceFile.setPackageName(extractPackageName(folderName, sourceFileName));
+						sourceFile.setClassName(extractClassName(sourceFileName));
+						sourceFile.setSourceText(extractFileContent(sourceFileName));
+						project.addSourceFile(sourceFile);
+					} catch (IOException e) {
+						System.err.println("Source folder " + folderName + " is invalid. Skipping ...");
+						continue;
+					}
+
+				}
+			} catch (IOException e) {
+				System.err.println("Source folder " + folderName + " is invalid. Skipping ...");
+				continue;
+			}
+
+		}
+
+		return project;
+
+	}
+
+	private String extractPackageName(String folderName, String sourceFileName) {
+		String nameWithoutSourceFolder = sourceFileName.substring(folderName.length() + 1);
+
+		String packageName = "";
+
+		int lastSlashIndex = nameWithoutSourceFolder.lastIndexOf("/");
+
+		if (lastSlashIndex > 0) {
+
+			packageName = nameWithoutSourceFolder.substring(0, lastSlashIndex);
+
+		}
+
+		String javaPackageName = packageName.replaceAll("/", ".");
+		return javaPackageName;
+	}
+
+	private String extractClassName(String sourceFileNameWithPath) {
+
+		String fileNameWithoutPath;
+
+		int lastSlashIndex = sourceFileNameWithPath.lastIndexOf("/");
+
+		if (lastSlashIndex > 0) {
+
+			fileNameWithoutPath = sourceFileNameWithPath.substring(lastSlashIndex + 1, sourceFileNameWithPath.length());
+
+		} else
+			fileNameWithoutPath = sourceFileNameWithPath;
+
+		// Strip ".java" before returning result
+		return fileNameWithoutPath.substring(0, fileNameWithoutPath.length() - 5);
+	}
+
+	private String extractFileContent(String sourceFileName) throws IOException {
+
+		StringBuffer sourceText = new StringBuffer();
+
+		BufferedReader reader = new BufferedReader(new FileReader(new File(sourceFileName)));
+
+		String lineRead = null;
+		while ((lineRead = reader.readLine()) != null) {
+			sourceText.append(lineRead + "\n");
+		}
+
+		return sourceText.toString();
+
+	}
+
+	private List<String> getSourceFiles(String folderName) throws IOException {
+
+		// TODO: verify whether symbolic links can lead to infinite loops
+
+		List<String> result = new ArrayList<String>();
+
+		File folder = new File(folderName);
+
+		if (folder.isDirectory()) {
+
+			File[] files = folder.listFiles();
+
+			for (int fileCount = 0; fileCount < files.length; fileCount++) {
+				result.addAll(getSourceFiles(files[fileCount].getPath()));
+			}
+
+		} else
+			result.add(folderName);
+
+		return result;
+
+	}
+}
