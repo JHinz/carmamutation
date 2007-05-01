@@ -14,7 +14,7 @@
 		<module>../ReportModel</module>
 		<module>../ReportGenerator</module>
 		<module>../SampleProjectUnderTest</module>
-		<module>../MutationMavenPlugin</module>
+		<module>../MavenPlugin</module>
 		<module>../NativeIntegration</module>
 		<module>../MutationRunner</module>
 	</modules>
