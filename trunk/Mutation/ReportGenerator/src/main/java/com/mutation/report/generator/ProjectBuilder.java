@@ -84,18 +84,18 @@ public class ProjectBuilder {
 		return fileNameWithoutPath.substring(0, fileNameWithoutPath.length() - 5);
 	}
 
-	private String extractFileContent(String sourceFileName) throws IOException {
+	private List<String> extractFileContent(String sourceFileName) throws IOException {
 
-		StringBuffer sourceText = new StringBuffer();
+		List<String> sourceText = new ArrayList<String>();
 
 		BufferedReader reader = new BufferedReader(new FileReader(new File(sourceFileName)));
 
 		String lineRead = null;
 		while ((lineRead = reader.readLine()) != null) {
-			sourceText.append(lineRead + "\n");
+			sourceText.add(lineRead + "\n");
 		}
 
-		return sourceText.toString();
+		return sourceText;
 
 	}
 

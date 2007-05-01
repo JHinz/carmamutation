@@ -20,22 +20,25 @@ public class ProjectBuilderIntegrationTest extends TestCase {
 		assertNotNull(project);
 		assertNotNull(project.getSourceFiles());
 		assertEquals(3, project.getSourceFiles().size());
+		assertNotNull(project.getSourceFile("subfolder.anotherSubFolder", "TestClass2"));
+		assertNotNull(project.getSourceFile("subfolder", "TestClass2"));
+		assertNotNull(project.getSourceFile("", "TestClass1"));
 
 		SourceFile file;
 
-		file = project.getSourceFiles().get(2);
+		file = project.getSourceFiles().get(1);
 		assertEquals("src/test/resources/it00001/subfolder/anotherSubFolder/TestClass2.java", file.getFileName());
 		assertEquals("x\n", file.getSourceText());
 		assertEquals("subfolder.anotherSubFolder", file.getPackageName());
 		assertEquals("TestClass2", file.getClassName());
 
-		file = project.getSourceFiles().get(1);
+		file = project.getSourceFiles().get(0);
 		assertEquals("src/test/resources/it00001/subfolder/TestClass2.java", file.getFileName());
 		assertEquals("a\nb\nc\n1\n2\n3\n", file.getSourceText());
 		assertEquals("subfolder", file.getPackageName());
 		assertEquals("TestClass2", file.getClassName());
 
-		file = project.getSourceFiles().get(0);
+		file = project.getSourceFiles().get(2);
 		assertEquals("src/test/resources/it00001/TestClass1.java", file.getFileName());
 		assertEquals("a1\nb2\n", file.getSourceText());
 		assertEquals("", file.getPackageName());
@@ -54,6 +57,7 @@ public class ProjectBuilderIntegrationTest extends TestCase {
 		assertNotNull(project);
 		assertNotNull(project.getSourceFiles());
 		assertEquals(1, project.getSourceFiles().size());
+		assertNotNull(project.getSourceFile("subfolder", "TestClass1"));
 
 		SourceFile file;
 
@@ -62,6 +66,8 @@ public class ProjectBuilderIntegrationTest extends TestCase {
 		assertEquals("a1\nb2\n", file.getSourceText());
 		assertEquals("subfolder", file.getPackageName());
 		assertEquals("TestClass1", file.getClassName());
+		
+		
 
 	}
 	
@@ -76,7 +82,8 @@ public class ProjectBuilderIntegrationTest extends TestCase {
 		assertNotNull(project);
 		assertNotNull(project.getSourceFiles());
 		assertEquals(1, project.getSourceFiles().size());
-
+		assertNotNull(project.getSourceFile("subfolder", "TestClass1"));
+		
 		SourceFile file;
 
 		file = project.getSourceFiles().get(0);
