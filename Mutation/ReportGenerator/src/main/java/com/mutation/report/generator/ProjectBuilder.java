@@ -58,7 +58,12 @@ public class ProjectBuilder {
 			packageName = nameWithoutSourceFolder.substring(0, lastSlashIndex);
 		}
 
-		String javaPackageName = packageName.replaceAll(System.getProperty("file.separator"), ".");
+		String javaPackageName;
+		if (System.getProperty("file.separator") == "\\" ) {
+			javaPackageName = packageName.replaceAll("\\", ".");
+		} else {
+			javaPackageName = packageName.replaceAll("/", ".");
+		}
 		
 		if ( javaPackageName.startsWith(".")) {
 			javaPackageName = javaPackageName.substring(1);
