@@ -15,7 +15,8 @@
 
 	<xs:complexType name="ClassUnderTest">
 		<xs:sequence>
-			<xs:element name="name" type="xs:string" />
+			<xs:element name="className" type="xs:string" />
+			<xs:element name="packageName" type="xs:string" />
 			<xs:element name="processingInfo" type="ProcessingInfo" />
 			<xs:element name="mutationRatio" type="MutationRatio" />
 			<xs:element name="baseClassFile" type="xs:string" />
