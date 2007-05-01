@@ -7,8 +7,10 @@ import com.mutation.runner.utililties.ToStringUtils;
 public interface IClassSetResolver {
 
 	public class ClassDescription {
-		
+
 		String className;
+
+		String packageName;
 
 		String classFile;
 
@@ -31,6 +33,14 @@ public interface IClassSetResolver {
 		@Override
 		public String toString() {
 			return ToStringUtils.toString(this);
+		}
+
+		public String getPackageName() {
+			return packageName;
+		}
+
+		public void setPackageName(String packageName) {
+			this.packageName = packageName;
 		}
 	}
 
