@@ -76,20 +76,23 @@ public class SingleReportGenerator {
 			vcontext.put("class", clazz);
 
 			SourceFile sourceFile = project.getSourceFile(clazz.getPackageName(), clazz.getClassName());
-			
+
 			vcontext.put("sourceFile", sourceFile);
 
 			StringWriter w = new StringWriter();
 
 			Velocity.mergeTemplate(templateFileDirectory + "/" + CLASS_PAGE, "UTF-8", vcontext, w);
 
-			FileWriter writer = new FileWriter(outputDirectory + "/" + clazz.getPackageName()+"."+clazz.getClassName()+".html");
+			FileWriter writer = new FileWriter(outputDirectory + "/" + clazz.getPackageName() + "."
+					+ clazz.getClassName() + ".html");
+
 			writer.write(w.toString());
 			writer.close();
 		}
 
 		VelocityContext vcontext = new VelocityContext();
 		vcontext.put(CONTEXT_REPORT_KEY, report);
+		vcontext.put("project", project);
 
 		StringWriter w = new StringWriter();
 
