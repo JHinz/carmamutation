@@ -1,64 +1,257 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mutationRun>
     <processingInfo>
-        <start>2007-04-11T23:07:57.238+02:00</start>
-        <duration>43236</duration>
-        <end>2007-04-11T23:08:40.474+02:00</end>
+        <start>2007-05-01T15:12:10.266+02:00</start>
+        <duration>2078</duration>
+        <end>2007-05-01T15:12:12.344+02:00</end>
     </processingInfo>
     <mutationRatio>
         <mutationCount>380</mutationCount>
-        <survivorCount>242</survivorCount>
+        <survivorCount>380</survivorCount>
     </mutationRatio>
     <classUnderTest>
-        <name>org.apache.commons.codec.binary.Base64</name>
+        <className>DigestUtils</className>
+        <packageName>org.apache.commons.codec.digest</packageName>
         <processingInfo>
-            <start>2007-04-11T23:08:00.728+02:00</start>
-            <duration>2474</duration>
-            <end>2007-04-11T23:08:03.202+02:00</end>
+            <start>2007-05-01T15:12:10.301+02:00</start>
+            <duration>244</duration>
+            <end>2007-05-01T15:12:10.545+02:00</end>
         </processingInfo>
         <mutationRatio>
-            <mutationCount>28</mutationCount>
-            <survivorCount>5</survivorCount>
+            <mutationCount>0</mutationCount>
+            <survivorCount>0</survivorCount>
         </mutationRatio>
-        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/binary/Base64.class</baseClassFile>
-        <baseSourceFile>Base64.java</baseSourceFile>
+        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/digest/DigestUtils.class</baseClassFile>
+    </classUnderTest>
+    <classUnderTest>
+        <className>StringEncoder</className>
+        <packageName>org.apache.commons.codec</packageName>
+        <processingInfo>
+            <start>2007-05-01T15:12:10.550+02:00</start>
+            <duration>28</duration>
+            <end>2007-05-01T15:12:10.578+02:00</end>
+        </processingInfo>
+        <mutationRatio>
+            <mutationCount>0</mutationCount>
+            <survivorCount>0</survivorCount>
+        </mutationRatio>
+        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/StringEncoder.class</baseClassFile>
+    </classUnderTest>
+    <classUnderTest>
+        <className>CharacterEncodingNames</className>
+        <packageName>org.apache.commons.codec.net</packageName>
+        <processingInfo>
+            <start>2007-05-01T15:12:10.579+02:00</start>
+            <duration>2</duration>
+            <end>2007-05-01T15:12:10.581+02:00</end>
+        </processingInfo>
+        <mutationRatio>
+            <mutationCount>0</mutationCount>
+            <survivorCount>0</survivorCount>
+        </mutationRatio>
+        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/net/CharacterEncodingNames.class</baseClassFile>
+    </classUnderTest>
+    <classUnderTest>
+        <className>BinaryCodec</className>
+        <packageName>org.apache.commons.codec.binary</packageName>
+        <processingInfo>
+            <start>2007-05-01T15:12:10.582+02:00</start>
+            <duration>124</duration>
+            <end>2007-05-01T15:12:10.706+02:00</end>
+        </processingInfo>
+        <mutationRatio>
+            <mutationCount>18</mutationCount>
+            <survivorCount>18</survivorCount>
+        </mutationRatio>
+        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/binary/BinaryCodec.class</baseClassFile>
+        <baseSourceFile>BinaryCodec.java</baseSourceFile>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
-            <baseSourceLine>164</baseSourceLine>
+            <baseSourceLine>96</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
-            <baseSourceLine>166</baseSourceLine>
+            <baseSourceLine>116</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
-            <baseSourceLine>186</baseSourceLine>
+            <baseSourceLine>119</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
-            <baseSourceLine>192</baseSourceLine>
+            <baseSourceLine>122</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>113</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>149</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>179</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>168</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>168</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>206</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>195</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>195</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>224</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>235</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>224</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>254</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>265</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>254</baseSourceLine>
+        </mutant>
+    </classUnderTest>
+    <classUnderTest>
+        <className>RefinedSoundex</className>
+        <packageName>org.apache.commons.codec.language</packageName>
+        <processingInfo>
+            <start>2007-05-01T15:12:10.708+02:00</start>
+            <duration>21</duration>
+            <end>2007-05-01T15:12:10.729+02:00</end>
+        </processingInfo>
+        <mutationRatio>
+            <mutationCount>6</mutationCount>
+            <survivorCount>6</survivorCount>
+        </mutationRatio>
+        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/language/RefinedSoundex.class</baseClassFile>
+        <baseSourceFile>RefinedSoundex.java</baseSourceFile>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>114</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>141</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>172</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>174</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>159</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>155</baseSourceLine>
+        </mutant>
+    </classUnderTest>
+    <classUnderTest>
+        <className>Base64</className>
+        <packageName>org.apache.commons.codec.binary</packageName>
+        <processingInfo>
+            <start>2007-05-01T15:12:10.730+02:00</start>
+            <duration>132</duration>
+            <end>2007-05-01T15:12:10.862+02:00</end>
+        </processingInfo>
+        <mutationRatio>
+            <mutationCount>28</mutationCount>
+            <survivorCount>28</survivorCount>
+        </mutationRatio>
+        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/binary/Base64.class</baseClassFile>
+        <baseSourceFile>Base64.java</baseSourceFile>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>164</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>166</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>186</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>192</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>235</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>331</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>350</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>361</baseSourceLine>
         </mutant>
@@ -83,72 +276,72 @@
             <baseSourceLine>380</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>282</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>309</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>311</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>313</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>355</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>368</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>370</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>422</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>447</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>450</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>438</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>438</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>406</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>423</baseSourceLine>
         </mutant>
@@ -158,188 +351,22 @@
             <baseSourceLine>507</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>535</baseSourceLine>
         </mutant>
     </classUnderTest>
     <classUnderTest>
-        <name>org.apache.commons.codec.language.SoundexUtils</name>
+        <className>RFC1522Codec</className>
+        <packageName>org.apache.commons.codec.net</packageName>
         <processingInfo>
-            <start>2007-04-11T23:08:03.208+02:00</start>
-            <duration>65</duration>
-            <end>2007-04-11T23:08:03.273+02:00</end>
+            <start>2007-05-01T15:12:10.864+02:00</start>
+            <duration>31</duration>
+            <end>2007-05-01T15:12:10.895+02:00</end>
         </processingInfo>
         <mutationRatio>
-            <mutationCount>35</mutationCount>
-            <survivorCount>12</survivorCount>
-        </mutationRatio>
-        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/language/SoundexUtils.class</baseClassFile>
-        <baseSourceFile>SoundexUtils.java</baseSourceFile>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>52</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>48</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>41</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>41</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>116</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>110</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>110</baseSourceLine>
-        </mutant>
-    </classUnderTest>
-    <classUnderTest>
-        <name>org.apache.commons.codec.binary.Hex</name>
-        <processingInfo>
-            <start>2007-04-11T23:08:03.275+02:00</start>
-            <duration>275</duration>
-            <end>2007-04-11T23:08:03.550+02:00</end>
-        </processingInfo>
-        <mutationRatio>
-            <mutationCount>39</mutationCount>
-            <survivorCount>15</survivorCount>
-        </mutationRatio>
-        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/binary/Hex.class</baseClassFile>
-        <baseSourceFile>Hex.java</baseSourceFile>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>59</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>87</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>151</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>185</baseSourceLine>
-        </mutant>
-    </classUnderTest>
-    <classUnderTest>
-        <name>org.apache.commons.codec.net.QCodec</name>
-        <processingInfo>
-            <start>2007-04-11T23:08:03.552+02:00</start>
-            <duration>953</duration>
-            <end>2007-04-11T23:08:04.505+02:00</end>
-        </processingInfo>
-        <mutationRatio>
-            <mutationCount>53</mutationCount>
-            <survivorCount>27</survivorCount>
-        </mutationRatio>
-        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/net/QCodec.class</baseClassFile>
-        <baseSourceFile>QCodec.java</baseSourceFile>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>140</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>138</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>134</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>154</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>163</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>159</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>149</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>187</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>208</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>227</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>250</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>248</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>275</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>273</baseSourceLine>
-        </mutant>
-    </classUnderTest>
-    <classUnderTest>
-        <name>org.apache.commons.codec.net.RFC1522Codec</name>
-        <processingInfo>
-            <start>2007-04-11T23:08:04.508+02:00</start>
-            <duration>404</duration>
-            <end>2007-04-11T23:08:04.912+02:00</end>
-        </processingInfo>
-        <mutationRatio>
-            <mutationCount>63</mutationCount>
-            <survivorCount>35</survivorCount>
+            <mutationCount>10</mutationCount>
+            <survivorCount>10</survivorCount>
         </mutationRatio>
         <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/net/RFC1522Codec.class</baseClassFile>
         <baseSourceFile>RFC1522Codec.java</baseSourceFile>
@@ -379,12 +406,12 @@
             <baseSourceLine>113</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>103</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>122</baseSourceLine>
         </mutant>
@@ -395,273 +422,46 @@
         </mutant>
     </classUnderTest>
     <classUnderTest>
-        <name>org.apache.commons.codec.binary.BinaryCodec</name>
+        <className>Metaphone</className>
+        <packageName>org.apache.commons.codec.language</packageName>
         <processingInfo>
-            <start>2007-04-11T23:08:04.913+02:00</start>
-            <duration>490</duration>
-            <end>2007-04-11T23:08:05.403+02:00</end>
+            <start>2007-05-01T15:12:10.897+02:00</start>
+            <duration>504</duration>
+            <end>2007-05-01T15:12:11.401+02:00</end>
         </processingInfo>
         <mutationRatio>
-            <mutationCount>81</mutationCount>
-            <survivorCount>44</survivorCount>
-        </mutationRatio>
-        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/binary/BinaryCodec.class</baseClassFile>
-        <baseSourceFile>BinaryCodec.java</baseSourceFile>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>96</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>116</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>119</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>122</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>113</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>149</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>179</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>168</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>168</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>206</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>195</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>195</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>224</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>235</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>224</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>254</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>265</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>254</baseSourceLine>
-        </mutant>
-    </classUnderTest>
-    <classUnderTest>
-        <name>org.apache.commons.codec.EncoderException</name>
-        <processingInfo>
-            <start>2007-04-11T23:08:05.405+02:00</start>
-            <duration>1</duration>
-            <end>2007-04-11T23:08:05.406+02:00</end>
-        </processingInfo>
-        <mutationRatio>
-            <mutationCount>81</mutationCount>
-            <survivorCount>44</survivorCount>
-        </mutationRatio>
-        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/EncoderException.class</baseClassFile>
-    </classUnderTest>
-    <classUnderTest>
-        <name>org.apache.commons.codec.net.BCodec</name>
-        <processingInfo>
-            <start>2007-04-11T23:08:05.409+02:00</start>
-            <duration>293</duration>
-            <end>2007-04-11T23:08:05.702+02:00</end>
-        </processingInfo>
-        <mutationRatio>
-            <mutationCount>90</mutationCount>
-            <survivorCount>53</survivorCount>
-        </mutationRatio>
-        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/net/BCodec.class</baseClassFile>
-        <baseSourceFile>BCodec.java</baseSourceFile>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>79</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>86</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>105</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>126</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>145</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>168</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>166</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>193</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>191</baseSourceLine>
-        </mutant>
-    </classUnderTest>
-    <classUnderTest>
-        <name>org.apache.commons.codec.StringEncoder</name>
-        <processingInfo>
-            <start>2007-04-11T23:08:05.706+02:00</start>
-            <duration>5</duration>
-            <end>2007-04-11T23:08:05.711+02:00</end>
-        </processingInfo>
-        <mutationRatio>
-            <mutationCount>90</mutationCount>
-            <survivorCount>53</survivorCount>
-        </mutationRatio>
-        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/StringEncoder.class</baseClassFile>
-    </classUnderTest>
-    <classUnderTest>
-        <name>org.apache.commons.codec.language.DoubleMetaphone$DoubleMetaphoneResult</name>
-        <processingInfo>
-            <start>2007-04-11T23:08:05.716+02:00</start>
-            <duration>17</duration>
-            <end>2007-04-11T23:08:05.733+02:00</end>
-        </processingInfo>
-        <mutationRatio>
-            <mutationCount>90</mutationCount>
-            <survivorCount>53</survivorCount>
-        </mutationRatio>
-        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/language/DoubleMetaphone$DoubleMetaphoneResult.class</baseClassFile>
-    </classUnderTest>
-    <classUnderTest>
-        <name>org.apache.commons.codec.BinaryDecoder</name>
-        <processingInfo>
-            <start>2007-04-11T23:08:05.735+02:00</start>
-            <duration>0</duration>
-            <end>2007-04-11T23:08:05.735+02:00</end>
-        </processingInfo>
-        <mutationRatio>
-            <mutationCount>90</mutationCount>
-            <survivorCount>53</survivorCount>
-        </mutationRatio>
-        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/BinaryDecoder.class</baseClassFile>
-    </classUnderTest>
-    <classUnderTest>
-        <name>org.apache.commons.codec.Encoder</name>
-        <processingInfo>
-            <start>2007-04-11T23:08:05.737+02:00</start>
-            <duration>1</duration>
-            <end>2007-04-11T23:08:05.738+02:00</end>
-        </processingInfo>
-        <mutationRatio>
-            <mutationCount>90</mutationCount>
-            <survivorCount>53</survivorCount>
-        </mutationRatio>
-        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/Encoder.class</baseClassFile>
-    </classUnderTest>
-    <classUnderTest>
-        <name>org.apache.commons.codec.language.Metaphone</name>
-        <processingInfo>
-            <start>2007-04-11T23:08:05.740+02:00</start>
-            <duration>6299</duration>
-            <end>2007-04-11T23:08:12.039+02:00</end>
-        </processingInfo>
-        <mutationRatio>
-            <mutationCount>140</mutationCount>
-            <survivorCount>77</survivorCount>
+            <mutationCount>50</mutationCount>
+            <survivorCount>50</survivorCount>
         </mutationRatio>
         <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/language/Metaphone.class</baseClassFile>
         <baseSourceFile>Metaphone.java</baseSourceFile>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>82</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>95</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>102</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>109</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>113</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>135</baseSourceLine>
         </mutant>
@@ -781,82 +581,82 @@
             <baseSourceLine>290</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>78</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>140</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>153</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>162</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>173</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>185</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>198</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>198</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>203</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>213</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>213</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>243</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>262</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>262</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>271</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>290</baseSourceLine>
         </mutant>
@@ -866,182 +666,258 @@
             <baseSourceLine>78</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>318</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>327</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>343</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>360</baseSourceLine>
         </mutant>
     </classUnderTest>
     <classUnderTest>
-        <name>org.apache.commons.codec.StringDecoder</name>
+        <className>BinaryDecoder</className>
+        <packageName>org.apache.commons.codec</packageName>
         <processingInfo>
-            <start>2007-04-11T23:08:12.042+02:00</start>
+            <start>2007-05-01T15:12:11.402+02:00</start>
             <duration>1</duration>
-            <end>2007-04-11T23:08:12.043+02:00</end>
+            <end>2007-05-01T15:12:11.403+02:00</end>
         </processingInfo>
         <mutationRatio>
-            <mutationCount>140</mutationCount>
-            <survivorCount>77</survivorCount>
+            <mutationCount>0</mutationCount>
+            <survivorCount>0</survivorCount>
         </mutationRatio>
-        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/StringDecoder.class</baseClassFile>
+        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/BinaryDecoder.class</baseClassFile>
     </classUnderTest>
     <classUnderTest>
-        <name>org.apache.commons.codec.StringEncoderComparator</name>
+        <className>BinaryEncoder</className>
+        <packageName>org.apache.commons.codec</packageName>
         <processingInfo>
-            <start>2007-04-11T23:08:12.047+02:00</start>
-            <duration>5</duration>
-            <end>2007-04-11T23:08:12.052+02:00</end>
+            <start>2007-05-01T15:12:11.405+02:00</start>
+            <duration>0</duration>
+            <end>2007-05-01T15:12:11.405+02:00</end>
         </processingInfo>
         <mutationRatio>
-            <mutationCount>140</mutationCount>
-            <survivorCount>77</survivorCount>
+            <mutationCount>0</mutationCount>
+            <survivorCount>0</survivorCount>
         </mutationRatio>
-        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/StringEncoderComparator.class</baseClassFile>
+        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/BinaryEncoder.class</baseClassFile>
     </classUnderTest>
     <classUnderTest>
-        <name>org.apache.commons.codec.language.Soundex</name>
+        <className>Decoder</className>
+        <packageName>org.apache.commons.codec</packageName>
         <processingInfo>
-            <start>2007-04-11T23:08:12.057+02:00</start>
-            <duration>595</duration>
-            <end>2007-04-11T23:08:12.652+02:00</end>
+            <start>2007-05-01T15:12:11.407+02:00</start>
+            <duration>0</duration>
+            <end>2007-05-01T15:12:11.407+02:00</end>
         </processingInfo>
         <mutationRatio>
-            <mutationCount>152</mutationCount>
-            <survivorCount>79</survivorCount>
+            <mutationCount>0</mutationCount>
+            <survivorCount>0</survivorCount>
         </mutationRatio>
-        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/language/Soundex.class</baseClassFile>
-        <baseSourceFile>Soundex.java</baseSourceFile>
+        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/Decoder.class</baseClassFile>
+    </classUnderTest>
+    <classUnderTest>
+        <className>QCodec</className>
+        <packageName>org.apache.commons.codec.net</packageName>
+        <processingInfo>
+            <start>2007-05-01T15:12:11.409+02:00</start>
+            <duration>42</duration>
+            <end>2007-05-01T15:12:11.451+02:00</end>
+        </processingInfo>
+        <mutationRatio>
+            <mutationCount>14</mutationCount>
+            <survivorCount>14</survivorCount>
+        </mutationRatio>
+        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/net/QCodec.class</baseClassFile>
+        <baseSourceFile>QCodec.java</baseSourceFile>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
-            <baseSourceLine>134</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>172</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>175</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>170</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>172</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>175</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>175</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>266</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>266</baseSourceLine>
+            <baseSourceLine>140</baseSourceLine>
         </mutant>
         <mutant>
             <survived>true</survived>
             <operatorName>ROR</operatorName>
-            <baseSourceLine>265</baseSourceLine>
+            <baseSourceLine>138</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
-            <baseSourceLine>254</baseSourceLine>
+            <baseSourceLine>134</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>154</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>163</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>159</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>149</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>187</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>208</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>227</baseSourceLine>
         </mutant>
         <mutant>
             <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>250</baseSourceLine>
         </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>248</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>275</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>273</baseSourceLine>
+        </mutant>
     </classUnderTest>
     <classUnderTest>
-        <name>org.apache.commons.codec.net.CharacterEncodingNames</name>
+        <className>BCodec</className>
+        <packageName>org.apache.commons.codec.net</packageName>
         <processingInfo>
-            <start>2007-04-11T23:08:12.654+02:00</start>
-            <duration>2</duration>
-            <end>2007-04-11T23:08:12.656+02:00</end>
+            <start>2007-05-01T15:12:11.452+02:00</start>
+            <duration>51</duration>
+            <end>2007-05-01T15:12:11.503+02:00</end>
         </processingInfo>
         <mutationRatio>
-            <mutationCount>152</mutationCount>
-            <survivorCount>79</survivorCount>
+            <mutationCount>9</mutationCount>
+            <survivorCount>9</survivorCount>
         </mutationRatio>
-        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/net/CharacterEncodingNames.class</baseClassFile>
+        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/net/BCodec.class</baseClassFile>
+        <baseSourceFile>BCodec.java</baseSourceFile>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>79</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>86</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>105</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>126</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>145</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>168</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>166</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>193</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>191</baseSourceLine>
+        </mutant>
     </classUnderTest>
     <classUnderTest>
-        <name>org.apache.commons.codec.DecoderException</name>
+        <className>DecoderException</className>
+        <packageName>org.apache.commons.codec</packageName>
         <processingInfo>
-            <start>2007-04-11T23:08:12.659+02:00</start>
+            <start>2007-05-01T15:12:11.504+02:00</start>
             <duration>2</duration>
-            <end>2007-04-11T23:08:12.661+02:00</end>
+            <end>2007-05-01T15:12:11.506+02:00</end>
         </processingInfo>
         <mutationRatio>
-            <mutationCount>152</mutationCount>
-            <survivorCount>79</survivorCount>
+            <mutationCount>0</mutationCount>
+            <survivorCount>0</survivorCount>
         </mutationRatio>
         <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/DecoderException.class</baseClassFile>
     </classUnderTest>
     <classUnderTest>
-        <name>org.apache.commons.codec.language.DoubleMetaphone</name>
+        <className>DoubleMetaphone</className>
+        <packageName>org.apache.commons.codec.language</packageName>
         <processingInfo>
-            <start>2007-04-11T23:08:12.662+02:00</start>
-            <duration>21983</duration>
-            <end>2007-04-11T23:08:34.645+02:00</end>
+            <start>2007-05-01T15:12:11.507+02:00</start>
+            <duration>649</duration>
+            <end>2007-05-01T15:12:12.156+02:00</end>
         </processingInfo>
         <mutationRatio>
-            <mutationCount>338</mutationCount>
-            <survivorCount>212</survivorCount>
+            <mutationCount>186</mutationCount>
+            <survivorCount>186</survivorCount>
         </mutationRatio>
         <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/language/DoubleMetaphone.class</baseClassFile>
         <baseSourceFile>DoubleMetaphone.java</baseSourceFile>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>109</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>124</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>137</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>148</baseSourceLine>
         </mutant>
@@ -1071,7 +947,7 @@
             <baseSourceLine>190</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>97</baseSourceLine>
         </mutant>
@@ -1081,12 +957,12 @@
             <baseSourceLine>88</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>202</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>272</baseSourceLine>
         </mutant>
@@ -1156,12 +1032,12 @@
             <baseSourceLine>321</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>287</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>292</baseSourceLine>
         </mutant>
@@ -1231,12 +1107,12 @@
             <baseSourceLine>405</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>422</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>424</baseSourceLine>
         </mutant>
@@ -1246,17 +1122,17 @@
             <baseSourceLine>425</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>441</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>461</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>427</baseSourceLine>
         </mutant>
@@ -1301,12 +1177,12 @@
             <baseSourceLine>425</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>427</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>427</baseSourceLine>
         </mutant>
@@ -1316,16 +1192,11 @@
             <baseSourceLine>434</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>437</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>441</baseSourceLine>
-        </mutant>
-        <mutant>
             <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>441</baseSourceLine>
@@ -1341,7 +1212,12 @@
             <baseSourceLine>441</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>441</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>449</baseSourceLine>
         </mutant>
@@ -1356,17 +1232,17 @@
             <baseSourceLine>452</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>481</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>493</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>497</baseSourceLine>
         </mutant>
@@ -1381,22 +1257,22 @@
             <baseSourceLine>493</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>477</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>480</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>487</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>487</baseSourceLine>
         </mutant>
@@ -1461,7 +1337,7 @@
             <baseSourceLine>540</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>528</baseSourceLine>
         </mutant>
@@ -1471,12 +1347,12 @@
             <baseSourceLine>530</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>538</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>538</baseSourceLine>
         </mutant>
@@ -1496,7 +1372,7 @@
             <baseSourceLine>545</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>565</baseSourceLine>
         </mutant>
@@ -1506,7 +1382,7 @@
             <baseSourceLine>566</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>582</baseSourceLine>
         </mutant>
@@ -1521,7 +1397,7 @@
             <baseSourceLine>599</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>606</baseSourceLine>
         </mutant>
@@ -1606,7 +1482,7 @@
             <baseSourceLine>619</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>632</baseSourceLine>
         </mutant>
@@ -1616,12 +1492,12 @@
             <baseSourceLine>640</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>640</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>668</baseSourceLine>
         </mutant>
@@ -1681,22 +1557,22 @@
             <baseSourceLine>719</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>706</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>708</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>708</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>745</baseSourceLine>
         </mutant>
@@ -1726,12 +1602,12 @@
             <baseSourceLine>752</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>735</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>735</baseSourceLine>
         </mutant>
@@ -1741,7 +1617,7 @@
             <baseSourceLine>745</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>745</baseSourceLine>
         </mutant>
@@ -1756,27 +1632,27 @@
             <baseSourceLine>779</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>769</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>773</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>773</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>789</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>799</baseSourceLine>
         </mutant>
@@ -1791,7 +1667,7 @@
             <baseSourceLine>794</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>794</baseSourceLine>
         </mutant>
@@ -1821,7 +1697,7 @@
             <baseSourceLine>820</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>816</baseSourceLine>
         </mutant>
@@ -1911,16 +1787,11 @@
             <baseSourceLine>860</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>873</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>876</baseSourceLine>
-        </mutant>
-        <mutant>
             <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>876</baseSourceLine>
@@ -1931,7 +1802,12 @@
             <baseSourceLine>876</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>876</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>896</baseSourceLine>
         </mutant>
@@ -1941,7 +1817,7 @@
             <baseSourceLine>907</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>923</baseSourceLine>
         </mutant>
@@ -1957,77 +1833,337 @@
         </mutant>
     </classUnderTest>
     <classUnderTest>
-        <name>org.apache.commons.codec.digest.DigestUtils</name>
+        <className>StringDecoder</className>
+        <packageName>org.apache.commons.codec</packageName>
         <processingInfo>
-            <start>2007-04-11T23:08:34.648+02:00</start>
-            <duration>20</duration>
-            <end>2007-04-11T23:08:34.668+02:00</end>
+            <start>2007-05-01T15:12:12.157+02:00</start>
+            <duration>2</duration>
+            <end>2007-05-01T15:12:12.159+02:00</end>
         </processingInfo>
         <mutationRatio>
-            <mutationCount>338</mutationCount>
-            <survivorCount>212</survivorCount>
+            <mutationCount>0</mutationCount>
+            <survivorCount>0</survivorCount>
         </mutationRatio>
-        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/digest/DigestUtils.class</baseClassFile>
+        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/StringDecoder.class</baseClassFile>
     </classUnderTest>
     <classUnderTest>
-        <name>org.apache.commons.codec.language.RefinedSoundex</name>
+        <className>Hex</className>
+        <packageName>org.apache.commons.codec.binary</packageName>
         <processingInfo>
-            <start>2007-04-11T23:08:34.671+02:00</start>
-            <duration>141</duration>
-            <end>2007-04-11T23:08:34.812+02:00</end>
+            <start>2007-05-01T15:12:12.161+02:00</start>
+            <duration>10</duration>
+            <end>2007-05-01T15:12:12.171+02:00</end>
         </processingInfo>
         <mutationRatio>
-            <mutationCount>344</mutationCount>
-            <survivorCount>214</survivorCount>
+            <mutationCount>4</mutationCount>
+            <survivorCount>4</survivorCount>
         </mutationRatio>
-        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/language/RefinedSoundex.class</baseClassFile>
-        <baseSourceFile>RefinedSoundex.java</baseSourceFile>
+        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/binary/Hex.class</baseClassFile>
+        <baseSourceFile>Hex.java</baseSourceFile>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
-            <baseSourceLine>114</baseSourceLine>
+            <baseSourceLine>59</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
-            <baseSourceLine>141</baseSourceLine>
+            <baseSourceLine>87</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>151</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>185</baseSourceLine>
+        </mutant>
+    </classUnderTest>
+    <classUnderTest>
+        <className>StringEncoderComparator</className>
+        <packageName>org.apache.commons.codec</packageName>
+        <processingInfo>
+            <start>2007-05-01T15:12:12.172+02:00</start>
+            <duration>4</duration>
+            <end>2007-05-01T15:12:12.176+02:00</end>
+        </processingInfo>
+        <mutationRatio>
+            <mutationCount>0</mutationCount>
+            <survivorCount>0</survivorCount>
+        </mutationRatio>
+        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/StringEncoderComparator.class</baseClassFile>
+    </classUnderTest>
+    <classUnderTest>
+        <className>Soundex</className>
+        <packageName>org.apache.commons.codec.language</packageName>
+        <processingInfo>
+            <start>2007-05-01T15:12:12.177+02:00</start>
+            <duration>26</duration>
+            <end>2007-05-01T15:12:12.203+02:00</end>
+        </processingInfo>
+        <mutationRatio>
+            <mutationCount>12</mutationCount>
+            <survivorCount>12</survivorCount>
+        </mutationRatio>
+        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/language/Soundex.class</baseClassFile>
+        <baseSourceFile>Soundex.java</baseSourceFile>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>134</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>172</baseSourceLine>
         </mutant>
         <mutant>
             <survived>true</survived>
             <operatorName>ROR</operatorName>
-            <baseSourceLine>174</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>159</baseSourceLine>
+            <baseSourceLine>175</baseSourceLine>
         </mutant>
         <mutant>
             <survived>true</survived>
             <operatorName>ROR</operatorName>
-            <baseSourceLine>155</baseSourceLine>
+            <baseSourceLine>170</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>172</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>175</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>175</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>266</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>266</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>265</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>254</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>250</baseSourceLine>
         </mutant>
     </classUnderTest>
     <classUnderTest>
-        <name>org.apache.commons.codec.net.URLCodec</name>
+        <className>DoubleMetaphone$DoubleMetaphoneResult</className>
+        <packageName>org.apache.commons.codec.language</packageName>
         <processingInfo>
-            <start>2007-04-11T23:08:34.813+02:00</start>
-            <duration>784</duration>
-            <end>2007-04-11T23:08:35.597+02:00</end>
+            <start>2007-05-01T15:12:12.204+02:00</start>
+            <duration>10</duration>
+            <end>2007-05-01T15:12:12.214+02:00</end>
         </processingInfo>
         <mutationRatio>
-            <mutationCount>363</mutationCount>
-            <survivorCount>228</survivorCount>
+            <mutationCount>0</mutationCount>
+            <survivorCount>0</survivorCount>
+        </mutationRatio>
+        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/language/DoubleMetaphone$DoubleMetaphoneResult.class</baseClassFile>
+    </classUnderTest>
+    <classUnderTest>
+        <className>SoundexUtils</className>
+        <packageName>org.apache.commons.codec.language</packageName>
+        <processingInfo>
+            <start>2007-05-01T15:12:12.215+02:00</start>
+            <duration>17</duration>
+            <end>2007-05-01T15:12:12.232+02:00</end>
+        </processingInfo>
+        <mutationRatio>
+            <mutationCount>7</mutationCount>
+            <survivorCount>7</survivorCount>
+        </mutationRatio>
+        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/language/SoundexUtils.class</baseClassFile>
+        <baseSourceFile>SoundexUtils.java</baseSourceFile>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>52</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>48</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>41</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>41</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>116</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>110</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>110</baseSourceLine>
+        </mutant>
+    </classUnderTest>
+    <classUnderTest>
+        <className>Encoder</className>
+        <packageName>org.apache.commons.codec</packageName>
+        <processingInfo>
+            <start>2007-05-01T15:12:12.233+02:00</start>
+            <duration>22</duration>
+            <end>2007-05-01T15:12:12.255+02:00</end>
+        </processingInfo>
+        <mutationRatio>
+            <mutationCount>0</mutationCount>
+            <survivorCount>0</survivorCount>
+        </mutationRatio>
+        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/Encoder.class</baseClassFile>
+    </classUnderTest>
+    <classUnderTest>
+        <className>QuotedPrintableCodec</className>
+        <packageName>org.apache.commons.codec.net</packageName>
+        <processingInfo>
+            <start>2007-05-01T15:12:12.257+02:00</start>
+            <duration>37</duration>
+            <end>2007-05-01T15:12:12.294+02:00</end>
+        </processingInfo>
+        <mutationRatio>
+            <mutationCount>17</mutationCount>
+            <survivorCount>17</survivorCount>
+        </mutationRatio>
+        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/net/QuotedPrintableCodec.class</baseClassFile>
+        <baseSourceFile>QuotedPrintableCodec.java</baseSourceFile>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>151</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>139</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>142</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>182</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>186</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>186</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>176</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>253</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>278</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>297</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>320</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>322</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>318</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>345</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>347</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>343</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <operatorName>ROR</operatorName>
+            <baseSourceLine>383</baseSourceLine>
+        </mutant>
+    </classUnderTest>
+    <classUnderTest>
+        <className>URLCodec</className>
+        <packageName>org.apache.commons.codec.net</packageName>
+        <processingInfo>
+            <start>2007-05-01T15:12:12.295+02:00</start>
+            <duration>41</duration>
+            <end>2007-05-01T15:12:12.336+02:00</end>
+        </processingInfo>
+        <mutationRatio>
+            <mutationCount>19</mutationCount>
+            <survivorCount>19</survivorCount>
         </mutationRatio>
         <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/net/URLCodec.class</baseClassFile>
         <baseSourceFile>URLCodec.java</baseSourceFile>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>128</baseSourceLine>
         </mutant>
@@ -2047,22 +2183,22 @@
             <baseSourceLine>117</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>164</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>166</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>170</baseSourceLine>
         </mutant>
         <mutant>
-            <survived>false</survived>
+            <survived>true</survived>
             <operatorName>ROR</operatorName>
             <baseSourceLine>170</baseSourceLine>
         </mutant>
@@ -2123,128 +2259,17 @@
         </mutant>
     </classUnderTest>
     <classUnderTest>
-        <name>org.apache.commons.codec.Decoder</name>
+        <className>EncoderException</className>
+        <packageName>org.apache.commons.codec</packageName>
         <processingInfo>
-            <start>2007-04-11T23:08:35.598+02:00</start>
-            <duration>1</duration>
-            <end>2007-04-11T23:08:35.599+02:00</end>
-        </processingInfo>
-        <mutationRatio>
-            <mutationCount>363</mutationCount>
-            <survivorCount>228</survivorCount>
-        </mutationRatio>
-        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/Decoder.class</baseClassFile>
-    </classUnderTest>
-    <classUnderTest>
-        <name>org.apache.commons.codec.BinaryEncoder</name>
-        <processingInfo>
-            <start>2007-04-11T23:08:35.601+02:00</start>
+            <start>2007-05-01T15:12:12.337+02:00</start>
             <duration>4</duration>
-            <end>2007-04-11T23:08:35.605+02:00</end>
+            <end>2007-05-01T15:12:12.341+02:00</end>
         </processingInfo>
         <mutationRatio>
-            <mutationCount>363</mutationCount>
-            <survivorCount>228</survivorCount>
+            <mutationCount>0</mutationCount>
+            <survivorCount>0</survivorCount>
         </mutationRatio>
-        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/BinaryEncoder.class</baseClassFile>
-    </classUnderTest>
-    <classUnderTest>
-        <name>org.apache.commons.codec.net.QuotedPrintableCodec</name>
-        <processingInfo>
-            <start>2007-04-11T23:08:35.607+02:00</start>
-            <duration>638</duration>
-            <end>2007-04-11T23:08:36.245+02:00</end>
-        </processingInfo>
-        <mutationRatio>
-            <mutationCount>380</mutationCount>
-            <survivorCount>242</survivorCount>
-        </mutationRatio>
-        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/net/QuotedPrintableCodec.class</baseClassFile>
-        <baseSourceFile>QuotedPrintableCodec.java</baseSourceFile>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>151</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>139</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>142</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>182</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>186</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>186</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>176</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>253</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>278</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>297</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>320</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>322</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>318</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>345</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>347</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>343</baseSourceLine>
-        </mutant>
-        <mutant>
-            <survived>true</survived>
-            <operatorName>ROR</operatorName>
-            <baseSourceLine>383</baseSourceLine>
-        </mutant>
+        <baseClassFile>../../../codec/target/classes/org/apache/commons/codec/EncoderException.class</baseClassFile>
     </classUnderTest>
 </mutationRun>

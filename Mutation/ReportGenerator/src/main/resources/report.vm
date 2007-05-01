@@ -31,7 +31,7 @@ BODY{background-color:#FFFFFF;  color:#003399;  font-family:sans-serif;  font-si
 Classes mutated:<br>
 <ul>
 #foreach( $class in $report.classUnderTest )
-    <li>$class.name
+    <li>$class.packageName $class.className
     <ul>
     <li>
     Number of overall created mutations: $class.mutationRatio.mutationCount</li>
