@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 
 public class ProjectBuilderIntegrationTest extends TestCase {
 
-	public void testBuildProject() throws Exception {
+	public void testBuildProject_MultipleFilesInDifferentFolders() throws Exception {
 
 		ProjectBuilder builder = new ProjectBuilder();
 
@@ -39,6 +39,50 @@ public class ProjectBuilderIntegrationTest extends TestCase {
 		assertEquals("src/test/resources/it00001/TestClass1.java", file.getFileName());
 		assertEquals("a1\nb2\n", file.getSourceText());
 		assertEquals("", file.getPackageName());
+		assertEquals("TestClass1", file.getClassName());
+
+	}
+	
+	public void testBuildProject_SourceFolderWithoutTrailingSlash() throws Exception {
+
+		ProjectBuilder builder = new ProjectBuilder();
+
+		List<String> sourceFolders = new ArrayList<String>();
+		sourceFolders.add("src/test/resources/it00002");
+		Project project = builder.buildProject(sourceFolders);
+
+		assertNotNull(project);
+		assertNotNull(project.getSourceFiles());
+		assertEquals(1, project.getSourceFiles().size());
+
+		SourceFile file;
+
+		file = project.getSourceFiles().get(0);
+		assertEquals("src/test/resources/it00002/subfolder/TestClass1.java", file.getFileName());
+		assertEquals("a1\nb2\n", file.getSourceText());
+		assertEquals("subfolder", file.getPackageName());
+		assertEquals("TestClass1", file.getClassName());
+
+	}
+	
+	public void testBuildProject_SourceFolderWithTrailingSlash() throws Exception {
+
+		ProjectBuilder builder = new ProjectBuilder();
+
+		List<String> sourceFolders = new ArrayList<String>();
+		sourceFolders.add("src/test/resources/it00002/");
+		Project project = builder.buildProject(sourceFolders);
+
+		assertNotNull(project);
+		assertNotNull(project.getSourceFiles());
+		assertEquals(1, project.getSourceFiles().size());
+
+		SourceFile file;
+
+		file = project.getSourceFiles().get(0);
+		assertEquals("src/test/resources/it00002/subfolder/TestClass1.java", file.getFileName());
+		assertEquals("a1\nb2\n", file.getSourceText());
+		assertEquals("subfolder", file.getPackageName());
 		assertEquals("TestClass1", file.getClassName());
 
 	}
