@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Project {
 	
-	private List<SourceFile> sourceFiles;
+	private List<SourceFile> sourceFiles = new ArrayList<SourceFile>();
 
 	public List<SourceFile> getSourceFiles() {
 		return sourceFiles;

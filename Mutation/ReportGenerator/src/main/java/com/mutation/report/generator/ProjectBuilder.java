@@ -3,6 +3,7 @@ package com.mutation.report.generator;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -103,16 +104,35 @@ public class ProjectBuilder {
 
 		File folder = new File(folderName);
 
-		if (folder.isDirectory()) {
+		File[] javaFiles = folder.listFiles(new FilenameFilter() {
 
-			File[] files = folder.listFiles();
-
-			for (int fileCount = 0; fileCount < files.length; fileCount++) {
-				result.addAll(getSourceFiles(files[fileCount].getPath()));
+			public boolean accept(File dir, String name) {
+				return name.endsWith(".java");
 			}
 
-		} else
-			result.add(folderName);
+		});
+
+		if (javaFiles != null) {
+			for (int fileCount = 0; fileCount < javaFiles.length; fileCount++) {
+
+				result.add(javaFiles[fileCount].getPath());
+			}
+		}
+
+		File[] directories = folder.listFiles(new FilenameFilter() {
+
+			public boolean accept(File dir, String name) {
+				return dir.isDirectory();
+			}
+
+		});
+
+		if (directories != null) {
+			for (int dirCount = 0; dirCount < directories.length; dirCount++) {
+
+				result.addAll(getSourceFiles(directories[dirCount].getPath()));
+			}
+		}
 
 		return result;
 
