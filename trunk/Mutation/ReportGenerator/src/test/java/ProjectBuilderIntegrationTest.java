@@ -23,7 +23,7 @@ public class ProjectBuilderIntegrationTest extends TestCase {
 
 		SourceFile file;
 
-		file = project.getSourceFiles().get(0);
+		file = project.getSourceFiles().get(2);
 		assertEquals("src/test/resources/it00001/subfolder/anotherSubFolder/TestClass2.java", file.getFileName());
 		assertEquals("x\n", file.getSourceText());
 		assertEquals("subfolder.anotherSubFolder", file.getPackageName());
@@ -35,7 +35,7 @@ public class ProjectBuilderIntegrationTest extends TestCase {
 		assertEquals("subfolder", file.getPackageName());
 		assertEquals("TestClass2", file.getClassName());
 
-		file = project.getSourceFiles().get(2);
+		file = project.getSourceFiles().get(0);
 		assertEquals("src/test/resources/it00001/TestClass1.java", file.getFileName());
 		assertEquals("a1\nb2\n", file.getSourceText());
 		assertEquals("", file.getPackageName());
