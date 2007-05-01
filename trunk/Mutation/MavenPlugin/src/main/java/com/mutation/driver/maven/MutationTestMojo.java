@@ -96,11 +96,11 @@ public class MutationTestMojo extends AbstractMojo {
 	public static void main(String[] args) throws MojoExecutionException, MojoFailureException {
 		// just for easy debugging
 		MutationTestMojo mojo = new MutationTestMojo();
-		mojo.classesDir = new File("../MutationSampleApp/target/classes");
+		mojo.classesDir = new File("../SampleProjectUnderTest/target/classes");
 		mojo.logFile = new File("target/mutation.log");
 		mojo.reportFile = new File("target/report.xml");
 		mojo.sourceDir = new File("src/main/java");
-		mojo.testClassesDir = new File("../MutationSampleApp/target/test-classes");
+		mojo.testClassesDir = new File("../SampleProjectUnderTest/target/test-classes");
 		mojo.execute();
 	}
 
