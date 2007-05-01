@@ -48,19 +48,22 @@ public class ProjectBuilder {
 	}
 
 	private String extractPackageName(String folderName, String sourceFileName) {
-		String nameWithoutSourceFolder = sourceFileName.substring(folderName.length() + 1);
+		String nameWithoutSourceFolder = sourceFileName.substring(folderName.length() );
 
 		String packageName = "";
 
 		int lastSlashIndex = nameWithoutSourceFolder.lastIndexOf("/");
 
 		if (lastSlashIndex > 0) {
-
 			packageName = nameWithoutSourceFolder.substring(0, lastSlashIndex);
-
 		}
 
 		String javaPackageName = packageName.replaceAll("/", ".");
+		
+		if ( javaPackageName.startsWith(".")) {
+			javaPackageName = javaPackageName.substring(1);
+		}
+		
 		return javaPackageName;
 	}
 
