@@ -59,8 +59,8 @@ public class MutationRunner {
 
 			eventListener.notifyEvent(new ProcessingMutationOperator(operator.name()));
 
-			List<Mutant> mutants = mutantGenerator.generateMutants(classUnderTestDescription.className, byteCode,
-					operator, eventListener);
+			List<Mutant> mutants = mutantGenerator.generateMutants(classUnderTestDescription.getPackageName() + "."
+					+ classUnderTestDescription.className, byteCode, operator, eventListener);
 
 			for (Mutant mutant : mutants) {
 
