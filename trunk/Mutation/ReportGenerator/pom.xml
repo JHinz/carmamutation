@@ -29,7 +29,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.mutation.core</groupId>
-			<artifactId>MutationReportModel</artifactId>
+			<artifactId>ReportModel</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
