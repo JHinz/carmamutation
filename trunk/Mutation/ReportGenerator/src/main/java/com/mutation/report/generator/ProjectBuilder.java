@@ -52,13 +52,13 @@ public class ProjectBuilder {
 
 		String packageName = "";
 
-		int lastSlashIndex = nameWithoutSourceFolder.lastIndexOf("/");
+		int lastSlashIndex = nameWithoutSourceFolder.lastIndexOf(System.getProperty("file.separator"));
 
 		if (lastSlashIndex > 0) {
 			packageName = nameWithoutSourceFolder.substring(0, lastSlashIndex);
 		}
 
-		String javaPackageName = packageName.replaceAll("/", ".");
+		String javaPackageName = packageName.replaceAll(System.getProperty("file.separator"), ".");
 		
 		if ( javaPackageName.startsWith(".")) {
 			javaPackageName = javaPackageName.substring(1);
@@ -71,7 +71,7 @@ public class ProjectBuilder {
 
 		String fileNameWithoutPath;
 
-		int lastSlashIndex = sourceFileNameWithPath.lastIndexOf("/");
+		int lastSlashIndex = sourceFileNameWithPath.lastIndexOf(System.getProperty("file.separator"));
 
 		if (lastSlashIndex > 0) {
 

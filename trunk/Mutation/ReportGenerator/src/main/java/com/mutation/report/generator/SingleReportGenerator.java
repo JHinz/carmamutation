@@ -81,10 +81,11 @@ public class SingleReportGenerator {
 
 			StringWriter w = new StringWriter();
 
-			Velocity.mergeTemplate(templateFileDirectory + "/" + CLASS_PAGE, "UTF-8", vcontext, w);
+			Velocity.mergeTemplate(templateFileDirectory + System.getProperty("file.separator") + CLASS_PAGE, "UTF-8",
+					vcontext, w);
 
-			FileWriter writer = new FileWriter(outputDirectory + "/" + clazz.getPackageName() + "."
-					+ clazz.getClassName() + ".html");
+			FileWriter writer = new FileWriter(outputDirectory + System.getProperty("file.separator")
+					+ clazz.getPackageName() + "." + clazz.getClassName() + ".html");
 
 			writer.write(w.toString());
 			writer.close();
@@ -96,9 +97,10 @@ public class SingleReportGenerator {
 
 		StringWriter w = new StringWriter();
 
-		Velocity.mergeTemplate(templateFileDirectory + "/" + REPORT_INDEX_TEMPLATE, "UTF-8", vcontext, w);
+		Velocity.mergeTemplate(templateFileDirectory + System.getProperty("file.separator") + REPORT_INDEX_TEMPLATE,
+				"UTF-8", vcontext, w);
 
-		FileWriter writer = new FileWriter(outputDirectory + "/" + REPORT_INDEX_PAGE);
+		FileWriter writer = new FileWriter(outputDirectory + System.getProperty("file.separator") + REPORT_INDEX_PAGE);
 		writer.write(w.toString());
 		writer.close();
 
