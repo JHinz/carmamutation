@@ -112,7 +112,6 @@ public class MutantGenerator implements IMutantGenerator {
 				newMutant.setSourceMapping(sourceCodeMapping);
 				newMutant.setByteCode(classGen.getJavaClass().getBytes());
 				newMutant.setMutationType(operator);
-				newMutant.setMutationOperator(mutator.getMutationOperator());
 
 				mutants.add(newMutant);
 

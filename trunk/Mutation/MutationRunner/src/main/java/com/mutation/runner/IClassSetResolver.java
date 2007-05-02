@@ -22,10 +22,21 @@ public interface IClassSetResolver {
 			this.classFile = classFile;
 		}
 
+		/**
+		 * 
+		 * @return local class name withou package name
+		 */
 		public String getClassName() {
 			return className;
 		}
 
+		/**
+		 * 
+		 * @return class name inclusive package prefix
+		 */
+		public String getQualifiedClassName(){
+			return packageName == null ? className : packageName +"." +className;
+		}
 		public void setClassName(String className) {
 			this.className = className;
 		}
