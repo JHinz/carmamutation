@@ -5,8 +5,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.mutation.report.source.om.Project;
 import com.mutation.report.source.om.SourceFile;
@@ -20,7 +23,7 @@ public class ProjectBuilder {
 		for (String folderName : sourceFolders) {
 
 			try {
-				List<String> sourceFileNames = getSourceFiles(folderName);
+				Set<String> sourceFileNames = getSourceFiles(folderName);
 
 				for (String sourceFileName : sourceFileNames) {
 					try {
@@ -28,7 +31,10 @@ public class ProjectBuilder {
 						sourceFile.setFileName(sourceFileName);
 						sourceFile.setPackageName(extractPackageName(folderName, sourceFileName));
 						sourceFile.setClassName(extractClassName(sourceFileName));
-						sourceFile.setSourceText(extractFileContent(sourceFileName));
+
+						BufferedReader reader = new BufferedReader(new FileReader(new File(sourceFileName)));
+
+						sourceFile.setSourceText(extractFileContent(reader));
 						project.addSourceFile(sourceFile);
 					} catch (IOException e) {
 						System.err.println("Source folder " + folderName + " is invalid. Skipping ...");
@@ -48,8 +54,8 @@ public class ProjectBuilder {
 	}
 
 	private String extractPackageName(String folderName, String sourceFileName) {
-		String nameWithoutSourceFolder = sourceFileName.substring(folderName.length() );
-		
+		String nameWithoutSourceFolder = sourceFileName.substring(folderName.length());
+
 		String packageName = "";
 
 		int lastSlashIndex = nameWithoutSourceFolder.lastIndexOf(System.getProperty("file.separator"));
@@ -58,18 +64,17 @@ public class ProjectBuilder {
 			packageName = nameWithoutSourceFolder.substring(0, lastSlashIndex);
 		}
 
-		//TODO /\ OS independent handling
 		String javaPackageName;
-		if (System.getProperty("file.separator").equals("\\") ) {
+		if (System.getProperty("file.separator").equals("\\")) {
 			javaPackageName = packageName.replaceAll("\\\\", ".");
 		} else {
 			javaPackageName = packageName.replaceAll("/", ".");
 		}
-		
-		if ( javaPackageName.startsWith(".")) {
+
+		if (javaPackageName.startsWith(".")) {
 			javaPackageName = javaPackageName.substring(1);
 		}
-		
+
 		return javaPackageName;
 	}
 
@@ -90,11 +95,16 @@ public class ProjectBuilder {
 		return fileNameWithoutPath.substring(0, fileNameWithoutPath.length() - 5);
 	}
 
-	private List<String> extractFileContent(String sourceFileName) throws IOException {
+	/**
+	 * Returns the reader's contents line by line in the order they appear in the file.
+	 * 
+	 * @param reader
+	 * @return
+	 * @throws IOException
+	 */
+	List<String> extractFileContent(BufferedReader reader) throws IOException {
 
 		List<String> sourceText = new ArrayList<String>();
-
-		BufferedReader reader = new BufferedReader(new FileReader(new File(sourceFileName)));
 
 		String lineRead = null;
 		while ((lineRead = reader.readLine()) != null) {
@@ -105,11 +115,11 @@ public class ProjectBuilder {
 
 	}
 
-	private List<String> getSourceFiles(String folderName) throws IOException {
+	private Set<String> getSourceFiles(String folderName) throws IOException {
 
 		// TODO: verify whether symbolic links can lead to infinite loops
 
-		List<String> result = new ArrayList<String>();
+		TreeSet<String> result = new TreeSet<String>();
 
 		File folder = new File(folderName);
 
