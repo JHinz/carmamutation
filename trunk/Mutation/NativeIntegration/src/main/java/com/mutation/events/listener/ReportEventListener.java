@@ -53,7 +53,7 @@ public class ReportEventListener implements IEventListener {
 
 	public ReportEventListener(String fileName) throws JAXBException {
 
-		System.out.print("Initializing XML report: " + fileName);
+		System.out.println("Initializing XML report: " + fileName);
 
 		run = new MutationRun();
 		this.outputFile = fileName;
@@ -65,7 +65,7 @@ public class ReportEventListener implements IEventListener {
 
 	public void destroy() {
 
-		System.out.print("Finishing XML report");
+		System.out.println("Finishing XML report");
 
 		runProcessingEnd = System.currentTimeMillis();
 
@@ -154,12 +154,15 @@ public class ReportEventListener implements IEventListener {
 
 			ProcessingMutant eventObj = (ProcessingMutant) event;
 
-			Mutant mutant = new Mutant();
-			mutant.setName(eventObj.getMutant().getName());
-			mutant.setBaseSourceLine(eventObj.getMutant().getSourceMapping().getLineNo());
-			mutant.setOperatorName(eventObj.getMutant().getMutationType().name());
+			Mutant mutantInfo = new Mutant();
+			com.mutation.runner.Mutant mutant = eventObj.getMutant();
+			mutantInfo.setName(mutant.getName());
+			mutantInfo.setBaseSourceLine(mutant.getSourceMapping().getLineNo());
+			mutantInfo.setOperatorName(mutant.getMutationType().name());
+			mutantInfo.setSourceInstruction(mutant.getSourceInstruction());
+			mutantInfo.setTargetInstruction(mutant.getTargetInstruction());
 
-			currentMutantReport = mutant;
+			currentMutantReport = mutantInfo;
 
 			currentClassUnderTestSubReport.getMutant().add(currentMutantReport);
 			currentClassUnderTestSubReport.setBaseSourceFile(eventObj.getMutant().getSourceMapping().getSourceFile());
@@ -170,8 +173,8 @@ public class ReportEventListener implements IEventListener {
 		if (event instanceof TestsExecuted) {
 
 			TestsExecuted eventObj = (TestsExecuted) event;
-
 			currentMutantReport.setSurvived(eventObj.isMutantSurvived());
+			currentMutantReport.getKillerTests().addAll(eventObj.getKillerTestNames());
 
 			numberOfMutantsForClass++;
 			numberOfMutantsForRun++;

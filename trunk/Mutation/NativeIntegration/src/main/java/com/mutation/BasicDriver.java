@@ -24,6 +24,9 @@ public class BasicDriver {
 
 	private MutationRunner runner;
 
+	/**
+	 * command line test runner, reads configuration from mutationconfig.xml
+	 */
 	public static void main(String[] args) throws MalformedURLException, FileNotFoundException {
 
 		AbstractApplicationContext factory = new ClassPathXmlApplicationContext("mutationconfig.xml");
@@ -45,7 +48,7 @@ public class BasicDriver {
 
 			try {
 
-				Set<String> testNames = testSetResolver.determineTests(classUnderTestDescription.getClassName());
+				Set<String> testNames = testSetResolver.determineTests(classUnderTestDescription.getQualifiedClassName());
 
 				runner.performMutations(operators, byteCodeFileReader, classUnderTestDescription, testNames);
 
