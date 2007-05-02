@@ -98,17 +98,17 @@ class TransformingMethodAdapter extends MethodAdapter {
 
 		switch (opcode) {
 		case IFEQ:
-			super.visitJumpInsn(listener.take("IFEQ -> IFNE", currentLineNo) ? IFNE : opcode, label);
+			super.visitJumpInsn(listener.take("IFEQ", "IFNE", currentLineNo) ? IFNE : opcode, label);
 			break;
 		case IFNE:
-			super.visitJumpInsn(listener.take("IFNE -> IFEQ", currentLineNo) ? IFEQ : opcode, label);
+			super.visitJumpInsn(listener.take("IFNE", "IFEQ", currentLineNo) ? IFEQ : opcode, label);
 
 			break;
 		case IF_ICMPEQ:
-			super.visitJumpInsn(listener.take("IF_ICMPEQ -> IF_ICMPNE", currentLineNo) ? IF_ICMPNE : opcode, label);
+			super.visitJumpInsn(listener.take("IF_ICMPEQ", "IF_ICMPNE", currentLineNo) ? IF_ICMPNE : opcode, label);
 			break;
 		case IF_ICMPNE:
-			super.visitJumpInsn(listener.take("IF_ICMPNE -> IF_ICMPEQ", currentLineNo) ? IF_ICMPEQ : opcode, label);
+			super.visitJumpInsn(listener.take("IF_ICMPNE", "IF_ICMPEQ", currentLineNo) ? IF_ICMPEQ : opcode, label);
 			break;
 
 		default:
@@ -167,10 +167,11 @@ class MutationListener {
 	 * 
 	 * @return
 	 */
-	public boolean take(String changeDescription, int lineNo) {
+	public boolean take(String sourceInstruction, String targetInstruction, int lineNo) {
 		boolean take;
 		if (possibleMutations == mutantNo) {
-			mutant.setChangeDescription(changeDescription);
+			mutant.setSourceInstruction(sourceInstruction);
+			mutant.setTargetInstruction(targetInstruction);
 			mutant.getSourceMapping().setLineNo(lineNo);
 
 			take = true;

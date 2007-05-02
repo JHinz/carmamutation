@@ -44,14 +44,7 @@ public class MutationRunner {
 
 		eventListener.notifyEvent(new ProcessingClassUnderTest(classUnderTestDescription));
 
-		String fqClassName;
-
-		if (classUnderTestDescription.getPackageName() == null
-				|| classUnderTestDescription.getPackageName().trim().equals("")) {
-			fqClassName = classUnderTestDescription.getClassName();
-		} else {
-			fqClassName = classUnderTestDescription.getPackageName() + "." + classUnderTestDescription.getClassName();
-		}
+		String fqClassName = classUnderTestDescription.getQualifiedClassName();
 
 		byte[] byteCode = loadClass(byteCodeFileReader, fqClassName);
 
