@@ -81,4 +81,43 @@ public class ProjectBuilderTestCase extends TestCase {
 		assertEquals("", builder.extractClassName("a"));
 	}
 
+	public void testExtractPackageName_ValidNameWithPackage() {
+		ProjectBuilder builder = new ProjectBuilder();
+		assertEquals("com.a.b.c", builder.extractPackageName("src/main/java", "src/main/java/com/a/b/c/Source.java"));
+	}
+
+	public void testExtractPackageName_ValidNameWithPackage2() {
+		ProjectBuilder builder = new ProjectBuilder();
+		assertEquals("main.java.com.a.b.c", builder.extractPackageName("src/", "src/main/java/com/a/b/c/Source.java"));
+	}
+
+	public void testExtractPackageName_ValidNameWithPackage3() {
+		ProjectBuilder builder = new ProjectBuilder();
+		assertEquals("main.java.com.a.b.c", builder.extractPackageName("src", "src/main/java/com/a/b/c/Source.java"));
+	}
+	
+	public void testExtractPackageName_ValidNameWithPackage4() {
+		ProjectBuilder builder = new ProjectBuilder();
+		assertEquals("src.main.java.com.a.b.c", builder.extractPackageName("", "src/main/java/com/a/b/c/Source.java"));
+	}
+
+	public void testExtractPackageName_ValidNameWithPackage_SourceFolderMismatch1() {
+		ProjectBuilder builder = new ProjectBuilder();
+		assertEquals("", builder.extractPackageName("/", "src/main/java/com/a/b/c/Source.java"));
+	}
+	
+	public void testExtractPackageName_ValidNameWithPackage_SourceFolderMismatch2() {
+		ProjectBuilder builder = new ProjectBuilder();
+		assertEquals("", builder.extractPackageName("/a", "/b/src/main/java/com/a/b/c/Source.java"));
+	}
+	
+	public void testExtractPackageName_ValidNameWithPackage_AbsoluteNames1() {
+		ProjectBuilder builder = new ProjectBuilder();
+		assertEquals("com.a.b.c", builder.extractPackageName("/src/main/java", "/src/main/java/com/a/b/c/Source.java"));
+	}
+	
+	public void testExtractPackageName_ValidNameWithPackage_AbsoluteNames2() {
+		ProjectBuilder builder = new ProjectBuilder();
+		assertEquals("com.a.b.c", builder.extractPackageName("/src/main/java/", "/src/main/java/com/a/b/c/Source.java"));
+	}
 }

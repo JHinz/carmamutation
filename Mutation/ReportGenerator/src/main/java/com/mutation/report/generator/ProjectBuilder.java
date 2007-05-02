@@ -58,7 +58,24 @@ public class ProjectBuilder {
 
 	}
 
-	private String extractPackageName(String folderName, String sourceFileName) {
+	/**
+	 * Extracts the package name of a given java source file name under
+	 * consideration of an source folder being part of that name. The source
+	 * folder part gets stripped of. The java source file name must begin and
+	 * match with the given source folder.
+	 * 
+	 * @param folderName
+	 *            Describes the source folder where the java source file
+	 *            resides.
+	 * @param sourceFileName
+	 * @return
+	 */
+	String extractPackageName(String folderName, String sourceFileName) {
+
+		if (!sourceFileName.startsWith(folderName)) {
+			return "";
+		}
+
 		String nameWithoutSourceFolder = sourceFileName.substring(folderName.length());
 
 		String packageName = "";
@@ -84,7 +101,7 @@ public class ProjectBuilder {
 	}
 
 	/**
-	 * Extracts the class name of a given java source file.
+	 * Extracts the class name of a given java source file name.
 	 * 
 	 * @param sourceFileNameWithPath
 	 *            The name of the source file with or without package folders.
