@@ -28,12 +28,6 @@
 		</constructor-arg>
 	</bean>
 
-	<bean id="mutantSourceDir" class="java.io.File">
-		<constructor-arg>
-			<value>${mutantSourceDir}</value>
-		</constructor-arg>
-	</bean>
-
 	<!--  set of operators considered for tests -->
 
 	<bean id="operators"
@@ -59,8 +53,8 @@
 	<!-- the core mutation runner class which executes the tests -->
 	<bean id="runner" class="com.mutation.runner.MutationRunner">
 		<property name="testRunner" ref="testRunner" />
-		<property name="eventListener" ref="report.eventListener" />
-		<property name="mutantGenerator" ref="bcel.mutantGenerator" />
+		<property name="eventListener" ref="eventListener" />
+		<property name="mutantGenerator" ref="mutantGenerator" />
 		<property name="originalClassPath" ref="classesDir" />
 	</bean>
 
@@ -81,7 +75,13 @@
 	</bean>
 
 	<bean id="eventListener"
-		class="com.mutation.events.listener.ConsoleEventListener">
+		class="com.mutation.events.listener.CompositeEventListener">
+		<property name="listeners">
+			<list>
+				<bean class="com.mutation.events.listener.ConsoleEventListener"></bean>
+				<ref bean="report.eventListener"/>
+			</list>
+		</property>
 	</bean>
 
 	<bean id="testRunner" class="com.mutation.testrunner.JUnitRunner">
@@ -102,10 +102,6 @@
 	<bean id="testSetResolver"
 		class="com.mutation.testsetresolver.OneTestPerClassResolver">
 		<property name="testCaseSuffix" value="${testCaseSuffix}" />
-	</bean>
-
-	<bean id="bcel.mutantGenerator"
-		class="com.mutation.transform.bcel.MutantGenerator">
 	</bean>
 
 	<bean id="mutantGenerator"

@@ -6,7 +6,6 @@ import junit.framework.TestCase;
 
 import org.apache.bcel.Repository;
 
-import com.mutation.runner.EMutationInstruction;
 import com.mutation.runner.EMutationOperator;
 import com.mutation.runner.Mutant;
 import com.mutation.transform.util.EventListenerMock;
@@ -33,12 +32,6 @@ public class MultipleMethods_TestCase extends TestCase {
 		int numberOf_IF_ICMPNE = 0;
 		int numberOf_IF_ICMPEQ = 0;
 
-		for (Mutant mutant : mutants) {
-			if (mutant.getMutationOperator() == EMutationInstruction.IF_ICMPEQ)
-				numberOf_IF_ICMPEQ++;
-			if (mutant.getMutationOperator() == EMutationInstruction.IF_ICMPNE)
-				numberOf_IF_ICMPNE++;
-		}
 
 		assertEquals("Number of IF_ICMPNE found does not match", 2, numberOf_IF_ICMPNE);
 		assertEquals("Number of IF_ICMPEQ found does not match", 2, numberOf_IF_ICMPEQ);
