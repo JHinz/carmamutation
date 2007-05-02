@@ -19,21 +19,29 @@ public class ProjectBuilderIntegrationTest extends TestCase {
 
 		assertNotNull(project);
 		assertNotNull(project.getSourceFiles());
-		assertEquals(3, project.getSourceFiles().size());
+		assertEquals(4, project.getSourceFiles().size());
 		assertNotNull(project.getSourceFile("subfolder.anotherSubFolder", "TestClass2"));
 		assertNotNull(project.getSourceFile("subfolder", "TestClass2"));
 		assertNotNull(project.getSourceFile("", "TestClass1"));
 
 		SourceFile file;
 
-		file = project.getSourceFiles().get(1);
-		assertEquals("src/test/resources/it00001/subfolder/anotherSubFolder/TestClass2.java", file.getFileName());
-		assertEquals(1, file.getSourceText().size());
-		assertEquals("x\n", file.getSourceText().get(0));
-		assertEquals("subfolder.anotherSubFolder", file.getPackageName());
-		assertEquals("TestClass2", file.getClassName());
-
 		file = project.getSourceFiles().get(0);
+		assertEquals("src/test/resources/it00001/AnotherClass.java", file.getFileName());
+		assertEquals(1, file.getSourceText().size());
+		assertEquals("AnotherClass\n", file.getSourceText().get(0));
+		assertEquals("", file.getPackageName());
+		assertEquals("AnotherClass", file.getClassName());
+
+		file = project.getSourceFiles().get(1);
+		assertEquals("src/test/resources/it00001/TestClass1.java", file.getFileName());
+		assertEquals(2, file.getSourceText().size());
+		assertEquals("a1\n", file.getSourceText().get(0));
+		assertEquals("b2\n", file.getSourceText().get(1));
+		assertEquals("", file.getPackageName());
+		assertEquals("TestClass1", file.getClassName());
+
+		file = project.getSourceFiles().get(2);
 		assertEquals("src/test/resources/it00001/subfolder/TestClass2.java", file.getFileName());
 		assertEquals(6, file.getSourceText().size());
 		assertEquals("a\n", file.getSourceText().get(0));
@@ -45,13 +53,12 @@ public class ProjectBuilderIntegrationTest extends TestCase {
 		assertEquals("subfolder", file.getPackageName());
 		assertEquals("TestClass2", file.getClassName());
 
-		file = project.getSourceFiles().get(2);
-		assertEquals("src/test/resources/it00001/TestClass1.java", file.getFileName());
-		assertEquals(2, file.getSourceText().size());
-		assertEquals("a1\n", file.getSourceText().get(0));
-		assertEquals("b2\n", file.getSourceText().get(1));
-		assertEquals("", file.getPackageName());
-		assertEquals("TestClass1", file.getClassName());
+		file = project.getSourceFiles().get(3);
+		assertEquals("src/test/resources/it00001/subfolder/anotherSubFolder/TestClass2.java", file.getFileName());
+		assertEquals(1, file.getSourceText().size());
+		assertEquals("x\n", file.getSourceText().get(0));
+		assertEquals("subfolder.anotherSubFolder", file.getPackageName());
+		assertEquals("TestClass2", file.getClassName());
 
 	}
 
