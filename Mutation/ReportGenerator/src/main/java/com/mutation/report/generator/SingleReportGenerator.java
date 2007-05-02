@@ -40,6 +40,7 @@ public class SingleReportGenerator {
 			System.exit(-1);
 		}
 
+		System.out.println("Start Report generation.");
 		try {
 
 			List<String> sourceFolders = new ArrayList<String>();
@@ -55,6 +56,7 @@ public class SingleReportGenerator {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("Finished Report generation.");
 
 	}
 
@@ -74,10 +76,20 @@ public class SingleReportGenerator {
 		for (ClassUnderTest clazz : report.getClassUnderTest()) {
 			VelocityContext vcontext = new VelocityContext();
 			vcontext.put("class", clazz);
-
+			
+			// mutants - line index mapping (in vm file?)
+			// helper: Mutant = getMutant(line no)
+//
+//			MutantMapper mapper = new MutantMapper(clazz.getMutant());
+//			vcontext.put("mutantionInfo", mapper);
 			SourceFile sourceFile = project.getSourceFile(clazz.getPackageName(), clazz.getClassName());
 
-			vcontext.put("sourceFile", sourceFile);
+			if(sourceFile == null){
+				System.out.println("Source Not Found for: " +clazz.getPackageName() +"." +clazz.getClassName() +" classFile: " +clazz.getBaseClassFile() +" sourceFile: " +clazz.getBaseSourceFile());
+				continue;
+			}
+			SourceInfoCreator infoCreator = new SourceInfoCreator(clazz, sourceFile);
+			vcontext.put("sourceInfo", infoCreator.createSourceInfo());
 
 			StringWriter w = new StringWriter();
 
