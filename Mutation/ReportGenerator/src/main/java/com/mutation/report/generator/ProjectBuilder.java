@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -15,6 +14,12 @@ import com.mutation.report.source.om.Project;
 import com.mutation.report.source.om.SourceFile;
 
 public class ProjectBuilder {
+
+	private static String FILESEP;
+
+	static {
+		FILESEP = System.getProperty("file.separator");
+	}
 
 	public Project buildProject(List<String> sourceFolders) {
 
@@ -58,17 +63,17 @@ public class ProjectBuilder {
 
 		String packageName = "";
 
-		int lastSlashIndex = nameWithoutSourceFolder.lastIndexOf(System.getProperty("file.separator"));
+		int lastSlashIndex = nameWithoutSourceFolder.lastIndexOf(FILESEP);
 
 		if (lastSlashIndex > 0) {
 			packageName = nameWithoutSourceFolder.substring(0, lastSlashIndex);
 		}
 
 		String javaPackageName;
-		if (System.getProperty("file.separator").equals("\\")) {
-			javaPackageName = packageName.replaceAll("\\\\", ".");
+		if (FILESEP.equals("\\")) {
+			javaPackageName = packageName.replaceAll(FILESEP + FILESEP, ".");
 		} else {
-			javaPackageName = packageName.replaceAll("/", ".");
+			javaPackageName = packageName.replaceAll(FILESEP, ".");
 		}
 
 		if (javaPackageName.startsWith(".")) {
@@ -78,11 +83,23 @@ public class ProjectBuilder {
 		return javaPackageName;
 	}
 
-	private String extractClassName(String sourceFileNameWithPath) {
+	/**
+	 * Extracts the class name of a given java source file.
+	 * 
+	 * @param sourceFileNameWithPath
+	 *            The name of the source file with or without package folders.
+	 *            The name must end with ".java".
+	 * @return
+	 */
+	String extractClassName(String sourceFileNameWithPath) {
+
+		if (!sourceFileNameWithPath.endsWith(".java")) {
+			return "";
+		}
 
 		String fileNameWithoutPath;
 
-		int lastSlashIndex = sourceFileNameWithPath.lastIndexOf(System.getProperty("file.separator"));
+		int lastSlashIndex = sourceFileNameWithPath.lastIndexOf(FILESEP);
 
 		if (lastSlashIndex > 0) {
 
@@ -96,7 +113,8 @@ public class ProjectBuilder {
 	}
 
 	/**
-	 * Returns the reader's contents line by line in the order they appear in the file.
+	 * Returns the reader's contents line by line in the order they appear in
+	 * the file.
 	 * 
 	 * @param reader
 	 * @return

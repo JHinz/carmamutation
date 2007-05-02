@@ -9,6 +9,12 @@ import junit.framework.TestCase;
 
 public class ProjectBuilderTestCase extends TestCase {
 
+	private static String FILESEP;
+
+	static {
+		FILESEP = System.getProperty("file.separator");
+	}
+
 	public void testExtractFileContent_EmptyStream() throws IOException {
 
 		ProjectBuilder builder = new ProjectBuilder();
@@ -38,6 +44,41 @@ public class ProjectBuilderTestCase extends TestCase {
 		assertEquals("abc\n", result.get(0));
 		assertEquals("123\n", result.get(1));
 
+	}
+
+	public void testExtractClassName_ValidName1() {
+		ProjectBuilder builder = new ProjectBuilder();
+		assertEquals("123", builder.extractClassName("123.java"));
+	}
+
+	public void testExtractClassName_ValidName2() {
+		ProjectBuilder builder = new ProjectBuilder();
+		assertEquals("A123B", builder.extractClassName("A123B.java"));
+	}
+
+	public void testExtractClassName_ValidNameWithPackage() {
+		ProjectBuilder builder = new ProjectBuilder();
+		assertEquals("A123B", builder.extractClassName("a" + FILESEP + "5" + FILESEP + "A123B.java"));
+	}
+
+	public void testExtractClassName_EmptyName() {
+		ProjectBuilder builder = new ProjectBuilder();
+		assertEquals("", builder.extractClassName(""));
+	}
+
+	public void testExtractClassName_InvalidNameWithPackage() {
+		ProjectBuilder builder = new ProjectBuilder();
+		assertEquals("A123B", builder.extractClassName(FILESEP + "a" + FILESEP + "5" + FILESEP + "A123B.java"));
+	}
+
+	public void testExtractClassName_ValidNameWithPackage_MissingCorrectEnding_LongName() {
+		ProjectBuilder builder = new ProjectBuilder();
+		assertEquals("", builder.extractClassName("a" + FILESEP + "5" + FILESEP + "A123B"));
+	}
+
+	public void testExtractClassName_ValidNameWithPackage_MissingCorrectEnding_ShortName() {
+		ProjectBuilder builder = new ProjectBuilder();
+		assertEquals("", builder.extractClassName("a"));
 	}
 
 }
