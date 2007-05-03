@@ -3,17 +3,13 @@ package com.mutation.report.generator;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import junit.framework.TestCase;
 
 public class ProjectBuilderTestCase extends TestCase {
-
-	private static String FILESEP;
-
-	static {
-		FILESEP = System.getProperty("file.separator");
-	}
 
 	public void testExtractFileContent_EmptyStream() throws IOException {
 
@@ -46,78 +42,86 @@ public class ProjectBuilderTestCase extends TestCase {
 
 	}
 
-	public void testExtractClassName_ValidName1() {
+	public void testExtractClassName_ValidName1() throws MalformedURLException {
 		ProjectBuilder builder = new ProjectBuilder();
-		assertEquals("123", builder.extractClassName("123.java"));
+		assertEquals("123", builder.extractClassName(new URL("file:123.java")));
 	}
 
-	public void testExtractClassName_ValidName2() {
+	public void testExtractClassName_ValidName2() throws MalformedURLException {
 		ProjectBuilder builder = new ProjectBuilder();
-		assertEquals("A123B", builder.extractClassName("A123B.java"));
+		assertEquals("A123B", builder.extractClassName(new URL("file:A123B.java")));
 	}
 
-	public void testExtractClassName_ValidNameWithPackage() {
+	public void testExtractClassName_ValidNameWithPackage() throws MalformedURLException {
 		ProjectBuilder builder = new ProjectBuilder();
-		assertEquals("A123B", builder.extractClassName("a" + FILESEP + "5" + FILESEP + "A123B.java"));
+		assertEquals("A123B", builder.extractClassName(new URL("file:a/5/A123B.java")));
 	}
 
-	public void testExtractClassName_EmptyName() {
+	public void testExtractClassName_EmptyName() throws MalformedURLException {
 		ProjectBuilder builder = new ProjectBuilder();
-		assertEquals("", builder.extractClassName(""));
+		assertEquals("", builder.extractClassName(new URL("file:")));
 	}
 
-	public void testExtractClassName_InvalidNameWithPackage() {
+	public void testExtractClassName_InvalidNameWithPackage() throws MalformedURLException {
 		ProjectBuilder builder = new ProjectBuilder();
-		assertEquals("A123B", builder.extractClassName(FILESEP + "a" + FILESEP + "5" + FILESEP + "A123B.java"));
+		assertEquals("A123B", builder.extractClassName(new URL("file:a/5/A123B.java")));
 	}
 
-	public void testExtractClassName_ValidNameWithPackage_MissingCorrectEnding_LongName() {
+	public void testExtractClassName_ValidNameWithPackage_MissingCorrectEnding_LongName() throws MalformedURLException {
 		ProjectBuilder builder = new ProjectBuilder();
-		assertEquals("", builder.extractClassName("a" + FILESEP + "5" + FILESEP + "A123B"));
+		assertEquals("", builder.extractClassName(new URL("file:a/5/A123B")));
 	}
 
-	public void testExtractClassName_ValidNameWithPackage_MissingCorrectEnding_ShortName() {
+	public void testExtractClassName_ValidNameWithPackage_MissingCorrectEnding_ShortName() throws MalformedURLException {
 		ProjectBuilder builder = new ProjectBuilder();
-		assertEquals("", builder.extractClassName("a"));
+		assertEquals("", builder.extractClassName(new URL("file:a")));
 	}
 
-	public void testExtractPackageName_ValidNameWithPackage() {
+	public void testExtractPackageName_ValidNameWithPackage() throws MalformedURLException {
 		ProjectBuilder builder = new ProjectBuilder();
-		assertEquals("com.a.b.c", builder.extractPackageName("src/main/java", "src/main/java/com/a/b/c/Source.java"));
+		assertEquals("com.a.b.c", builder.extractPackageName(new URL("file:src/main/java"), new URL(
+				"file:src/main/java/com/a/b/c/Source.java")));
 	}
 
-	public void testExtractPackageName_ValidNameWithPackage2() {
+	public void testExtractPackageName_ValidNameWithPackage2() throws MalformedURLException {
 		ProjectBuilder builder = new ProjectBuilder();
-		assertEquals("main.java.com.a.b.c", builder.extractPackageName("src/", "src/main/java/com/a/b/c/Source.java"));
+		assertEquals("main.java.com.a.b.c", builder.extractPackageName(new URL("file:src/"), new URL(
+				"file:src/main/java/com/a/b/c/Source.java")));
 	}
 
-	public void testExtractPackageName_ValidNameWithPackage3() {
+	public void testExtractPackageName_ValidNameWithPackage3() throws MalformedURLException {
 		ProjectBuilder builder = new ProjectBuilder();
-		assertEquals("main.java.com.a.b.c", builder.extractPackageName("src", "src/main/java/com/a/b/c/Source.java"));
-	}
-	
-	public void testExtractPackageName_ValidNameWithPackage4() {
-		ProjectBuilder builder = new ProjectBuilder();
-		assertEquals("src.main.java.com.a.b.c", builder.extractPackageName("", "src/main/java/com/a/b/c/Source.java"));
+		assertEquals("main.java.com.a.b.c", builder.extractPackageName(new URL("file:src"), new URL(
+				"file:src/main/java/com/a/b/c/Source.java")));
 	}
 
-	public void testExtractPackageName_ValidNameWithPackage_SourceFolderMismatch1() {
+	public void testExtractPackageName_ValidNameWithPackage4() throws MalformedURLException {
 		ProjectBuilder builder = new ProjectBuilder();
-		assertEquals("", builder.extractPackageName("/", "src/main/java/com/a/b/c/Source.java"));
+		assertEquals("src.main.java.com.a.b.c", builder.extractPackageName(new URL("file:"), new URL(
+				"file:src/main/java/com/a/b/c/Source.java")));
 	}
-	
-	public void testExtractPackageName_ValidNameWithPackage_SourceFolderMismatch2() {
+
+	public void testExtractPackageName_ValidNameWithPackage_SourceFolderMismatch1() throws MalformedURLException {
 		ProjectBuilder builder = new ProjectBuilder();
-		assertEquals("", builder.extractPackageName("/a", "/b/src/main/java/com/a/b/c/Source.java"));
+		assertEquals("", builder.extractPackageName(new URL("file:/"), new URL(
+				"file:src/main/java/com/a/b/c/Source.java")));
 	}
-	
-	public void testExtractPackageName_ValidNameWithPackage_AbsoluteNames1() {
+
+	public void testExtractPackageName_ValidNameWithPackage_SourceFolderMismatch2() throws MalformedURLException {
 		ProjectBuilder builder = new ProjectBuilder();
-		assertEquals("com.a.b.c", builder.extractPackageName("/src/main/java", "/src/main/java/com/a/b/c/Source.java"));
+		assertEquals("", builder.extractPackageName(new URL("file:/a"), new URL(
+				"file:/b/src/main/java/com/a/b/c/Source.java")));
 	}
-	
-	public void testExtractPackageName_ValidNameWithPackage_AbsoluteNames2() {
+
+	public void testExtractPackageName_ValidNameWithPackage_AbsoluteNames1() throws MalformedURLException {
 		ProjectBuilder builder = new ProjectBuilder();
-		assertEquals("com.a.b.c", builder.extractPackageName("/src/main/java/", "/src/main/java/com/a/b/c/Source.java"));
+		assertEquals("com.a.b.c", builder.extractPackageName(new URL("file:/src/main/java"), new URL(
+				"file:/src/main/java/com/a/b/c/Source.java")));
+	}
+
+	public void testExtractPackageName_ValidNameWithPackage_AbsoluteNames2() throws MalformedURLException {
+		ProjectBuilder builder = new ProjectBuilder();
+		assertEquals("com.a.b.c", builder.extractPackageName(new URL("file:/src/main/java/"), new URL(
+				"file:/src/main/java/com/a/b/c/Source.java")));
 	}
 }
