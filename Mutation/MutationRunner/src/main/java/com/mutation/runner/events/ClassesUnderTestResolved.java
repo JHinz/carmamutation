@@ -1,9 +1,8 @@
-package com.mutation.events;
+package com.mutation.runner.events;
 
 import java.util.Set;
 
 import com.mutation.runner.IClassSetResolver.ClassDescription;
-import com.mutation.runner.events.IEvent;
 import com.mutation.runner.utililties.ToStringUtils;
 
 public class ClassesUnderTestResolved implements IEvent {
