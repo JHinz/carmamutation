@@ -3,8 +3,8 @@ package com.mutation.transform.asm;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.objectweb.asm.ClassAdapter;
 import org.objectweb.asm.ClassReader;
@@ -31,9 +31,9 @@ public class RORMutantCreator {
 	public RORMutantCreator() {
 	}
 
-	public Set<Mutant> generateMutants(String classUnderTest, File originalClassFile, IEventListener eventListener) {
+	public List<Mutant> generateMutants(String classUnderTest, File originalClassFile, IEventListener eventListener) {
 
-		Set<Mutant> result = new HashSet<Mutant>();
+		List<Mutant> result = new ArrayList<Mutant>();
 
 		ClassReader cr;
 		try {
