@@ -29,13 +29,6 @@ public class MultipleMethods_TestCase extends TestCase {
 
 		assertEquals("Number of first level mutants incorrect", 4, mutants.size());
 
-		int numberOf_IF_ICMPNE = 0;
-		int numberOf_IF_ICMPEQ = 0;
-
-
-		assertEquals("Number of IF_ICMPNE found does not match", 2, numberOf_IF_ICMPNE);
-		assertEquals("Number of IF_ICMPEQ found does not match", 2, numberOf_IF_ICMPEQ);
-
 		assertEquals("Wrong number of events fired.", 1, listenerMock.getEvents().size());
 		// TODO: add more detailed assertions for events
 	}
