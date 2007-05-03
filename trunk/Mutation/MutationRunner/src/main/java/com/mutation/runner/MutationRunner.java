@@ -17,6 +17,7 @@ import com.mutation.runner.events.ProcessingClassUnderTestFinished;
 import com.mutation.runner.events.ProcessingMutant;
 import com.mutation.runner.events.ProcessingMutationOperator;
 import com.mutation.runner.utililties.ByteCodeFileReader;
+import com.mutation.testrunner.ITestRunner;
 import com.mutation.testrunner.JUnitRunner;
 
 public class MutationRunner {
