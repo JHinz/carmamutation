@@ -110,7 +110,7 @@ public class MutationRunnerTestCase extends TestCase {
 		assertTrue("Wrong event", listener.eventList.get(4) instanceof TestsExecuted);
 		assertFalse(((TestsExecuted) listener.eventList.get(4)).isMutantSurvived());
 		assertEquals(1, ((TestsExecuted) listener.eventList.get(4)).getKillerTestNames().size());
-		assertEquals("testsources.SampleTestCase", ((TestsExecuted) listener.eventList.get(4)).getKillerTestNames()
+		assertEquals("testsources.SampleTestCase", ((TestsExecuted) listener.eventList.get(6)).getKillerTestNames()
 				.iterator().next());
 
 		assertTrue("Wrong event", listener.eventList.get(5) instanceof ProcessingMutant);
@@ -135,9 +135,7 @@ public class MutationRunnerTestCase extends TestCase {
 
 		assertTrue("Wrong event", listener.eventList.get(8) instanceof TestsExecuted);
 		assertTrue(((TestsExecuted) listener.eventList.get(8)).isMutantSurvived());
-		assertEquals(1, ((TestsExecuted) listener.eventList.get(8)).getKillerTestNames().size());
-		assertEquals("testsources.SampleTestCase", ((TestsExecuted) listener.eventList.get(8)).getKillerTestNames()
-				.iterator().next());
+		assertEquals(0, ((TestsExecuted) listener.eventList.get(8)).getKillerTestNames().size());
 
 		assertTrue("Wrong event", listener.eventList.get(9) instanceof ProcessingClassUnderTestFinished);
 	}
