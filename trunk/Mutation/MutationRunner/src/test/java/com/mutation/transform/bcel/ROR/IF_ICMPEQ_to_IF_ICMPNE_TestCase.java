@@ -9,8 +9,8 @@ import org.apache.bcel.Repository;
 
 import com.mutation.runner.EMutationOperator;
 import com.mutation.runner.Mutant;
+import com.mutation.runner.events.EventListenerMock;
 import com.mutation.transform.bcel.MutantGenerator;
-import com.mutation.transform.util.EventListenerMock;
 
 public class IF_ICMPEQ_to_IF_ICMPNE_TestCase extends TestCase {
 

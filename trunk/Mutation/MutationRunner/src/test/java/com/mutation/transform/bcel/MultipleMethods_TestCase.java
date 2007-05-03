@@ -8,7 +8,7 @@ import org.apache.bcel.Repository;
 
 import com.mutation.runner.EMutationOperator;
 import com.mutation.runner.Mutant;
-import com.mutation.transform.util.EventListenerMock;
+import com.mutation.runner.events.EventListenerMock;
 
 public class MultipleMethods_TestCase extends TestCase {
 
