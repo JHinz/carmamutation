@@ -1,8 +1,8 @@
 package com.mutation.testresolver;
 
-import com.mutation.testsetresolver.OneTestPerClassResolver;
-
 import junit.framework.TestCase;
+
+import com.mutation.testsetresolver.OneTestPerClassResolver;
 
 public class OneTestPerClassResolverTestCase extends TestCase {
 
