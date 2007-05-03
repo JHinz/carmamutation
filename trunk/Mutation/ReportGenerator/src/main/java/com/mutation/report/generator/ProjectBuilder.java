@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -15,12 +16,6 @@ import com.mutation.report.source.om.SourceFile;
 
 public class ProjectBuilder {
 
-	private static String FILESEP;
-
-	static {
-		FILESEP = System.getProperty("file.separator");
-	}
-
 	public Project buildProject(List<String> sourceFolders) {
 
 		Project project = new Project();
@@ -28,16 +23,21 @@ public class ProjectBuilder {
 		for (String folderName : sourceFolders) {
 
 			try {
+				URL sourceFolderUrl = new URL("file:" + folderName);
+
 				Set<String> sourceFileNames = getSourceFiles(folderName);
 
 				for (String sourceFileName : sourceFileNames) {
 					try {
-						SourceFile sourceFile = new SourceFile();
-						sourceFile.setFileName(sourceFileName);
-						sourceFile.setPackageName(extractPackageName(folderName, sourceFileName));
-						sourceFile.setClassName(extractClassName(sourceFileName));
 
-						BufferedReader reader = new BufferedReader(new FileReader(new File(sourceFileName)));
+						URL sourceFileUrl = new URL("file:" + sourceFileName);
+
+						SourceFile sourceFile = new SourceFile();
+						sourceFile.setFileName(sourceFileUrl.getPath());
+						sourceFile.setPackageName(extractPackageName(sourceFolderUrl, sourceFileUrl));
+						sourceFile.setClassName(extractClassName(sourceFileUrl));
+
+						BufferedReader reader = new BufferedReader(new FileReader(new File(sourceFileUrl.getPath())));
 
 						sourceFile.setSourceText(extractFileContent(reader));
 						project.addSourceFile(sourceFile);
@@ -70,7 +70,14 @@ public class ProjectBuilder {
 	 * @param sourceFileName
 	 * @return
 	 */
-	String extractPackageName(String folderName, String sourceFileName) {
+	String extractPackageName(URL sourceFolderUrl, URL sourceFileUrl) {
+
+		String folderName = sourceFolderUrl.getPath();
+
+		if (folderName.trim().length() > 0 && !folderName.endsWith("/")) {
+			folderName += "/";
+		}
+		String sourceFileName = sourceFileUrl.getPath();
 
 		if (!sourceFileName.startsWith(folderName)) {
 			return "";
@@ -80,18 +87,13 @@ public class ProjectBuilder {
 
 		String packageName = "";
 
-		int lastSlashIndex = nameWithoutSourceFolder.lastIndexOf(FILESEP);
+		int lastSlashIndex = nameWithoutSourceFolder.lastIndexOf("/");
 
 		if (lastSlashIndex > 0) {
 			packageName = nameWithoutSourceFolder.substring(0, lastSlashIndex);
 		}
 
-		String javaPackageName;
-		if (FILESEP.equals("\\")) {
-			javaPackageName = packageName.replaceAll(FILESEP + FILESEP, ".");
-		} else {
-			javaPackageName = packageName.replaceAll(FILESEP, ".");
-		}
+		String javaPackageName = packageName.replaceAll("/", ".");
 
 		if (javaPackageName.startsWith(".")) {
 			javaPackageName = javaPackageName.substring(1);
@@ -108,7 +110,9 @@ public class ProjectBuilder {
 	 *            The name must end with ".java".
 	 * @return
 	 */
-	String extractClassName(String sourceFileNameWithPath) {
+	String extractClassName(URL sourceFileNameUrl) {
+
+		String sourceFileNameWithPath = sourceFileNameUrl.getPath();
 
 		if (!sourceFileNameWithPath.endsWith(".java")) {
 			return "";
@@ -116,7 +120,7 @@ public class ProjectBuilder {
 
 		String fileNameWithoutPath;
 
-		int lastSlashIndex = sourceFileNameWithPath.lastIndexOf(FILESEP);
+		int lastSlashIndex = sourceFileNameWithPath.lastIndexOf("/");
 
 		if (lastSlashIndex > 0) {
 
