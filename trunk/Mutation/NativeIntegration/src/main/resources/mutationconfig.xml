@@ -59,7 +59,7 @@
 	</bean>
 
 	<bean id="file.eventListener"
-		class="com.mutation.events.listener.FileEventListener"
+		class="com.mutation.runner.events.listener.FileEventListener"
 		destroy-method="destroy">
 		<constructor-arg>
 			<value>${log.filename}</value>
@@ -67,7 +67,7 @@
 	</bean>
 
 	<bean id="report.eventListener"
-		class="com.mutation.events.listener.ReportEventListener"
+		class="com.mutation.runner.events.listener.ReportEventListener"
 		destroy-method="destroy">
 		<constructor-arg>
 			<value>${report.filename}</value>
@@ -75,10 +75,10 @@
 	</bean>
 
 	<bean id="eventListener"
-		class="com.mutation.events.listener.CompositeEventListener">
+		class="com.mutation.runner.events.listener.CompositeEventListener">
 		<property name="listeners">
 			<list>
-				<bean class="com.mutation.events.listener.ConsoleEventListener"></bean>
+				<bean class="com.mutation.runner.events.listener.ConsoleEventListener"></bean>
 				<ref bean="report.eventListener"/>
 			</list>
 		</property>

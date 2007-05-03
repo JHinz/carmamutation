@@ -1,9 +1,8 @@
-package com.mutation.events;
+package com.mutation.runner.events;
 
 import java.util.List;
 
 import com.mutation.runner.EMutationOperator;
-import com.mutation.runner.events.IEvent;
 import com.mutation.runner.utililties.ToStringUtils;
 
 public class DriverStarted implements IEvent {
