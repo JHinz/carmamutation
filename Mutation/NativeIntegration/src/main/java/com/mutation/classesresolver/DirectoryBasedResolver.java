@@ -21,7 +21,6 @@ public class DirectoryBasedResolver implements IClassSetResolver {
 	public Set<ClassDescription> determineClassNames() {
 		Set<ClassDescription> classDescriptions = new HashSet<ClassDescription>();
 		iterate(this.classesBaseDir, "", "", classDescriptions);
-
 		return classDescriptions;
 	}
 

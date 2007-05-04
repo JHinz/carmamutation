@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mutationRun>
+    <processingInfo>
+        <start>2007-05-04T23:40:45.557+02:00</start>
+        <duration>290</duration>
+        <end>2007-05-04T23:40:45.847+02:00</end>
+    </processingInfo>
+    <mutationRatio>
+        <mutationCount>2</mutationCount>
+        <survivorCount>1</survivorCount>
+    </mutationRatio>
+    <classUnderTest>
+        <className>App</className>
+        <packageName>com.mutation.sampleapp</packageName>
+        <processingInfo>
+            <start>2007-05-04T23:40:45.637+02:00</start>
+            <duration>200</duration>
+            <end>2007-05-04T23:40:45.837+02:00</end>
+        </processingInfo>
+        <mutationRatio>
+            <mutationCount>2</mutationCount>
+            <survivorCount>1</survivorCount>
+        </mutationRatio>
+        <baseClassFile>F:\workspaces\mutationTesting2\SampleProjectUnderTest\target\classes\com\mutation\sampleapp\App.class</baseClassFile>
+        <baseSourceFile>App.java</baseSourceFile>
+        <mutant>
+            <survived>false</survived>
+            <name>com.mutation.sampleapp.App_ASM_ROR_0</name>
+            <operatorName>ROR</operatorName>
+            <sourceInstruction>IFEQ</sourceInstruction>
+            <targetInstruction>IFNE</targetInstruction>
+            <baseSourceLine>11</baseSourceLine>
+            <killerTests>com.mutation.sampleapp.AppTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <name>com.mutation.sampleapp.App_ASM_ROR_1</name>
+            <operatorName>ROR</operatorName>
+            <sourceInstruction>IFEQ</sourceInstruction>
+            <targetInstruction>IFNE</targetInstruction>
+            <baseSourceLine>19</baseSourceLine>
+        </mutant>
+    </classUnderTest>
+</mutationRun>

@@ -12,12 +12,15 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugin.logging.Log;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.ClassPathResource;
 
 import com.mutation.BasicDriver;
 import com.mutation.runner.EMutationOperator;
+import com.mutation.runner.events.listener.SummaryCreatorEventListener;
+import com.mutation.runner.events.listener.SummaryCreatorEventListener.Summary;
 import com.mutation.testrunner.JUnitRunner;
 
 /**
@@ -111,7 +114,7 @@ public class MutationTestMojo extends AbstractMojo {
 		System.out.println("classes dir        : " + classesDir);
 		System.out.println("test classes dir   : " + testClassesDir);
 		System.out.println("MutationTest report: " + reportFile);
-
+		super.getLog().info("§");
 		Properties properties = new Properties();
 		properties.setProperty("sourceDir", sourceDir.getAbsolutePath());
 		properties.setProperty("classesDir", classesDir.getAbsolutePath());
@@ -123,7 +126,6 @@ public class MutationTestMojo extends AbstractMojo {
 		// TODO maven config
 		properties.setProperty("testCaseSuffix", "Test");
 
-		
 		ClassPathResource springConfigResource = new ClassPathResource("mutationconfig-maven.xml");
 		XmlBeanFactory factory = new XmlBeanFactory(springConfigResource);
 		PropertyPlaceholderConfigurer propertyPlaceholderConfigurer = new PropertyPlaceholderConfigurer();
@@ -154,22 +156,35 @@ public class MutationTestMojo extends AbstractMojo {
 		List<EMutationOperator> operators = (List<EMutationOperator>) factory.getBean("operators");
 		BasicDriver driver = (BasicDriver) factory.getBean("testDriver");
 		driver.execute(operators);
-		
+
+		SummaryCreatorEventListener summaryCreator = (SummaryCreatorEventListener) factory.getBean("summaryCreator");
+		Summary sum = summaryCreator.createSummary();
+		Log log = getLog();
+		log.info("# --------------------------------------------------------------------------------");
+		log.info("# TEST RESULTS SUMMARY ");
+		log.info("#   Total time                : " + sum.timeSeconds + " sec.");
+		log.info("#   Classes/Tests             : " + sum.numClassesUnderTest + "/" + sum.numTests);
+		log.info("#   Tests Per Class           : " + sum.testsPerClass);
+		log.info("#   Mutants/Class             : " + sum.mutantsPerClass);
+		log.info("#   Mutants/Survivors         : " + sum.numMutants + "/" + sum.numSurvivors);
+		log.info("#   SurvivorRatio             : " + sum.survivorPercentage + " %");
+		log.info("# --------------------------------------------------------------------------------");
 		factory.destroySingletons();
 
 	}
 
 	private List<URL> getDependencyClassPathUrls() throws MalformedURLException {
-		
+
 		List<URL> urls = new ArrayList<URL>();
-// that line causes the classcastexception
-//		urls.add(new URL("file:/C:/Dokumente und Einstellungen/mike/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar"));
-//		return urls;
-		System.out.println("!!!!!! dependencies: " +dependencies);
+		// that line causes the classcastexception
+		// urls.add(new URL("file:/C:/Dokumente und
+		// Einstellungen/mike/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar"));
+		// return urls;
+		System.out.println("!!!!!! dependencies: " + dependencies);
 		if (dependencies != null && !dependencies.isEmpty()) {
 			for (Iterator it = dependencies.iterator(); it.hasNext();) {
-				Artifact dep = (Artifact)it.next();
-				System.out.println("### Dependency: " +dep.getFile().toURL());
+				Artifact dep = (Artifact) it.next();
+				System.out.println("### Dependency: " + dep.getFile().toURL());
 				urls.add(dep.getFile().toURL());
 			}
 		}

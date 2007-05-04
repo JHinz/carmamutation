@@ -14,10 +14,15 @@ import com.mutation.runner.IClassSetResolver;
 import com.mutation.runner.ITestSetResolver;
 import com.mutation.runner.MutationRunner;
 import com.mutation.runner.IClassSetResolver.ClassDescription;
+import com.mutation.runner.events.ClassesUnderTestResolved;
+import com.mutation.runner.events.DriverFinished;
+import com.mutation.runner.events.DriverStarted;
+import com.mutation.runner.events.IEventListener;
+import com.mutation.runner.events.TestSetDetermined;
 import com.mutation.runner.utililties.ByteCodeFileReader;
 
 public class BasicDriver {
-
+	private IEventListener eventListener;
 	private IClassSetResolver classSetResolver;
 
 	private ITestSetResolver testSetResolver;
@@ -40,7 +45,9 @@ public class BasicDriver {
 
 	public void execute(List<EMutationOperator> operators) {
 
+		eventListener.notifyEvent(new DriverStarted(operators));
 		Set<IClassSetResolver.ClassDescription> classUnderTestNames = classSetResolver.determineClassNames();
+		eventListener.notifyEvent(new ClassesUnderTestResolved(classUnderTestNames));
 
 		ByteCodeFileReader byteCodeFileReader = new ByteCodeFileReader();
 
@@ -49,7 +56,7 @@ public class BasicDriver {
 			try {
 
 				Set<String> testNames = testSetResolver.determineTests(classUnderTestDescription.getQualifiedClassName());
-
+				eventListener.notifyEvent( new TestSetDetermined(classUnderTestDescription.getQualifiedClassName(), testNames));
 				runner.performMutations(operators, byteCodeFileReader, classUnderTestDescription, testNames);
 
 			} catch (IOException e) {
@@ -57,6 +64,8 @@ public class BasicDriver {
 			}
 
 		}
+		eventListener.notifyEvent(new DriverFinished());
+
 	}
 
 	public void setClassSetResolver(IClassSetResolver classSetResolver) {
@@ -81,6 +90,10 @@ public class BasicDriver {
 
 	public ITestSetResolver getTestSetResolver() {
 		return testSetResolver;
+	}
+
+	public void setEventListener(IEventListener eventListener) {
+		this.eventListener = eventListener;
 	}
 
 }
