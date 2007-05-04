@@ -31,17 +31,11 @@ public class RORMutantCreator {
 	public RORMutantCreator() {
 	}
 
-	public List<Mutant> generateMutants(String classUnderTest, File originalClassFile, IEventListener eventListener) {
+	public List<Mutant> generateMutants(String classUnderTest, byte[] byteCode, IEventListener eventListener) {
 
 		List<Mutant> result = new ArrayList<Mutant>();
 
-		ClassReader cr;
-		try {
-			cr = new ClassReader(new FileInputStream(originalClassFile));
-		} catch (IOException e) {
-			e.printStackTrace();
-			return result;
-		}
+		ClassReader cr = new ClassReader(byteCode);
 
 		for (int mutantNo = 0;; mutantNo++) {
 			ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);
