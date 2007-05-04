@@ -1,8 +1,5 @@
 package com.mutation.transform.asm;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +10,7 @@ import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodAdapter;
 import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.util.CheckClassAdapter;
 
 import com.mutation.runner.EMutationOperator;
@@ -85,24 +83,18 @@ class TransformingMethodAdapter extends MethodAdapter {
 	@Override
 	public void visitJumpInsn(int opcode, Label label) {
 
-		final int IFEQ = 153;
-		final int IFNE = 154;
-		final int IF_ICMPEQ = 159;
-		final int IF_ICMPNE = 160;
-
 		switch (opcode) {
-		case IFEQ:
-			super.visitJumpInsn(listener.take("IFEQ", "IFNE", currentLineNo) ? IFNE : opcode, label);
+		case Opcodes.IFEQ:
+			super.visitJumpInsn(listener.take("IFEQ", "IFNE", currentLineNo) ? Opcodes.IFNE : opcode, label);
 			break;
-		case IFNE:
-			super.visitJumpInsn(listener.take("IFNE", "IFEQ", currentLineNo) ? IFEQ : opcode, label);
-
+		case Opcodes.IFNE:
+			super.visitJumpInsn(listener.take("IFNE", "IFEQ", currentLineNo) ? Opcodes.IFEQ : opcode, label);
 			break;
-		case IF_ICMPEQ:
-			super.visitJumpInsn(listener.take("IF_ICMPEQ", "IF_ICMPNE", currentLineNo) ? IF_ICMPNE : opcode, label);
+		case Opcodes.IF_ICMPNE:
+			super.visitJumpInsn(listener.take("IF_ICMPEQ", "IF_ICMPNE", currentLineNo) ? Opcodes.IF_ICMPEQ : opcode, label);
 			break;
-		case IF_ICMPNE:
-			super.visitJumpInsn(listener.take("IF_ICMPNE", "IF_ICMPEQ", currentLineNo) ? IF_ICMPEQ : opcode, label);
+		case Opcodes.IF_ICMPEQ:
+			super.visitJumpInsn(listener.take("IF_ICMPNE", "IF_ICMPEQ", currentLineNo) ? Opcodes.IF_ICMPNE : opcode, label);
 			break;
 
 		default:
