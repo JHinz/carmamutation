@@ -1,12 +1,10 @@
 package com.mutation.runner.events.listener;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import com.mutation.runner.Mutant;
 import com.mutation.runner.events.ClassesUnderTestResolved;
-import com.mutation.runner.events.DriverFinished;
 import com.mutation.runner.events.DriverStarted;
 import com.mutation.runner.events.IEvent;
 import com.mutation.runner.events.IEventListener;
@@ -15,7 +13,12 @@ import com.mutation.runner.events.TestSetDetermined;
 import com.mutation.runner.events.TestsExecuted;
 import com.mutation.runner.utililties.StopWatch;
 
-public class ConsoleEventListener implements IEventListener {
+/**
+ * this event listeners creates summary information
+ * @author mike
+ *
+ */
+public class SummaryCreatorEventListener implements IEventListener{
 	int numSurvivors;
 
 	int numKilled;
@@ -24,34 +27,36 @@ public class ConsoleEventListener implements IEventListener {
 	
 	int numTests;
 
-	private boolean showSummaryOnly;
-
 	Set<Mutant> totalMutants = new HashSet<Mutant>();
 
 	Set<Mutant> suvivors = new HashSet<Mutant>();
 
 	private StopWatch watch = new StopWatch();
 
+	/**
+	 * this method should be called after tests have been finished
+	 * @return
+	 */
+	public Summary createSummary(){
+		Summary summary = new Summary();
+		double elapsed = watch.stop();
+		double mutantsPerClass = (double) totalMutants.size() / (double) numClassesUnderTest;
+		double testsPerClass = (double) numTests / (double) numClassesUnderTest;
+		double survivorRatio = (double) suvivors.size() / (double) totalMutants.size() * 100;
+		
+		summary.mutantsPerClass = mutantsPerClass;
+		summary.numClassesUnderTest = numClassesUnderTest;
+		summary.numMutants = totalMutants.size();
+		summary.numSurvivors = suvivors.size();
+		summary.numTests = numTests;
+		summary.survivorPercentage = survivorRatio;
+		summary.testsPerClass = testsPerClass;
+		summary.timeSeconds = (double)elapsed /1000;
+		return summary;
+	}
 	public void notifyEvent(IEvent event) {
-		if (!showSummaryOnly) {
-			System.out.println(new Date() + ": " + event);
-		}
 		if (event instanceof DriverStarted) {
 			watch.start();
-		} else if (event instanceof DriverFinished) {
-			double elapsed = watch.stop();
-			double mutantsPerClass = (double) totalMutants.size() / (double) numClassesUnderTest;
-			double testsPerClass = (double) numTests / (double) numClassesUnderTest;
-			double survivorRatio = (double) suvivors.size() / (double) totalMutants.size() * 100;
-			System.out.println("# --------------------------------------------------------------------------------");
-			System.out.println("# TEST RESULTS SUMMARY ");
-			System.out.println("#   Total time                : " + elapsed / 1000 + " sec.");
-			System.out.println("#   Classes/Tests             : " + numClassesUnderTest +"/" +numTests);
-			System.out.println("#   Tests Per Class           : " + testsPerClass);
-			System.out.println("#   Mutants/Class             : " + mutantsPerClass);
-			System.out.println("#   Mutants/Survivors         : "  + totalMutants.size() + "/" + suvivors.size());
-			System.out.println("#   SurvivorRatio             : " +survivorRatio +" %");
-			System.out.println("# --------------------------------------------------------------------------------");
 		} else if (event instanceof TestsExecuted) {
 			TestsExecuted te = (TestsExecuted) event;
 			if (te.isMutantSurvived()) {
@@ -73,12 +78,16 @@ public class ConsoleEventListener implements IEventListener {
 		}
 	}
 
-	public void destroy() throws Exception {
-
+	
+	
+	public class Summary{
+		public double timeSeconds;
+		public int numClassesUnderTest;
+		public int numTests;
+		public double testsPerClass;
+		public double mutantsPerClass;
+		public int numMutants;
+		public int numSurvivors;
+		public double survivorPercentage;
 	}
-
-	public void setShowSummaryOnly(boolean showSummaryOnly) {
-		this.showSummaryOnly = showSummaryOnly;
-	}
-
 }

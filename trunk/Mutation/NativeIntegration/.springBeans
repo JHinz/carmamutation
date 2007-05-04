@@ -4,6 +4,7 @@
 		<configExtension>xml</configExtension>
 	</configExtensions>
 	<configs>
+		<config>src/main/resources/mutationconfig.xml</config>
 		<config>testconfig.xml</config>
 	</configs>
 	<configSets>

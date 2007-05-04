@@ -1,0 +1,17 @@
+	<!--  integrate the plugin below into your pom.xml -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.mutation.driver.maven</groupId>
+				<artifactId>MutationMavenPlugin</artifactId>
+				<executions>
+					<execution>
+						<id>mutationtest</id>
+						<goals>
+							<goal>mtest</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
