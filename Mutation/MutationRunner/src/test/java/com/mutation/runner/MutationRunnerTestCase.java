@@ -43,7 +43,6 @@ public class MutationRunnerTestCase extends TestCase {
 		TestEventListener listener = new TestEventListener();
 
 		MutantGenerator generator = new MutantGenerator();
-		generator.setOriginalClassPath(new File("src/test/it/it0001/"));
 
 		JUnitRunner testRunner = new JUnitRunner();
 		testRunner.setStopOnFirstFailedTest(false);
