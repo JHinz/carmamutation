@@ -3,6 +3,7 @@ package com.mutation.driver.maven;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -159,15 +160,18 @@ public class MutationTestMojo extends AbstractMojo {
 
 		SummaryCreatorEventListener summaryCreator = (SummaryCreatorEventListener) factory.getBean("summaryCreator");
 		Summary sum = summaryCreator.createSummary();
+		NumberFormat format = NumberFormat.getInstance();
+		format.setMaximumFractionDigits(2);
+		format.setMinimumFractionDigits(2);
 		Log log = getLog();
 		log.info("# --------------------------------------------------------------------------------");
 		log.info("# TEST RESULTS SUMMARY ");
-		log.info("#   Total time                : " + sum.timeSeconds + " sec.");
+		log.info("#   Total time                : " + format.format( sum.timeSeconds ) + " sec.");
 		log.info("#   Classes/Tests             : " + sum.numClassesUnderTest + "/" + sum.numTests);
-		log.info("#   Tests Per Class           : " + sum.testsPerClass);
-		log.info("#   Mutants/Class             : " + sum.mutantsPerClass);
+		log.info("#   Tests Per Class           : " + format.format( sum.testsPerClass ));
+		log.info("#   Mutants/Class             : " + format.format( sum.mutantsPerClass ));
 		log.info("#   Mutants/Survivors         : " + sum.numMutants + "/" + sum.numSurvivors);
-		log.info("#   SurvivorRatio             : " + sum.survivorPercentage + " %");
+		log.info("#   SurvivorRatio             : " + format.format( sum.survivorPercentage ) + " %");
 		log.info("# --------------------------------------------------------------------------------");
 		factory.destroySingletons();
 

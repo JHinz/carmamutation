@@ -9,7 +9,7 @@ import com.mutation.runner.events.DriverStarted;
 import com.mutation.runner.events.IEvent;
 import com.mutation.runner.events.IEventListener;
 import com.mutation.runner.events.MutantsGenerated;
-import com.mutation.runner.events.TestSetDetermined;
+import com.mutation.runner.events.TestNotExecuted;
 import com.mutation.runner.events.TestsExecuted;
 import com.mutation.runner.utililties.StopWatch;
 
@@ -19,13 +19,11 @@ import com.mutation.runner.utililties.StopWatch;
  *
  */
 public class SummaryCreatorEventListener implements IEventListener{
-	int numSurvivors;
-
-	int numKilled;
 
 	int numClassesUnderTest;
 	
-	int numTests;
+	Set<String> testNames = new HashSet<String>();
+	Set<String> testsNotExecuted = new HashSet<String>();
 
 	Set<Mutant> totalMutants = new HashSet<Mutant>();
 
@@ -40,15 +38,16 @@ public class SummaryCreatorEventListener implements IEventListener{
 	public Summary createSummary(){
 		Summary summary = new Summary();
 		double elapsed = watch.stop();
+		Set<String> executedTests = new HashSet<String>(testNames);
+		executedTests.removeAll(testsNotExecuted);
 		double mutantsPerClass = (double) totalMutants.size() / (double) numClassesUnderTest;
-		double testsPerClass = (double) numTests / (double) numClassesUnderTest;
+		double testsPerClass = (double) executedTests.size() / (double) numClassesUnderTest;
 		double survivorRatio = (double) suvivors.size() / (double) totalMutants.size() * 100;
-		
 		summary.mutantsPerClass = mutantsPerClass;
 		summary.numClassesUnderTest = numClassesUnderTest;
 		summary.numMutants = totalMutants.size();
 		summary.numSurvivors = suvivors.size();
-		summary.numTests = numTests;
+		summary.numTests = executedTests.size();
 		summary.survivorPercentage = survivorRatio;
 		summary.testsPerClass = testsPerClass;
 		summary.timeSeconds = (double)elapsed /1000;
@@ -59,22 +58,22 @@ public class SummaryCreatorEventListener implements IEventListener{
 			watch.start();
 		} else if (event instanceof TestsExecuted) {
 			TestsExecuted te = (TestsExecuted) event;
-			if (te.isMutantSurvived()) {
-				numSurvivors++;
-			} else {
+			if (!te.isMutantSurvived()) {
 				suvivors.remove(te.getMutant());
-				numKilled++;
-			}
-		} else if (event instanceof MutantsGenerated) {
+			} 
+			TestsExecuted e = (TestsExecuted) event;
+			testNames.addAll(e.getTestNames());
+		} else if( event instanceof TestNotExecuted){
+			TestNotExecuted e = (TestNotExecuted)event;
+			testsNotExecuted.add(e.getTestCaseName());
+		} 
+		  else if (event instanceof MutantsGenerated) {
 			MutantsGenerated e = (MutantsGenerated) event;
 			totalMutants.addAll(e.getGeneratedMutants());
 			suvivors.addAll(e.getGeneratedMutants());
 		} else if (event instanceof ClassesUnderTestResolved) {
 			ClassesUnderTestResolved e = (ClassesUnderTestResolved) event;
 			numClassesUnderTest += e.getClassUnderTestNames().size();
-		} else if (event instanceof TestSetDetermined) {
-			TestSetDetermined e = (TestSetDetermined) event;
-			numTests += e.getDeterminedTests().size();
 		}
 	}
 
