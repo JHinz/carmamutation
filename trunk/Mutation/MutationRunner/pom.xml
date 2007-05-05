@@ -48,6 +48,11 @@
 			<artifactId>asm-util</artifactId>
 			<version>3.0</version>
 		</dependency>
+		<dependency>
+			<groupId>asm</groupId>
+			<artifactId>asm-commons</artifactId>
+			<version>3.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
