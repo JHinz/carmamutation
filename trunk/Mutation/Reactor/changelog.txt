@@ -3,3 +3,4 @@ Change History (newest on top)
 ---------------------------------------------------------------------------
 20070505 (mike): 
 - created changelog
+- added roadmap document
