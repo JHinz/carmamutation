@@ -33,4 +33,13 @@ public class ByteCodeFileReader {
 		return byteCode;
 	}
 
+	public static int calculateByteCodeCRC(byte[] byteCode) {
+
+		int result = 0;
+		for (int i = 0; i < byteCode.length; i++) {
+			result += (i % 13) * (byteCode[i] % 17);
+		}
+		return result;
+	}
+
 }
