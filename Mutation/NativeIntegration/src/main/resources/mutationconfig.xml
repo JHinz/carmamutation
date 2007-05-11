@@ -31,15 +31,11 @@
 	<!--  set of operators considered for tests -->
 
 	<bean id="operators"
-		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-		<property name="targetClass">
-			<value>com.mutation.runner.EMutationOperator</value>
-		</property>
-		<property name="targetMethod">
-			<value>getFromCsvList</value>
-		</property>
-		<property name="arguments">
-			<value>ROR</value>
+		class="com.mutation.transform.TransitionGroupConfig">
+		<property name="transitionGroups">
+				<list>
+				<bean class="com.mutation.transform.asm.ror.ROR_TransitionGroup"><constructor-arg><value>true</value></constructor-arg></bean>
+			</list>
 		</property>
 	</bean>
 
@@ -106,7 +102,7 @@
 	</bean>
 
 	<bean id="mutantGenerator"
-		class="com.mutation.transform.asm.MutantGenerator">
+		class="com.mutation.transform.MutantGenerator">
 	</bean>
 
 </beans>

@@ -67,6 +67,7 @@ public class JUnitRunner implements ITestRunner {
 				if (failures > 0) {
 					survived = false;
 					killerTestNames.add(testCase);
+					mutant.setSurvived(false);
 					if (stopOnFirstFailedTest) {
 						break;
 					}

@@ -19,10 +19,11 @@ import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.ClassPathResource;
 
 import com.mutation.BasicDriver;
-import com.mutation.runner.EMutationOperator;
 import com.mutation.runner.events.listener.SummaryCreatorEventListener;
 import com.mutation.runner.events.listener.SummaryCreatorEventListener.Summary;
 import com.mutation.testrunner.JUnitRunner;
+import com.mutation.transform.ITransitionGroup;
+import com.mutation.transform.TransitionGroupConfig;
 
 /**
  * Goal which executes mutationtests.
@@ -154,9 +155,9 @@ public class MutationTestMojo extends AbstractMojo {
 		// factory.registerShutdownHook();
 
 		// TODO read from config
-		List<EMutationOperator> operators = (List<EMutationOperator>) factory.getBean("operators");
+		TransitionGroupConfig tgGroup = (TransitionGroupConfig) factory.getBean("operators");
 		BasicDriver driver = (BasicDriver) factory.getBean("testDriver");
-		driver.execute(operators);
+		driver.execute(tgGroup);
 
 		SummaryCreatorEventListener summaryCreator = (SummaryCreatorEventListener) factory.getBean("summaryCreator");
 		Summary sum = summaryCreator.createSummary();
