@@ -1,5 +1,7 @@
 package com.mutation.runner;
 
+import com.mutation.transform.ITransitionGroup;
+
 /**
  * Specification of a mutant
  * 
@@ -23,7 +25,7 @@ public class Mutant {
 
 	@Override
 	public String toString() {
-		return name + " " + className + " " + mutationType + " " + sourceInstruction + "->" + targetInstruction;
+		return name + " " + className + " " + transitionGroup + " " + sourceInstruction + "->" + targetInstruction;
 	}
 
 	private String name;
@@ -34,7 +36,7 @@ public class Mutant {
 
 	private SourceCodeMapping sourceMapping;
 
-	private EMutationOperator mutationType;
+	private ITransitionGroup transitionGroup;
 
 	private String sourceInstruction;
 
@@ -56,14 +58,6 @@ public class Mutant {
 
 	public void setByteCode(byte[] byteCode) {
 		this.byteCode = byteCode;
-	}
-
-	public EMutationOperator getMutationType() {
-		return mutationType;
-	}
-
-	public void setMutationType(EMutationOperator mutationType) {
-		this.mutationType = mutationType;
 	}
 
 	public SourceCodeMapping getSourceMapping() {
@@ -105,4 +99,13 @@ public class Mutant {
 	public void setTargetInstruction(String targetInstruction) {
 		this.targetInstruction = targetInstruction;
 	}
+
+	public ITransitionGroup getTransitionGroup() {
+		return transitionGroup;
+	}
+
+	public void setTransitionGroup(ITransitionGroup transitionGroup) {
+		this.transitionGroup = transitionGroup;
+	}
+
 }

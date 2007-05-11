@@ -5,7 +5,7 @@ import java.util.Set;
 
 import com.mutation.runner.Mutant;
 import com.mutation.runner.events.ClassesUnderTestResolved;
-import com.mutation.runner.events.DriverStarted;
+import com.mutation.runner.events.MutationProcessStarted;
 import com.mutation.runner.events.IEvent;
 import com.mutation.runner.events.IEventListener;
 import com.mutation.runner.events.MutantsGenerated;
@@ -54,7 +54,7 @@ public class SummaryCreatorEventListener implements IEventListener{
 		return summary;
 	}
 	public void notifyEvent(IEvent event) {
-		if (event instanceof DriverStarted) {
+		if (event instanceof MutationProcessStarted) {
 			watch.start();
 		} else if (event instanceof TestsExecuted) {
 			TestsExecuted te = (TestsExecuted) event;

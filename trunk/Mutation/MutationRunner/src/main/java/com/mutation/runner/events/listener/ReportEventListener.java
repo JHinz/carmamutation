@@ -158,7 +158,7 @@ public class ReportEventListener implements IEventListener {
 			com.mutation.runner.Mutant mutant = eventObj.getMutant();
 			mutantInfo.setName(mutant.getName());
 			mutantInfo.setBaseSourceLine(mutant.getSourceMapping().getLineNo());
-			mutantInfo.setOperatorName(mutant.getMutationType().name());
+			mutantInfo.setOperatorName(mutant.getTransitionGroup().getName());
 			mutantInfo.setSourceInstruction(mutant.getSourceInstruction());
 			mutantInfo.setTargetInstruction(mutant.getTargetInstruction());
 

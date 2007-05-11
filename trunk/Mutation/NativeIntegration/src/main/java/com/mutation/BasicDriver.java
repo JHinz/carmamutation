@@ -3,26 +3,26 @@ package com.mutation;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.mutation.runner.EMutationOperator;
 import com.mutation.runner.IClassSetResolver;
 import com.mutation.runner.ITestSetResolver;
 import com.mutation.runner.MutationRunner;
 import com.mutation.runner.IClassSetResolver.ClassDescription;
 import com.mutation.runner.events.ClassesUnderTestResolved;
-import com.mutation.runner.events.DriverFinished;
-import com.mutation.runner.events.DriverStarted;
 import com.mutation.runner.events.IEventListener;
+import com.mutation.runner.events.MutationProcessFinished;
+import com.mutation.runner.events.MutationProcessStarted;
 import com.mutation.runner.events.TestSetDetermined;
 import com.mutation.runner.utililties.ByteCodeFileReader;
+import com.mutation.transform.TransitionGroupConfig;
 
 public class BasicDriver {
 	private IEventListener eventListener;
+
 	private IClassSetResolver classSetResolver;
 
 	private ITestSetResolver testSetResolver;
@@ -38,14 +38,14 @@ public class BasicDriver {
 
 		factory.registerShutdownHook();
 
-		List<EMutationOperator> operators = (List<EMutationOperator>) factory.getBean("operators");
+		TransitionGroupConfig tgConfig = (TransitionGroupConfig) factory.getBean("operators");
 		BasicDriver driver = (BasicDriver) factory.getBean("testDriver");
-		driver.execute(operators);
+		driver.execute(tgConfig);
 	}
 
-	public void execute(List<EMutationOperator> operators) {
+	public void execute(TransitionGroupConfig tgConfig) {
 
-		eventListener.notifyEvent(new DriverStarted(operators));
+		eventListener.notifyEvent(new MutationProcessStarted(tgConfig.getTransitionGroups()));
 		Set<IClassSetResolver.ClassDescription> classUnderTestNames = classSetResolver.determineClassNames();
 		eventListener.notifyEvent(new ClassesUnderTestResolved(classUnderTestNames));
 
@@ -55,16 +55,19 @@ public class BasicDriver {
 
 			try {
 
-				Set<String> testNames = testSetResolver.determineTests(classUnderTestDescription.getQualifiedClassName());
-				eventListener.notifyEvent( new TestSetDetermined(classUnderTestDescription.getQualifiedClassName(), testNames));
-				runner.performMutations(operators, byteCodeFileReader, classUnderTestDescription, testNames);
+				Set<String> testNames = testSetResolver.determineTests(classUnderTestDescription
+						.getQualifiedClassName());
+				eventListener.notifyEvent(new TestSetDetermined(classUnderTestDescription.getQualifiedClassName(),
+						testNames));
+				runner.performMutations(tgConfig.getTransitionGroups(), byteCodeFileReader, classUnderTestDescription,
+						testNames);
 
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 
 		}
-		eventListener.notifyEvent(new DriverFinished());
+		eventListener.notifyEvent(new MutationProcessFinished());
 
 	}
 

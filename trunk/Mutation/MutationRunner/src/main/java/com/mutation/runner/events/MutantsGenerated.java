@@ -2,17 +2,17 @@ package com.mutation.runner.events;
 
 import java.util.List;
 
-import com.mutation.runner.EMutationOperator;
 import com.mutation.runner.Mutant;
 import com.mutation.runner.utililties.ToStringUtils;
+import com.mutation.transform.ITransitionGroup;
 
 public class MutantsGenerated implements IEvent {
-	
+
 	private List<Mutant> generatedMutants;
 
 	private String classUnderTest;
 
-	private EMutationOperator operator;
+	private ITransitionGroup transitionGroup;
 
 	public String getClassUnderTest() {
 		return classUnderTest;
@@ -22,19 +22,20 @@ public class MutantsGenerated implements IEvent {
 		return generatedMutants;
 	}
 
-	public EMutationOperator getOperator() {
-		return operator;
+	public ITransitionGroup getTransitionGroup() {
+		return transitionGroup;
 	}
 
-	public MutantsGenerated(List<Mutant> generateMutants, String classUnderTest, EMutationOperator operator) {
+	public MutantsGenerated(List<Mutant> generateMutants, String classUnderTest, ITransitionGroup transitionGroup) {
 		super();
 		this.generatedMutants = generateMutants;
 		this.classUnderTest = classUnderTest;
-		this.operator = operator;
+		this.transitionGroup = transitionGroup;
 	}
 
 	@Override
 	public String toString() {
 		return ToStringUtils.toString(this);
 	}
+
 }

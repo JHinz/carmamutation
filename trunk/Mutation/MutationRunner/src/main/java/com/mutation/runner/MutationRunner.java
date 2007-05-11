@@ -12,6 +12,7 @@ import java.util.Set;
 import com.mutation.runner.IClassSetResolver.ClassDescription;
 import com.mutation.runner.events.IEvent;
 import com.mutation.runner.events.IEventListener;
+import com.mutation.runner.events.MutantsGenerated;
 import com.mutation.runner.events.ProcessingClassUnderTest;
 import com.mutation.runner.events.ProcessingClassUnderTestFinished;
 import com.mutation.runner.events.ProcessingMutant;
@@ -19,6 +20,8 @@ import com.mutation.runner.events.ProcessingMutationOperator;
 import com.mutation.runner.utililties.ByteCodeFileReader;
 import com.mutation.testrunner.ITestRunner;
 import com.mutation.testrunner.JUnitRunner;
+import com.mutation.transform.ITransitionGroup;
+import com.mutation.transform.asm.ror.ROR_TransitionGroup;
 
 public class MutationRunner {
 
@@ -40,7 +43,7 @@ public class MutationRunner {
 	 * @param testNames
 	 * @throws IOException
 	 */
-	public void performMutations(List<EMutationOperator> operators, ByteCodeFileReader byteCodeFileReader,
+	public void performMutations(List<ITransitionGroup> transitionGroups, ByteCodeFileReader byteCodeFileReader,
 			ClassDescription classUnderTestDescription, Set<String> testNames) throws IOException {
 
 		eventListener.notifyEvent(new ProcessingClassUnderTest(classUnderTestDescription));
@@ -49,14 +52,19 @@ public class MutationRunner {
 
 		byte[] byteCode = loadClass(byteCodeFileReader, fqClassName);
 
-		for (EMutationOperator operator : operators) {
+		for (ITransitionGroup transitionGroup : transitionGroups) {
 
-			eventListener.notifyEvent(new ProcessingMutationOperator(operator.name()));
+			eventListener.notifyEvent(new ProcessingMutationOperator(transitionGroup.getClass().getName()));
 
-			List<Mutant> mutants = mutantGenerator.generateMutants(classUnderTestDescription.getPackageName() + "."
-					+ classUnderTestDescription.className, byteCode, operator, eventListener);
+			List<Mutant> mutants = mutantGenerator.generateMutants(fqClassName, byteCode, transitionGroups,
+					eventListener);
+
+			eventListener.notifyEvent(new MutantsGenerated(mutants, fqClassName, transitionGroup));
 
 			for (Mutant mutant : mutants) {
+
+				mutant.getSourceMapping().setClassName(fqClassName);
+				mutant.getSourceMapping().setSourceFile(classUnderTestDescription.getClassFile());
 
 				eventListener.notifyEvent(new ProcessingMutant(mutant));
 
@@ -87,10 +95,8 @@ public class MutationRunner {
 			};
 		};
 
-		this.mutantGenerator = new com.mutation.transform.bcel.MutantGenerator();
-
-		List<EMutationOperator> convertedOperators = new ArrayList<EMutationOperator>();
-		convertedOperators.add(EMutationOperator.ROR);
+		List<ITransitionGroup> convertedOperators = new ArrayList<ITransitionGroup>();
+		convertedOperators.add(new ROR_TransitionGroup(true));
 
 		ClassDescription classUnderTestDescription = new ClassDescription();
 		classUnderTestDescription.setClassFile(classUnderTestFile);
@@ -132,7 +138,7 @@ public class MutationRunner {
 		runner.setTestRunner(testRunner);
 
 		List<String> operators = new ArrayList<String>();
-		operators.add(EMutationOperator.ROR.name());
+		operators.add("ROR");
 
 		String classUnderTest = "com.mutation.test.Sample";
 

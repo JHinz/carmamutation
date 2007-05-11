@@ -6,8 +6,8 @@ import java.util.Set;
 
 import com.mutation.runner.Mutant;
 import com.mutation.runner.events.ClassesUnderTestResolved;
-import com.mutation.runner.events.DriverFinished;
-import com.mutation.runner.events.DriverStarted;
+import com.mutation.runner.events.MutationProcessFinished;
+import com.mutation.runner.events.MutationProcessStarted;
 import com.mutation.runner.events.IEvent;
 import com.mutation.runner.events.IEventListener;
 import com.mutation.runner.events.MutantsGenerated;
@@ -36,9 +36,9 @@ public class ConsoleEventListener implements IEventListener {
 		if (!showSummaryOnly) {
 			System.out.println(new Date() + ": " + event);
 		}
-		if (event instanceof DriverStarted) {
+		if (event instanceof MutationProcessStarted) {
 			watch.start();
-		} else if (event instanceof DriverFinished) {
+		} else if (event instanceof MutationProcessFinished) {
 			double elapsed = watch.stop();
 			double mutantsPerClass = (double) totalMutants.size() / (double) numClassesUnderTest;
 			double testsPerClass = (double) numTests / (double) numClassesUnderTest;
