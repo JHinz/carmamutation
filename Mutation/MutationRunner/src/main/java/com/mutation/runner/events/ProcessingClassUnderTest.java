@@ -1,10 +1,10 @@
 package com.mutation.runner.events;
 
-import com.mutation.runner.IClassSetResolver.ClassDescription;
+import com.mutation.runner.ClassDescription;
 import com.mutation.runner.utililties.ToStringUtils;
 
 public class ProcessingClassUnderTest implements IEvent {
-	
+
 	private ClassDescription classUnderTest;
 
 	public ClassDescription getClassUnderTest() {

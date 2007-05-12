@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mutation.runner.ClassDescription;
 import com.mutation.runner.IClassSetResolver;
 
 /**

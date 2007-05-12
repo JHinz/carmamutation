@@ -7,7 +7,6 @@ import java.util.Vector;
 
 import junit.framework.TestCase;
 
-import com.mutation.runner.IClassSetResolver.ClassDescription;
 import com.mutation.runner.events.IEvent;
 import com.mutation.runner.events.IEventListener;
 import com.mutation.runner.events.MutantsGenerated;
@@ -70,7 +69,7 @@ public class MutationRunnerTestCase extends TestCase {
 		testNames.add("testsources.SampleTestCase");
 
 		classDescription.setAssociatedTestNames(testNames);
-		
+
 		List<ClassDescription> classDescriptions = new ArrayList<ClassDescription>();
 		classDescriptions.add(classDescription);
 
