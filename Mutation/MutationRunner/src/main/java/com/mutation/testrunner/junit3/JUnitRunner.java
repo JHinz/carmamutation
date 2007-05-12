@@ -14,7 +14,6 @@ import com.mutation.runner.events.IEventListener;
 import com.mutation.runner.events.TestNotExecuted;
 import com.mutation.runner.events.TestsExecuted;
 import com.mutation.testrunner.ITestRunner;
-import com.mutation.testrunner.MutantJUnitRunner;
 
 /**
  * Executes mutation tests using junit tests

@@ -1,4 +1,4 @@
-package com.mutation.testrunner;
+package com.mutation.testrunner.junit3;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -12,6 +12,7 @@ import junit.runner.BaseTestRunner;
 import junit.runner.TestSuiteLoader;
 
 import com.mutation.runner.Mutant;
+import com.mutation.testrunner.MutationClassLoader;
 
 /**
  * JUnit Runner for mutation tests. Uses specific class loeader to load thze mutants
