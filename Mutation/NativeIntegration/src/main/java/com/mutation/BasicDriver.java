@@ -9,8 +9,6 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.mutation.runner.ClassDescription;
-import com.mutation.runner.IClassSetResolver;
-import com.mutation.runner.ITestSetResolver;
 import com.mutation.runner.MutationRunner;
 import com.mutation.runner.events.ClassesUnderTestResolved;
 import com.mutation.runner.events.IEventListener;

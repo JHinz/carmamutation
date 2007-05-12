@@ -4,8 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mutation.IClassSetResolver;
 import com.mutation.runner.ClassDescription;
-import com.mutation.runner.IClassSetResolver;
 
 /**
  * determines set of all classes within a directory of class files
