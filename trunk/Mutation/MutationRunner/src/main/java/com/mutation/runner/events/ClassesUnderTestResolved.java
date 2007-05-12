@@ -2,7 +2,7 @@ package com.mutation.runner.events;
 
 import java.util.List;
 
-import com.mutation.runner.IClassSetResolver.ClassDescription;
+import com.mutation.runner.ClassDescription;
 import com.mutation.runner.utililties.ToStringUtils;
 
 public class ClassesUnderTestResolved implements IEvent {

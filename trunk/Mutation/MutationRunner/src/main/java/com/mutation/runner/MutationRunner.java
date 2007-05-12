@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import com.mutation.runner.IClassSetResolver.ClassDescription;
 import com.mutation.runner.events.IEventListener;
 import com.mutation.runner.events.MutantsGenerated;
 import com.mutation.runner.events.ProcessingClassUnderTest;
