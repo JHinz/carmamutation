@@ -28,7 +28,8 @@ public class ROR_TransitionGroup extends AbstractTransitionGroup {
 
 	public void initWithDefaultTransitions() {
 		this.transitions = new AbstractASMTransition[] { new IF_ICMPEQ_2_IF_ICMPNE_Transition(),
-				new IF_ICMPNE_2_IF_ICMPEQ_Transition(), new IFEQ_2_IFNE_Transition(), new IFNE_2_IFEQ_Transition() };
+				new IF_ICMPNE_2_IF_ICMPEQ_Transition(), new IFEQ_2_IFNE_Transition(), new IFNE_2_IFEQ_Transition(),
+				new IF_ICMPGE_2_IF_ICMPLT_Transition()};
 	}
 
 }

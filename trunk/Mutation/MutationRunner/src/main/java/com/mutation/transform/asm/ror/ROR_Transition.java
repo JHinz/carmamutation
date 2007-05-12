@@ -11,21 +11,63 @@ import com.mutation.runner.Mutant;
 import com.mutation.runner.SourceCodeMapping;
 
 public abstract class ROR_Transition extends AbstractASMTransition {
-
-	// int IFEQ = 153
-	// int IFNE = 154; // -
-	// int IFLT = 155; // -
-	// int IFGE = 156; // -
-	// int IFGT = 157; // -
-	// int IFLE = 158; // -
-	// int IF_ICMPEQ = 159; // -
-	// int IF_ICMPNE = 160; // -
-	// int IF_ICMPLT = 161; // -
-	// int IF_ICMPGE = 162; // -
-	// int IF_ICMPGT = 163; // -
-	// int IF_ICMPLE = 164; // -
-	// int IF_ACMPEQ = 165; // -
-	// int IF_ACMPNE = 166; // -
+	
+	/*
+	 * Integer byte code comparisons implemented:
+	 * 
+	 *      EQ   NE   LT   LE   GT   GE
+	 * 
+	 * EQ   --  impl  --   --   --   --
+	 * 
+	 * NE   impl --   --   --   --   --
+	 * 
+	 * LT   --   --   --   --   --  impl
+	 * 
+	 * LE   --   --   --   --   impl --
+	 * 
+	 * GT   --   --   --  impl  --   --
+	 * 
+	 * GE   --   --  impl  --   --   --
+	 * 
+	 */
+	
+	/*
+	 * General byte code comparisons implemented:
+	 * 
+	 *      EQ   NE   LT   LE   GT   GE
+	 * 
+	 * EQ   --  impl  --   --   --   --
+	 * 
+	 * NE   impl --   --   --   --   --
+	 * 
+	 * LT   --   --   --   --   --  impl
+	 * 
+	 * LE   --   --   --   --   --   --
+	 * 
+	 * GT   --   --   --   --   --   --
+	 * 
+	 * GE   --   --  impl  --   --   --
+	 * 
+	 */
+	
+	/*
+	 * Ascii byte code comparisons implemented:
+	 * 
+	 *      EQ   NE   LT   LE   GT   GE
+	 * 
+	 * EQ   --   --   --   --   --   --
+	 * 
+	 * NE   --   --   --   --   --   --
+	 * 
+	 * LT   --   --   --   --   --   --
+	 * 
+	 * LE   --   --   --   --   --   --
+	 * 
+	 * GT   --   --   --   --   --   --
+	 * 
+	 * GE   --   --   --   --   --   --
+	 * 
+	 */
 
 	protected int sourceInstruction;
 
