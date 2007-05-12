@@ -3,7 +3,7 @@ package com.mutation.testsetresolver;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mutation.runner.ITestSetResolver;
+import com.mutation.ITestSetResolver;
 
 /**
  * determines test set as a single test per class using a suffix naming
