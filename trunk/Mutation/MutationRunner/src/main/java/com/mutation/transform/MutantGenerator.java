@@ -3,11 +3,10 @@ package com.mutation.transform;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mutation.runner.IMutantGenerator;
 import com.mutation.runner.Mutant;
 import com.mutation.runner.events.IEventListener;
 
-public class MutantGenerator implements IMutantGenerator {
+public class MutantGenerator {
 
 	public List<Mutant> generateMutants(String classUnderTest, byte[] originalClassByteCode,
 			List<AbstractTransitionGroup> transitionGroups, IEventListener listener) {
@@ -19,8 +18,8 @@ public class MutantGenerator implements IMutantGenerator {
 			for (ITransition transition : group.getTransitions()) {
 
 				List<Mutant> mutants = transition.applyTransitions(originalClassByteCode, listener);
-				
-				for ( Mutant mutant : mutants) {
+
+				for (Mutant mutant : mutants) {
 					mutant.setClassName(classUnderTest);
 					mutant.setTransitionGroup(group);
 				}

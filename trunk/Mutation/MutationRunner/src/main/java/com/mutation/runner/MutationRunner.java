@@ -14,12 +14,13 @@ import com.mutation.runner.events.ProcessingMutationOperator;
 import com.mutation.runner.utililties.ByteCodeFileReader;
 import com.mutation.testrunner.ITestRunner;
 import com.mutation.transform.AbstractTransitionGroup;
+import com.mutation.transform.MutantGenerator;
 
 public class MutationRunner {
 
 	private ITestRunner testRunner;
 
-	private IMutantGenerator mutantGenerator;
+	private MutantGenerator mutantGenerator;
 
 	private File originalClassPath;
 
@@ -81,7 +82,7 @@ public class MutationRunner {
 		return new ByteCodeFileReader().readByteCodeFromDisk(originalClassFile);
 	}
 
-	public void setMutantGenerator(IMutantGenerator mutantGenerator) {
+	public void setMutantGenerator(MutantGenerator mutantGenerator) {
 		this.mutantGenerator = mutantGenerator;
 	}
 
