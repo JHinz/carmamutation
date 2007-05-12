@@ -1,8 +1,8 @@
 package com.mutation.transform;
 
-public abstract class ITransitionGroup {
+public abstract class AbstractTransitionGroup {
 
-	public ITransitionGroup(boolean useDefaultTransitions) {
+	public AbstractTransitionGroup(boolean useDefaultTransitions) {
 	}
 
 	public abstract ITransition[] getTransitions();

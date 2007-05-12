@@ -1,23 +1,16 @@
 package com.mutation.transform.asm.ror;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.JumpInsnNode;
-import org.objectweb.asm.tree.LineNumberNode;
-import org.objectweb.asm.tree.MethodNode;
 
 import com.mutation.runner.Mutant;
 import com.mutation.runner.SourceCodeMapping;
-import com.mutation.runner.events.IEventListener;
-import com.mutation.transform.ITransition;
 
-public abstract class ROR_Transition implements ITransition {
+public abstract class ROR_Transition extends AbstractASMTransition {
 
 	// int IFEQ = 153
 	// int IFNE = 154; // -
@@ -38,63 +31,33 @@ public abstract class ROR_Transition implements ITransition {
 
 	protected int targetInstruction;
 
-	private IEventListener eventListener;
+	protected void checkNode(ClassNode classNode, List<Mutant> result, int currentInstructionLineNumber,
+			AbstractInsnNode node) {
 
-	public List<Mutant> applyTransitions(byte[] byteCode, IEventListener eventListener) {
+		if (node instanceof JumpInsnNode) {
 
-		ClassNode classNode = new ClassNode();
+			JumpInsnNode jumpNode = (JumpInsnNode) node;
 
-		ClassReader reader = new ClassReader(byteCode);
+			if (jumpNode.getOpcode() == this.sourceInstruction) {
 
-		reader.accept(classNode, 0);
+				jumpNode.setOpcode(this.targetInstruction);
 
-		List<Mutant> result = new ArrayList<Mutant>();
+				ClassWriter writer = new ClassWriter(0);
+				classNode.accept(writer);
 
-		for (MethodNode methodNode : (List<MethodNode>) classNode.methods) {
+				SourceCodeMapping sourceMapping = new SourceCodeMapping();
+				sourceMapping.setLineNo(currentInstructionLineNumber);
 
-			Iterator<AbstractInsnNode> instructionInterator = methodNode.instructions.iterator();
+				Mutant mutant = new Mutant();
+				mutant.setByteCode(writer.toByteArray());
+				mutant.setSourceMapping(sourceMapping);
+				mutant.setSurvived(true);
 
-			int currentInstructionLineNumber = 0;
-
-			while (instructionInterator.hasNext()) {
-
-				AbstractInsnNode node = instructionInterator.next();
-
-				if (node instanceof LineNumberNode) {
-					currentInstructionLineNumber = ((LineNumberNode) node).line;
-					continue;
-				}
-
-				if (node instanceof JumpInsnNode) {
-
-					JumpInsnNode jumpNode = (JumpInsnNode) node;
-
-					if (jumpNode.getOpcode() == this.sourceInstruction) {
-
-						jumpNode.setOpcode(this.targetInstruction);
-
-						ClassWriter writer = new ClassWriter(0);
-						classNode.accept(writer);
-
-						SourceCodeMapping sourceMapping = new SourceCodeMapping();
-						sourceMapping.setLineNo(currentInstructionLineNumber);
-
-						Mutant mutant = new Mutant();
-						mutant.setByteCode(writer.toByteArray());
-						mutant.setSourceMapping(sourceMapping);
-						mutant.setSurvived(true);
-
-						result.add(mutant);
-						jumpNode.setOpcode(this.sourceInstruction);
-
-					}
-
-				}
+				result.add(mutant);
+				jumpNode.setOpcode(this.sourceInstruction);
 
 			}
 
 		}
-
-		return result;
 	}
 }

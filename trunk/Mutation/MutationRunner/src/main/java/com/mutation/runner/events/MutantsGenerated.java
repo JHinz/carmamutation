@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.mutation.runner.Mutant;
 import com.mutation.runner.utililties.ToStringUtils;
-import com.mutation.transform.ITransitionGroup;
+import com.mutation.transform.AbstractTransitionGroup;
 
 public class MutantsGenerated implements IEvent {
 
@@ -12,7 +12,7 @@ public class MutantsGenerated implements IEvent {
 
 	private String classUnderTest;
 
-	private ITransitionGroup transitionGroup;
+	private AbstractTransitionGroup transitionGroup;
 
 	public String getClassUnderTest() {
 		return classUnderTest;
@@ -22,11 +22,11 @@ public class MutantsGenerated implements IEvent {
 		return generatedMutants;
 	}
 
-	public ITransitionGroup getTransitionGroup() {
+	public AbstractTransitionGroup getTransitionGroup() {
 		return transitionGroup;
 	}
 
-	public MutantsGenerated(List<Mutant> generateMutants, String classUnderTest, ITransitionGroup transitionGroup) {
+	public MutantsGenerated(List<Mutant> generateMutants, String classUnderTest, AbstractTransitionGroup transitionGroup) {
 		super();
 		this.generatedMutants = generateMutants;
 		this.classUnderTest = classUnderTest;

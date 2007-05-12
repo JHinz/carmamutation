@@ -9,9 +9,9 @@ import junit.framework.TestCase;
 import com.mutation.runner.events.EventListenerMock;
 import com.mutation.runner.events.IEventListener;
 import com.mutation.runner.utililties.ByteCodeFileReader;
+import com.mutation.transform.ITransition;
 import com.mutation.transform.asm.ror.IF_ICMPEQ_2_IF_ICMPNE_Transition;
 import com.mutation.transform.asm.ror.IF_ICMPNE_2_IF_ICMPEQ_Transition;
-import com.mutation.transform.asm.ror.ROR_Transition;
 
 public class ROR_Transition_TestCase extends TestCase {
 
@@ -24,7 +24,7 @@ public class ROR_Transition_TestCase extends TestCase {
 
 	public void test_ApplyTransition_NonConcurrent() throws Exception {
 
-		ROR_Transition ror = new IF_ICMPEQ_2_IF_ICMPNE_Transition();
+		ITransition ror = new IF_ICMPNE_2_IF_ICMPEQ_Transition();
 
 		IEventListener listener = new EventListenerMock();
 
@@ -106,7 +106,7 @@ public class ROR_Transition_TestCase extends TestCase {
 
 	public void test_ApplyTransition_NonConcurrent_OtherTransition() throws Exception {
 
-		ROR_Transition ror = new IF_ICMPNE_2_IF_ICMPEQ_Transition();
+		ITransition ror = new IF_ICMPEQ_2_IF_ICMPNE_Transition();
 
 		IEventListener listener = new EventListenerMock();
 

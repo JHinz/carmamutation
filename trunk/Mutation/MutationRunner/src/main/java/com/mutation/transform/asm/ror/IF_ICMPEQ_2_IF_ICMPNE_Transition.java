@@ -7,8 +7,8 @@ public class IF_ICMPEQ_2_IF_ICMPNE_Transition extends ROR_Transition {
 
 	public IF_ICMPEQ_2_IF_ICMPNE_Transition() {
 		super();
-		this.sourceInstruction = Opcodes.IF_ICMPNE;
-		this.targetInstruction = Opcodes.IF_ICMPEQ;
+		this.sourceInstruction = Opcodes.IF_ICMPEQ;
+		this.targetInstruction = Opcodes.IF_ICMPNE;
 	}
 
 }
