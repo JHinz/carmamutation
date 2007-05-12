@@ -1,19 +1,19 @@
 package com.mutation.runner.events;
 
-import java.util.Set;
+import java.util.List;
 
 import com.mutation.runner.IClassSetResolver.ClassDescription;
 import com.mutation.runner.utililties.ToStringUtils;
 
 public class ClassesUnderTestResolved implements IEvent {
-	
-	private Set<ClassDescription> classUnderTestNames;
 
-	public Set<ClassDescription> getClassUnderTestNames() {
+	private List<ClassDescription> classUnderTestNames;
+
+	public List<ClassDescription> getClassUnderTestNames() {
 		return classUnderTestNames;
 	}
 
-	public ClassesUnderTestResolved(Set<ClassDescription> classUnderTestNames) {
+	public ClassesUnderTestResolved(List<ClassDescription> classUnderTestNames) {
 		super();
 		this.classUnderTestNames = classUnderTestNames;
 	}
