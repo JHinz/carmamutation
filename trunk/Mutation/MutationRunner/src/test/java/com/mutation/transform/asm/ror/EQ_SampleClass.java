@@ -31,5 +31,15 @@ public class EQ_SampleClass {
 		}
 
 	}
+	
+	public int methodWith_IF_ACMPEQ(Object a, Object b) {
+
+		if (a != b) { // translates to IFEQ on JDK5.0 (macosx)
+			return 0;
+		} else {
+			return 1;
+		}
+
+	}
 
 }

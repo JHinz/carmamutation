@@ -21,10 +21,20 @@ public class NE_SampleClass {
 		}
 
 	}
-	
+
 	public int methodWith_IFNE(int a) {
 
 		if (a == 0) { // translates to IFNE on JDK5.0 (macosx)
+			return 0;
+		} else {
+			return 1;
+		}
+
+	}
+
+	public int methodWith_IF_ACMPNE(Object a, Object b) {
+
+		if (a == b) { // translates to IFNE on JDK5.0 (macosx)
 			return 0;
 		} else {
 			return 1;
