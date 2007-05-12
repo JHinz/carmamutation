@@ -10,4 +10,7 @@ public class IFLE_2_IFGT_Transition extends ROR_Transition {
 		this.targetInstruction = Opcodes.IFGT;
 	}
 
+	public String getName() {
+		return "IFLE_to_IFGT";
+	}
 }
