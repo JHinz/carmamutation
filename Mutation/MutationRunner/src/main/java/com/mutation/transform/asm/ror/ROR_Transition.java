@@ -86,6 +86,7 @@ public abstract class ROR_Transition extends AbstractASMTransition {
 				mutant.setByteCode(writer.toByteArray());
 				mutant.setSourceMapping(sourceMapping);
 				mutant.setSurvived(true);
+				mutant.setTransition(this);
 
 				result.add(mutant);
 				jumpNode.setOpcode(this.sourceInstruction);

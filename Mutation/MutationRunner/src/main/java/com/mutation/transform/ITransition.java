@@ -9,4 +9,6 @@ public interface ITransition {
 
 	public List<Mutant> applyTransitions(byte[] byteCode, IEventListener eventListener);
 
+	public String getName();
+
 }

@@ -11,4 +11,7 @@ public class IF_ICMPGE_2_IF_ICMPLT_Transition extends ROR_Transition {
 		this.targetInstruction = Opcodes.IF_ICMPLT;
 	}
 
+	public String getName() {
+		return "IF_ICMPGE_to_IF_ICMPLT";
+	}
 }

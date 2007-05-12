@@ -10,5 +10,8 @@ public class IF_ACMPNE_2_IF_ACMPEQ_Transition extends ROR_Transition {
 		this.sourceInstruction = Opcodes.IF_ACMPNE;
 		this.targetInstruction = Opcodes.IF_ACMPEQ;
 	}
-
+	
+	public String getName() {
+		return "IF_ACMPNE_to_IF_ACMPEQ";
+	}
 }

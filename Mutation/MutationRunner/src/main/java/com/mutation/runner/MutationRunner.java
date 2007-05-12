@@ -58,7 +58,6 @@ public class MutationRunner {
 				for (Mutant mutant : mutants) {
 
 					mutant.getSourceMapping().setClassName(fqClassName);
-					mutant.getSourceMapping().setSourceFile(classUnderTestDescription.getClassFile());
 
 					eventListener.notifyEvent(new ProcessingMutant(mutant));
 
