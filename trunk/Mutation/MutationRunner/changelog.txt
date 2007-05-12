@@ -1,5 +1,9 @@
 ---------------------------------------------------------------------------
 Change History (newest on top)
 ---------------------------------------------------------------------------
-20070505: 
+
+20070512: (alex)
+- Implemented all senseful transitions based on ROR
+
+20070505: (mike) 
 - Added SummaryCreatorEventListener
