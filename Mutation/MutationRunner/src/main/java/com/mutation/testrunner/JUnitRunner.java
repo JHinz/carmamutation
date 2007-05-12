@@ -3,9 +3,8 @@ package com.mutation.testrunner;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import junit.framework.Test;
 import junit.framework.TestResult;
@@ -58,9 +57,9 @@ public class JUnitRunner implements ITestRunner {
 		this.testClassesLocations = urls;
 	}
 
-	public void execute(Mutant mutant, Set<String> testNames, IEventListener eventListener) {
+	public void execute(Mutant mutant, List<String> testNames, IEventListener eventListener) {
 		boolean survived = true;
-		Set<String> killerTestNames = new TreeSet<String>();
+		List<String> killerTestNames = new ArrayList<String>();
 		for (String testCase : testNames) {
 			try {
 				int failures = runTest(testCase, mutant);
@@ -72,7 +71,7 @@ public class JUnitRunner implements ITestRunner {
 						break;
 					}
 				}
-				
+
 			} catch (Exception e) {
 				eventListener.notifyEvent(new TestNotExecuted(mutant, testCase, e));
 			}

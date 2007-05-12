@@ -1,8 +1,8 @@
 package com.mutation.classesresolver;
 
 import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.mutation.runner.IClassSetResolver;
 
@@ -18,8 +18,8 @@ public class DirectoryBasedResolver implements IClassSetResolver {
 	 */
 	private File classesBaseDir;
 
-	public Set<ClassDescription> determineClassNames() {
-		Set<ClassDescription> classDescriptions = new HashSet<ClassDescription>();
+	public List<ClassDescription> determineClassNames() {
+		List<ClassDescription> classDescriptions = new ArrayList<ClassDescription>();
 		iterate(this.classesBaseDir, "", "", classDescriptions);
 		return classDescriptions;
 	}
@@ -41,7 +41,7 @@ public class DirectoryBasedResolver implements IClassSetResolver {
 	 * @param classNames
 	 *            set of class names to add classes found
 	 */
-	void iterate(File baseDir, String packagePrefix, String relPath, Set<ClassDescription> classNames) {
+	void iterate(File baseDir, String packagePrefix, String relPath, List<ClassDescription> classNames) {
 
 		File[] files = baseDir.listFiles();
 		if (files == null) {

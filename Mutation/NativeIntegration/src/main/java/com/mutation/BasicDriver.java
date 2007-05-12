@@ -3,7 +3,7 @@ package com.mutation;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -17,10 +17,10 @@ import com.mutation.runner.events.IEventListener;
 import com.mutation.runner.events.MutationProcessFinished;
 import com.mutation.runner.events.MutationProcessStarted;
 import com.mutation.runner.events.TestSetDetermined;
-import com.mutation.runner.utililties.ByteCodeFileReader;
 import com.mutation.transform.TransitionGroupConfig;
 
 public class BasicDriver {
+
 	private IEventListener eventListener;
 
 	private IClassSetResolver classSetResolver;
@@ -46,27 +46,29 @@ public class BasicDriver {
 	public void execute(TransitionGroupConfig tgConfig) {
 
 		eventListener.notifyEvent(new MutationProcessStarted(tgConfig.getTransitionGroups()));
-		Set<IClassSetResolver.ClassDescription> classUnderTestNames = classSetResolver.determineClassNames();
-		eventListener.notifyEvent(new ClassesUnderTestResolved(classUnderTestNames));
 
-		ByteCodeFileReader byteCodeFileReader = new ByteCodeFileReader();
+		List<IClassSetResolver.ClassDescription> classUnderTestNames = classSetResolver.determineClassNames();
+
+		eventListener.notifyEvent(new ClassesUnderTestResolved(classUnderTestNames));
 
 		for (ClassDescription classUnderTestDescription : classUnderTestNames) {
 
-			try {
+			List<String> testNames = testSetResolver.determineTests(classUnderTestDescription.getQualifiedClassName());
 
-				Set<String> testNames = testSetResolver.determineTests(classUnderTestDescription
-						.getQualifiedClassName());
-				eventListener.notifyEvent(new TestSetDetermined(classUnderTestDescription.getQualifiedClassName(),
-						testNames));
-				runner.performMutations(tgConfig.getTransitionGroups(), byteCodeFileReader, classUnderTestDescription,
-						testNames);
+			classUnderTestDescription.setAssociatedTestNames(testNames);
 
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			eventListener.notifyEvent(new TestSetDetermined(classUnderTestDescription.getQualifiedClassName(),
+					testNames));
 
 		}
+
+		try {
+			runner.performMutations(tgConfig.getTransitionGroups(), classUnderTestNames);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return;
+		}
+
 		eventListener.notifyEvent(new MutationProcessFinished());
 
 	}

@@ -2,9 +2,7 @@ package com.mutation.runner;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.Vector;
 
 import junit.framework.TestCase;
@@ -64,16 +62,19 @@ public class MutationRunnerTestCase extends TestCase {
 		List<AbstractTransitionGroup> mutationOperators = new ArrayList<AbstractTransitionGroup>();
 		mutationOperators.add(new ROR_TransitionGroup(true));
 
-		ByteCodeFileReader bcReader = new ByteCodeFileReader();
-
 		ClassDescription classDescription = new ClassDescription();
 		classDescription.setClassName("Sample");
 		classDescription.setPackageName("sources");
 
-		Set<String> testNames = new HashSet<String>();
+		List<String> testNames = new ArrayList<String>();
 		testNames.add("testsources.SampleTestCase");
 
-		runner.performMutations(mutationOperators, bcReader, classDescription, testNames);
+		classDescription.setAssociatedTestNames(testNames);
+		
+		List<ClassDescription> classDescriptions = new ArrayList<ClassDescription>();
+		classDescriptions.add(classDescription);
+
+		runner.performMutations(mutationOperators, classDescriptions);
 
 		assertEquals("Wrong number of events fired during mutation run", 10, listener.eventList.size());
 

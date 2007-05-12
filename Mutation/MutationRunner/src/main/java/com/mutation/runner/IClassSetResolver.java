@@ -1,6 +1,6 @@
 package com.mutation.runner;
 
-import java.util.Set;
+import java.util.List;
 
 import com.mutation.runner.utililties.ToStringUtils;
 
@@ -13,6 +13,8 @@ public interface IClassSetResolver {
 		String packageName;
 
 		String classFile;
+
+		List<String> associatedTestNames;
 
 		public String getClassFile() {
 			return classFile;
@@ -34,9 +36,10 @@ public interface IClassSetResolver {
 		 * 
 		 * @return class name inclusive package prefix
 		 */
-		public String getQualifiedClassName(){
-			return packageName == null ? className : packageName +"." +className;
+		public String getQualifiedClassName() {
+			return packageName == null ? className : packageName + "." + className;
 		}
+
 		public void setClassName(String className) {
 			this.className = className;
 		}
@@ -53,8 +56,16 @@ public interface IClassSetResolver {
 		public void setPackageName(String packageName) {
 			this.packageName = packageName;
 		}
+
+		public List<String> getAssociatedTestNames() {
+			return associatedTestNames;
+		}
+
+		public void setAssociatedTestNames(List<String> associatedTestNames) {
+			this.associatedTestNames = associatedTestNames;
+		}
 	}
 
-	Set<ClassDescription> determineClassNames();
+	List<ClassDescription> determineClassNames();
 
 }
