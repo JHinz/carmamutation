@@ -6,13 +6,15 @@ import com.mutation.runner.utililties.ToStringUtils;
 
 public class ClassDescription {
 
-	String className;
+	private String className;
 
-	String packageName;
+	private String packageName;
 
-	String classFile;
+	private String classFile;
+	
+	private String sourceFile;
 
-	List<String> associatedTestNames;
+	private List<String> associatedTestNames;
 
 	public String getClassFile() {
 		return classFile;
