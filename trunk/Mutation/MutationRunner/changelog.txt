@@ -2,6 +2,7 @@
 Change History (newest on top)
 ---------------------------------------------------------------------------
 20070512 (alex)
+- removed unnecessary mutant generator interface
 - Replaced Set with List everywhere due to testability
 - Moved loop over multiple classes under test into MutationRunner and added
   association between classUnderTest and the classes tests for that.
