@@ -16,7 +16,7 @@ import com.mutation.runner.events.ProcessingMutant;
 import com.mutation.runner.events.ProcessingMutationOperator;
 import com.mutation.runner.events.TestsExecuted;
 import com.mutation.runner.utililties.ByteCodeFileReader;
-import com.mutation.testrunner.JUnitRunner;
+import com.mutation.testrunner.junit3.JUnitRunner;
 import com.mutation.transform.AbstractTransitionGroup;
 import com.mutation.transform.MutantGenerator;
 import com.mutation.transform.asm.ror.ROR_TransitionGroup;
