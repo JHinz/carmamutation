@@ -22,4 +22,14 @@ public class LT_SampleClass {
 
 	}
 
+	public int methodWith_IFLT(int a) {
+
+		if (a >= 0) { // translates to IFLT on JDK5.0 (macosx)
+			return 0;
+		} else {
+			return 1;
+		}
+
+	}
+
 }

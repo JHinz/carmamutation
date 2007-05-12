@@ -13,7 +13,7 @@ import com.mutation.runner.SourceCodeMapping;
 public abstract class ROR_Transition extends AbstractASMTransition {
 	
 	/*
-	 * Integer byte code comparisons implemented:
+	 * 2 Integer byte code comparisons implemented:
 	 * 
 	 *      EQ   NE   LT   LE   GT   GE
 	 * 
@@ -32,7 +32,7 @@ public abstract class ROR_Transition extends AbstractASMTransition {
 	 */
 	
 	/*
-	 * General byte code comparisons implemented:
+	 * Integer/Const value byte code comparisons implemented:
 	 * 
 	 *      EQ   NE   LT   LE   GT   GE
 	 * 
@@ -51,21 +51,13 @@ public abstract class ROR_Transition extends AbstractASMTransition {
 	 */
 	
 	/*
-	 * Ascii byte code comparisons implemented:
+	 * Reference byte code comparisons implemented:
 	 * 
-	 *      EQ   NE   LT   LE   GT   GE
+	 *      EQ   NE   
 	 * 
-	 * EQ   --   --   --   --   --   --
+	 * EQ   --   --   
 	 * 
-	 * NE   --   --   --   --   --   --
-	 * 
-	 * LT   --   --   --   --   --   --
-	 * 
-	 * LE   --   --   --   --   --   --
-	 * 
-	 * GT   --   --   --   --   --   --
-	 * 
-	 * GE   --   --   --   --   --   --
+	 * NE   --   --  
 	 * 
 	 */
 

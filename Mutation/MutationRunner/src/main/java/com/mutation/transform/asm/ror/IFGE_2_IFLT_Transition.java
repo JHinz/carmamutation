@@ -6,8 +6,8 @@ public class IFGE_2_IFLT_Transition extends ROR_Transition {
 
 	public IFGE_2_IFLT_Transition() {
 		super();
-		this.sourceInstruction = Opcodes.IFLT;
-		this.targetInstruction = Opcodes.IFGE;
+		this.sourceInstruction = Opcodes.IFGE;
+		this.targetInstruction = Opcodes.IFLT;
 	}
 
 }
