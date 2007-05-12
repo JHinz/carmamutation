@@ -42,9 +42,9 @@ public abstract class ROR_Transition extends AbstractASMTransition {
 	 * 
 	 * LT   --   --   --   --   --  impl
 	 * 
-	 * LE   --   --   --   --   --   --
+	 * LE   --   --   --   --   impl --
 	 * 
-	 * GT   --   --   --   --   --   --
+	 * GT   --   --   --  impl  --   --
 	 * 
 	 * GE   --   --  impl  --   --   --
 	 * 
@@ -55,9 +55,9 @@ public abstract class ROR_Transition extends AbstractASMTransition {
 	 * 
 	 *      EQ   NE   
 	 * 
-	 * EQ   --   --   
+	 * EQ   --  impl   
 	 * 
-	 * NE   --   --  
+	 * NE  impl  --  
 	 * 
 	 */
 
