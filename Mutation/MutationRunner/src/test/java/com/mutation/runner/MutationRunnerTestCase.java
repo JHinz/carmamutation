@@ -20,7 +20,7 @@ import com.mutation.runner.events.ProcessingMutationOperator;
 import com.mutation.runner.events.TestsExecuted;
 import com.mutation.runner.utililties.ByteCodeFileReader;
 import com.mutation.testrunner.JUnitRunner;
-import com.mutation.transform.ITransitionGroup;
+import com.mutation.transform.AbstractTransitionGroup;
 import com.mutation.transform.MutantGenerator;
 import com.mutation.transform.asm.ror.ROR_TransitionGroup;
 
@@ -61,7 +61,7 @@ public class MutationRunnerTestCase extends TestCase {
 		runner.setTestRunner(testRunner);
 		runner.setOriginalClassPath(new File("src/test/it/it0001"));
 
-		List<ITransitionGroup> mutationOperators = new ArrayList<ITransitionGroup>();
+		List<AbstractTransitionGroup> mutationOperators = new ArrayList<AbstractTransitionGroup>();
 		mutationOperators.add(new ROR_TransitionGroup(true));
 
 		ByteCodeFileReader bcReader = new ByteCodeFileReader();

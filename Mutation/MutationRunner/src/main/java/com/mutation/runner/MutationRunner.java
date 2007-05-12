@@ -20,7 +20,7 @@ import com.mutation.runner.events.ProcessingMutationOperator;
 import com.mutation.runner.utililties.ByteCodeFileReader;
 import com.mutation.testrunner.ITestRunner;
 import com.mutation.testrunner.JUnitRunner;
-import com.mutation.transform.ITransitionGroup;
+import com.mutation.transform.AbstractTransitionGroup;
 import com.mutation.transform.asm.ror.ROR_TransitionGroup;
 
 public class MutationRunner {
@@ -43,7 +43,7 @@ public class MutationRunner {
 	 * @param testNames
 	 * @throws IOException
 	 */
-	public void performMutations(List<ITransitionGroup> transitionGroups, ByteCodeFileReader byteCodeFileReader,
+	public void performMutations(List<AbstractTransitionGroup> transitionGroups, ByteCodeFileReader byteCodeFileReader,
 			ClassDescription classUnderTestDescription, Set<String> testNames) throws IOException {
 
 		eventListener.notifyEvent(new ProcessingClassUnderTest(classUnderTestDescription));
@@ -52,7 +52,7 @@ public class MutationRunner {
 
 		byte[] byteCode = loadClass(byteCodeFileReader, fqClassName);
 
-		for (ITransitionGroup transitionGroup : transitionGroups) {
+		for (AbstractTransitionGroup transitionGroup : transitionGroups) {
 
 			eventListener.notifyEvent(new ProcessingMutationOperator(transitionGroup.getClass().getName()));
 
@@ -95,7 +95,7 @@ public class MutationRunner {
 			};
 		};
 
-		List<ITransitionGroup> convertedOperators = new ArrayList<ITransitionGroup>();
+		List<AbstractTransitionGroup> convertedOperators = new ArrayList<AbstractTransitionGroup>();
 		convertedOperators.add(new ROR_TransitionGroup(true));
 
 		ClassDescription classUnderTestDescription = new ClassDescription();

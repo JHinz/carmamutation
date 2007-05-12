@@ -1,11 +1,11 @@
 package com.mutation.transform.asm.ror;
 
 import com.mutation.transform.ITransition;
-import com.mutation.transform.ITransitionGroup;
+import com.mutation.transform.AbstractTransitionGroup;
 
-public class ROR_TransitionGroup extends ITransitionGroup {
+public class ROR_TransitionGroup extends AbstractTransitionGroup {
 
-	private ROR_Transition[] transitions;
+	private AbstractASMTransition[] transitions;
 
 	public ROR_TransitionGroup(boolean useDefaultTransitions) {
 		super(useDefaultTransitions);
@@ -14,12 +14,12 @@ public class ROR_TransitionGroup extends ITransitionGroup {
 		}
 	}
 
-	public ROR_Transition[] getTransitions() {
+	public AbstractASMTransition[] getTransitions() {
 		return transitions;
 	}
 
 	public void setTransitions(ITransition[] transitions) {
-		this.transitions = (ROR_Transition[]) transitions;
+		this.transitions = (AbstractASMTransition[]) transitions;
 	}
 
 	public String getName() {
@@ -27,7 +27,7 @@ public class ROR_TransitionGroup extends ITransitionGroup {
 	}
 
 	public void initWithDefaultTransitions() {
-		this.transitions = new ROR_Transition[] { new IF_ICMPEQ_2_IF_ICMPNE_Transition(),
+		this.transitions = new AbstractASMTransition[] { new IF_ICMPEQ_2_IF_ICMPNE_Transition(),
 				new IF_ICMPNE_2_IF_ICMPEQ_Transition(), new IFEQ_2_IFNE_Transition(), new IFNE_2_IFEQ_Transition() };
 	}
 

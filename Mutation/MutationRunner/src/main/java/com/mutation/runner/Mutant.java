@@ -1,6 +1,6 @@
 package com.mutation.runner;
 
-import com.mutation.transform.ITransitionGroup;
+import com.mutation.transform.AbstractTransitionGroup;
 
 /**
  * Specification of a mutant
@@ -36,7 +36,7 @@ public class Mutant {
 
 	private SourceCodeMapping sourceMapping;
 
-	private ITransitionGroup transitionGroup;
+	private AbstractTransitionGroup transitionGroup;
 
 	private String sourceInstruction;
 
@@ -100,11 +100,11 @@ public class Mutant {
 		this.targetInstruction = targetInstruction;
 	}
 
-	public ITransitionGroup getTransitionGroup() {
+	public AbstractTransitionGroup getTransitionGroup() {
 		return transitionGroup;
 	}
 
-	public void setTransitionGroup(ITransitionGroup transitionGroup) {
+	public void setTransitionGroup(AbstractTransitionGroup transitionGroup) {
 		this.transitionGroup = transitionGroup;
 	}
 

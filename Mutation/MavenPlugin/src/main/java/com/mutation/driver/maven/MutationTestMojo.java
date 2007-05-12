@@ -22,7 +22,7 @@ import com.mutation.BasicDriver;
 import com.mutation.runner.events.listener.SummaryCreatorEventListener;
 import com.mutation.runner.events.listener.SummaryCreatorEventListener.Summary;
 import com.mutation.testrunner.JUnitRunner;
-import com.mutation.transform.ITransitionGroup;
+import com.mutation.transform.AbstractTransitionGroup;
 import com.mutation.transform.TransitionGroupConfig;
 
 /**

@@ -10,11 +10,11 @@ import com.mutation.runner.events.IEventListener;
 public class MutantGenerator implements IMutantGenerator {
 
 	public List<Mutant> generateMutants(String classUnderTest, byte[] originalClassByteCode,
-			List<ITransitionGroup> transitionGroups, IEventListener listener) {
+			List<AbstractTransitionGroup> transitionGroups, IEventListener listener) {
 
 		List<Mutant> result = new ArrayList<Mutant>();
 
-		for (ITransitionGroup group : transitionGroups) {
+		for (AbstractTransitionGroup group : transitionGroups) {
 
 			for (ITransition transition : group.getTransitions()) {
 

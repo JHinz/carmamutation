@@ -3,7 +3,7 @@ package com.mutation.runner;
 import java.util.List;
 
 import com.mutation.runner.events.IEventListener;
-import com.mutation.transform.ITransitionGroup;
+import com.mutation.transform.AbstractTransitionGroup;
 
 /**
  * Generator interface to generate a set of mutants
@@ -23,6 +23,6 @@ public interface IMutantGenerator {
 	 */
 
 	public List<Mutant> generateMutants(String classUnderTest, byte[] originalClassByteCode,
-			List<ITransitionGroup> transitionGroups, IEventListener listener);
+			List<AbstractTransitionGroup> transitionGroups, IEventListener listener);
 
 }
