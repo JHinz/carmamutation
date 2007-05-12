@@ -2,6 +2,7 @@
 Change History (newest on top)
 ---------------------------------------------------------------------------
 20070512 (alex)
+- Moved junit test runner into dedicated package
 - moved resolvers to native project as they are irrelevant for the mutation runner itself
 - extracted class ClassDescription into own java source file
 - Replaced Set with List everywhere due to testability
