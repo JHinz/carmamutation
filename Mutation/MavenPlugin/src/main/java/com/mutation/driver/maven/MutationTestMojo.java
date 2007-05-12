@@ -22,7 +22,6 @@ import com.mutation.BasicDriver;
 import com.mutation.runner.events.listener.SummaryCreatorEventListener;
 import com.mutation.runner.events.listener.SummaryCreatorEventListener.Summary;
 import com.mutation.testrunner.JUnitRunner;
-import com.mutation.transform.AbstractTransitionGroup;
 import com.mutation.transform.TransitionGroupConfig;
 
 /**
@@ -167,12 +166,12 @@ public class MutationTestMojo extends AbstractMojo {
 		Log log = getLog();
 		log.info("# --------------------------------------------------------------------------------");
 		log.info("# TEST RESULTS SUMMARY ");
-		log.info("#   Total time                : " + format.format( sum.timeSeconds ) + " sec.");
+		log.info("#   Total time                : " + format.format(sum.timeSeconds) + " sec.");
 		log.info("#   Classes/Tests             : " + sum.numClassesUnderTest + "/" + sum.numTests);
-		log.info("#   Tests Per Class           : " + format.format( sum.testsPerClass ));
-		log.info("#   Mutants/Class             : " + format.format( sum.mutantsPerClass ));
+		log.info("#   Tests Per Class           : " + format.format(sum.testsPerClass));
+		log.info("#   Mutants/Class             : " + format.format(sum.mutantsPerClass));
 		log.info("#   Mutants/Survivors         : " + sum.numMutants + "/" + sum.numSurvivors);
-		log.info("#   SurvivorRatio             : " + format.format( sum.survivorPercentage ) + " %");
+		log.info("#   SurvivorRatio             : " + format.format(sum.survivorPercentage) + " %");
 		log.info("# --------------------------------------------------------------------------------");
 		factory.destroySingletons();
 
