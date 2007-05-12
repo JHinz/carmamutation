@@ -21,7 +21,7 @@ import org.springframework.core.io.ClassPathResource;
 import com.mutation.BasicDriver;
 import com.mutation.runner.events.listener.SummaryCreatorEventListener;
 import com.mutation.runner.events.listener.SummaryCreatorEventListener.Summary;
-import com.mutation.testrunner.JUnitRunner;
+import com.mutation.testrunner.junit3.JUnitRunner;
 import com.mutation.transform.TransitionGroupConfig;
 
 /**

@@ -81,7 +81,7 @@
 		</property>
 	</bean>
 
-	<bean id="testRunner" class="com.mutation.testrunner.JUnitRunner">
+	<bean id="testRunner" class="com.mutation.testrunner.junit3.JUnitRunner">
 		<property name="stopOnFirstFailedTest" value="true" />
 		<property name="testClassesLocationsAsFiles">
 			<list>
