@@ -21,5 +21,15 @@ public class EQ_SampleClass {
 		}
 
 	}
+	
+	public int methodWith_IFEQ(int a) {
+
+		if (a != 0) { // translates to IFEQ on JDK5.0 (macosx)
+			return 0;
+		} else {
+			return 1;
+		}
+
+	}
 
 }

@@ -21,5 +21,15 @@ public class GT_SampleClass {
 		}
 
 	}
+	
+	public int methodWith_IFGT(int a) {
+
+		if (a <= 0) { // translates to IFGT on JDK5.0 (macosx)
+			return 0;
+		} else {
+			return 1;
+		}
+
+	}
 
 }

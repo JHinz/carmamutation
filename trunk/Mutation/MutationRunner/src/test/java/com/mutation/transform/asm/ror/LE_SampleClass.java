@@ -21,5 +21,15 @@ public class LE_SampleClass {
 		}
 
 	}
+	
+	public int methodWith_IFLE(int a) {
+
+		if (a > 0) { // translates to IFLE on JDK5.0 (macosx)
+			return 0;
+		} else {
+			return 1;
+		}
+
+	}
 
 }

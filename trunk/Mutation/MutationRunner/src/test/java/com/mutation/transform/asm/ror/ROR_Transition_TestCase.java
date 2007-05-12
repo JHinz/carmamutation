@@ -336,4 +336,254 @@ public class ROR_Transition_TestCase extends TestCase {
 		}
 
 	}
+
+	public void test_IFEQ_2_IFNE() throws Exception {
+
+		final String FQ_SAMPLE_CLASS_NAME = "com.mutation.transform.asm.ror.EQ_SampleClass";
+
+		final String SAMPLE_CLASS_FILENAME = "target/test-classes/com/mutation/transform/asm/ror/EQ_SampleClass.class";
+
+		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IFEQ";
+
+		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+
+		List<Mutant> mutants = new IFEQ_2_IFNE_Transition().applyTransitions(testByteCode, new EventListenerMock());
+
+		assertEquals(1, mutants.size());
+
+		{
+			assertEquals(27, mutants.get(0).getSourceMapping().getLineNo());
+
+			TestClassLoader loader = new TestClassLoader();
+
+			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
+
+			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+
+			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+
+			Method branchMethod = modifiedInputClass
+					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
+
+			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 0 });
+
+			assertEquals(0, resultObject0);
+
+			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 1 });
+
+			assertEquals(1, resultObject1);
+		}
+
+	}
+
+	public void test_IFNE_2_IFEQ() throws Exception {
+
+		final String FQ_SAMPLE_CLASS_NAME = "com.mutation.transform.asm.ror.NE_SampleClass";
+
+		final String SAMPLE_CLASS_FILENAME = "target/test-classes/com/mutation/transform/asm/ror/NE_SampleClass.class";
+
+		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IFNE";
+
+		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+
+		List<Mutant> mutants = new IFNE_2_IFEQ_Transition().applyTransitions(testByteCode, new EventListenerMock());
+
+		assertEquals(1, mutants.size());
+
+		{
+			assertEquals(27, mutants.get(0).getSourceMapping().getLineNo());
+
+			TestClassLoader loader = new TestClassLoader();
+
+			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
+
+			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+
+			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+
+			Method branchMethod = modifiedInputClass
+					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
+
+			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 0 });
+
+			assertEquals(1, resultObject0);
+
+			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 1 });
+
+			assertEquals(0, resultObject1);
+		}
+
+	}
+
+	public void test_IFGE_2_IFLT() throws Exception {
+
+		final String FQ_SAMPLE_CLASS_NAME = "com.mutation.transform.asm.ror.GE_SampleClass";
+
+		final String SAMPLE_CLASS_FILENAME = "target/test-classes/com/mutation/transform/asm/ror/GE_SampleClass.class";
+
+		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IFGE";
+
+		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+
+		List<Mutant> mutants = new IFGE_2_IFLT_Transition().applyTransitions(testByteCode, new EventListenerMock());
+
+		assertEquals(1, mutants.size());
+
+		{
+			assertEquals(27, mutants.get(0).getSourceMapping().getLineNo());
+
+			TestClassLoader loader = new TestClassLoader();
+
+			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
+
+			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+
+			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+
+			Method branchMethod = modifiedInputClass
+					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
+
+			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { -1 });
+
+			assertEquals(1, resultObject0);
+
+			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 0 });
+
+			assertEquals(0, resultObject1);
+
+			Object resultObject2 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 1 });
+
+			assertEquals(0, resultObject2);
+		}
+
+	}
+
+	public void test_IFLT_2_IFGT() throws Exception {
+
+		final String FQ_SAMPLE_CLASS_NAME = "com.mutation.transform.asm.ror.LT_SampleClass";
+
+		final String SAMPLE_CLASS_FILENAME = "target/test-classes/com/mutation/transform/asm/ror/LT_SampleClass.class";
+
+		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IFLT";
+
+		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+
+		List<Mutant> mutants = new IFLT_2_IFGE_Transition().applyTransitions(testByteCode, new EventListenerMock());
+
+		assertEquals(1, mutants.size());
+
+		{
+			assertEquals(27, mutants.get(0).getSourceMapping().getLineNo());
+
+			TestClassLoader loader = new TestClassLoader();
+
+			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
+
+			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+
+			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+
+			Method branchMethod = modifiedInputClass
+					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
+
+			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { -1 });
+
+			assertEquals(0, resultObject0);
+
+			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 0 });
+
+			assertEquals(1, resultObject1);
+
+			Object resultObject2 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 1 });
+
+			assertEquals(1, resultObject2);
+		}
+
+	}
+
+	public void test_IFGT_2_IFLE() throws Exception {
+
+		final String FQ_SAMPLE_CLASS_NAME = "com.mutation.transform.asm.ror.GT_SampleClass";
+
+		final String SAMPLE_CLASS_FILENAME = "target/test-classes/com/mutation/transform/asm/ror/GT_SampleClass.class";
+
+		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IFGT";
+
+		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+
+		List<Mutant> mutants = new IFGT_2_IFLE_Transition().applyTransitions(testByteCode, new EventListenerMock());
+
+		assertEquals(1, mutants.size());
+
+		{
+			assertEquals(27, mutants.get(0).getSourceMapping().getLineNo());
+
+			TestClassLoader loader = new TestClassLoader();
+
+			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
+
+			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+
+			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+
+			Method branchMethod = modifiedInputClass
+					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
+
+			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { -1 });
+
+			assertEquals(1, resultObject0);
+
+			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 0 });
+
+			assertEquals(1, resultObject1);
+
+			Object resultObject2 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 1 });
+
+			assertEquals(0, resultObject2);
+		}
+
+	}
+
+	public void test_IFLE_2_IFGT() throws Exception {
+
+		final String FQ_SAMPLE_CLASS_NAME = "com.mutation.transform.asm.ror.LE_SampleClass";
+
+		final String SAMPLE_CLASS_FILENAME = "target/test-classes/com/mutation/transform/asm/ror/LE_SampleClass.class";
+
+		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IFLE";
+
+		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+
+		List<Mutant> mutants = new IFLE_2_IFGT_Transition().applyTransitions(testByteCode, new EventListenerMock());
+
+		assertEquals(1, mutants.size());
+
+		{
+			assertEquals(27, mutants.get(0).getSourceMapping().getLineNo());
+
+			TestClassLoader loader = new TestClassLoader();
+
+			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
+
+			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+
+			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+
+			Method branchMethod = modifiedInputClass
+					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
+
+			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { -1 });
+
+			assertEquals(0, resultObject0);
+
+			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 0 });
+
+			assertEquals(0, resultObject1);
+
+			Object resultObject2 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 1 });
+
+			assertEquals(1, resultObject2);
+		}
+
+	}
 }
