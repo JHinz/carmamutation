@@ -32,7 +32,8 @@
 		<xs:sequence>
 			<xs:element name="survived" type="xs:boolean" />
 			<xs:element name="name" type="xs:string" />
-			<xs:element name="operatorName" type="xs:string" />
+			<xs:element name="transitionGroup" type="xs:string" />
+			<xs:element name="transition" type="xs:string" />
 			<xs:element name="sourceInstruction" type="xs:string" />
 			<xs:element name="targetInstruction" type="xs:string" />
 			<xs:element name="baseSourceLine" type="xs:long" />
