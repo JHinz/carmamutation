@@ -1,6 +1,10 @@
 ---------------------------------------------------------------------------
 Change History (newest on top)
 ---------------------------------------------------------------------------
-20070505: 
+
+20070512: (alex)
+- Moved junit test runner into dedicated package
+
+20070505: (mike)
 - output of summary information at the end of the test run to maven log
 - fixed spring configuration
