@@ -64,4 +64,12 @@ public class ClassDescription {
 	public void setAssociatedTestNames(List<String> associatedTestNames) {
 		this.associatedTestNames = associatedTestNames;
 	}
+
+	public String getSourceFile() {
+		return sourceFile;
+	}
+
+	public void setSourceFile(String sourceFile) {
+		this.sourceFile = sourceFile;
+	}
 }
