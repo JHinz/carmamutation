@@ -26,7 +26,7 @@ public class Mutant {
 
 	@Override
 	public String toString() {
-		return name + " " + className + " " + transitionGroup + " " + sourceInstruction + "->" + targetInstruction;
+		return name + " " + className + " " + transitionGroup;
 	}
 
 	private String name;
@@ -40,10 +40,6 @@ public class Mutant {
 	private AbstractTransitionGroup transitionGroup;
 	
 	private ITransition transition;
-
-	private String sourceInstruction;
-
-	private String targetInstruction;
 
 	private boolean survived;
 
@@ -85,22 +81,6 @@ public class Mutant {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getSourceInstruction() {
-		return sourceInstruction;
-	}
-
-	public void setSourceInstruction(String sourceInstruction) {
-		this.sourceInstruction = sourceInstruction;
-	}
-
-	public String getTargetInstruction() {
-		return targetInstruction;
-	}
-
-	public void setTargetInstruction(String targetInstruction) {
-		this.targetInstruction = targetInstruction;
 	}
 
 	public AbstractTransitionGroup getTransitionGroup() {
