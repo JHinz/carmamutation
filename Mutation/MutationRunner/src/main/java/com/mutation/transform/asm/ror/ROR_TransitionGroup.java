@@ -33,7 +33,7 @@ public class ROR_TransitionGroup extends AbstractTransitionGroup {
 				new IF_ICMPLT_2_IF_ICMPGE_Transition(), new IF_ICMPGT_2_IF_ICMPLE_Transition(),
 				new IF_ICMPLE_2_IF_ICMPGT_Transition(), new IFGT_2_IFLE_Transition(), new IFLE_2_IFGT_Transition(),
 				new IFEQ_2_IFNE_Transition(), new IFNE_2_IFEQ_Transition(), new IFGE_2_IFLT_Transition(),
-				new IFLT_2_IFGE_Transition() };
+				new IFLT_2_IFGE_Transition(), new IFNONNULL_2_IFNULL_Transition(), new IFNULL_2_IFNONNULL_Transition() };
 	}
 
 }

@@ -676,4 +676,92 @@ public class ROR_Transition_TestCase extends TestCase {
 		}
 
 	}
+
+	public void test_IFNULL_2_IFNOTNULL() throws Exception {
+
+		final String FQ_SAMPLE_CLASS_NAME = "com.mutation.transform.asm.ror.NULL_SampleClass";
+
+		final String SAMPLE_CLASS_FILENAME = "target/test-classes/com/mutation/transform/asm/ror/NULL_SampleClass.class";
+
+		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IFNULL";
+
+		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+
+		List<Mutant> mutants = new IFNULL_2_IFNONNULL_Transition().applyTransitions(testByteCode,
+				new EventListenerMock());
+
+		assertEquals(1, mutants.size());
+
+		{
+			assertEquals(17, mutants.get(0).getSourceMapping().getLineNo());
+
+			TestClassLoader loader = new TestClassLoader();
+
+			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
+
+			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+
+			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+
+			Method branchMethod = modifiedInputClass.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS,
+					new Class[] { Object.class });
+
+			Object a1 = null;
+
+			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { a1 });
+
+			assertEquals(0, resultObject0);
+
+			a1 = new Object();
+
+			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { a1 });
+
+			assertEquals(1, resultObject1);
+		}
+
+	}
+
+	public void test_IFNONNULL_2_IFNULL() throws Exception {
+
+		final String FQ_SAMPLE_CLASS_NAME = "com.mutation.transform.asm.ror.NONNULL_SampleClass";
+
+		final String SAMPLE_CLASS_FILENAME = "target/test-classes/com/mutation/transform/asm/ror/NONNULL_SampleClass.class";
+
+		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IFNONNULL";
+
+		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+
+		List<Mutant> mutants = new IFNONNULL_2_IFNULL_Transition().applyTransitions(testByteCode,
+				new EventListenerMock());
+
+		assertEquals(1, mutants.size());
+
+		{
+			assertEquals(17, mutants.get(0).getSourceMapping().getLineNo());
+
+			TestClassLoader loader = new TestClassLoader();
+
+			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
+
+			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+
+			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+
+			Method branchMethod = modifiedInputClass.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS,
+					new Class[] { Object.class });
+
+			Object a1 = null;
+
+			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { a1 });
+
+			assertEquals(1, resultObject0);
+
+			a1 = new Object();
+
+			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { a1 });
+
+			assertEquals(0, resultObject1);
+		}
+
+	}
 }
