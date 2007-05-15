@@ -1,12 +1,14 @@
 package com.mutation.resolver;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
+
+import junit.framework.TestCase;
 
 import com.mutation.BruteForceResolver;
 import com.mutation.runner.ClassDescription;
-
-import junit.framework.TestCase;
 
 public class ClassAndTestClassResolverTestCase extends TestCase {
 
@@ -23,15 +25,22 @@ public class ClassAndTestClassResolverTestCase extends TestCase {
 
 		assertEquals(2, classes.size());
 
-		assertEquals(2, classes.get(0).getAssociatedTestNames().size());
-
-		assertEquals("sub1.sub2.TestClass2", classes.get(0).getAssociatedTestNames().get(0));
-		assertEquals("TestClass1", classes.get(0).getAssociatedTestNames().get(1));
-
-		assertEquals(2, classes.get(1).getAssociatedTestNames().size());
-
-		assertEquals("sub1.sub2.TestClass2", classes.get(1).getAssociatedTestNames().get(0));
-		assertEquals("TestClass1", classes.get(1).getAssociatedTestNames().get(1));
+		
+		{
+			List<String> testNames = new ArrayList<String>(new TreeSet<String> (classes.get(0).getAssociatedTestNames()));
+			assertEquals(2, testNames.size());
+	
+			assertEquals("TestClass1", testNames.get(0));
+			assertEquals("sub1.sub2.TestClass2",testNames.get(1));
+		}
+		
+		{
+			List<String> testNames = new ArrayList<String>(new TreeSet<String> (classes.get(1).getAssociatedTestNames()));
+			assertEquals(2, testNames.size());
+	
+			assertEquals("TestClass1", testNames.get(0));
+			assertEquals("sub1.sub2.TestClass2",testNames.get(1));
+		}
 
 	}
 	
@@ -51,11 +60,11 @@ public class ClassAndTestClassResolverTestCase extends TestCase {
 
 		assertEquals(1, classes.get(0).getAssociatedTestNames().size());
 
-		assertEquals("TestClass1", classes.get(0).getAssociatedTestNames().get(0));
+		assertEquals("TestClass1", classes.get(0).getAssociatedTestNames().iterator().next());
 
 		assertEquals(1, classes.get(1).getAssociatedTestNames().size());
 
-		assertEquals("TestClass1", classes.get(1).getAssociatedTestNames().get(0));
+		assertEquals("TestClass1", classes.get(1).getAssociatedTestNames().iterator().next());
 
 	}
 }

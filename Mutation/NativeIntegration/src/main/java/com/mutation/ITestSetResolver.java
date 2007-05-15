@@ -1,9 +1,9 @@
 package com.mutation;
 
-import java.util.List;
+import java.util.Set;
 
 public interface ITestSetResolver {
 
-	List<String> determineTests(String classUnderTestName);
+	Set<String> determineTests(String classUnderTestName);
 
 }

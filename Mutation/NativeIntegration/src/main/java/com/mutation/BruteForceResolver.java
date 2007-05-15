@@ -1,7 +1,7 @@
 package com.mutation;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -63,7 +63,7 @@ public class BruteForceResolver implements IClassAndTestClassResolver {
 
 		for (ClassDescription classDescription : classDescriptions) {
 
-			classDescription.setAssociatedTestNames(new ArrayList<String>());
+			classDescription.setAssociatedTestNames(new HashSet<String>());
 
 			for (ClassDescription testClassDescription : testClassDescriptions) {
 

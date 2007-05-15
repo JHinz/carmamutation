@@ -1,7 +1,7 @@
 package com.mutation.testsetresolver;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.mutation.ITestSetResolver;
 
@@ -15,9 +15,9 @@ import com.mutation.ITestSetResolver;
 public class OneTestPerClassResolver implements ITestSetResolver {
 	private String testCaseSuffix;
 
-	public List<String> determineTests(String classUnderTestName) {
+	public Set<String> determineTests(String classUnderTestName) {
 		String testClassName = classUnderTestName + this.testCaseSuffix;
-		List<String> tests = new ArrayList<String>();
+		Set<String> tests = new HashSet<String>();
 		tests.add(testClassName);
 		return tests;
 	}
