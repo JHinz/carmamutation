@@ -15,11 +15,10 @@ public class ReportModelLoader {
 		super();
 	}
 
-	public MutationRun loadReportModel(String source) throws JAXBException, FileNotFoundException {
+	public MutationRun loadReportModel(File source) throws JAXBException, FileNotFoundException {
 		JAXBContext context = JAXBContext.newInstance(MutationRun.class);
 		Unmarshaller unmarshaller = context.createUnmarshaller();
-		MutationRun report = (MutationRun) unmarshaller.unmarshal(new FileInputStream(new File(source)));
+		MutationRun report = (MutationRun) unmarshaller.unmarshal(new FileInputStream(source));
 		return report;
 	}
-
 }
