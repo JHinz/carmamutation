@@ -62,6 +62,7 @@ public class JUnitRunner implements ITestRunner {
 		boolean survived = true;
 		List<String> killerTestNames = new ArrayList<String>();
 		for (String testCase : testNames) {
+			System.out.println("Running testcase: "+testCase);
 			try {
 				int failures = runTest(testCase, mutant);
 				if (failures > 0) {

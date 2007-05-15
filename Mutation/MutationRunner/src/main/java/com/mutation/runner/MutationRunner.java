@@ -21,7 +21,7 @@ public class MutationRunner {
 
 	private MutantGenerator mutantGenerator;
 
-	private File originalClassPath;
+	private File classesUnderTestPath;
 
 	private IEventListener eventListener;
 
@@ -73,7 +73,7 @@ public class MutationRunner {
 
 	private byte[] loadClass(String classUnderTestName) throws IOException {
 
-		String path = originalClassPath.getAbsolutePath() + "/" + classUnderTestName.replace('.', '/') + ".class";
+		String path = classesUnderTestPath.getAbsolutePath() + "/" + classUnderTestName.replace('.', '/') + ".class";
 
 		File originalClassFile = new File(path);
 
@@ -88,12 +88,12 @@ public class MutationRunner {
 		this.testRunner = testRunner;
 	}
 
-	public File getOriginalClassPath() {
-		return originalClassPath;
+	public File getClassesUnderTestPath() {
+		return classesUnderTestPath;
 	}
 
-	public void setOriginalClassPath(File originalClassPath) {
-		this.originalClassPath = originalClassPath;
+	public void setClassesUnderTestPath(File classesUnderTestPath) {
+		this.classesUnderTestPath = classesUnderTestPath;
 	}
 
 	public void setEventListener(IEventListener eventListener) {
