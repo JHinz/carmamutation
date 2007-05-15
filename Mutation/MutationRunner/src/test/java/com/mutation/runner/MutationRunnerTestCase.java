@@ -3,6 +3,8 @@ package com.mutation.runner;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.Vector;
 
 import junit.framework.TestCase;
@@ -65,7 +67,7 @@ public class MutationRunnerTestCase extends TestCase {
 		classDescription.setClassName("Sample");
 		classDescription.setPackageName("sources");
 
-		List<String> testNames = new ArrayList<String>();
+		Set<String> testNames = new TreeSet<String>();
 		testNames.add("testsources.SampleTestCase");
 
 		classDescription.setAssociatedTestNames(testNames);

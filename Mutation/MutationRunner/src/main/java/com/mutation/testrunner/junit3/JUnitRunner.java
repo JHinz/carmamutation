@@ -3,8 +3,10 @@ package com.mutation.testrunner.junit3;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import junit.framework.Test;
 import junit.framework.TestResult;
@@ -58,27 +60,30 @@ public class JUnitRunner implements ITestRunner {
 		this.testClassesLocations = urls;
 	}
 
-	public void execute(Mutant mutant, List<String> testNames, IEventListener eventListener) {
+	public void execute(Mutant mutant, Set<String> origTestNames, IEventListener eventListener) {
 		boolean survived = true;
-		List<String> killerTestNames = new ArrayList<String>();
-		for (String testCase : testNames) {
-			System.out.println("Running testcase: "+testCase);
+		
+		Set<String> executedTestsNames = new HashSet<String>(origTestNames);
+		Set<String> killerTestNames = new TreeSet<String>();
+		for (String testCase : executedTestsNames) {
 			try {
 				int failures = runTest(testCase, mutant);
 				if (failures > 0) {
 					survived = false;
-					killerTestNames.add(testCase);
+					//TODO IMHO it would be better to have the surived flag separated
 					mutant.setSurvived(false);
+					killerTestNames.add(testCase);
 					if (stopOnFirstFailedTest) {
 						break;
 					}
 				}
-
+				
 			} catch (Exception e) {
+				executedTestsNames.remove(testCase);
 				eventListener.notifyEvent(new TestNotExecuted(mutant, testCase, e));
 			}
 		}
-		eventListener.notifyEvent(new TestsExecuted(mutant, testNames, survived, killerTestNames));
+		eventListener.notifyEvent(new TestsExecuted(mutant, executedTestsNames, survived, killerTestNames));
 	}
 
 	public void setStopOnFirstFailedTest(boolean stopOnFirstFailedTest) {

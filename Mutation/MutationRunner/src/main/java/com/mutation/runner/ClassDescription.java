@@ -1,6 +1,6 @@
 package com.mutation.runner;
 
-import java.util.List;
+import java.util.Set;
 
 import com.mutation.runner.utililties.ToStringUtils;
 
@@ -14,7 +14,7 @@ public class ClassDescription {
 	
 	private String sourceFile;
 
-	private List<String> associatedTestNames;
+	private Set<String> associatedTestNames;
 
 	public String getClassFile() {
 		return classFile;
@@ -57,11 +57,11 @@ public class ClassDescription {
 		this.packageName = packageName;
 	}
 
-	public List<String> getAssociatedTestNames() {
+	public Set<String> getAssociatedTestNames() {
 		return associatedTestNames;
 	}
 
-	public void setAssociatedTestNames(List<String> associatedTestNames) {
+	public void setAssociatedTestNames(Set<String> associatedTestNames) {
 		this.associatedTestNames = associatedTestNames;
 	}
 

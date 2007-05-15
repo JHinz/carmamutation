@@ -2,6 +2,7 @@ package com.mutation.transform;
 
 public abstract class AbstractTransitionGroup {
 
+	//TODO why is the useDefaultTransitions ? In the abstract class it is not used at all.
 	public AbstractTransitionGroup(boolean useDefaultTransitions) {
 	}
 

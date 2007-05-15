@@ -1,6 +1,6 @@
 package com.mutation.runner.events;
 
-import java.util.List;
+import java.util.Set;
 
 import com.mutation.runner.Mutant;
 import com.mutation.runner.utililties.ToStringUtils;
@@ -9,13 +9,13 @@ public class TestsExecuted implements IEvent {
 
 	private Mutant mutant;
 
-	private List<String> testNames;
+	private Set<String> testNames;
 
 	private boolean mutantSurvived;
 
-	private List<String> killerTestNames;
+	private Set<String> killerTestNames;
 
-	public TestsExecuted(Mutant mutant, List<String> testNames, boolean mutantSurvived, List<String> killerTestNames) {
+	public TestsExecuted(Mutant mutant, Set<String> testNames, boolean mutantSurvived, Set<String> killerTestNames) {
 		super();
 		this.mutant = mutant;
 		this.testNames = testNames;
@@ -23,7 +23,7 @@ public class TestsExecuted implements IEvent {
 		this.killerTestNames = killerTestNames;
 	}
 
-	public List<String> getKillerTestNames() {
+	public Set<String> getKillerTestNames() {
 		return killerTestNames;
 	}
 
@@ -35,7 +35,7 @@ public class TestsExecuted implements IEvent {
 		return mutantSurvived;
 	}
 
-	public List<String> getTestNames() {
+	public Set<String> getTestNames() {
 		return testNames;
 	}
 
