@@ -36,8 +36,7 @@
 	<!-- the driver main class which executes the tests -->
 	<bean id="testDriver" class="com.mutation.BasicDriver">
 		<property name="runner" ref="mutationRunner" />
-		<property name="classSetResolver" ref="classUnderTestResolver" />
-		<property name="testSetResolver" ref="testSetResolver" />
+		<property name="resolver" ref="classUnderTestResolver" />
 		<property name="eventListener" ref="eventListener"></property>
 	</bean>
 
@@ -86,13 +85,9 @@
 	</bean>
 
 	<bean id="classUnderTestResolver"
-		class="com.mutation.classesresolver.DirectoryBasedResolver">
-		<property name="classesBaseDir" ref="classesDir" />
-	</bean>
-
-	<bean id="testSetResolver"
-		class="com.mutation.testsetresolver.OneTestPerClassResolver">
-		<property name="testCaseSuffix" value="${testCaseSuffix}" />
+		class="com.mutation.LegacyResolver">
+		<property name="classesUnderTestPath" ref="classesDir" />
+		<property name="testNameSuffix" value="${testCaseSuffix}"></property>
 	</bean>
 
 	<bean id="mutantGenerator" class="com.mutation.transform.MutantGenerator"></bean>

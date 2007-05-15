@@ -1,7 +1,6 @@
 package com.mutation;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,6 +11,7 @@ import com.mutation.testsetresolver.OneTestPerClassResolver;
 
 public class LegacyResolver implements IClassAndTestClassResolver {
 
+	private String testNameSuffix = "Test";
 	private File classesUnderTestPath;
 
 	public LegacyResolver() {
@@ -34,7 +34,7 @@ public class LegacyResolver implements IClassAndTestClassResolver {
 		List<ClassDescription> classDescriptions = directoryResolver.determineClassNames();
 
 		OneTestPerClassResolver testResolver = new OneTestPerClassResolver();
-		testResolver.setTestCaseSuffix("Test");
+		testResolver.setTestCaseSuffix(getTestNameSuffix());
 
 		for (ClassDescription classDescription : classDescriptions) {
 
@@ -47,6 +47,14 @@ public class LegacyResolver implements IClassAndTestClassResolver {
 		}
 
 		return classDescriptions;
+	}
+
+	public String getTestNameSuffix() {
+		return testNameSuffix;
+	}
+
+	public void setTestNameSuffix(String testNameSuffix) {
+		this.testNameSuffix = testNameSuffix;
 	}
 
 }
