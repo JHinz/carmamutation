@@ -2,9 +2,9 @@ package sample;
 
 import junit.framework.TestCase;
 
-import com.mutation.annotations.MutationPair;
+import com.mutation.annotations.TestClassToClassMapping;
 
-@MutationPair(testCaseClassName = "sample.Sample")
+@TestClassToClassMapping(classNames = { "sample.Sample" })
 public class SampleTestCase extends TestCase {
 
 	public void testDecide() {
