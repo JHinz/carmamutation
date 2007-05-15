@@ -16,24 +16,25 @@ import com.mutation.report.source.om.SourceFile;
 
 public class ProjectBuilder {
 
-	public Project buildProject(List<String> sourceFolders) {
+	public Project buildProject(List<File> sourceFolders) {
 
 		Project project = new Project();
 
-		for (String folderName : sourceFolders) {
+		for (File folderName : sourceFolders) {
 
 			try {
-				URL sourceFolderUrl = new URL("file:" + folderName);
+				URL sourceFolderUrl = folderName.toURL();
 
-				Set<String> sourceFileNames = getSourceFiles(folderName);
+				Set<File> sourceFileNames = getSourceFiles(folderName);
 
-				for (String sourceFileName : sourceFileNames) {
+				for (File sourceFileName : sourceFileNames) {
 					try {
 
-						URL sourceFileUrl = new URL("file:" + sourceFileName);
+						URL sourceFileUrl = sourceFileName.toURL();
 
 						SourceFile sourceFile = new SourceFile();
-						sourceFile.setFileName(sourceFileUrl.getPath());
+						
+						sourceFile.setFileName(sourceFileName.getPath());
 						sourceFile.setPackageName(extractPackageName(sourceFolderUrl, sourceFileUrl));
 						sourceFile.setClassName(extractClassName(sourceFileUrl));
 
@@ -154,13 +155,11 @@ public class ProjectBuilder {
 
 	}
 
-	private Set<String> getSourceFiles(String folderName) throws IOException {
+	private Set<File> getSourceFiles(File folder) throws IOException {
 
 		// TODO: verify whether symbolic links can lead to infinite loops
 
-		TreeSet<String> result = new TreeSet<String>();
-
-		File folder = new File(folderName);
+		TreeSet<File> result = new TreeSet<File>();
 
 		File[] javaFiles = folder.listFiles(new FilenameFilter() {
 
@@ -173,7 +172,7 @@ public class ProjectBuilder {
 		if (javaFiles != null) {
 			for (int fileCount = 0; fileCount < javaFiles.length; fileCount++) {
 
-				result.add(javaFiles[fileCount].getPath());
+				result.add(javaFiles[fileCount]);
 			}
 		}
 
@@ -188,7 +187,7 @@ public class ProjectBuilder {
 		if (directories != null) {
 			for (int dirCount = 0; dirCount < directories.length; dirCount++) {
 
-				result.addAll(getSourceFiles(directories[dirCount].getPath()));
+				result.addAll(getSourceFiles(directories[dirCount]));
 			}
 		}
 

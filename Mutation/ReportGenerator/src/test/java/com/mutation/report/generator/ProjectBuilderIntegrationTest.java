@@ -1,4 +1,5 @@
 package com.mutation.report.generator;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,9 @@ public class ProjectBuilderIntegrationTest extends TestCase {
 
 		ProjectBuilder builder = new ProjectBuilder();
 
-		List<String> sourceFolders = new ArrayList<String>();
-		sourceFolders.add("src/test/resources/it00001");
+		File sourceFolder = new File("src/test/resources/it00001");
+		List<File> sourceFolders = new ArrayList<File>();
+		sourceFolders.add(sourceFolder);
 		Project project = builder.buildProject(sourceFolders);
 
 		assertNotNull(project);
@@ -28,14 +30,14 @@ public class ProjectBuilderIntegrationTest extends TestCase {
 		SourceFile file;
 
 		file = project.getSourceFiles().get(0);
-		assertEquals("src/test/resources/it00001/AnotherClass.java", file.getFileName());
+		assertEquals(new File("src/test/resources/it00001/AnotherClass.java"), new File(file.getFileName()));
 		assertEquals(1, file.getSourceText().size());
 		assertEquals("AnotherClass\n", file.getSourceText().get(0));
 		assertEquals("", file.getPackageName());
 		assertEquals("AnotherClass", file.getClassName());
 
 		file = project.getSourceFiles().get(1);
-		assertEquals("src/test/resources/it00001/TestClass1.java", file.getFileName());
+		assertEquals(new File("src/test/resources/it00001/TestClass1.java"), new File(file.getFileName()));
 		assertEquals(2, file.getSourceText().size());
 		assertEquals("a1\n", file.getSourceText().get(0));
 		assertEquals("b2\n", file.getSourceText().get(1));
@@ -43,7 +45,7 @@ public class ProjectBuilderIntegrationTest extends TestCase {
 		assertEquals("TestClass1", file.getClassName());
 
 		file = project.getSourceFiles().get(2);
-		assertEquals("src/test/resources/it00001/subfolder/TestClass2.java", file.getFileName());
+		assertEquals(new File("src/test/resources/it00001/subfolder/TestClass2.java"), new File(file.getFileName()));
 		assertEquals(6, file.getSourceText().size());
 		assertEquals("a\n", file.getSourceText().get(0));
 		assertEquals("b\n", file.getSourceText().get(1));
@@ -55,7 +57,7 @@ public class ProjectBuilderIntegrationTest extends TestCase {
 		assertEquals("TestClass2", file.getClassName());
 
 		file = project.getSourceFiles().get(3);
-		assertEquals("src/test/resources/it00001/subfolder/anotherSubFolder/TestClass2.java", file.getFileName());
+		assertEquals(new File("src/test/resources/it00001/subfolder/anotherSubFolder/TestClass2.java"), new File(file.getFileName()));
 		assertEquals(1, file.getSourceText().size());
 		assertEquals("x\n", file.getSourceText().get(0));
 		assertEquals("subfolder.anotherSubFolder", file.getPackageName());
@@ -67,8 +69,8 @@ public class ProjectBuilderIntegrationTest extends TestCase {
 
 		ProjectBuilder builder = new ProjectBuilder();
 
-		List<String> sourceFolders = new ArrayList<String>();
-		sourceFolders.add("src/test/resources/it00002");
+		List<File> sourceFolders = new ArrayList<File>();
+		sourceFolders.add(new File("src/test/resources/it00002"));
 		Project project = builder.buildProject(sourceFolders);
 
 		assertNotNull(project);
@@ -79,7 +81,7 @@ public class ProjectBuilderIntegrationTest extends TestCase {
 		SourceFile file;
 
 		file = project.getSourceFiles().get(0);
-		assertEquals("src/test/resources/it00002/subfolder/TestClass1.java", file.getFileName());
+		assertEquals(new File("src/test/resources/it00002/subfolder/TestClass1.java"), new File(file.getFileName()));
 		assertEquals(2, file.getSourceText().size());
 		assertEquals("a1\n", file.getSourceText().get(0));
 		assertEquals("b2\n", file.getSourceText().get(1));
@@ -92,8 +94,8 @@ public class ProjectBuilderIntegrationTest extends TestCase {
 
 		ProjectBuilder builder = new ProjectBuilder();
 
-		List<String> sourceFolders = new ArrayList<String>();
-		sourceFolders.add("src/test/resources/it00002/");
+		List<File> sourceFolders = new ArrayList<File>();
+		sourceFolders.add(new File("src/test/resources/it00002/"));
 		Project project = builder.buildProject(sourceFolders);
 
 		assertNotNull(project);
@@ -104,7 +106,7 @@ public class ProjectBuilderIntegrationTest extends TestCase {
 		SourceFile file;
 
 		file = project.getSourceFiles().get(0);
-		assertEquals("src/test/resources/it00002/subfolder/TestClass1.java", file.getFileName());
+		assertEquals(new File("src/test/resources/it00002/subfolder/TestClass1.java"), new File(file.getFileName()));
 		assertEquals(2, file.getSourceText().size());
 		assertEquals("a1\n", file.getSourceText().get(0));
 		assertEquals("b2\n", file.getSourceText().get(1));
