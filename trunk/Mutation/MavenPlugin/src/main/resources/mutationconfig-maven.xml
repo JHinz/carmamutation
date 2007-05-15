@@ -72,7 +72,7 @@
 		class="com.mutation.runner.MutationRunner">
 		<property name="eventListener" ref="eventListener"></property>
 		<property name="mutantGenerator" ref="mutantGenerator"></property>
-		<property name="originalClassPath" ref="classesDir"></property>
+		<property name="classesUnderTestPath" ref="classesDir"></property>
 		<property name="testRunner" ref="testRunner"></property>
 	</bean>
 	<bean id="testRunner" class="com.mutation.testrunner.junit3.JUnitRunner">
