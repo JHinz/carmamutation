@@ -17,6 +17,7 @@
 		<module>../MavenPlugin</module>
 		<module>../NativeIntegration</module>
 		<module>../MutationRunner</module>
+		<module>../Annotations</module>
 	</modules>
 
 	<dependencies>
