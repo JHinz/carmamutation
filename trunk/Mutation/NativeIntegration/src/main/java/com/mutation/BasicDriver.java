@@ -21,9 +21,7 @@ public class BasicDriver {
 
 	private IEventListener eventListener;
 
-	private IClassSetResolver classSetResolver;
-
-	private ITestSetResolver testSetResolver;
+	private IClassAndTestClassResolver resolver;
 
 	private MutationRunner runner;
 
@@ -45,23 +43,19 @@ public class BasicDriver {
 
 		eventListener.notifyEvent(new MutationProcessStarted(tgConfig.getTransitionGroups()));
 
-		List<ClassDescription> classUnderTestNames = classSetResolver.determineClassNames();
+		List<ClassDescription> classesUnderTest = resolver.resolve();
 
-		eventListener.notifyEvent(new ClassesUnderTestResolved(classUnderTestNames));
+		eventListener.notifyEvent(new ClassesUnderTestResolved(classesUnderTest));
 
-		for (ClassDescription classUnderTestDescription : classUnderTestNames) {
-
-			List<String> testNames = testSetResolver.determineTests(classUnderTestDescription.getQualifiedClassName());
-
-			classUnderTestDescription.setAssociatedTestNames(testNames);
+		for (ClassDescription classUnderTestDescription : classesUnderTest) {
 
 			eventListener.notifyEvent(new TestSetDetermined(classUnderTestDescription.getQualifiedClassName(),
-					testNames));
+					classUnderTestDescription.getAssociatedTestNames()));
 
 		}
 
 		try {
-			runner.performMutations(tgConfig.getTransitionGroups(), classUnderTestNames);
+			runner.performMutations(tgConfig.getTransitionGroups(), classesUnderTest);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return;
@@ -69,14 +63,6 @@ public class BasicDriver {
 
 		eventListener.notifyEvent(new MutationProcessFinished());
 
-	}
-
-	public void setClassSetResolver(IClassSetResolver classSetResolver) {
-		this.classSetResolver = classSetResolver;
-	}
-
-	public void setTestSetResolver(ITestSetResolver testSetResolver) {
-		this.testSetResolver = testSetResolver;
 	}
 
 	public MutationRunner getRunner() {
@@ -87,16 +73,16 @@ public class BasicDriver {
 		this.runner = runner;
 	}
 
-	public IClassSetResolver getClassSetResolver() {
-		return classSetResolver;
-	}
-
-	public ITestSetResolver getTestSetResolver() {
-		return testSetResolver;
-	}
-
 	public void setEventListener(IEventListener eventListener) {
 		this.eventListener = eventListener;
+	}
+
+	public IClassAndTestClassResolver getResolver() {
+		return resolver;
+	}
+
+	public void setResolver(IClassAndTestClassResolver resolver) {
+		this.resolver = resolver;
 	}
 
 }

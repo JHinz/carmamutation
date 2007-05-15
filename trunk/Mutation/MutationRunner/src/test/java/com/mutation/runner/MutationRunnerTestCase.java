@@ -56,7 +56,7 @@ public class MutationRunnerTestCase extends TestCase {
 		runner.setEventListener(listener);
 		runner.setMutantGenerator(generator);
 		runner.setTestRunner(testRunner);
-		runner.setOriginalClassPath(new File("src/test/it/it0001"));
+		runner.setClassesUnderTestPath(new File("src/test/it/it0001"));
 
 		List<AbstractTransitionGroup> mutationOperators = new ArrayList<AbstractTransitionGroup>();
 		mutationOperators.add(new ROR_TransitionGroup(true));

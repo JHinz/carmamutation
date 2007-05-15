@@ -33,16 +33,20 @@
 	<bean id="operators"
 		class="com.mutation.transform.TransitionGroupConfig">
 		<property name="transitionGroups">
-				<list>
-				<bean class="com.mutation.transform.asm.ror.ROR_TransitionGroup"><constructor-arg><value>true</value></constructor-arg></bean>
+			<list>
+				<bean
+					class="com.mutation.transform.asm.ror.ROR_TransitionGroup">
+					<constructor-arg>
+						<value>true</value>
+					</constructor-arg>
+				</bean>
 			</list>
 		</property>
 	</bean>
 
 	<!-- the driver main class which constructs a proper mutation runner -->
 	<bean id="testDriver" class="com.mutation.BasicDriver">
-		<property name="classSetResolver" ref="classUnderTestResolver" />
-		<property name="testSetResolver" ref="testSetResolver" />
+		<property name="resolver" ref="legacyResolver" />
 		<property name="runner" ref="runner" />
 		<property name="eventListener" ref="eventListener"></property>
 	</bean>
@@ -52,8 +56,8 @@
 		<property name="testRunner" ref="testRunner" />
 		<property name="eventListener" ref="eventListener" />
 		<property name="mutantGenerator" ref="mutantGenerator" />
-		<property name="originalClassPath" ref="classesDir" />
-	</bean> 
+		<property name="classesUnderTestPath" ref="classesDir" />
+	</bean>
 
 	<bean id="file.eventListener"
 		class="com.mutation.runner.events.listener.FileEventListener"
@@ -75,14 +79,17 @@
 		class="com.mutation.runner.events.listener.CompositeEventListener">
 		<property name="listeners">
 			<list>
-				<bean class="com.mutation.runner.events.listener.ConsoleEventListener"></bean>
-				<ref bean="report.eventListener"/>
+				<bean
+					class="com.mutation.runner.events.listener.ConsoleEventListener">
+				</bean>
+				<ref bean="report.eventListener" />
 			</list>
 		</property>
 	</bean>
 
-	<bean id="testRunner" class="com.mutation.testrunner.junit3.JUnitRunner">
-		<property name="stopOnFirstFailedTest" value="true" />
+	<bean id="testRunner"
+		class="com.mutation.testrunner.junit3.JUnitRunner">
+		<property name="stopOnFirstFailedTest" value="false" />
 		<property name="testClassesLocationsAsFiles">
 			<list>
 				<ref bean="classesDir" />
@@ -99,6 +106,22 @@
 	<bean id="testSetResolver"
 		class="com.mutation.testsetresolver.OneTestPerClassResolver">
 		<property name="testCaseSuffix" value="${testCaseSuffix}" />
+	</bean>
+
+	<!-- the core mutation runner class which executes the tests -->
+	<bean id="legacyResolver" class="com.mutation.LegacyResolver">
+		<property name="classesUnderTestPath" ref="classesDir" />
+	</bean>
+
+	<!-- the core mutation runner class which executes the tests -->
+	<bean id="bruteForceResolver"
+		class="com.mutation.BruteForceResolver">
+		<property name="classesPath" ref="classesDir" />
+		<property name="testClassesPath" ref="testClassesDir" />
+		<property name="excludePattern">
+			<value>(.*Abstract.*)|(.*AllTests.*)|(.*\$.*)</value>
+		</property>
+
 	</bean>
 
 	<bean id="mutantGenerator"
