@@ -1,5 +1,8 @@
 ---------------------------------------------------------------------------
 Change History (newest on top)
 ---------------------------------------------------------------------------
+20070515 (mike): 
+- added datails.html report. added barchart diagram, reading templates from jar resources
+
 20070505 (mike): 
 - created changelog
