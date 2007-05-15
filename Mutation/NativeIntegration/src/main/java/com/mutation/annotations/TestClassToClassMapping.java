@@ -4,8 +4,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MutationPair {
+public @interface TestClassToClassMapping {
 
-	String testCaseClassName();
+	public String[] classNames();
 
 }
