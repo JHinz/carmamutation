@@ -14,15 +14,8 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.core.io.ClassPathResource;
 
-import com.mutation.BasicDriver;
-import com.mutation.runner.events.listener.SummaryCreatorEventListener;
 import com.mutation.runner.events.listener.SummaryCreatorEventListener.Summary;
-import com.mutation.testrunner.junit3.JUnitRunner;
-import com.mutation.transform.TransitionGroupConfig;
 
 /**
  * Goal which executes mutationtests.
@@ -35,13 +28,14 @@ import com.mutation.transform.TransitionGroupConfig;
 public class MutationTestMojo extends AbstractMojo {
 
 	/**
-	 * The location of the generated class files
+	 * The test name pattern
 	 * 
-	 * @parameter expression="${mutation.sourceDir}"
-	 *            default-value="${project.build.sourceDirectory}"
+	 * @parameter expression="${mutation.testNamePattern}"
+	 *            default-value="Test"
 	 * @required
 	 */
-	private File sourceDir;
+	private String testNamePattern;
+	
 
 	/**
 	 * The location of the generated class files
@@ -103,77 +97,42 @@ public class MutationTestMojo extends AbstractMojo {
 		mojo.classesDir = new File("../SampleProjectUnderTest/target/classes");
 		mojo.logFile = new File("target/mutation.log");
 		mojo.reportFile = new File("target/report.xml");
-		mojo.sourceDir = new File("src/main/java");
 		mojo.testClassesDir = new File("../SampleProjectUnderTest/target/test-classes");
 		mojo.execute();
 	}
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		System.out.println("++++ exeucting mutation tests +++++");
+		Log log = getLog();
 
-		System.out.println("source dir         : " + sourceDir);
-		System.out.println("classes dir        : " + classesDir);
-		System.out.println("test classes dir   : " + testClassesDir);
-		System.out.println("MutationTest report: " + reportFile);
-		super.getLog().info("§");
-		Properties properties = new Properties();
-		properties.setProperty("sourceDir", sourceDir.getAbsolutePath());
-		properties.setProperty("classesDir", classesDir.getAbsolutePath());
-		properties.setProperty("testClassesDir", testClassesDir.getAbsolutePath());
-		properties.setProperty("log.filename", logFile.getAbsolutePath());
-		reportFile.getParentFile().mkdirs();
-		properties.setProperty("report.filename", reportFile.getAbsolutePath());
+		log.info("Creating MutationTest report: " + reportFile);
 
-		// TODO maven config
-		properties.setProperty("testCaseSuffix", "Test");
-
-		ClassPathResource springConfigResource = new ClassPathResource("mutationconfig-maven.xml");
-		XmlBeanFactory factory = new XmlBeanFactory(springConfigResource);
-		PropertyPlaceholderConfigurer propertyPlaceholderConfigurer = new PropertyPlaceholderConfigurer();
-		System.out.println("classesDir:" + properties.getProperty("classesDir"));
-		propertyPlaceholderConfigurer.setProperties(properties);
-		propertyPlaceholderConfigurer.postProcessBeanFactory(factory);
-
-		JUnitRunner junitRunner = (JUnitRunner) factory.getBean("testRunner");
-		// TODO use dependencies in mutation test executer
-		// -> JUnitRunner setTestClassesLocAsFiles ... overwrite spring config?
 		try {
-			List<URL> junitRunnerClassPath = getDependencyClassPathUrls();
-			// add testClassesDir junitRunnerClassPath
-			// add classesDir
+			MavenTestExecuter executer = new MavenTestExecuter();
+			executer.setClassesDir(classesDir);
+			executer.setTestClassesDir(testClassesDir);
+			executer.setDependencyClassPathUrls(getDependencyClassPathUrls());
+			executer.setLogFile(logFile);
+			executer.setReportFile(reportFile);
+			executer.setTestNamePattern(testNamePattern);
 
-			junitRunnerClassPath.add(classesDir.toURL());
-			junitRunnerClassPath.add(testClassesDir.toURL());
-
-			junitRunner.setTestClassesLocations(junitRunnerClassPath.toArray(new URL[junitRunnerClassPath.size()]));
+			Summary sum = executer.exeuteTests();
+			NumberFormat format = NumberFormat.getInstance();
+			format.setMaximumFractionDigits(2);
+			format.setMinimumFractionDigits(2);
+			log.info("# --------------------------------------------------------------------------------");
+			log.info("# TEST RESULTS SUMMARY ");
+			log.info("#   Total time                : " + format.format(sum.timeSeconds) + " sec.");
+			log.info("#   Classes/Tests             : " + sum.numClassesUnderTest + "/" + sum.numTests);
+			log.info("#   Tests Per Class           : " + format.format(sum.testsPerClass));
+			log.info("#   Mutants/Class             : " + format.format(sum.mutantsPerClass));
+			log.info("#   Mutants/Survivors         : " + sum.numMutants + "/" + sum.numSurvivors);
+			log.info("#   SurvivorRatio             : " + format.format(sum.survivorPercentage) + " %");
+			log.info("# --------------------------------------------------------------------------------");
+			// TODO still needed ? factory.destroySingletons();
 
 		} catch (MalformedURLException e) {
 			throw new MojoExecutionException("Could not handle dependency URLs", e);
 		}
-
-		// factory.registerShutdownHook();
-
-		// TODO read from config
-		TransitionGroupConfig tgGroup = (TransitionGroupConfig) factory.getBean("operators");
-		BasicDriver driver = (BasicDriver) factory.getBean("testDriver");
-		driver.execute(tgGroup);
-
-		SummaryCreatorEventListener summaryCreator = (SummaryCreatorEventListener) factory.getBean("summaryCreator");
-		Summary sum = summaryCreator.createSummary();
-		NumberFormat format = NumberFormat.getInstance();
-		format.setMaximumFractionDigits(2);
-		format.setMinimumFractionDigits(2);
-		Log log = getLog();
-		log.info("# --------------------------------------------------------------------------------");
-		log.info("# TEST RESULTS SUMMARY ");
-		log.info("#   Total time                : " + format.format(sum.timeSeconds) + " sec.");
-		log.info("#   Classes/Tests             : " + sum.numClassesUnderTest + "/" + sum.numTests);
-		log.info("#   Tests Per Class           : " + format.format(sum.testsPerClass));
-		log.info("#   Mutants/Class             : " + format.format(sum.mutantsPerClass));
-		log.info("#   Mutants/Survivors         : " + sum.numMutants + "/" + sum.numSurvivors);
-		log.info("#   SurvivorRatio             : " + format.format(sum.survivorPercentage) + " %");
-		log.info("# --------------------------------------------------------------------------------");
-		factory.destroySingletons();
 
 	}
 

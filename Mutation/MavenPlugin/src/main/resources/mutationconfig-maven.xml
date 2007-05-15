@@ -17,24 +17,19 @@
 		</constructor-arg>
 	</bean>
 
-	<bean id="sourceDir" class="java.io.File">
-		<constructor-arg>
-			<value>${sourceDir}</value>
-		</constructor-arg>
-	</bean>
-
 	<!--  set of operators considered for tests -->
 
 	<bean id="operators"
-		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-		<property name="targetClass">
-			<value>com.mutation.runner.EMutationOperator</value>
-		</property>
-		<property name="targetMethod">
-			<value>getFromCsvList</value>
-		</property>
-		<property name="arguments">
-			<value>ROR</value>
+		class="com.mutation.transform.TransitionGroupConfig">
+		
+		<property name="transitionGroups">
+			<list>
+				<bean class="com.mutation.transform.asm.ror.ROR_TransitionGroup">
+					<constructor-arg>
+						<value>true</value>
+					</constructor-arg>
+				</bean>
+			</list>
 		</property>
 	</bean>
 
@@ -80,7 +75,7 @@
 		<property name="originalClassPath" ref="classesDir"></property>
 		<property name="testRunner" ref="testRunner"></property>
 	</bean>
-	<bean id="testRunner" class="com.mutation.testrunner.JUnitRunner">
+	<bean id="testRunner" class="com.mutation.testrunner.junit3.JUnitRunner">
 		<property name="stopOnFirstFailedTest" value="true" />
 		<property name="testClassesLocationsAsFiles">
 			<list>
@@ -100,14 +95,8 @@
 		<property name="testCaseSuffix" value="${testCaseSuffix}" />
 	</bean>
 
-	<bean id="mutantGenerator" parent="asm.mutantGenerator"></bean>
+	<bean id="mutantGenerator" class="com.mutation.transform.MutantGenerator"></bean>
 
-	<bean id="bcel.mutantGenerator"
-		class="com.mutation.transform.bcel.MutantGenerator">
-	</bean>
-
-	<bean id="asm.mutantGenerator"
-		class="com.mutation.transform.asm.MutantGenerator">
-	</bean>
+	
 
 </beans>
