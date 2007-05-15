@@ -37,6 +37,12 @@
 							<goal>mtest</goal>
 						</goals>
 					</execution>
+						<execution>
+						<id>mutationreport</id>
+						<goals>
+							<goal>mreport</goal>
+						</goals>
+					</execution>
 				</executions>
 			</plugin>
 		</plugins>
