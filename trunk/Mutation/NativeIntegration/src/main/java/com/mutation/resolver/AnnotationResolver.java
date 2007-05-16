@@ -16,19 +16,9 @@ import com.mutation.runner.ClassDescription;
 
 public class AnnotationResolver implements IResolver {
 
-	private File classesPath;
-
 	private File testClassesPath;
 
 	public AnnotationResolver() {
-	}
-
-	public File getClassesPath() {
-		return classesPath;
-	}
-
-	public void setClassesPath(File classesPath) {
-		this.classesPath = classesPath;
 	}
 
 	public File getTestClassesPath() {
@@ -54,6 +44,9 @@ public class AnnotationResolver implements IResolver {
 				Class testClass = Class.forName(testClassDescription.getQualifiedClassName());
 
 				Annotation annotation = testClass.getAnnotation(TestClassToClassMapping.class);
+				
+				if ( annotation == null) 
+					continue;
 
 				String[] fqClassNames = ((TestClassToClassMapping) annotation).classNames();
 
