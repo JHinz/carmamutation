@@ -5,18 +5,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.mutation.IResolver;
 import com.mutation.runner.ClassDescription;
 
-public class ClassMatchResolver implements IResolver {
+public class ClassMatchResolver extends AbstractFilteredResolver {
 
 	private String testNameSuffix = "Test";
 
 	private File classesUnderTestPath;
-
-	public ClassMatchResolver() {
-		super();
-	}
 
 	public File getClassesUnderTestPath() {
 		return classesUnderTestPath;
@@ -38,13 +33,18 @@ public class ClassMatchResolver implements IResolver {
 
 		for (ClassDescription classDescription : classDescriptions) {
 
-			// TODO seems to be useless - is overwritten 2 lines later anyway.
-			// remove that line?
-			classDescription.setAssociatedTestNames(new HashSet<String>());
-
 			Set<String> testNames = testResolver.determineTests(classDescription.getQualifiedClassName());
 
-			classDescription.setAssociatedTestNames(testNames);
+			classDescription.setAssociatedTestNames(new HashSet<String>());
+
+			for (String testName : testNames) {
+
+				if (!getFilter().shouldBeExcluded(testName)) {
+					classDescription.getAssociatedTestNames().add(testName);
+				}
+
+			}
+
 		}
 
 		return classDescriptions;

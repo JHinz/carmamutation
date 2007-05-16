@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 
+import com.mutation.resolver.util.ExcludeFilter;
 import com.mutation.runner.ClassDescription;
 
 import junit.framework.TestCase;
@@ -49,7 +50,10 @@ public class BruteForceResolverTestCase extends TestCase {
 		BruteForceResolver resolver = new BruteForceResolver();
 		resolver.setClassesPath(classPath);
 		resolver.setTestClassesPath(testClassPath);
-		resolver.setExcludePattern("sub1");
+		
+		ExcludeFilter filter = new ExcludeFilter();
+		filter.setExcludePattern("sub1");
+		resolver.setFilter(filter);
 
 		List<ClassDescription> classes = resolver.resolve();
 

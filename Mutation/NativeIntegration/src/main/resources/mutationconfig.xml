@@ -101,22 +101,28 @@
 	<bean id="classMatchResolver"
 		class="com.mutation.resolver.ClassMatchResolver">
 		<property name="classesUnderTestPath" ref="classesDir" />
+		<property name="filter" ref="excludeFilter" />
 	</bean>
 
 	<bean id="bruteForceResolver"
 		class="com.mutation.resolver.BruteForceResolver">
 		<property name="classesPath" ref="classesDir" />
 		<property name="testClassesPath" ref="testClassesDir" />
-		<property name="excludePattern">
-			<value>(.*Abstract.*)|(.*AllTests.*)|(.*\$.*)</value>
-		</property>
-
+		<property name="filter" ref="excludeFilter" />
 	</bean>
 
 	<bean id="annotationResolver"
 		class="com.mutation.resolver.AnnotationResolver">
 		<property name="testClassesPath" ref="testClassesDir" />
 		<property name="classesPath" ref="classesDir" />
+		<property name="filter" ref="excludeFilter" />
+	</bean>
+
+	<bean id="excludeFilter"
+		class="com.mutation.resolver.util.ExcludeFilter">
+		<property name="excludePattern">
+			<value>(.*Abstract.*)|(.*\$.*)|(.*AllTests.*)</value>
+		</property>
 	</bean>
 
 	<bean id="mutantGenerator"
