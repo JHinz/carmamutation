@@ -2,6 +2,9 @@ package com.mutation.resolver;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -18,6 +21,18 @@ public class AnnotationResolver implements IResolver {
 
 	private File testClassesPath;
 
+	private File classesPath;
+
+	private AnnotationClassLoader loader;
+
+	private class AnnotationClassLoader extends URLClassLoader {
+
+		public AnnotationClassLoader(URL[] urls, ClassLoader parent) {
+			super(urls, parent);
+		}
+
+	}
+
 	public AnnotationResolver() {
 	}
 
@@ -25,11 +40,20 @@ public class AnnotationResolver implements IResolver {
 		return testClassesPath;
 	}
 
-	public void setTestClassesPath(File testClassesPath) {
+	public void setTestClassesPath(File testClassesPath) throws MalformedURLException {
 		this.testClassesPath = testClassesPath;
+
 	}
 
 	public List<ClassDescription> resolve() {
+
+		try {
+			loader = new AnnotationClassLoader(new URL[] { this.testClassesPath.toURL(), this.classesPath.toURL() }, this
+					.getClass().getClassLoader());
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
+			return new ArrayList<ClassDescription>();
+		}
 
 		DirectoryBasedResolver directoryResolver = new DirectoryBasedResolver();
 		directoryResolver.setClassesBaseDir(testClassesPath);
@@ -41,11 +65,11 @@ public class AnnotationResolver implements IResolver {
 		for (ClassDescription testClassDescription : testClassDescriptions) {
 
 			try {
-				Class testClass = Class.forName(testClassDescription.getQualifiedClassName());
+				Class testClass = loader.loadClass(testClassDescription.getQualifiedClassName());
 
 				Annotation annotation = testClass.getAnnotation(TestClassToClassMapping.class);
-				
-				if ( annotation == null) 
+
+				if (annotation == null)
 					continue;
 
 				String[] fqClassNames = ((TestClassToClassMapping) annotation).classNames();
@@ -76,6 +100,14 @@ public class AnnotationResolver implements IResolver {
 		}
 
 		return new ArrayList<ClassDescription>(classDescriptions.values());
+	}
+
+	public File getClassesPath() {
+		return classesPath;
+	}
+
+	public void setClassesPath(File classesPath) {
+		this.classesPath = classesPath;
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.mutation.resolver;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import com.mutation.runner.ClassDescription;
 
 public class AnnotationResolverTestCase extends TestCase {
 
-	public void testGetClasses() {
+	public void testGetClasses() throws MalformedURLException {
 
 		File testClassPath = new File("target/test-classes/");
 
