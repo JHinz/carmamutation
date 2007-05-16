@@ -2,13 +2,17 @@ package com.mutation.resolver;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
 import com.mutation.IClassAndTestClassResolver;
 import com.mutation.annotations.TestClassToClassMapping;
 import com.mutation.classesresolver.DirectoryBasedResolver;
+import com.mutation.report.generator.utils.ClassNameAnalyzer;
+import com.mutation.report.generator.utils.ClassNameAnalyzer.ClassNameInfo;
 import com.mutation.runner.ClassDescription;
 
 public class AnnotationResolver implements IClassAndTestClassResolver {
@@ -48,9 +52,9 @@ public class AnnotationResolver implements IClassAndTestClassResolver {
 		for (ClassDescription testClassDescription : testClassDescriptions) {
 
 			try {
-				Class classUnderTestClass = Class.forName(testClassDescription.getQualifiedClassName());
+				Class testClass = Class.forName(testClassDescription.getQualifiedClassName());
 
-				Annotation annotation = classUnderTestClass.getAnnotation(TestClassToClassMapping.class);
+				Annotation annotation = testClass.getAnnotation(TestClassToClassMapping.class);
 
 				String[] fqClassNames = ((TestClassToClassMapping) annotation).classNames();
 
@@ -59,10 +63,19 @@ public class AnnotationResolver implements IClassAndTestClassResolver {
 					ClassDescription classDescription = classDescriptions.get(fqClassName);
 
 					if (classDescription == null) {
+						ClassNameAnalyzer analyzer = new ClassNameAnalyzer();
+						ClassNameInfo info = analyzer.extractClassNameInfo(fqClassName);
+
 						classDescription = new ClassDescription();
+						classDescription.setClassName(info.getClassName());
+						classDescription.setPackageName(info.getPackageName());
+						classDescription.setAssociatedTestNames(new HashSet<String>());
+
 					}
 
-					splitFullyQualifiedJavaName(fqClassName);
+					classDescription.getAssociatedTestNames().add(testClassDescription.getQualifiedClassName());
+
+					classDescriptions.put(classDescription.getQualifiedClassName(), classDescription);
 
 				}
 			} catch (ClassNotFoundException e) {
@@ -70,20 +83,7 @@ public class AnnotationResolver implements IClassAndTestClassResolver {
 			}
 		}
 
-		return null;
-	}
-
-	private void splitFullyQualifiedJavaName(String fqClassName) {
-		String packageName = "";
-		String className = "";
-
-		if (!fqClassName.contains(".")) {
-			className = (fqClassName);
-		} else {
-			int lastDotIndex = fqClassName.lastIndexOf(".");
-			packageName = fqClassName.substring(0, lastDotIndex - 1);
-			className = fqClassName.substring(lastDotIndex + 1);
-		}
+		return new ArrayList<ClassDescription>(classDescriptions.values());
 	}
 
 }
