@@ -1,6 +1,10 @@
 ---------------------------------------------------------------------------
 Change History (newest on top)
 ---------------------------------------------------------------------------
+20070516 (alex):
+- implemented annotation based resolver
+- Enhanced all resolvers by configurable exclude filter
+
 20070515 (mike):
 - tests list to set
 
