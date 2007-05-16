@@ -14,7 +14,7 @@ public class AnnotationResolverTestCase extends TestCase {
 
 	public void testGetClasses() throws MalformedURLException {
 
-		File testClassPath = new File("target/test-classes/");
+		File testClassPath = new File("src/test/it/it0002/test-classes/");
 
 		AnnotationResolver resolver = new AnnotationResolver();
 		resolver.setTestClassesPath(testClassPath);
@@ -44,7 +44,7 @@ public class AnnotationResolverTestCase extends TestCase {
 
 	public void testGetClassesWithFilter() throws MalformedURLException {
 
-		File testClassPath = new File("target/test-classes/");
+		File testClassPath = new File("src/test/it/it0002/test-classes/");
 
 		ExcludeFilter filter = new ExcludeFilter();
 		filter.setExcludePattern("sub2");
