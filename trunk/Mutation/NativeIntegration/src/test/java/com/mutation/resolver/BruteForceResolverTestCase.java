@@ -13,11 +13,10 @@ public class BruteForceResolverTestCase extends TestCase {
 
 	public void testGetClassesWithoutExcludeFilterSet() {
 
-		File classPath = new File("src/test/it/it0001/classes/");
 		File testClassPath = new File("src/test/it/it0001/testclasses/");
 
 		BruteForceResolver resolver = new BruteForceResolver();
-		resolver.setClassesPath(classPath);
+		resolver.setClassesPath(testClassPath);
 		resolver.setTestClassesPath(testClassPath);
 
 		List<ClassDescription> classes = resolver.resolve();
@@ -44,13 +43,12 @@ public class BruteForceResolverTestCase extends TestCase {
 
 	public void testGetClassesWithExcludeFilterSet() {
 
-		File classPath = new File("src/test/it/it0001/classes/");
 		File testClassPath = new File("src/test/it/it0001/testclasses/");
 
 		BruteForceResolver resolver = new BruteForceResolver();
-		resolver.setClassesPath(classPath);
+		resolver.setClassesPath(testClassPath);
 		resolver.setTestClassesPath(testClassPath);
-		
+
 		ExcludeFilter filter = new ExcludeFilter();
 		filter.setExcludePattern("sub1");
 		resolver.setFilter(filter);
