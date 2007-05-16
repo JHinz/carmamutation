@@ -2,6 +2,7 @@ package com.mutation.resolver;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Modifier;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -22,16 +23,6 @@ public class AnnotationResolver extends AbstractFilteredResolver {
 
 	private File classesPath;
 
-	private AnnotationClassLoader loader;
-
-	private class AnnotationClassLoader extends URLClassLoader {
-
-		public AnnotationClassLoader(URL[] urls, ClassLoader parent) {
-			super(urls, parent);
-		}
-
-	}
-
 	public File getTestClassesPath() {
 		return testClassesPath;
 	}
@@ -43,9 +34,10 @@ public class AnnotationResolver extends AbstractFilteredResolver {
 
 	public List<ClassDescription> resolve() {
 
+		URLClassLoader loader = null;
 		try {
-			loader = new AnnotationClassLoader(new URL[] { this.testClassesPath.toURL(), this.classesPath.toURL() },
-					this.getClass().getClassLoader());
+			loader = new URLClassLoader(new URL[] { this.testClassesPath.toURL(), this.classesPath.toURL() }, this
+					.getClass().getClassLoader());
 		} catch (MalformedURLException e1) {
 			e1.printStackTrace();
 			return new ArrayList<ClassDescription>();
@@ -62,6 +54,21 @@ public class AnnotationResolver extends AbstractFilteredResolver {
 
 			if (getFilter().shouldBeExcluded(testClassDescription.getQualifiedClassName()))
 				continue;
+
+			try {
+				Class testClass = loader.loadClass(testClassDescription.getQualifiedClassName());
+
+				if (Modifier.isAbstract(testClass.getModifiers()) || Modifier.isInterface(testClass.getModifiers())) {
+					System.out.println("Skipping abstract class or interface in test set:"
+							+ testClassDescription.getQualifiedClassName());
+					continue;
+				}
+
+			} catch (ClassNotFoundException e) {
+				System.out.println("Skipping class in test set due to class loading problem:"
+						+ testClassDescription.getQualifiedClassName());
+				continue;
+			}
 
 			try {
 				Class testClass = loader.loadClass(testClassDescription.getQualifiedClassName());

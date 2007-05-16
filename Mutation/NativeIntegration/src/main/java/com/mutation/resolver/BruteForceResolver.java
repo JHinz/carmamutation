@@ -1,6 +1,11 @@
 package com.mutation.resolver;
 
 import java.io.File;
+import java.lang.reflect.Modifier;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -30,6 +35,15 @@ public class BruteForceResolver extends AbstractFilteredResolver {
 
 	public List<ClassDescription> resolve() {
 
+		URLClassLoader loader = null;
+		try {
+			loader = new URLClassLoader(new URL[] { this.testClassesPath.toURL(), this.classesPath.toURL() }, this
+					.getClass().getClassLoader());
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
+			return new ArrayList<ClassDescription>();
+		}
+
 		DirectoryBasedResolver directoryResolver = new DirectoryBasedResolver();
 		directoryResolver.setClassesBaseDir(classesPath);
 
@@ -54,13 +68,28 @@ public class BruteForceResolver extends AbstractFilteredResolver {
 
 				fqTestClassName += testClassDescription.getClassName();
 
-				if (!getFilter().shouldBeExcluded(fqTestClassName))
-					classDescription.getAssociatedTestNames().add(fqTestClassName);
+				if (getFilter().shouldBeExcluded(fqTestClassName)) {
+					System.out.println("Skipping class in test set due to exclude filter:" + fqTestClassName);
+					continue;
+				}
 
+				try {
+					Class testClass = loader.loadClass(fqTestClassName);
+
+					if (Modifier.isAbstract(testClass.getModifiers()) || Modifier.isInterface(testClass.getModifiers())) {
+						System.out.println("Skipping abstract class or interface in test set:" + fqTestClassName);
+						continue;
+					}
+
+				} catch (ClassNotFoundException e) {
+					System.out.println("Skipping class in test set due to class loading problem:" + fqTestClassName);
+					continue;
+				}
+
+				classDescription.getAssociatedTestNames().add(fqTestClassName);
 			}
 		}
 
 		return classDescriptions;
 	}
-
 }
