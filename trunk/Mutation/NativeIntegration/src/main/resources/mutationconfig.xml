@@ -46,7 +46,7 @@
 
 	<!-- the driver main class which constructs a proper mutation runner -->
 	<bean id="testDriver" class="com.mutation.BasicDriver">
-		<property name="resolver" ref="legacyResolver" />
+		<property name="resolver" ref="classMatchResolver" />
 		<property name="runner" ref="runner" />
 		<property name="eventListener" ref="eventListener"></property>
 	</bean>
@@ -89,7 +89,7 @@
 
 	<bean id="testRunner"
 		class="com.mutation.testrunner.junit3.JUnitRunner">
-		<property name="stopOnFirstFailedTest" value="false" />
+		<property name="stopOnFirstFailedTest" value="true" />
 		<property name="testClassesLocationsAsFiles">
 			<list>
 				<ref bean="classesDir" />
@@ -98,30 +98,24 @@
 		</property>
 	</bean>
 
-	<bean id="classUnderTestResolver"
-		class="com.mutation.classesresolver.DirectoryBasedResolver">
-		<property name="classesBaseDir" ref="classesDir" />
-	</bean>
-
-	<bean id="testSetResolver"
-		class="com.mutation.testsetresolver.OneTestPerClassResolver">
-		<property name="testCaseSuffix" value="${testCaseSuffix}" />
-	</bean>
-
-	<!-- the core mutation runner class which executes the tests -->
-	<bean id="legacyResolver" class="com.mutation.LegacyResolver">
+	<bean id="classMatchResolver"
+		class="com.mutation.resolver.ClassMatchResolver">
 		<property name="classesUnderTestPath" ref="classesDir" />
 	</bean>
 
-	<!-- the core mutation runner class which executes the tests -->
 	<bean id="bruteForceResolver"
-		class="com.mutation.BruteForceResolver">
+		class="com.mutation.resolver.BruteForceResolver">
 		<property name="classesPath" ref="classesDir" />
 		<property name="testClassesPath" ref="testClassesDir" />
 		<property name="excludePattern">
 			<value>(.*Abstract.*)|(.*AllTests.*)|(.*\$.*)</value>
 		</property>
 
+	</bean>
+
+	<bean id="annotationResolver"
+		class="com.mutation.resolver.AnnotationResolver">
+		<property name="testClassesPath" ref="testClassesDir" />
 	</bean>
 
 	<bean id="mutantGenerator"
