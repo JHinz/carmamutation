@@ -116,6 +116,7 @@
 	<bean id="annotationResolver"
 		class="com.mutation.resolver.AnnotationResolver">
 		<property name="testClassesPath" ref="testClassesDir" />
+		<property name="classesPath" ref="classesDir" />
 	</bean>
 
 	<bean id="mutantGenerator"
