@@ -18,6 +18,7 @@
 		<module>../NativeIntegration</module>
 		<module>../MutationRunner</module>
 		<module>../Annotations</module>
+		<module>../Utilities</module>
 	</modules>
 
 	<dependencies>
