@@ -7,6 +7,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
+import com.mutation.resolver.util.ExcludeFilter;
 import com.mutation.runner.ClassDescription;
 
 public class AnnotationResolverTestCase extends TestCase {
@@ -17,6 +18,7 @@ public class AnnotationResolverTestCase extends TestCase {
 
 		AnnotationResolver resolver = new AnnotationResolver();
 		resolver.setTestClassesPath(testClassPath);
+		resolver.setClassesPath(testClassPath);
 
 		List<ClassDescription> classes = resolver.resolve();
 
@@ -37,6 +39,30 @@ public class AnnotationResolverTestCase extends TestCase {
 		testNameIterator = classes.get(1).getAssociatedTestNames().iterator();
 
 		assertEquals("sub2.AnotherSampleClassUsingAnnotation", testNameIterator.next());
+		assertEquals("sub1.SampleClassUsingAnnotation", testNameIterator.next());
+	}
+
+	public void testGetClassesWithFilter() throws MalformedURLException {
+
+		File testClassPath = new File("target/test-classes/");
+
+		ExcludeFilter filter = new ExcludeFilter();
+		filter.setExcludePattern("sub2");
+
+		AnnotationResolver resolver = new AnnotationResolver();
+		resolver.setTestClassesPath(testClassPath);
+		resolver.setClassesPath(testClassPath);
+		resolver.setFilter(filter);
+
+		List<ClassDescription> classes = resolver.resolve();
+
+		assertEquals(1, classes.size());
+
+		assertEquals("sample.Sample", classes.get(0).getQualifiedClassName());
+		assertEquals(1, classes.get(0).getAssociatedTestNames().size());
+
+		Iterator<String> testNameIterator = classes.get(0).getAssociatedTestNames().iterator();
+
 		assertEquals("sub1.SampleClassUsingAnnotation", testNameIterator.next());
 	}
 }

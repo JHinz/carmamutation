@@ -3,22 +3,14 @@ package com.mutation.resolver;
 import java.io.File;
 import java.util.HashSet;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import com.mutation.IResolver;
 import com.mutation.runner.ClassDescription;
 
-public class BruteForceResolver implements IResolver {
+public class BruteForceResolver extends AbstractFilteredResolver {
 
 	private File classesPath;
 
 	private File testClassesPath;
-
-	private String excludePattern;
-
-	public BruteForceResolver() {
-	}
 
 	public File getClassesPath() {
 		return classesPath;
@@ -36,14 +28,6 @@ public class BruteForceResolver implements IResolver {
 		this.testClassesPath = testClassesPath;
 	}
 
-	public String getExcludePattern() {
-		return excludePattern;
-	}
-
-	public void setExcludePattern(String excludePattern) {
-		this.excludePattern = excludePattern;
-	}
-
 	public List<ClassDescription> resolve() {
 
 		DirectoryBasedResolver directoryResolver = new DirectoryBasedResolver();
@@ -54,12 +38,6 @@ public class BruteForceResolver implements IResolver {
 		directoryResolver.setClassesBaseDir(testClassesPath);
 
 		List<ClassDescription> testClassDescriptions = directoryResolver.determineClassNames();
-
-		if (excludePattern == null) {
-			excludePattern = "\\(.*\\)";
-		}
-
-		Pattern pattern = Pattern.compile(excludePattern);
 
 		for (ClassDescription classDescription : classDescriptions) {
 
@@ -76,11 +54,9 @@ public class BruteForceResolver implements IResolver {
 
 				fqTestClassName += testClassDescription.getClassName();
 
-				Matcher matcher = pattern.matcher(fqTestClassName);
-
-				if (!matcher.find()) {
+				if (!getFilter().shouldBeExcluded(fqTestClassName))
 					classDescription.getAssociatedTestNames().add(fqTestClassName);
-				}
+
 			}
 		}
 

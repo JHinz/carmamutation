@@ -11,13 +11,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import com.mutation.IResolver;
 import com.mutation.annotations.TestClassToClassMapping;
 import com.mutation.report.generator.utils.ClassNameAnalyzer;
 import com.mutation.report.generator.utils.ClassNameAnalyzer.ClassNameInfo;
 import com.mutation.runner.ClassDescription;
 
-public class AnnotationResolver implements IResolver {
+public class AnnotationResolver extends AbstractFilteredResolver {
 
 	private File testClassesPath;
 
@@ -33,9 +32,6 @@ public class AnnotationResolver implements IResolver {
 
 	}
 
-	public AnnotationResolver() {
-	}
-
 	public File getTestClassesPath() {
 		return testClassesPath;
 	}
@@ -48,8 +44,8 @@ public class AnnotationResolver implements IResolver {
 	public List<ClassDescription> resolve() {
 
 		try {
-			loader = new AnnotationClassLoader(new URL[] { this.testClassesPath.toURL(), this.classesPath.toURL() }, this
-					.getClass().getClassLoader());
+			loader = new AnnotationClassLoader(new URL[] { this.testClassesPath.toURL(), this.classesPath.toURL() },
+					this.getClass().getClassLoader());
 		} catch (MalformedURLException e1) {
 			e1.printStackTrace();
 			return new ArrayList<ClassDescription>();
@@ -63,6 +59,9 @@ public class AnnotationResolver implements IResolver {
 		Map<String, ClassDescription> classDescriptions = new HashMap<String, ClassDescription>();
 
 		for (ClassDescription testClassDescription : testClassDescriptions) {
+
+			if (getFilter().shouldBeExcluded(testClassDescription.getQualifiedClassName()))
+				continue;
 
 			try {
 				Class testClass = loader.loadClass(testClassDescription.getQualifiedClassName());
