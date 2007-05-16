@@ -1,9 +1,7 @@
-package com.mutation.testsetresolver;
+package com.mutation.resolver;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import com.mutation.ITestSetResolver;
 
 /**
  * determines test set as a single test per class using a suffix naming
@@ -12,7 +10,7 @@ import com.mutation.ITestSetResolver;
  * @author mike
  * 
  */
-public class OneTestPerClassResolver implements ITestSetResolver {
+public class OneTestPerClassResolver {
 	private String testCaseSuffix;
 
 	public Set<String> determineTests(String classUnderTestName) {

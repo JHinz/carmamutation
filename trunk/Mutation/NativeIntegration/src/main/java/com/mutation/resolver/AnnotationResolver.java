@@ -8,14 +8,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import com.mutation.IClassAndTestClassResolver;
+import com.mutation.IResolver;
 import com.mutation.annotations.TestClassToClassMapping;
-import com.mutation.classesresolver.DirectoryBasedResolver;
 import com.mutation.report.generator.utils.ClassNameAnalyzer;
 import com.mutation.report.generator.utils.ClassNameAnalyzer.ClassNameInfo;
 import com.mutation.runner.ClassDescription;
 
-public class AnnotationResolver implements IClassAndTestClassResolver {
+public class AnnotationResolver implements IResolver {
 
 	private File classesPath;
 

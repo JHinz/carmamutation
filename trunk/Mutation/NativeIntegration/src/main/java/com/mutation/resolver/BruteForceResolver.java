@@ -1,4 +1,4 @@
-package com.mutation;
+package com.mutation.resolver;
 
 import java.io.File;
 import java.util.HashSet;
@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.mutation.classesresolver.DirectoryBasedResolver;
+import com.mutation.IResolver;
 import com.mutation.runner.ClassDescription;
 
-public class BruteForceResolver implements IClassAndTestClassResolver {
+public class BruteForceResolver implements IResolver {
 
 	private File classesPath;
 
@@ -54,8 +54,8 @@ public class BruteForceResolver implements IClassAndTestClassResolver {
 		directoryResolver.setClassesBaseDir(testClassesPath);
 
 		List<ClassDescription> testClassDescriptions = directoryResolver.determineClassNames();
-		
-		if ( excludePattern == null) {
+
+		if (excludePattern == null) {
 			excludePattern = "\\(.*\\)";
 		}
 
