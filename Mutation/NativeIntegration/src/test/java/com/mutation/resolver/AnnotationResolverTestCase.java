@@ -12,7 +12,7 @@ public class AnnotationResolverTestCase extends TestCase {
 
 	public void testGetClasses() {
 
-		File testClassPath = new File("src/test/it/it0002/test-classes/");
+		File testClassPath = new File("target/test-classes/");
 
 		AnnotationResolver resolver = new AnnotationResolver();
 		resolver.setTestClassesPath(testClassPath);
