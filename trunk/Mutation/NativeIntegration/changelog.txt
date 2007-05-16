@@ -2,6 +2,7 @@
 Change History (newest on top)
 ---------------------------------------------------------------------------
 20070516 (alex):
+- added abstract class and interface check on resolves testcase names
 - implemented annotation based resolver
 - Enhanced all resolvers by configurable exclude filter
 
