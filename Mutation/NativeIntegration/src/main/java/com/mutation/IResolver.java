@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.mutation.runner.ClassDescription;
 
-public interface IClassSetResolver {
+public interface IResolver {
 
-	List<ClassDescription> determineClassNames();
+	List<ClassDescription> resolve();
 
 }

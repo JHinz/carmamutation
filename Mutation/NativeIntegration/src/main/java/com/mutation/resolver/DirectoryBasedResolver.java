@@ -1,10 +1,9 @@
-package com.mutation.classesresolver;
+package com.mutation.resolver;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mutation.IClassSetResolver;
 import com.mutation.runner.ClassDescription;
 
 /**
@@ -13,7 +12,7 @@ import com.mutation.runner.ClassDescription;
  * @author mike
  * 
  */
-public class DirectoryBasedResolver implements IClassSetResolver {
+public class DirectoryBasedResolver {
 	/**
 	 * base directory for classes
 	 */

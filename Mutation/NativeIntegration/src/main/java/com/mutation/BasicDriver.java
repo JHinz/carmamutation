@@ -21,7 +21,7 @@ public class BasicDriver {
 
 	private IEventListener eventListener;
 
-	private IClassAndTestClassResolver resolver;
+	private IResolver resolver;
 
 	private MutationRunner runner;
 
@@ -77,11 +77,11 @@ public class BasicDriver {
 		this.eventListener = eventListener;
 	}
 
-	public IClassAndTestClassResolver getResolver() {
+	public IResolver getResolver() {
 		return resolver;
 	}
 
-	public void setResolver(IClassAndTestClassResolver resolver) {
+	public void setResolver(IResolver resolver) {
 		this.resolver = resolver;
 	}
 

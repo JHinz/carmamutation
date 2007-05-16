@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 
-import com.mutation.BruteForceResolver;
 import com.mutation.runner.ClassDescription;
 
 import junit.framework.TestCase;
