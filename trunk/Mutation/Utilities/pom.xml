@@ -14,7 +14,7 @@
 	<artifactId>Utilities</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>Mutation Runner</name>
+	<name>Mutation Utilities</name>
 
 	<dependencies>
 	</dependencies>
