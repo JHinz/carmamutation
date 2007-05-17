@@ -46,6 +46,8 @@ td {
 <th>Killer Tests</th>
 #foreach( $sourceLine in $sourceInfo )
 
+	#set( $line = $sourceLine.Text.replaceAll(" ","&#160;") )
+	#set( $line = $line.replaceAll("\t","&#160;&#160;") )
 	#if( $sourceLine.MutantInfo )
 
 		#foreach( $mutant in $sourceLine.MutantInfo )
@@ -53,12 +55,12 @@ td {
 			<td>$sourceLine.LineNo</td>
 		
 			#if ( $mutant.isSurvived() )
-				<td class="mut_survived">$sourceLine.Text.replaceAll(" ","&#160;")</td>
+				<td class="mut_survived">$line</td>
 				<td class="mut_survived">$mutant.Name</td>
 				<td class="mut_survived">$mutant.Transition</td>
 				<td>&#160;</td>
 			#else
-				<td class="mut_killed">$sourceLine.Text.replaceAll(" ","&#160;")</td>
+				<td class="mut_killed">$line</td>
 				<td class="mut_killed">$mutant.Name</td>
 				<td class="mut_killed">$mutant.Transition</td>
 				<td class="mut_killed">
@@ -73,7 +75,7 @@ td {
 	#else
 		<tr>
 			<td>$sourceLine.LineNo</td>
-			<td>$sourceLine.Text.replaceAll(" ","&#160;")</td>
+			<td>$line</td>
 			<td>&#160;</td>
 			<td>&#160;</td>
 			<td>&#160;</td>

@@ -30,7 +30,7 @@ public class MavenTestExecuterTestCase extends TestCase {
 		Summary sum = executer.exeuteTests();
 		assertEquals(1, sum.numTests);
 		assertEquals(3.0, sum.mutantsPerClass);
-		assertEquals(67, Math.round(sum.survivorPercentage));
+		assertEquals(33, Math.round(sum.coverageRatioPercentage));
 		assertEquals(1.0, sum.testsPerClass);
 		assertEquals(1, sum.numClassesUnderTest);
 		assertEquals(3, sum.numMutants);

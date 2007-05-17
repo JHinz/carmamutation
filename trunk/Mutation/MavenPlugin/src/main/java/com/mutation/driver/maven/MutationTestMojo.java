@@ -126,7 +126,7 @@ public class MutationTestMojo extends AbstractMojo {
 			log.info("#   Tests Per Class           : " + format.format(sum.testsPerClass));
 			log.info("#   Mutants/Class             : " + format.format(sum.mutantsPerClass));
 			log.info("#   Mutants/Survivors         : " + sum.numMutants + "/" + sum.numSurvivors);
-			log.info("#   SurvivorRatio             : " + format.format(sum.survivorPercentage) + " %");
+			log.info("#   MutationCoverageRatio     : " + format.format(sum.coverageRatioPercentage) + " %");
 			log.info("# --------------------------------------------------------------------------------");
 			// TODO still needed ? factory.destroySingletons();
 

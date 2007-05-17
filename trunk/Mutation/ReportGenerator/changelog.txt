@@ -1,6 +1,13 @@
 ---------------------------------------------------------------------------
 Change History (newest on top)
 ---------------------------------------------------------------------------
+20070518 (mike): 
+- refactored report and chart generation: individual classes for each html report. 
+- overview report contains coverage chart
+- class report converts tabs to html whitespaces
+- coverage ratio is shown in reports and charts instead of survivor ratio
+
+
 20070515 (mike): 
 - added datails.html report. added barchart diagram, reading templates from jar resources
 
