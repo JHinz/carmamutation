@@ -42,13 +42,13 @@ public class SummaryCreatorEventListener implements IEventListener{
 		executedTests.removeAll(testsNotExecuted);
 		double mutantsPerClass = (double) totalMutants.size() / (double) numClassesUnderTest;
 		double testsPerClass = (double) executedTests.size() / (double) numClassesUnderTest;
-		double survivorRatio = (double) suvivors.size() / (double) totalMutants.size() * 100;
+		double coverageRatio = 1.0 - ((double) suvivors.size() / (double) totalMutants.size());
 		summary.mutantsPerClass = mutantsPerClass;
 		summary.numClassesUnderTest = numClassesUnderTest;
 		summary.numMutants = totalMutants.size();
 		summary.numSurvivors = suvivors.size();
 		summary.numTests = executedTests.size();
-		summary.survivorPercentage = survivorRatio;
+		summary.coverageRatioPercentage = coverageRatio * 100.0;
 		summary.testsPerClass = testsPerClass;
 		summary.timeSeconds = (double)elapsed /1000;
 		return summary;
@@ -87,6 +87,6 @@ public class SummaryCreatorEventListener implements IEventListener{
 		public double mutantsPerClass;
 		public int numMutants;
 		public int numSurvivors;
-		public double survivorPercentage;
+		public double coverageRatioPercentage;
 	}
 }

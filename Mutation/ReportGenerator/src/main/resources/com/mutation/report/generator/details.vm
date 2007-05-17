@@ -116,7 +116,7 @@ tr {
 <div id="menu">
 <table>
 <tr>
-<td><a href="report.html">DashBoard</a></td>
+<td><a href="index.html">DashBoard</a></td>
 <td><a href="details.html">Details</a></td>
 </tr>
 </table>
@@ -151,12 +151,12 @@ tr {
 
 </div>
 <p>
-<img src="coverageChart.png" width="600" height="400" align="center" />
+<img src="coverageChart.png" width="${chartWidth}" height="${chartHeight}" align="center" />
 </p>
 <table id="mutationclasses" >
 <th>Mutated Class</th>
 <th>Mutations</th>
-<th>Survivor Ratio</th>
+<th>MCoverage</th>
 <th>Tested</th>
 <th>Tests</th>
 
@@ -165,7 +165,7 @@ tr {
     <td><a href="${class.FqClassName}.html">${class.FqClassName}</a></td>
     <td>${class.NumMutants}</td>
     
-    #set( $ratio = ${class.SurviverRatio} * 100 )
+    #set( $ratio = ${class.MCoverageRatio} * 100 )
     #set( $ratio = $numberFormat.format($ratio) )
 
 

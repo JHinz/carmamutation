@@ -7,22 +7,32 @@ import com.mutation.report.generator.reportobjects.ClassInfo;
 
 public class MCoverageClassCreator {
 
-	private double[] upperLimits;
-	public MCoverageClassCreator(double[] upperLimits){
-		this.upperLimits = upperLimits;
-	}
-	
-	public List<DataClass> classifyMCoverage(List<ClassInfo> values){
-		List<DataClass> classes = new ArrayList<DataClass>();
-		for(double l : upperLimits){
-			classes.add(new DataClass("<" +l));
+	private List<DataClass> classes;
+
+	public MCoverageClassCreator(double[] upperLimits) {
+		classes = new ArrayList<DataClass>();
+		double lower = Double.MIN_VALUE;
+		for (double l : upperLimits) {
+			ClassRange range = new ClassRange("[" + lower + "," + l + ")", lower, l);
+			lower = l;
+			classes.add(new DataClass(range));
 		}
-		
-		for(ClassInfo ci : values){
-			for(int i = 0; i<upperLimits.length; i++){
+	}
+
+	public MCoverageClassCreator(List<ClassRange> ranges) {
+		classes = new ArrayList<DataClass>();
+		for (ClassRange range : ranges) {
+			classes.add(new DataClass(range));
+		}
+	}	
+	
+	public List<DataClass> classifyMCoverage(List<ClassInfo> values) {
+
+		for (ClassInfo ci : values) {
+			for (DataClass c : classes) {
 				double value = ci.getMCoverageRatio();
-				if(value < upperLimits[i]){
-					classes.get(i).addInstance(ci);
+				if (c.getRange().isWithIn(value)) {
+					c.addInstance(ci);
 					break;
 				}
 			}
