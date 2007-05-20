@@ -35,6 +35,7 @@ public class MutantJUnitRunner extends BaseTestRunner {
 		mutantLoader = new MutationClassLoader(testClassesLocation, mutant
 				.getClassName(), mutant.getByteCode(), getClass().getClassLoader());
 		loader = new MyTestSuiteLoader();
+		Thread.currentThread().setContextClassLoader(mutantLoader);
 	}
 	
 	/**
