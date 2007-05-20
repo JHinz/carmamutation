@@ -36,10 +36,10 @@ public class ClassDescription {
 
 	public void setClassName(String className) {
 		this.className = className;
-		if (getPackageName() == null)
-			setQualifiedClassName(className);
+		if (getPackageName() == null || getPackageName().trim().equals(""))
+			setQualifiedClassName(className.trim());
 		else
-			setQualifiedClassName(getPackageName() + "." + className);
+			setQualifiedClassName(getPackageName().trim() + "." + className.trim());
 	}
 
 	@Override
@@ -54,10 +54,10 @@ public class ClassDescription {
 	public void setPackageName(String packageName) {
 		this.packageName = packageName;
 
-		if (packageName == null)
-			setQualifiedClassName(getClassName());
+		if (packageName == null || packageName.trim().equals(""))
+			setQualifiedClassName(getClassName().trim());
 		else
-			setQualifiedClassName(packageName + "." + getClassName());
+			setQualifiedClassName(packageName.trim() + "." + getClassName().trim());
 	}
 
 	public Set<String> getAssociatedTestNames() {
