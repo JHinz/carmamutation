@@ -13,13 +13,14 @@ import com.mutation.runner.events.ProcessingMutationOperator;
 import com.mutation.runner.utililties.ByteCodeFileReader;
 import com.mutation.testrunner.ITestRunner;
 import com.mutation.transform.AbstractTransitionGroup;
+import com.mutation.transform.IMutationGenerator;
 import com.mutation.transform.MutantGenerator;
 
 public class MutationRunner {
 
 	private ITestRunner testRunner;
 
-	private MutantGenerator mutantGenerator;
+	private IMutationGenerator mutantGenerator;
 
 	private File classesUnderTestPath;
 
@@ -53,6 +54,8 @@ public class MutationRunner {
 				List<Mutant> mutants = mutantGenerator.generateMutants(fqClassName, byteCode, transitionGroups,
 						eventListener);
 
+				System.out.println("Number of created mutants for current class: " + mutants.size());
+
 				eventListener.notifyEvent(new MutantsGenerated(mutants, fqClassName, transitionGroup));
 
 				for (Mutant mutant : mutants) {
@@ -80,7 +83,7 @@ public class MutationRunner {
 		return new ByteCodeFileReader().readByteCodeFromDisk(originalClassFile);
 	}
 
-	public void setMutantGenerator(MutantGenerator mutantGenerator) {
+	public void setMutantGenerator(IMutationGenerator mutantGenerator) {
 		this.mutantGenerator = mutantGenerator;
 	}
 
