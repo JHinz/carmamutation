@@ -33,13 +33,13 @@ public class ClassMatchResolver extends AbstractFilteredResolver {
 
 		for (ClassDescription classDescription : classDescriptions) {
 
-			Set<String> testNames = testResolver.determineTests(classDescription.getQualifiedClassName());
+			Set<String> testNames = testResolver.determineTests(classDescription.getQualifiedName());
 
 			classDescription.setAssociatedTestNames(new HashSet<String>());
 
 			for (String testName : testNames) {
 
-				if (!getFilter().shouldBeExcluded(testName)) {
+				if (!getTestClassExcludeFilter().shouldBeExcluded(testName)) {
 					classDescription.getAssociatedTestNames().add(testName);
 				}
 
