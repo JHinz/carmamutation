@@ -51,44 +51,81 @@ public class BruteForceResolver extends AbstractFilteredResolver {
 
 		directoryResolver.setClassesBaseDir(testClassesPath);
 
-		List<ClassDescription> testClassDescriptions = directoryResolver.determineClassNames();
+		List<ClassDescription> resolvedTestClassDescriptions = directoryResolver.determineClassNames();
+
+		List<ClassDescription> usableTestClassDescriptions = new ArrayList<ClassDescription>();
+
+		for (ClassDescription testClassDescription : resolvedTestClassDescriptions) {
+
+			String fqTestClassName = "";
+
+			if (testClassDescription.getPackageName() != null
+					&& !testClassDescription.getPackageName().trim().equals("")) {
+				fqTestClassName = testClassDescription.getPackageName() + ".";
+			}
+
+			fqTestClassName += testClassDescription.getClassName();
+
+			if (!getTestClassIncludeFilter().shouldBeIncluded(fqTestClassName)) {
+				continue;
+			}
+
+			if (getTestClassExcludeFilter().shouldBeExcluded(fqTestClassName)) {
+				System.out.println("Skipping class in test set due to exclude filter:" + fqTestClassName);
+				continue;
+			}
+
+			try {
+				Class testClass = loader.loadClass(fqTestClassName);
+
+				if (Modifier.isAbstract(testClass.getModifiers()) || Modifier.isInterface(testClass.getModifiers())) {
+					 System.out.println("Skipping abstract class or interface in test set:" + fqTestClassName);
+					continue;
+				}
+
+			} catch (ClassNotFoundException e) {
+				System.out.println("Skipping class in test set due to class loading problem:" + fqTestClassName);
+				continue;
+			} catch (NoClassDefFoundError e) {
+				System.out.println("Skipping class in test set due to class loading problem:" + fqTestClassName);
+				continue;
+			}
+			usableTestClassDescriptions.add(testClassDescription);
+		}
+
+		int classCount = 0;
+		int testClassCount = 0;
+
+		List<ClassDescription> removeClasses = new ArrayList<ClassDescription>();
 
 		for (ClassDescription classDescription : classDescriptions) {
 
+			if (!getClassIncludeFilter().shouldBeIncluded(classDescription.getQualifiedName())) {
+				removeClasses.add(classDescription);
+				continue;
+			}
+
+			if (getClassExcludeFilter().shouldBeExcluded(classDescription.getQualifiedName())) {
+				removeClasses.add(classDescription);
+				continue;
+			}
+
+			classCount++;
+
 			classDescription.setAssociatedTestNames(new HashSet<String>());
 
-			for (ClassDescription testClassDescription : testClassDescriptions) {
-
-				String fqTestClassName = "";
-
-				if (testClassDescription.getPackageName() != null
-						&& !testClassDescription.getPackageName().trim().equals("")) {
-					fqTestClassName = testClassDescription.getPackageName() + ".";
-				}
-
-				fqTestClassName += testClassDescription.getClassName();
-
-				if (getFilter().shouldBeExcluded(fqTestClassName)) {
-					System.out.println("Skipping class in test set due to exclude filter:" + fqTestClassName);
-					continue;
-				}
-
-				try {
-					Class testClass = loader.loadClass(fqTestClassName);
-
-					if (Modifier.isAbstract(testClass.getModifiers()) || Modifier.isInterface(testClass.getModifiers())) {
-						System.out.println("Skipping abstract class or interface in test set:" + fqTestClassName);
-						continue;
-					}
-
-				} catch (ClassNotFoundException e) {
-					System.out.println("Skipping class in test set due to class loading problem:" + fqTestClassName);
-					continue;
-				}
-
-				classDescription.getAssociatedTestNames().add(fqTestClassName);
+			for (ClassDescription testClassDescription : usableTestClassDescriptions) {
+				classDescription.getAssociatedTestNames().add(testClassDescription.getQualifiedName());
+				testClassCount++;
 			}
 		}
+
+		for (ClassDescription classDescription : removeClasses) {
+			classDescriptions.remove(classDescription);
+		}
+
+		System.out.println("Resolved " + classCount + " classes.");
+		System.out.println("Assigned test classes " + testClassCount + " times.");
 
 		return classDescriptions;
 	}

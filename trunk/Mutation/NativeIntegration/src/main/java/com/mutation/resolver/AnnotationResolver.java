@@ -52,26 +52,26 @@ public class AnnotationResolver extends AbstractFilteredResolver {
 
 		for (ClassDescription testClassDescription : testClassDescriptions) {
 
-			if (getFilter().shouldBeExcluded(testClassDescription.getQualifiedClassName()))
+			if (getTestClassExcludeFilter().shouldBeExcluded(testClassDescription.getQualifiedName()))
 				continue;
 
 			try {
-				Class testClass = loader.loadClass(testClassDescription.getQualifiedClassName());
+				Class testClass = loader.loadClass(testClassDescription.getQualifiedName());
 
 				if (Modifier.isAbstract(testClass.getModifiers()) || Modifier.isInterface(testClass.getModifiers())) {
 					System.out.println("Skipping abstract class or interface in test set:"
-							+ testClassDescription.getQualifiedClassName());
+							+ testClassDescription.getQualifiedName());
 					continue;
 				}
 
 			} catch (ClassNotFoundException e) {
 				System.out.println("Skipping class in test set due to class loading problem:"
-						+ testClassDescription.getQualifiedClassName());
+						+ testClassDescription.getQualifiedName());
 				continue;
 			}
 
 			try {
-				Class testClass = loader.loadClass(testClassDescription.getQualifiedClassName());
+				Class testClass = loader.loadClass(testClassDescription.getQualifiedName());
 
 				Annotation annotation = testClass.getAnnotation(TestClassToClassMapping.class);
 
@@ -95,9 +95,9 @@ public class AnnotationResolver extends AbstractFilteredResolver {
 
 					}
 
-					classDescription.getAssociatedTestNames().add(testClassDescription.getQualifiedClassName());
+					classDescription.getAssociatedTestNames().add(testClassDescription.getQualifiedName());
 
-					classDescriptions.put(classDescription.getQualifiedClassName(), classDescription);
+					classDescriptions.put(classDescription.getQualifiedName(), classDescription);
 
 				}
 			} catch (ClassNotFoundException e) {
