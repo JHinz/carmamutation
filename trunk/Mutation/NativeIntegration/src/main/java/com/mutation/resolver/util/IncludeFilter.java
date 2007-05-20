@@ -22,7 +22,7 @@ public class IncludeFilter {
 	public boolean shouldBeIncluded(String fqClassName) {
 
 		if (includePattern == null || includePattern.trim().equals("")) {
-			setIncludePattern("\\(.*\\)");
+			setIncludePattern("(.*)");
 		}
 
 		Matcher matcher = pattern.matcher(fqClassName);
