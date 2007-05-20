@@ -51,7 +51,7 @@ public class BruteForceResolverTestCase extends TestCase {
 
 		ExcludeFilter filter = new ExcludeFilter();
 		filter.setExcludePattern("sub1");
-		resolver.setFilter(filter);
+		resolver.setTestClassExcludeFilter(filter);
 
 		List<ClassDescription> classes = resolver.resolve();
 
