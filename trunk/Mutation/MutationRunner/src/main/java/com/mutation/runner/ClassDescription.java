@@ -10,8 +10,10 @@ public class ClassDescription {
 
 	private String packageName;
 
+	private String qualifiedClassName;
+
 	private String classFile;
-	
+
 	private String sourceFile;
 
 	private Set<String> associatedTestNames;
@@ -32,16 +34,12 @@ public class ClassDescription {
 		return className;
 	}
 
-	/**
-	 * 
-	 * @return class name inclusive package prefix
-	 */
-	public String getQualifiedClassName() {
-		return packageName == null ? className : packageName + "." + className;
-	}
-
 	public void setClassName(String className) {
 		this.className = className;
+		if (getPackageName() == null)
+			setQualifiedClassName(className);
+		else
+			setQualifiedClassName(getPackageName() + "." + className);
 	}
 
 	@Override
@@ -55,6 +53,11 @@ public class ClassDescription {
 
 	public void setPackageName(String packageName) {
 		this.packageName = packageName;
+
+		if (packageName == null)
+			setQualifiedClassName(getClassName());
+		else
+			setQualifiedClassName(packageName + "." + getClassName());
 	}
 
 	public Set<String> getAssociatedTestNames() {
@@ -71,5 +74,13 @@ public class ClassDescription {
 
 	public void setSourceFile(String sourceFile) {
 		this.sourceFile = sourceFile;
+	}
+
+	public String getQualifiedClassName() {
+		return qualifiedClassName;
+	}
+
+	public void setQualifiedClassName(String qualifiedName) {
+		this.qualifiedClassName = qualifiedName;
 	}
 }
