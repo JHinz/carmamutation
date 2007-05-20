@@ -52,7 +52,7 @@ public class AnnotationResolverTestCase extends TestCase {
 		AnnotationResolver resolver = new AnnotationResolver();
 		resolver.setTestClassesPath(testClassPath);
 		resolver.setClassesPath(testClassPath);
-		resolver.setFilter(filter);
+		resolver.setTestClassExcludeFilter(filter);
 
 		List<ClassDescription> classes = resolver.resolve();
 
