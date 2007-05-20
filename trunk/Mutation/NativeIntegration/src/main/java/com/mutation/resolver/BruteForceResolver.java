@@ -126,7 +126,15 @@ public class BruteForceResolver extends AbstractFilteredResolver {
 
 		System.out.println("Resolved " + classCount + " classes.");
 		System.out.println("Assigned test classes " + testClassCount + " times.");
+		
+		for (ClassDescription desc : classDescriptions)
+			System.out.println("Using class: "+desc.getQualifiedClassName());
 
+
+		for (ClassDescription desc : usableTestClassDescriptions)
+			System.out.println("Using testclass: "+desc.getQualifiedClassName());
+
+		
 		return classDescriptions;
 	}
 }
