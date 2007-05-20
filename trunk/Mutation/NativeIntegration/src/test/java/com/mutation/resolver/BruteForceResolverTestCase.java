@@ -11,7 +11,7 @@ import junit.framework.TestCase;
 
 public class BruteForceResolverTestCase extends TestCase {
 
-	public void testGetClassesWithoutExcludeFilterSet() {
+	public void testGetClassesWithoutExcludeFilterButWithIncludeFilterSet() {
 
 		File testClassPath = new File("src/test/it/it0001/testclasses/");
 
