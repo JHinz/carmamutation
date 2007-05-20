@@ -100,12 +100,12 @@ public class BruteForceResolver extends AbstractFilteredResolver {
 
 		for (ClassDescription classDescription : classDescriptions) {
 
-			if (!getClassIncludeFilter().shouldBeIncluded(classDescription.getQualifiedName())) {
+			if (!getClassIncludeFilter().shouldBeIncluded(classDescription.getQualifiedClassName())) {
 				removeClasses.add(classDescription);
 				continue;
 			}
 
-			if (getClassExcludeFilter().shouldBeExcluded(classDescription.getQualifiedName())) {
+			if (getClassExcludeFilter().shouldBeExcluded(classDescription.getQualifiedClassName())) {
 				removeClasses.add(classDescription);
 				continue;
 			}
@@ -115,7 +115,7 @@ public class BruteForceResolver extends AbstractFilteredResolver {
 			classDescription.setAssociatedTestNames(new HashSet<String>());
 
 			for (ClassDescription testClassDescription : usableTestClassDescriptions) {
-				classDescription.getAssociatedTestNames().add(testClassDescription.getQualifiedName());
+				classDescription.getAssociatedTestNames().add(testClassDescription.getQualifiedClassName());
 				testClassCount++;
 			}
 		}
