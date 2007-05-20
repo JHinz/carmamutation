@@ -6,7 +6,7 @@ import java.util.List;
 import com.mutation.runner.Mutant;
 import com.mutation.runner.events.IEventListener;
 
-public class MutantGenerator {
+public class MutantGenerator implements IMutationGenerator{
 
 	public List<Mutant> generateMutants(String classUnderTest, byte[] originalClassByteCode,
 			List<AbstractTransitionGroup> transitionGroups, IEventListener listener) {
