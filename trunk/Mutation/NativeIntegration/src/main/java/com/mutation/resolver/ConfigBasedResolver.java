@@ -127,69 +127,38 @@ public class ConfigBasedResolver extends AbstractFilteredResolver {
 			inputConfiguration = readInputConfiguration(reader);
 		} catch (IOException e1) {
 			e1.printStackTrace();
-			return new ArrayList<ClassDescription>(); 
+			return new ArrayList<ClassDescription>();
 		}
 
-		List<ClassDescription> testClassDescriptions = parseInputConfiguration(inputConfiguration);
+		List<ClassDescription> classDescriptions = parseInputConfiguration(inputConfiguration);
 
-		Map<String, ClassDescription> classDescriptions = new HashMap<String, ClassDescription>();
+		for (ClassDescription classDescription : classDescriptions) {
 
-		for (ClassDescription testClassDescription : testClassDescriptions) {
+			for (String testClassName : classDescription.getAssociatedTestNames()) {
 
-			if (getTestClassExcludeFilter().shouldBeExcluded(testClassDescription.getQualifiedClassName()))
-				continue;
-
-			try {
-				Class testClass = loader.loadClass(testClassDescription.getQualifiedClassName());
-
-				if (Modifier.isAbstract(testClass.getModifiers()) || Modifier.isInterface(testClass.getModifiers())) {
-					System.out.println("Skipping abstract class or interface in test set:"
-							+ testClassDescription.getQualifiedClassName());
-					continue;
-				}
-
-			} catch (ClassNotFoundException e) {
-				System.out.println("Skipping class in test set due to class loading problem:"
-						+ testClassDescription.getQualifiedClassName());
-				continue;
-			}
-
-			try {
-				Class testClass = loader.loadClass(testClassDescription.getQualifiedClassName());
-
-				Annotation annotation = testClass.getAnnotation(TestClassToClassMapping.class);
-
-				if (annotation == null)
+				if (getTestClassExcludeFilter().shouldBeExcluded(classDescription.getQualifiedClassName()))
 					continue;
 
-				String[] fqClassNames = ((TestClassToClassMapping) annotation).classNames();
+				try {
+					Class testClass = loader.loadClass(classDescription.getQualifiedClassName());
 
-				for (String fqClassName : fqClassNames) {
-
-					ClassDescription classDescription = classDescriptions.get(fqClassName);
-
-					if (classDescription == null) {
-						ClassNameAnalyzer analyzer = new ClassNameAnalyzer();
-						ClassNameInfo info = analyzer.extractClassNameInfo(fqClassName);
-
-						classDescription = new ClassDescription();
-						classDescription.setClassName(info.getClassName());
-						classDescription.setPackageName(info.getPackageName());
-						classDescription.setAssociatedTestNames(new HashSet<String>());
-
+					if (Modifier.isAbstract(testClass.getModifiers()) || Modifier.isInterface(testClass.getModifiers())) {
+						System.out.println("Skipping abstract class or interface in test set:"
+								+ classDescription.getQualifiedClassName());
+						classDescription.getAssociatedTestNames().remove(testClassName);
+						continue;
 					}
 
-					classDescription.getAssociatedTestNames().add(testClassDescription.getQualifiedClassName());
-
-					classDescriptions.put(classDescription.getQualifiedClassName(), classDescription);
-
+				} catch (ClassNotFoundException e) {
+					System.out.println("Skipping class in test set due to class loading problem:"
+							+ classDescription.getQualifiedClassName());
+					continue;
 				}
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
 			}
+
 		}
 
-		return new ArrayList<ClassDescription>(classDescriptions.values());
+		return classDescriptions;
 	}
 
 	public File getClassesPath() {
