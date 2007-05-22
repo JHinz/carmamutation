@@ -136,15 +136,15 @@ public class ConfigBasedResolver extends AbstractFilteredResolver {
 
 			for (String testClassName : classDescription.getAssociatedTestNames()) {
 
-				if (getTestClassExcludeFilter().shouldBeExcluded(classDescription.getQualifiedClassName()))
+				if (getTestClassExcludeFilter().shouldBeExcluded(testClassName))
 					continue;
 
 				try {
-					Class testClass = loader.loadClass(classDescription.getQualifiedClassName());
+					Class testClass = loader.loadClass(testClassName);
 
 					if (Modifier.isAbstract(testClass.getModifiers()) || Modifier.isInterface(testClass.getModifiers())) {
 						System.out.println("Skipping abstract class or interface in test set:"
-								+ classDescription.getQualifiedClassName());
+								+ testClassName);
 						classDescription.getAssociatedTestNames().remove(testClassName);
 						continue;
 					}
