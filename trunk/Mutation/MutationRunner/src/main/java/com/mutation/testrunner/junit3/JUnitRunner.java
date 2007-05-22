@@ -79,6 +79,8 @@ public class JUnitRunner implements ITestRunner {
 				}
 				
 			} catch (Exception e) {
+				
+				//TODO: BUG ! concurrent update on collection !
 				executedTestsNames.remove(testCase);
 				eventListener.notifyEvent(new TestNotExecuted(mutant, testCase, e));
 			}
