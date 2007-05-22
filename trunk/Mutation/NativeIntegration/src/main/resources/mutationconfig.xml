@@ -166,4 +166,7 @@
 		class="com.mutation.transform.MutantGenerator">
 	</bean>
 
+	<bean id="dummyMutantGenerator"
+		class="com.mutation.transform.DummyMutantGenerator">
+	</bean>
 </beans>
