@@ -67,9 +67,7 @@ public class JUnitRunner implements ITestRunner {
 		Set<String> killerTestNames = new TreeSet<String>();
 		for (String testCase : origTestNames) {
 			try {
-				System.err.println(testCase);
 				int failures = runTest(testCase, mutant);
-				System.err.print(failures);
 				executedTestsNames.add(testCase);
 				if (failures > 0) {
 					survived = false;
