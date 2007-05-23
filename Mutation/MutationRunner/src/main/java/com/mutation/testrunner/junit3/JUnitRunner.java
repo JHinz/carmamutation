@@ -63,11 +63,14 @@ public class JUnitRunner implements ITestRunner {
 	public void execute(Mutant mutant, Set<String> origTestNames, IEventListener eventListener) {
 		boolean survived = true;
 		
-		Set<String> executedTestsNames = new HashSet<String>(origTestNames);
+		Set<String> executedTestsNames = new HashSet<String>();
 		Set<String> killerTestNames = new TreeSet<String>();
-		for (String testCase : executedTestsNames) {
+		for (String testCase : origTestNames) {
 			try {
+				System.err.println(testCase);
 				int failures = runTest(testCase, mutant);
+				System.err.print(failures);
+				executedTestsNames.add(testCase);
 				if (failures > 0) {
 					survived = false;
 					//TODO IMHO it would be better to have the surived flag separated
@@ -79,9 +82,7 @@ public class JUnitRunner implements ITestRunner {
 				}
 				
 			} catch (Exception e) {
-				
-				//TODO: BUG ! concurrent update on collection !
-				executedTestsNames.remove(testCase);
+				e.printStackTrace();
 				eventListener.notifyEvent(new TestNotExecuted(mutant, testCase, e));
 			}
 		}
