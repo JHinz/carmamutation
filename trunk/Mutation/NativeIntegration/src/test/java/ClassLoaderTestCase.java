@@ -11,9 +11,9 @@ public class ClassLoaderTestCase extends TestCase {
 			IllegalAccessException, SecurityException, NoSuchMethodException, IllegalArgumentException,
 			InvocationTargetException {
 
-		TestClassLoader loader1 = new TestClassLoader(new URL[] { new URL("file:src/test/it/it0003/") }, "loader1",
+		HelperClassLoader loader1 = new HelperClassLoader(new URL[] { new URL("file:src/test/it/it0003/") }, "loader1",
 				this.getClass().getClassLoader());
-		TestClassLoader loader2 = new TestClassLoader(new URL[] { new URL("file:src/test/it/it0003/") }, "loader2",
+		HelperClassLoader loader2 = new HelperClassLoader(new URL[] { new URL("file:src/test/it/it0003/") }, "loader2",
 				this.getClass().getClassLoader());
 
 		Class classA1 = loader1.loadClass("A");
