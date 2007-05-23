@@ -25,7 +25,11 @@ public class ConfigBasedResolverTestCase extends TestCase {
 
 		assertEquals(2, result.size());
 		assertEquals("com.a.Class1", result.get(0).getQualifiedClassName());
+		assertEquals("com.a", result.get(0).getPackageName());
+		assertEquals("Class1", result.get(0).getClassName());
 		assertEquals("com.b.Class2", result.get(1).getQualifiedClassName());
+		assertEquals("com.b", result.get(1).getPackageName());
+		assertEquals("Class2", result.get(1).getClassName());
 
 		List<String> testNames;
 
@@ -57,6 +61,8 @@ public class ConfigBasedResolverTestCase extends TestCase {
 
 		assertEquals(1, result.size());
 		assertEquals("com.b.Class2", result.get(0).getQualifiedClassName());
+		assertEquals("com.b", result.get(0).getPackageName());
+		assertEquals("Class2", result.get(0).getClassName());
 
 		List<String> testNames;
 
@@ -81,6 +87,8 @@ public class ConfigBasedResolverTestCase extends TestCase {
 
 		assertEquals(1, result.size());
 		assertEquals("com.b.Class2", result.get(0).getQualifiedClassName());
+		assertEquals("com.b", result.get(0).getPackageName());
+		assertEquals("Class2", result.get(0).getClassName());
 
 		List<String> testNames;
 
@@ -105,6 +113,8 @@ public class ConfigBasedResolverTestCase extends TestCase {
 
 		assertEquals(1, result.size());
 		assertEquals("com.b.Class2", result.get(0).getQualifiedClassName());
+		assertEquals("com.b", result.get(0).getPackageName());
+		assertEquals("Class2", result.get(0).getClassName());
 
 		List<String> testNames;
 
