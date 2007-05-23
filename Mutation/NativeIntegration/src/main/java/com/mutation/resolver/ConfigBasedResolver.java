@@ -3,25 +3,18 @@ package com.mutation.resolver;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.SortedSet;
 import java.util.StringTokenizer;
 
-import com.mutation.annotations.TestClassToClassMapping;
 import com.mutation.report.generator.utils.ClassNameAnalyzer;
 import com.mutation.report.generator.utils.ClassNameAnalyzer.ClassNameInfo;
 import com.mutation.runner.ClassDescription;
@@ -83,8 +76,14 @@ public class ConfigBasedResolver extends AbstractFilteredResolver {
 			if (splitIndex <= 0)
 				continue;
 
+			ClassNameAnalyzer analyzer = new ClassNameAnalyzer();
+
+			String fqClassName = line.substring(0, splitIndex);
+			ClassNameInfo info = analyzer.extractClassNameInfo(fqClassName);
+
 			ClassDescription clazz = new ClassDescription();
-			clazz.setClassName(line.substring(0, splitIndex));
+			clazz.setClassName(info.getClassName());
+			clazz.setPackageName(info.getPackageName());
 
 			line = line.substring(splitIndex + 1, line.length());
 
@@ -143,8 +142,7 @@ public class ConfigBasedResolver extends AbstractFilteredResolver {
 					Class testClass = loader.loadClass(testClassName);
 
 					if (Modifier.isAbstract(testClass.getModifiers()) || Modifier.isInterface(testClass.getModifiers())) {
-						System.out.println("Skipping abstract class or interface in test set:"
-								+ testClassName);
+						System.out.println("Skipping abstract class or interface in test set:" + testClassName);
 						classDescription.getAssociatedTestNames().remove(testClassName);
 						continue;
 					}
