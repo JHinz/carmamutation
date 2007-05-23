@@ -3,8 +3,6 @@ package com.mutation.testrunner;
 import java.net.URL;
 import java.net.URLClassLoader;
 
-import org.objectweb.asm.ClassVisitor;
-
 /**
  * This class loader loads unit test and mutant.
  * 
@@ -15,23 +13,13 @@ import org.objectweb.asm.ClassVisitor;
  * 
  */
 public class MutationClassLoader extends URLClassLoader {
+
 	private byte[] mutantByteCode;
 
 	private String mutantClassName;
 
-	public MutationClassLoader(String mutantClassName, byte[] mutantByteCode) {
-		this(null, mutantClassName, mutantByteCode);
-	}
-
-	public MutationClassLoader(URL[] urls, String mutantClassName, byte[] mutantByteCode) {
-		super(urls);
-		this.mutantClassName = mutantClassName;
-		this.mutantByteCode = mutantByteCode;
-
-	}
-
 	public MutationClassLoader(URL[] urls, String mutantClassName, byte[] mutantByteCode, ClassLoader parent) {
-		super(urls);
+		super(urls, parent);
 		this.mutantClassName = mutantClassName;
 		this.mutantByteCode = mutantByteCode;
 
@@ -40,23 +28,25 @@ public class MutationClassLoader extends URLClassLoader {
 	@Override
 	public Class<?> loadClass(String name) throws ClassNotFoundException {
 
-		//System.out.print("Loading class: " + name);
+		// System.out.print("Loading class: " + name);
 
 		Class clazz;
 		// TODO is that needed for all mutation dependencies? Find a better
-		// solution
+		// solution (mike)
+
+		// TODO: should be configurable via spring i think (alex) ->
 		if (name.startsWith("junit")) {
 			return super.loadClass(name, false);
 		}
-		
+
 		if (name.startsWith("org.w3c")) {
 			return super.loadClass(name, false);
 		}
-		
+
 		if (name.startsWith("org.xml")) {
 			return super.loadClass(name, false);
 		}
-		
+
 		if (name.startsWith("com.sun")) {
 			return super.loadClass(name, false);
 		}
@@ -64,7 +54,7 @@ public class MutationClassLoader extends URLClassLoader {
 		if (name.startsWith("java")) {
 			return super.loadClass(name, false);
 		}
-		
+
 		if (name.startsWith("sun.")) {
 			return super.loadClass(name, false);
 		}
@@ -74,14 +64,19 @@ public class MutationClassLoader extends URLClassLoader {
 		} else {
 			try {
 				clazz = findLoadedClass(name);
-				
-				if ( clazz != null) return clazz;
-				
+
+				if (clazz != null)
+					return clazz;
+
 				return findClass(name);
 			} catch (ClassNotFoundException e) {
-				//e.printStackTrace();
-				return null;
-				//clazz = super.loadClass(name, false);
+
+				// Should never be the case as otherwise classes could be
+				// resolved outside
+				// of the "protected mutation" class loader which leads to
+				// intransparent
+				// faults
+				throw e;
 			}
 		}
 		return clazz;
