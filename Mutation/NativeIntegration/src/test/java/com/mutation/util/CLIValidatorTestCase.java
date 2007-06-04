@@ -1,0 +1,37 @@
+package com.mutation.util;
+
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.ParseException;
+
+import junit.framework.TestCase;
+
+public class CLIValidatorTestCase extends TestCase {
+
+	public void test_Help() throws ParseException {
+
+		CLIValidator validator = new CLIValidator();
+
+		validator.help();
+
+	}
+
+	public void test_DefaultOptions() throws ParseException {
+
+		CLIValidator validator = new CLIValidator();
+
+		CommandLine result = validator.readCLI(new String[] {});
+
+		assertNull("mutationConfig.xml", result.getOptionValue(CLIValidator.MUTATION_CONFIG_OPTION_SHORT));
+	}
+
+	public void test_OptionPassing() throws ParseException {
+
+		CLIValidator validator = new CLIValidator();
+
+		CommandLine result = validator.readCLI(new String[] { "--" + CLIValidator.MUTATION_CONFIG_OPTION_LONG,
+				"otherConfigFile.txt" });
+
+		assertEquals("otherConfigFile.txt", result.getOptionValue(CLIValidator.MUTATION_CONFIG_OPTION_SHORT));
+	}
+
+}
