@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+	<!-- location of the classes for the mutants -->
+	<bean id="classesDir" class="java.io.File">
+		<constructor-arg>
+			<value>${classesDir}</value>
+		</constructor-arg>
+	</bean>
+
+	<!-- location of the unit tests -->
+	<bean id="testClassesDir" class="java.io.File">
+		<constructor-arg>
+			<value>${testClassesDir}</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="sourceDir" class="java.io.File">
+		<constructor-arg>
+			<value>${sourceDir}</value>
+		</constructor-arg>
+	</bean>
+
+	<!--  set of operators considered for tests -->
+
+	<bean id="operators"
+		class="com.mutation.transform.TransitionGroupConfig">
+		<property name="transitionGroups">
+			<list>
+				<bean
+					class="com.mutation.transform.asm.ror.ROR_TransitionGroup">
+					<constructor-arg>
+						<value>true</value>
+					</constructor-arg>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<!-- the driver main class which constructs a proper mutation runner -->
+	<bean id="testDriver" class="com.mutation.BasicDriver">
+		<property name="resolver" ref="annotationResolver" />
+		<property name="runner" ref="runner" />
+		<property name="eventListener" ref="eventListener"></property>
+	</bean>
+
+	<!-- the core mutation runner class which executes the tests -->
+	<bean id="runner" class="com.mutation.runner.MutationRunner">
+		<property name="testRunner" ref="testRunner" />
+		<property name="eventListener" ref="eventListener" />
+		<property name="mutantGenerator" ref="mutantGenerator" />
+		<property name="classesUnderTestPath" ref="classesDir" />
+	</bean>
+
+	<bean id="file.eventListener"
+		class="com.mutation.runner.events.listener.FileEventListener"
+		destroy-method="destroy">
+		<constructor-arg>
+			<value>${log.filename}</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="report.eventListener"
+		class="com.mutation.runner.events.listener.ReportEventListener"
+		destroy-method="destroy">
+		<constructor-arg>
+			<value>${report.filename}</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="eventListener"
+		class="com.mutation.runner.events.listener.CompositeEventListener">
+		<property name="listeners">
+			<list>
+				<bean
+					class="com.mutation.runner.events.listener.ConsoleEventListener">
+					<property name="showSummaryOnly" value="false" />
+				</bean>
+				<ref bean="report.eventListener" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="testRunner"
+		class="com.mutation.testrunner.junit3.JUnitRunner">
+		<property name="stopOnFirstFailedTest" value="true" />
+		<property name="testClassesLocationsAsFiles">
+			<list>
+				<ref bean="classesDir" />
+				<ref bean="testClassesDir" />
+<value>/Users/arau/Documents/workspace/groovy/libs/./activemq/activemq-1.1.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./ant/ant-junit.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./ant/ant-launcher.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./ant/ant-trax.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./ant/ant.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./antlr/antlr-2.7.6.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./aopalliance/aopalliance.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./asm/asm-2.2.3.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./asm/asm-commons-2.2.3.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./asm/asm-util-2.2.3.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./aspectj/aspectjrt.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./aspectj/aspectjtools.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./aspectj/aspectjweaver.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./aws/spring-aws-ant.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./axis/axis.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./axis/saaj.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./axis/wsdl4j.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./bsh/bsh-2.0b4.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./c3p0/c3p0-0.9.1.1.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./caucho/hessian-3.0.20.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./cglib/cglib-nodep-2.1_3.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./clover/clover.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./commonj/commonj-twm.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./concurrent/backport-util-concurrent.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./cos/cos.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./dom4j/dom4j-1.6.1.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./dom4j/jaxen-1.1-beta-7.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./easymock/easymock.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./easymock/easymockclassextension.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./ehcache/ehcache-1.2.4.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./fop/fop.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./freemarker/freemarker.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./glassfish/glassfish-clapi.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./groovy/groovy-1.0.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./hibernate/hibernate-annotations.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./hibernate/hibernate-commons-annotations.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./hibernate/hibernate-entitymanager.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./hibernate/hibernate2.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./hibernate/hibernate3.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./hibernate/jboss-archive-browsing.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./hsqldb/hsqldb.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./httpclient/commons-httpclient-3.0.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./httpunit/httpunit.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./httpunit/Tidy.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./ibatis/ibatis-2.3.0.677.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./innovation/HTTPClient-0.3-3.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./itext/itext-1.4.8.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./j2ee/activation.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./j2ee/connector.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./j2ee/ejb.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./j2ee/jaxrpc.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./j2ee/jms.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./j2ee/jsp-api.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./j2ee/jstl.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./j2ee/jta.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./j2ee/mail.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./j2ee/rowset.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./j2ee/servlet-api.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jakarta-commons/commons-attributes-api.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jakarta-commons/commons-attributes-compiler.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jakarta-commons/commons-beanutils.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jakarta-commons/commons-codec.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jakarta-commons/commons-collections.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jakarta-commons/commons-dbcp.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jakarta-commons/commons-digester.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jakarta-commons/commons-discovery.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jakarta-commons/commons-fileupload.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jakarta-commons/commons-httpclient.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jakarta-commons/commons-io.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jakarta-commons/commons-lang.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jakarta-commons/commons-logging.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jakarta-commons/commons-pool.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jakarta-commons/commons-validator.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jakarta-taglibs/standard.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jamon/jamon-2.4.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jasperreports/jasperreports-1.3.3.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jdo/jdo2-api.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jdom/jdom.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jdt/jdt-compiler-3.1.1.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jets3t/jets3t.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jexcelapi/jxl.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jmock/jmock-cglib.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jmock/jmock.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jmx/jmxremote.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jmx/jmxremote_optional.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jmx/jmxri.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jotm/jotm.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jotm/xapool.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jpa/persistence.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jruby/jruby.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jsf/jsf-api.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./jsr250/common-annotations.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./junit/junit.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./log4j/log4j-1.2.14.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./oc4j/oc4j-clapi.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./ognl/ognl.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./openjpa/openjpa-0.9.7-incubating.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./oro/jakarta-oro-2.0.8.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./osgi/org.eclipse.osgi_3.1.1.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./poi/poi-2.5.1.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./portlet/portlet-api.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./qdox/qdox-1.5.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./quartz/quartz-all-1.6.0.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./serp/serp-1.12.1.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./struts/struts.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./tomcat/catalina.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./tomcat/naming-resources.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./toplink/toplink-api.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./toplink/toplink-essentials.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./velocity/velocity-1.5.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./velocity/velocity-tools-view-1.3.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./xdoclet/xjavadoc-1.1.jar</value>
+<value>/Users/arau/Documents/workspace/groovy/libs/./xerces/xercesImpl.jar</value>				
+			</list>
+		</property>
+	</bean>
+
+	<bean id="classMatchResolver"
+		class="com.mutation.resolver.ClassMatchResolver">
+		<constructor-arg ref="filterConfig" />
+		<constructor-arg ref="classesDir" />
+		<constructor-arg ref="testClassesDir" />
+	</bean>
+
+	<bean id="bruteForceResolver"
+		class="com.mutation.resolver.BruteForceResolver">
+		<constructor-arg ref="filterConfig" />
+		<constructor-arg ref="classesDir" />
+		<constructor-arg ref="testClassesDir" />
+	</bean>
+
+	<bean id="annotationResolver"
+		class="com.mutation.resolver.AnnotationResolver">
+		<constructor-arg ref="filterConfig" />
+		<constructor-arg ref="classesDir" />
+		<constructor-arg ref="testClassesDir" />
+	</bean>
+
+	<bean id="configurationBasedResolver"
+		class="com.mutation.resolver.ConfigBasedResolver">
+		<constructor-arg ref="filterConfig" />
+		<constructor-arg ref="classesDir" />
+		<constructor-arg ref="testClassesDir" />
+		<property name="configurationFile" value="assignment.txt" />
+	</bean>
+
+	<bean id="filterConfig"
+		class="com.mutation.resolver.util.FilterConfiguration">
+		<property name="classIncludeFilter" ref="classIncludeFilter" />
+		<property name="testClassIncludeFilter"
+			ref="testClassIncludeFilter" />
+		<property name="classExcludeFilter" ref="classExcludeFilter" />
+		<property name="testClassExcludeFilter"
+			ref="testClassExcludeFilter" />
+	</bean>
+
+	<bean id="testClassIncludeFilter"
+		class="com.mutation.resolver.util.IncludeFilter">
+		<property name="includePattern">
+			<value>(.*)</value>
+		</property>
+	</bean>
+
+	<bean id="classIncludeFilter"
+		class="com.mutation.resolver.util.IncludeFilter">
+		<property name="includePattern">
+			<value>(.*)</value>
+		</property>
+	</bean>
+
+	<bean id="testClassExcludeFilter"
+		class="com.mutation.resolver.util.ExcludeFilter">
+		<property name="excludePattern">
+			<value></value>
+		</property>
+	</bean>
+
+	<bean id="classExcludeFilter"
+		class="com.mutation.resolver.util.ExcludeFilter">
+		<property name="excludePattern">
+			<value></value>
+		</property>
+	</bean>
+
+	<bean id="mutantGenerator"
+		class="com.mutation.transform.MutantGenerator">
+	</bean>
+
+	<bean id="dummyMutantGenerator"
+		class="com.mutation.transform.DummyMutantGenerator">
+	</bean>
+</beans>
