@@ -27,6 +27,9 @@ public class SourceInfoCreator {
 	
 	public List<SourceLineInfo> createSourceInfo(){
 		List<SourceLineInfo> list = new ArrayList<SourceLineInfo>();
+		if(null == sourceFile.getSourceText()){
+			return list;
+		}
 		long lineNo = 1;
 		for(String text : sourceFile.getSourceText()){
 			List<Mutant> mutants = lineToMutants.get(lineNo);

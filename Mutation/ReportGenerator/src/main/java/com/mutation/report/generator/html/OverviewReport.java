@@ -1,16 +1,14 @@
-package com.mutation.report.html;
+package com.mutation.report.generator.html;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.text.NumberFormat;
 import java.util.List;
 
 import org.apache.velocity.VelocityContext;
 
-import com.mutation.report.generator.chart.ClassRange;
 import com.mutation.report.generator.chart.CoverageBarChartCreator;
+import com.mutation.report.generator.html.coverage.ICoverageReport;
 import com.mutation.report.generator.reportobjects.ClassInfo;
 import com.mutation.report.generator.reportobjects.ClassInfoCreator;
 import com.mutation.report.om.MutationRun;
@@ -21,13 +19,14 @@ import com.mutation.report.source.om.Project;
  * @author mike
  *
  */
-public class OverviewReport implements IHTMLReport {
-	private String templateName = "com/mutation/report/generator/details.vm";
-
+public class OverviewReport implements ICoverageReport {
+	public static final String HTMLFILE = "overview.html";
+	private String templateName = TEMPLATEPATH +HTMLFILE;
+	
 	/* (non-Javadoc)
 	 * @see com.mutation.report.html.IHTMLReport#generateReport(com.mutation.report.om.MutationRun, com.mutation.report.source.om.Project, java.io.File, com.mutation.report.html.VelocityRenderer)
 	 */
-	public void generateReport(MutationRun report, Project project, File outputDirectory, VelocityRenderer renderer)
+	public void generateReport(MutationRun report, Project project, File outputDirectory, IRenderer renderer)
 			throws IOException, RenderException {
 		
 		
@@ -52,17 +51,11 @@ public class OverviewReport implements IHTMLReport {
 		vcontext.put("project", project);
 		vcontext.put("classInfos", infoCreator.createClassInfos());
 		
-		StringWriter w = new StringWriter();
-
-		renderer.render(templateName, vcontext, w);
-
-		FileWriter writer = new FileWriter(new File(outputDirectory, "details.html"));
-
-		writer.write(w.toString());
-		writer.close();
+		File outputFile = new File(outputDirectory, HTMLFILE);
+		renderer.render(templateName, vcontext, outputFile);
 	}
 
-	public String getTtitle() {
+	public String getTitle() {
 		return "Overview";
 	}
 }

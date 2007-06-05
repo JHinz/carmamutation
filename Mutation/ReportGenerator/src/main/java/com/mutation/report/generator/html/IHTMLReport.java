@@ -1,4 +1,4 @@
-package com.mutation.report.html;
+package com.mutation.report.generator.html;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +18,7 @@ public interface IHTMLReport {
 	 * get the name of the report
 	 * @return title or name of the report
 	 */
-	String getTtitle();
+	String getTitle();
 	/**
 	 * generate an HTML  report
 	 * @param report the test report
@@ -28,7 +28,7 @@ public interface IHTMLReport {
 	 * @throws IOException
 	 * @throws RenderException
 	 */
-	void generateReport(MutationRun report, Project project, File outputDirectory, VelocityRenderer renderer)
+	void generateReport(MutationRun report, Project project, File outputDirectory, IRenderer renderer)
 			throws IOException, RenderException;
 
 }

@@ -8,11 +8,9 @@ import java.util.Properties;
 
 import javax.xml.bind.JAXBException;
 
-import com.mutation.report.html.ClassReport;
-import com.mutation.report.html.IHTMLReport;
-import com.mutation.report.html.IndexReport;
-import com.mutation.report.html.OverviewReport;
-import com.mutation.report.html.VelocityRenderer;
+import com.mutation.report.generator.html.IHTMLReport;
+import com.mutation.report.generator.html.VelocityRenderer;
+import com.mutation.report.generator.html.coverage.CoverageReport;
 import com.mutation.report.loader.ReportModelLoader;
 import com.mutation.report.om.MutationRun;
 import com.mutation.report.source.om.Project;
@@ -55,14 +53,17 @@ public class SingleReportGenerator {
 			throws ReportGeneratorException {
 
 		try {
-			
+//			StyleSheetProvider cssProvider = new StyleSheetProvider(new File(outputDirectory, "css"));
+//			cssProvider.provideStyleSheet("main.css");
+//			cssProvider.provideStyleSheet("source-viewer.css");
 			ProjectBuilder builder = new ProjectBuilder();
 			Project project = builder.buildProject(sourceFolders);
 
 			List<IHTMLReport> reports = new ArrayList<IHTMLReport>();
-			reports.add(new IndexReport());
-			reports.add(new OverviewReport());
-			reports.add(new ClassReport());
+//			reports.add(new IndexReport());
+//			reports.add(new OverviewReport());
+//			reports.add(new ClassReport());
+			reports.add(new CoverageReport());
 			
 			
 			VelocityRenderer velo = new VelocityRenderer();
@@ -80,7 +81,7 @@ public class SingleReportGenerator {
 			
 			//generate all reports
 			for(IHTMLReport r : reports){
-				System.out.println("Generating report: \"" +r.getTtitle() +"\"");
+				System.out.println("Generating report: \"" +r.getTitle() +"\"");
 				r.generateReport(report, project, outputDirectory, velo);
 			}
 		} catch (Exception e) {
