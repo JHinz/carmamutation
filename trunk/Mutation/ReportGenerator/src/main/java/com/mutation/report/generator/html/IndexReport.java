@@ -1,9 +1,7 @@
-package com.mutation.report.html;
+package com.mutation.report.generator.html;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.StringWriter;
 
 import org.apache.velocity.VelocityContext;
 
@@ -17,22 +15,17 @@ public class IndexReport implements IHTMLReport {
 	/* (non-Javadoc)
 	 * @see com.mutation.report.html.IHTMLReport#generateReport(com.mutation.report.om.MutationRun, com.mutation.report.source.om.Project, java.io.File, com.mutation.report.html.VelocityRenderer)
 	 */
-	public void generateReport(MutationRun report, Project project, File outputDirectory, VelocityRenderer renderer)
+	public void generateReport(MutationRun report, Project project, File outputDirectory, IRenderer renderer)
 			throws IOException, RenderException {
 		VelocityContext vcontext = new VelocityContext();
 		vcontext.put("report", report);
 		vcontext.put("project", project);
 
-		StringWriter w = new StringWriter();
-
-		renderer.render(templateName,  vcontext, w);
-
-		FileWriter writer = new FileWriter(new File(outputDirectory, "index.html"));
-		writer.write(w.toString());
-		writer.close();
+		File outputFile =  new File(outputDirectory, "index.html");
+		renderer.render(templateName,  vcontext, outputFile);
 	}
 
-	public String getTtitle() {
+	public String getTitle() {
 		return "Index";
 	}
 }

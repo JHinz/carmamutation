@@ -1,4 +1,4 @@
-package com.mutation.report.html;
+package com.mutation.report.generator.html;
 
 public class RenderException extends RuntimeException {
 
