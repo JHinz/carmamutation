@@ -86,7 +86,7 @@
 
 	<bean id="classUnderTestResolver"
 		class="com.mutation.resolver.ClassMatchResolver">
-		<property name="classesUnderTestPath" ref="classesDir" />
+		<property name="classesPath" ref="classesDir" />
 		<property name="testNameSuffix" value="${testCaseSuffix}"></property>
 	</bean>
 

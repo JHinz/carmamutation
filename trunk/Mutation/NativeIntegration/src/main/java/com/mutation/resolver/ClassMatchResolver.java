@@ -1,6 +1,5 @@
 package com.mutation.resolver;
 
-import java.io.File;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -8,23 +7,18 @@ import java.util.Set;
 import com.mutation.runner.ClassDescription;
 
 public class ClassMatchResolver extends AbstractFilteredResolver {
+//
+//	public ClassMatchResolver(FilterConfiguration filters, File classesPath, File testClassesPath)
+//			throws MalformedURLException {
+//		super(filters, classesPath, testClassesPath);
+//	}
 
 	private String testNameSuffix = "Test";
-
-	private File classesUnderTestPath;
-
-	public File getClassesUnderTestPath() {
-		return classesUnderTestPath;
-	}
-
-	public void setClassesUnderTestPath(File classesUnderTestPath) {
-		this.classesUnderTestPath = classesUnderTestPath;
-	}
 
 	public List<ClassDescription> resolve() {
 
 		DirectoryBasedResolver directoryResolver = new DirectoryBasedResolver();
-		directoryResolver.setClassesBaseDir(classesUnderTestPath);
+		directoryResolver.setClassesBaseDir(getClassesPath());
 
 		List<ClassDescription> classDescriptions = directoryResolver.determineClassNames();
 
@@ -39,7 +33,7 @@ public class ClassMatchResolver extends AbstractFilteredResolver {
 
 			for (String testName : testNames) {
 
-				if (!getTestClassExcludeFilter().shouldBeExcluded(testName)) {
+				if (!getFilterConfiguration().getTestClassExcludeFilter().shouldBeExcluded(testName)) {
 					classDescription.getAssociatedTestNames().add(testName);
 				}
 

@@ -25,7 +25,9 @@ import com.mutation.testrunner.ITestRunner;
  */
 public class JUnitRunner implements ITestRunner {
 
-	private URL[] testClassesLocations;
+	private URL[] testClassesLocations = new URL[0];
+
+	private URL[] libraries = new URL[0];
 
 	private boolean stopOnFirstFailedTest = true;
 
@@ -35,7 +37,12 @@ public class JUnitRunner implements ITestRunner {
 	 */
 	private int runTest(String testCase, Mutant mutant) {
 
-		MutantJUnitRunner runner = new MutantJUnitRunner(getTestClassesLocations(), mutant);
+		URL[] urls = new URL[testClassesLocations.length + libraries.length];
+
+		System.arraycopy(testClassesLocations, 0, urls, 0, testClassesLocations.length);
+		System.arraycopy(libraries, 0, urls, testClassesLocations.length, libraries.length);
+
+		MutantJUnitRunner runner = new MutantJUnitRunner(urls, mutant);
 		Test suite = runner.getTest(testCase);
 		TestResult result = runner.doRun(suite, false);
 		int errors = result.errorCount();
@@ -62,7 +69,7 @@ public class JUnitRunner implements ITestRunner {
 
 	public void execute(Mutant mutant, Set<String> origTestNames, IEventListener eventListener) {
 		boolean survived = true;
-		
+
 		Set<String> executedTestsNames = new HashSet<String>();
 		Set<String> killerTestNames = new TreeSet<String>();
 		for (String testCase : origTestNames) {
@@ -71,14 +78,15 @@ public class JUnitRunner implements ITestRunner {
 				executedTestsNames.add(testCase);
 				if (failures > 0) {
 					survived = false;
-					//TODO IMHO it would be better to have the surived flag separated
+					// TODO IMHO it would be better to have the surived flag
+					// separated
 					mutant.setSurvived(false);
 					killerTestNames.add(testCase);
 					if (stopOnFirstFailedTest) {
 						break;
 					}
 				}
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 				eventListener.notifyEvent(new TestNotExecuted(mutant, testCase, e));
@@ -89,6 +97,10 @@ public class JUnitRunner implements ITestRunner {
 
 	public void setStopOnFirstFailedTest(boolean stopOnFirstFailedTest) {
 		this.stopOnFirstFailedTest = stopOnFirstFailedTest;
+	}
+
+	public void setLibraries(URL[] libraries) {
+		this.libraries = libraries;
 	}
 
 }

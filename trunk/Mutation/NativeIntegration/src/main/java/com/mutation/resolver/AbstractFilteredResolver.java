@@ -1,56 +1,183 @@
 package com.mutation.resolver;
 
+import java.io.File;
+import java.lang.reflect.Modifier;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mutation.IResolver;
-import com.mutation.resolver.util.ExcludeFilter;
-import com.mutation.resolver.util.IncludeFilter;
+import com.mutation.resolver.util.FilterConfiguration;
+import com.mutation.runner.ClassDescription;
 
 public abstract class AbstractFilteredResolver implements IResolver {
 
-	private ExcludeFilter testClassExcludeFilter;
+	private FilterConfiguration filterConfiguration;
 
-	private ExcludeFilter classExcludeFilter;
+	private File classesPath;
 
-	private IncludeFilter testClassIncludeFilter;
+	private File testClassesPath;
 
-	private IncludeFilter classIncludeFilter;
+	private URLClassLoader loader;
+//
+//	public AbstractFilteredResolver(FilterConfiguration filters, File classesPath, File testClassesPath)
+//			throws MalformedURLException {
+//		super();
+//
+//		setFilterConfiguration(filters);
+//		setClassesPath(classesPath);
+//		setTestClassesPath(testClassesPath);
+//
+//		reinitPrivateClassLoader();
+//	}
 
-	public IncludeFilter getClassIncludeFilter() {
-		return classIncludeFilter;
+	private void reinitPrivateClassLoader() throws MalformedURLException {
+		List<URL> urlList = new ArrayList<URL>();
+
+		if (getClassesPath() != null)
+			urlList.add(getClassesPath().toURL());
+
+		if (getTestClassesPath() != null)
+			urlList.add(getTestClassesPath().toURL());
+
+		URL[] bla = (URL[]) urlList.toArray(new URL[0]);
+
+		setLoader(new URLClassLoader(bla, this.getClass().getClassLoader()));
 	}
 
-	public void setClassIncludeFilter(IncludeFilter classIncludeFilter) {
-		this.classIncludeFilter = classIncludeFilter;
+	protected URLClassLoader getLoader() {
+		return loader;
 	}
 
-	public IncludeFilter getTestClassIncludeFilter() {
-		return testClassIncludeFilter;
+	private void setLoader(URLClassLoader loader) {
+		this.loader = loader;
 	}
 
-	public void setTestClassIncludeFilter(IncludeFilter testClassIncludeFilter) {
-		this.testClassIncludeFilter = testClassIncludeFilter;
+	public File getClassesPath() {
+		return classesPath;
 	}
 
-	public ExcludeFilter getClassExcludeFilter() {
-		return classExcludeFilter;
+	public void setClassesPath(File classesPath) throws MalformedURLException {
+		this.classesPath = classesPath;
+		reinitPrivateClassLoader();
 	}
 
-	public void setClassExcludeFilter(ExcludeFilter classExcludeFilter) {
-		this.classExcludeFilter = classExcludeFilter;
+	public File getTestClassesPath() {
+		return testClassesPath;
 	}
 
-	public ExcludeFilter getTestClassExcludeFilter() {
-		return testClassExcludeFilter;
+	public void setTestClassesPath(File testClassesPath) throws MalformedURLException {
+		this.testClassesPath = testClassesPath;
+		reinitPrivateClassLoader();
 	}
 
-	public void setTestClassExcludeFilter(ExcludeFilter filter) {
-		this.testClassExcludeFilter = filter;
+	protected List<ClassDescription> removeExcludedClasses(List<ClassDescription> classDescriptions) {
+
+		List<ClassDescription> excludedClasses = new ArrayList<ClassDescription>();
+
+		for (ClassDescription classDescription : classDescriptions) {
+
+			if (!getFilterConfiguration().getClassIncludeFilter().shouldBeIncluded(
+					classDescription.getQualifiedClassName())) {
+				excludedClasses.add(classDescription);
+				continue;
+			}
+
+			if (getFilterConfiguration().getClassExcludeFilter().shouldBeExcluded(
+					classDescription.getQualifiedClassName())) {
+				excludedClasses.add(classDescription);
+				continue;
+			}
+
+		}
+
+		for (ClassDescription classDescription : excludedClasses) {
+			classDescriptions.remove(classDescription);
+		}
+
+		return classDescriptions;
 	}
 
-	public AbstractFilteredResolver() {
-		super();
-		setTestClassExcludeFilter(new ExcludeFilter());
-		setClassExcludeFilter(new ExcludeFilter());
-		setTestClassIncludeFilter(new IncludeFilter());
-		setClassIncludeFilter(new IncludeFilter());
+	protected List<ClassDescription> removeExcludedTestClasses(List<ClassDescription> classDescriptions) {
+
+		List<ClassDescription> excludedClasses = new ArrayList<ClassDescription>();
+
+		for (ClassDescription classDescription : classDescriptions) {
+
+			if (!getFilterConfiguration().getTestClassIncludeFilter().shouldBeIncluded(
+					classDescription.getQualifiedClassName())) {
+				excludedClasses.add(classDescription);
+				continue;
+			}
+
+			if (getFilterConfiguration().getTestClassExcludeFilter().shouldBeExcluded(
+					classDescription.getQualifiedClassName())) {
+				excludedClasses.add(classDescription);
+				continue;
+			}
+
+		}
+
+		for (ClassDescription classDescription : excludedClasses) {
+			classDescriptions.remove(classDescription);
+		}
+
+		return classDescriptions;
+	}
+
+	protected List<ClassDescription> removeNonInstantiatableClasses(List<ClassDescription> classes) {
+
+		List<ClassDescription> usableTestClassDescriptions = new ArrayList<ClassDescription>();
+
+		for (ClassDescription testClassDescription : classes) {
+
+			if (!getFilterConfiguration().getTestClassIncludeFilter().shouldBeIncluded(
+					testClassDescription.getQualifiedClassName())) {
+				continue;
+			}
+
+			if (getFilterConfiguration().getTestClassExcludeFilter().shouldBeExcluded(
+					testClassDescription.getQualifiedClassName())) {
+				System.out.println("Skipping class in test set due to exclude filter:"
+						+ testClassDescription.getQualifiedClassName());
+				continue;
+			}
+
+			try {
+				Class testClass = loader.loadClass(testClassDescription.getQualifiedClassName());
+
+				if (Modifier.isAbstract(testClass.getModifiers()) || Modifier.isInterface(testClass.getModifiers())) {
+					System.out.println("Skipping abstract class or interface in test set:"
+							+ testClassDescription.getQualifiedClassName());
+					continue;
+				}
+
+			} catch (ClassNotFoundException e) {
+				System.out.println("Skipping class in test set due to class loading problem:"
+						+ testClassDescription.getQualifiedClassName());
+				continue;
+			} catch (NoClassDefFoundError e) {
+				System.out.println("Skipping class in test set due to class loading problem:"
+						+ testClassDescription.getQualifiedClassName());
+				continue;
+			}
+			usableTestClassDescriptions.add(testClassDescription);
+		}
+
+		for (ClassDescription classDescription : usableTestClassDescriptions) {
+			classes.remove(classDescription);
+		}
+
+		return usableTestClassDescriptions;
+	}
+
+	public FilterConfiguration getFilterConfiguration() {
+		return filterConfiguration;
+	}
+
+	public void setFilterConfiguration(FilterConfiguration filterConfiguration) {
+		this.filterConfiguration = filterConfiguration;
 	}
 }

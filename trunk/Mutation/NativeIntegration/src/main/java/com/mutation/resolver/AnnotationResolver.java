@@ -1,11 +1,6 @@
 package com.mutation.resolver;
 
-import java.io.File;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Modifier;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,59 +14,34 @@ import com.mutation.runner.ClassDescription;
 
 public class AnnotationResolver extends AbstractFilteredResolver {
 
-	private File testClassesPath;
-
-	private File classesPath;
-
-	public File getTestClassesPath() {
-		return testClassesPath;
-	}
-
-	public void setTestClassesPath(File testClassesPath) throws MalformedURLException {
-		this.testClassesPath = testClassesPath;
-
-	}
+//	public AnnotationResolver(FilterConfiguration filters, File classesPath, File testClassesPath)
+//			throws MalformedURLException {
+//		super(filters, classesPath, testClassesPath);
+//	}
 
 	public List<ClassDescription> resolve() {
 
-		URLClassLoader loader = null;
-		try {
-			loader = new URLClassLoader(new URL[] { this.testClassesPath.toURL(), this.classesPath.toURL() }, this
-					.getClass().getClassLoader());
-		} catch (MalformedURLException e1) {
-			e1.printStackTrace();
-			return new ArrayList<ClassDescription>();
-		}
-
 		DirectoryBasedResolver directoryResolver = new DirectoryBasedResolver();
-		directoryResolver.setClassesBaseDir(testClassesPath);
+		directoryResolver.setClassesBaseDir(getTestClassesPath());
 
 		List<ClassDescription> testClassDescriptions = directoryResolver.determineClassNames();
 
 		Map<String, ClassDescription> classDescriptions = new HashMap<String, ClassDescription>();
 
-		for (ClassDescription testClassDescription : testClassDescriptions) {
+		List<ClassDescription> invokableTestClasses = removeNonInstantiatableClasses(testClassDescriptions);
 
-			if (getTestClassExcludeFilter().shouldBeExcluded(testClassDescription.getQualifiedClassName()))
-				continue;
+		List<ClassDescription> usefulTestClasses = removeExcludedClasses(invokableTestClasses);
 
-			try {
-				Class testClass = loader.loadClass(testClassDescription.getQualifiedClassName());
+		determineAnnotationMappings(classDescriptions, usefulTestClasses);
 
-				if (Modifier.isAbstract(testClass.getModifiers()) || Modifier.isInterface(testClass.getModifiers())) {
-					System.out.println("Skipping abstract class or interface in test set:"
-							+ testClassDescription.getQualifiedClassName());
-					continue;
-				}
+		return new ArrayList<ClassDescription>(classDescriptions.values());
+	}
 
-			} catch (ClassNotFoundException e) {
-				System.out.println("Skipping class in test set due to class loading problem:"
-						+ testClassDescription.getQualifiedClassName());
-				continue;
-			}
+	private void determineAnnotationMappings(Map<String, ClassDescription> classDescriptions, List<ClassDescription> usefulTestClasses) {
+		for (ClassDescription testClassDescription : usefulTestClasses) {
 
 			try {
-				Class testClass = loader.loadClass(testClassDescription.getQualifiedClassName());
+				Class testClass = getLoader().loadClass(testClassDescription.getQualifiedClassName());
 
 				Annotation annotation = testClass.getAnnotation(TestClassToClassMapping.class);
 
@@ -104,16 +74,6 @@ public class AnnotationResolver extends AbstractFilteredResolver {
 				e.printStackTrace();
 			}
 		}
-
-		return new ArrayList<ClassDescription>(classDescriptions.values());
-	}
-
-	public File getClassesPath() {
-		return classesPath;
-	}
-
-	public void setClassesPath(File classesPath) {
-		this.classesPath = classesPath;
 	}
 
 }

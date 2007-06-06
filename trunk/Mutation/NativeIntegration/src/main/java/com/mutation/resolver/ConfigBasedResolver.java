@@ -20,11 +20,7 @@ import com.mutation.report.generator.utils.ClassNameAnalyzer.ClassNameInfo;
 import com.mutation.runner.ClassDescription;
 
 public class ConfigBasedResolver extends AbstractFilteredResolver {
-
-	private File testClassesPath;
-
-	private File classesPath;
-
+	
 	private File configurationFile;
 
 	public File getConfigurationFile() {
@@ -33,15 +29,6 @@ public class ConfigBasedResolver extends AbstractFilteredResolver {
 
 	public void setConfigurationFile(File configurationFile) {
 		this.configurationFile = configurationFile;
-	}
-
-	public File getTestClassesPath() {
-		return testClassesPath;
-	}
-
-	public void setTestClassesPath(File testClassesPath) throws MalformedURLException {
-		this.testClassesPath = testClassesPath;
-
 	}
 
 	protected String readInputConfiguration(InputStream steram) throws IOException {
@@ -113,7 +100,7 @@ public class ConfigBasedResolver extends AbstractFilteredResolver {
 
 		URLClassLoader loader = null;
 		try {
-			loader = new URLClassLoader(new URL[] { this.testClassesPath.toURL(), this.classesPath.toURL() }, this
+			loader = new URLClassLoader(new URL[] { getTestClassesPath().toURL(), getClassesPath().toURL() }, this
 					.getClass().getClassLoader());
 		} catch (MalformedURLException e1) {
 			e1.printStackTrace();
@@ -135,7 +122,7 @@ public class ConfigBasedResolver extends AbstractFilteredResolver {
 
 			for (String testClassName : classDescription.getAssociatedTestNames()) {
 
-				if (getTestClassExcludeFilter().shouldBeExcluded(testClassName))
+				if (getFilterConfiguration().getTestClassExcludeFilter().shouldBeExcluded(testClassName))
 					continue;
 
 				try {
@@ -157,14 +144,6 @@ public class ConfigBasedResolver extends AbstractFilteredResolver {
 		}
 
 		return classDescriptions;
-	}
-
-	public File getClassesPath() {
-		return classesPath;
-	}
-
-	public void setClassesPath(File classesPath) {
-		this.classesPath = classesPath;
 	}
 
 }
