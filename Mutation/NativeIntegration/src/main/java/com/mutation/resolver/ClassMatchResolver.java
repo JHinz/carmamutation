@@ -7,11 +7,6 @@ import java.util.Set;
 import com.mutation.runner.ClassDescription;
 
 public class ClassMatchResolver extends AbstractFilteredResolver {
-//
-//	public ClassMatchResolver(FilterConfiguration filters, File classesPath, File testClassesPath)
-//			throws MalformedURLException {
-//		super(filters, classesPath, testClassesPath);
-//	}
 
 	private String testNameSuffix = "Test";
 
