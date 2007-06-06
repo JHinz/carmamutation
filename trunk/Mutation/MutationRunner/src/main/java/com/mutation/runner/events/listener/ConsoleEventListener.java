@@ -73,8 +73,7 @@ public class ConsoleEventListener implements IEventListener {
 		}
 	}
 
-	public void destroy() throws Exception {
-
+	public void destroy() {
 	}
 
 	public void setShowSummaryOnly(boolean showSummaryOnly) {

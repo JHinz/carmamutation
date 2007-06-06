@@ -37,6 +37,9 @@ public class MutationRunnerTestCase extends TestCase {
 			this.eventList = new Vector<IEvent>();
 		}
 
+		public void destroy() {
+		}
+
 	}
 
 	public void test_performMutations_Sample_SampleTestCase() throws Exception {
@@ -113,7 +116,8 @@ public class MutationRunnerTestCase extends TestCase {
 
 		assertFalse(((MutantsGenerated) listener.eventList.get(2)).getGeneratedMutants().get(0).isSurvived());
 		assertFalse(((MutantsGenerated) listener.eventList.get(2)).getGeneratedMutants().get(1).isSurvived());
-		//assertTrue(((MutantsGenerated) listener.eventList.get(2)).getGeneratedMutants().get(2).isSurvived());
+		// assertTrue(((MutantsGenerated)
+		// listener.eventList.get(2)).getGeneratedMutants().get(2).isSurvived());
 		// TODO: investigate more the generated mutants
 
 		assertTrue("Wrong event", listener.eventList.get(3) instanceof ProcessingMutant);

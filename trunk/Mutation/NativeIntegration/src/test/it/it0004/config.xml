@@ -34,7 +34,7 @@
 	</bean>
 
 	<bean id="report.filename" class="java.lang.String">
-		<constructor-arg value="report.xml" />
+		<constructor-arg value="target/report.xml" />
 	</bean>
 
 	<bean id="report.reportSurvivorsOnly" class="java.lang.Boolean">

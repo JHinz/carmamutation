@@ -85,6 +85,8 @@ public class BasicDriver {
 		}
 
 		eventListener.notifyEvent(new MutationProcessFinished());
+		
+		eventListener.destroy();
 
 	}
 

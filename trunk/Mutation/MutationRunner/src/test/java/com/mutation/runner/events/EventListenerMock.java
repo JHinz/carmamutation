@@ -13,5 +13,8 @@ public class EventListenerMock implements IEventListener {
 	public Vector<IEvent> getEvents() {
 		return events;
 	}
+	
+	public void destroy() {
+	}
 
 }
