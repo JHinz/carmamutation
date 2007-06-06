@@ -35,8 +35,7 @@
 	</bean>
 
 	<bean id="file.eventListener"
-		class="com.mutation.runner.events.listener.FileEventListener"
-		destroy-method="destroy">
+		class="com.mutation.runner.events.listener.FileEventListener">
 		<constructor-arg>
 			<ref bean="report.filename" />
 		</constructor-arg>
