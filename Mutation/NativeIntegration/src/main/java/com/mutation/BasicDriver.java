@@ -3,9 +3,12 @@ package com.mutation;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.context.support.AbstractApplicationContext;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.ParseException;
+import org.springframework.context.support.AbstractXmlApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.mutation.runner.ClassDescription;
@@ -16,8 +19,13 @@ import com.mutation.runner.events.MutationProcessFinished;
 import com.mutation.runner.events.MutationProcessStarted;
 import com.mutation.runner.events.TestSetDetermined;
 import com.mutation.transform.TransitionGroupConfig;
+import com.mutation.util.CLIValidator;
 
 public class BasicDriver {
+
+	private static final String DEFAULT_USER_CONFIG = "config.xml";
+
+	private final static String DEFAULT_GLUE_CONFIG = "mutationConfig.xml";
 
 	private IEventListener eventListener;
 
@@ -27,15 +35,30 @@ public class BasicDriver {
 
 	/**
 	 * command line test runner, reads configuration from mutationconfig.xml
+	 * 
+	 * @throws ParseException
 	 */
-	public static void main(String[] args) throws MalformedURLException, FileNotFoundException {
+	public static void main(String[] args) throws MalformedURLException, FileNotFoundException, ParseException {
 
-		AbstractApplicationContext factory = new ClassPathXmlApplicationContext("mutationconfig.xml");
+		CommandLine line = new CLIValidator().readCLI(args);
 
-		factory.registerShutdownHook();
+		List<String> springResources = new ArrayList<String>();
 
-		TransitionGroupConfig tgConfig = (TransitionGroupConfig) factory.getBean("operators");
-		BasicDriver driver = (BasicDriver) factory.getBean("testDriver");
+		if (line.hasOption(CLIValidator.USER_CONFIG_OPTION_SHORT)) {
+			springResources.add("file:" + line.getOptionValue(CLIValidator.USER_CONFIG_OPTION_SHORT));
+		} else {
+			springResources.add("file:" + DEFAULT_USER_CONFIG);
+		}
+
+		springResources.add(DEFAULT_GLUE_CONFIG);
+
+		AbstractXmlApplicationContext appContext = new ClassPathXmlApplicationContext(springResources
+				.toArray(new String[0]));
+
+		appContext.registerShutdownHook();
+
+		TransitionGroupConfig tgConfig = (TransitionGroupConfig) appContext.getBean("operators");
+		BasicDriver driver = (BasicDriver) appContext.getBean("testDriver");
 		driver.execute(tgConfig);
 	}
 

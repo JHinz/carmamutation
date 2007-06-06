@@ -50,15 +50,16 @@
 		</constructor-arg>
 	</bean>
 
+	<bean id="summaryCreator"
+		class="com.mutation.runner.events.listener.SummaryCreatorEventListener">
+	</bean>
+
 	<bean id="eventListener"
 		class="com.mutation.runner.events.listener.CompositeEventListener">
 		<property name="listeners">
 			<list>
-				<bean
-					class="com.mutation.runner.events.listener.ConsoleEventListener">
-					<property name="showSummaryOnly" value="false" />
-				</bean>
-				<ref bean="report.eventListener" />
+				<ref bean="summaryCreator"/>
+				<ref bean="report.eventListener"/>
 			</list>
 		</property>
 	</bean>

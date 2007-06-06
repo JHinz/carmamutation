@@ -8,6 +8,7 @@ import java.util.List;
 import junit.framework.TestCase;
 
 import com.mutation.resolver.util.ExcludeFilter;
+import com.mutation.resolver.util.FilterConfiguration;
 import com.mutation.runner.ClassDescription;
 
 public class AnnotationResolverTestCase extends TestCase {
@@ -17,8 +18,9 @@ public class AnnotationResolverTestCase extends TestCase {
 		File testClassPath = new File("src/test/it/it0002/test-classes/");
 
 		AnnotationResolver resolver = new AnnotationResolver();
-		resolver.setTestClassesPath(testClassPath);
+		resolver.setFilterConfiguration(new FilterConfiguration());
 		resolver.setClassesPath(testClassPath);
+		resolver.setTestClassesPath(testClassPath);
 
 		List<ClassDescription> classes = resolver.resolve();
 
@@ -46,13 +48,16 @@ public class AnnotationResolverTestCase extends TestCase {
 
 		File testClassPath = new File("src/test/it/it0002/test-classes/");
 
-		ExcludeFilter filter = new ExcludeFilter();
-		filter.setExcludePattern("sub2");
+		ExcludeFilter testExcludeFilter = new ExcludeFilter();
+		testExcludeFilter.setExcludePattern("sub2");
+
+		FilterConfiguration filters = new FilterConfiguration();
+		filters.setTestClassExcludeFilter(testExcludeFilter);
 
 		AnnotationResolver resolver = new AnnotationResolver();
-		resolver.setTestClassesPath(testClassPath);
+		resolver.setFilterConfiguration(filters);
 		resolver.setClassesPath(testClassPath);
-		resolver.setTestClassExcludeFilter(filter);
+		resolver.setTestClassesPath(testClassPath);
 
 		List<ClassDescription> classes = resolver.resolve();
 

@@ -3,16 +3,18 @@ package com.mutation.resolver;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.TestCase;
 
+import com.mutation.resolver.util.FilterConfiguration;
 import com.mutation.runner.ClassDescription;
 
 public class ConfigBasedResolverTestCase extends TestCase {
 
-	public void test_ReadConfig_MultiLineBaseTest() {
+	public void test_ReadConfig_MultiLineBaseTest() throws MalformedURLException {
 
 		StringBuffer inputConfig = new StringBuffer();
 
@@ -20,7 +22,10 @@ public class ConfigBasedResolverTestCase extends TestCase {
 		inputConfig.append("com.b.Class2=com.b.TestClass2\n");
 
 		ConfigBasedResolver resolver = new ConfigBasedResolver();
-
+		resolver.setFilterConfiguration(new FilterConfiguration());
+		resolver.setClassesPath(null);
+		resolver.setTestClassesPath(null);
+		
 		List<ClassDescription> result = resolver.parseInputConfiguration(inputConfig.toString());
 
 		assertEquals(2, result.size());
@@ -48,7 +53,7 @@ public class ConfigBasedResolverTestCase extends TestCase {
 
 	}
 
-	public void test_ReadConfig_EmptyClassNameTest() {
+	public void test_ReadConfig_EmptyClassNameTest() throws MalformedURLException {
 
 		StringBuffer inputConfig = new StringBuffer();
 
@@ -74,7 +79,7 @@ public class ConfigBasedResolverTestCase extends TestCase {
 
 	}
 
-	public void test_ReadConfig_MissingEqualSeperatorTest() {
+	public void test_ReadConfig_MissingEqualSeperatorTest() throws MalformedURLException {
 
 		StringBuffer inputConfig = new StringBuffer();
 
@@ -100,7 +105,7 @@ public class ConfigBasedResolverTestCase extends TestCase {
 
 	}
 
-	public void test_ReadConfig_DuplicateEqualSeperatorTest() {
+	public void test_ReadConfig_DuplicateEqualSeperatorTest() throws MalformedURLException {
 
 		StringBuffer inputConfig = new StringBuffer();
 

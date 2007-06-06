@@ -10,10 +10,6 @@ import org.apache.commons.cli.ParseException;
 
 public class CLIValidator {
 
-	public static final String MUTATION_CONFIG_OPTION_LONG = "mutationConfig";
-
-	public static final String MUTATION_CONFIG_OPTION_SHORT = "mc";
-
 	public static final String USER_CONFIG_OPTION_LONG = "userConfig";
 
 	public static final String USER_CONFIG_OPTION_SHORT = "uc";
@@ -35,12 +31,6 @@ public class CLIValidator {
 	private Options initOptions() {
 
 		Options definedOptions = new Options();
-
-		Option mutationConfigFile = OptionBuilder.withArgName("file").hasArg().withDescription(
-				"use given file as mutation configuration definition").withLongOpt(MUTATION_CONFIG_OPTION_LONG)
-				.isRequired(false).create(MUTATION_CONFIG_OPTION_SHORT);
-
-		definedOptions.addOption(mutationConfigFile);
 
 		Option userConfigFile = OptionBuilder.withArgName("file").hasArg().withDescription(
 				"use given file as user configuration definition").withLongOpt(USER_CONFIG_OPTION_LONG).isRequired(

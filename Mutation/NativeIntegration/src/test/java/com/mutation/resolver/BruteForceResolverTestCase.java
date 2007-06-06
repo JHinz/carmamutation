@@ -1,24 +1,29 @@
 package com.mutation.resolver;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.util.Iterator;
 import java.util.List;
 
 import com.mutation.resolver.util.ExcludeFilter;
+import com.mutation.resolver.util.FilterConfiguration;
 import com.mutation.runner.ClassDescription;
 
 import junit.framework.TestCase;
 
 public class BruteForceResolverTestCase extends TestCase {
 
-	public void testGetClassesWithoutExcludeFilterButWithIncludeFilterSet() {
+	public void testGetClassesWithoutExcludeFilterButWithIncludeFilterSet() throws MalformedURLException {
 
 		File testClassPath = new File("src/test/it/it0001/testclasses/");
 
+		FilterConfiguration filters = new FilterConfiguration();
+
 		BruteForceResolver resolver = new BruteForceResolver();
+		resolver.setFilterConfiguration(filters);
 		resolver.setClassesPath(testClassPath);
 		resolver.setTestClassesPath(testClassPath);
-
+		
 		List<ClassDescription> classes = resolver.resolve();
 
 		assertEquals(2, classes.size());
@@ -41,17 +46,20 @@ public class BruteForceResolverTestCase extends TestCase {
 
 	}
 
-	public void testGetClassesWithExcludeFilterSet() {
+	public void testGetClassesWithExcludeFilterSet() throws MalformedURLException {
 
 		File testClassPath = new File("src/test/it/it0001/testclasses/");
 
+		ExcludeFilter testExcludeFilter = new ExcludeFilter();
+		testExcludeFilter.setExcludePattern("sub1");
+
+		FilterConfiguration filters = new FilterConfiguration();
+		filters.setTestClassExcludeFilter(testExcludeFilter);
+		
 		BruteForceResolver resolver = new BruteForceResolver();
+		resolver.setFilterConfiguration(filters);
 		resolver.setClassesPath(testClassPath);
 		resolver.setTestClassesPath(testClassPath);
-
-		ExcludeFilter filter = new ExcludeFilter();
-		filter.setExcludePattern("sub1");
-		resolver.setTestClassExcludeFilter(filter);
 
 		List<ClassDescription> classes = resolver.resolve();
 

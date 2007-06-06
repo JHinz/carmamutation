@@ -3,6 +3,7 @@ package com.mutation.driver.maven;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -31,13 +32,20 @@ public class MavenTestExecuter {
 		properties.setProperty("testClassesDir", testClassesDir.getAbsolutePath());
 		properties.setProperty("log.filename", logFile.getAbsolutePath());
 		reportFile.getParentFile().mkdirs();
-		properties.setProperty("report.filename", reportFile.getAbsolutePath());
+		//properties.setProperty("report.filename", );
 
 		// TODO maven config
 		properties.setProperty("testCaseSuffix", testNamePattern);
 		
-		ClassPathResource springConfigResource = new ClassPathResource("mutationconfig-maven.xml");
+		ClassPathResource springConfigResource = new ClassPathResource("mutationconfig.xml");
 		XmlBeanFactory factory = new XmlBeanFactory(springConfigResource);
+		
+		factory.registerSingleton("classesDir", new File(classesDir.getAbsolutePath()));
+		factory.registerSingleton("testClassesDir", new File(testClassesDir.getAbsolutePath()));
+		factory.registerSingleton("libraries", getDependencyClassPathUrls());
+		factory.registerSingleton("usedResolver", factory.getBean("classMatchResolver"));
+		factory.registerSingleton("report.filename", reportFile.getAbsolutePath());
+		
 		PropertyPlaceholderConfigurer propertyPlaceholderConfigurer = new PropertyPlaceholderConfigurer();
 		propertyPlaceholderConfigurer.setProperties(properties);
 		propertyPlaceholderConfigurer.postProcessBeanFactory(factory);
@@ -46,7 +54,7 @@ public class MavenTestExecuter {
 		// TODO use dependencies in mutation test executer
 		// -> JUnitRunner setTestClassesLocAsFiles ... overwrite spring config?
 		try {
-			List<URL> junitRunnerClassPath = getDependencyClassPathUrls();
+			List<URL> junitRunnerClassPath = new ArrayList<URL>(); //getDependencyClassPathUrls();
 			// add testClassesDir junitRunnerClassPath
 			// add classesDir
 
