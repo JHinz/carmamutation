@@ -30,4 +30,11 @@ public class CompositeEventListener implements IEventListener {
 		this.listeners = listeners;
 	}
 
+	public void destroy() {
+
+		for (IEventListener listener : getListeners()) {
+			listener.destroy();
+		}
+	}
+
 }
