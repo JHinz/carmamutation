@@ -10,7 +10,7 @@ import java.util.List;
 import junit.framework.TestCase;
 
 import com.mutation.resolver.util.FilterConfiguration;
-import com.mutation.runner.ClassDescription;
+import com.retroduction.carma.core.runner.ClassDescription;
 
 public class ConfigBasedResolverTestCase extends TestCase {
 

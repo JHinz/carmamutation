@@ -2,7 +2,7 @@ package com.mutation;
 
 import java.util.List;
 
-import com.mutation.runner.ClassDescription;
+import com.retroduction.carma.core.runner.ClassDescription;
 
 public interface IResolver {
 

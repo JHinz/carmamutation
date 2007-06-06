@@ -6,11 +6,11 @@
 	<!--  set of operators considered for tests -->
 
 	<bean id="operators"
-		class="com.mutation.transform.TransitionGroupConfig">
+		class="com.retroduction.carma.core.transform.TransitionGroupConfig">
 		<property name="transitionGroups">
 			<list>
 				<bean
-					class="com.mutation.transform.asm.ror.ROR_TransitionGroup">
+					class="com.retroduction.carma.core.transform.asm.ror.ROR_TransitionGroup">
 					<constructor-arg>
 						<value>true</value>
 					</constructor-arg>
@@ -27,7 +27,7 @@
 	</bean>
 
 	<!-- the core mutation runner class which executes the tests -->
-	<bean id="runner" class="com.mutation.runner.MutationRunner">
+	<bean id="runner" class="com.retroduction.carma.core.runner.MutationRunner">
 		<property name="testRunner" ref="testRunner" />
 		<property name="eventListener" ref="eventListener" />
 		<property name="mutantGenerator" ref="mutantGenerator" />
@@ -35,14 +35,14 @@
 	</bean>
 
 	<bean id="file.eventListener"
-		class="com.mutation.runner.events.listener.FileEventListener">
+		class="com.retroduction.carma.core.runner.events.listener.FileEventListener">
 		<constructor-arg>
 			<ref bean="report.filename" />
 		</constructor-arg>
 	</bean>
 
 	<bean id="report.eventListener"
-		class="com.mutation.runner.events.listener.ReportEventListener"
+		class="com.retroduction.carma.core.runner.events.listener.ReportEventListener"
 		destroy-method="destroy">
 		<constructor-arg>
 			<ref bean="report.filename" />
@@ -50,11 +50,11 @@
 	</bean>
 
 	<bean id="eventListener"
-		class="com.mutation.runner.events.listener.CompositeEventListener">
+		class="com.retroduction.carma.core.runner.events.listener.CompositeEventListener">
 		<property name="listeners">
 			<list>
 				<bean
-					class="com.mutation.runner.events.listener.ConsoleEventListener">
+					class="com.retroduction.carma.core.runner.events.listener.ConsoleEventListener">
 					<property name="showSummaryOnly" value="false" />
 				</bean>
 				<ref bean="report.eventListener" />
@@ -63,7 +63,7 @@
 	</bean>
 
 	<bean id="testRunner"
-		class="com.mutation.testrunner.junit3.JUnitRunner">
+		class="com.retroduction.carma.core.testrunner.junit3.JUnitRunner">
 		<property name="stopOnFirstFailedTest" value="true" />
 		<property name="testClassesLocationsAsFiles">
 			<list>
@@ -142,11 +142,11 @@
 	</bean>
 
 	<bean id="mutantGenerator"
-		class="com.mutation.transform.MutantGenerator">
+		class="com.retroduction.carma.core.transform.MutantGenerator">
 	</bean>
 
 	<bean id="dummyMutantGenerator"
-		class="com.mutation.transform.DummyMutantGenerator">
+		class="com.retroduction.carma.core.transform.DummyMutantGenerator">
 	</bean>
 
 </beans>

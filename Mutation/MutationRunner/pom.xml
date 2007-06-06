@@ -10,11 +10,11 @@
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.mutation.core</groupId>
-	<artifactId>MutationRunner</artifactId>
+	<groupId>com.retroduction.carma.core</groupId>
+	<artifactId>Carma-Core</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>Mutation Runner</name>
+	<name>Retroduction Carma Core Package</name>
 
 	<dependencies>
 		<dependency>

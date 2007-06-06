@@ -3,7 +3,7 @@ package com.mutation.resolver;
 import java.util.HashSet;
 import java.util.List;
 
-import com.mutation.runner.ClassDescription;
+import com.retroduction.carma.core.runner.ClassDescription;
 
 public class BruteForceResolver extends AbstractFilteredResolver {
 

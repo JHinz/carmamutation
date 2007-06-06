@@ -14,7 +14,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 
-import com.mutation.runner.events.listener.SummaryCreatorEventListener.Summary;
+import com.retroduction.carma.core.runner.events.listener.SummaryCreatorEventListener.Summary;
 
 /**
  * Goal which executes mutationtests.

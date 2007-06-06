@@ -17,7 +17,7 @@ import java.util.StringTokenizer;
 
 import com.mutation.report.generator.utils.ClassNameAnalyzer;
 import com.mutation.report.generator.utils.ClassNameAnalyzer.ClassNameInfo;
-import com.mutation.runner.ClassDescription;
+import com.retroduction.carma.core.runner.ClassDescription;
 
 public class ConfigBasedResolver extends AbstractFilteredResolver {
 	
