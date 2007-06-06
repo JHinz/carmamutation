@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 
 import com.mutation.resolver.util.ExcludeFilter;
 import com.mutation.resolver.util.FilterConfiguration;
-import com.mutation.runner.ClassDescription;
+import com.retroduction.carma.core.runner.ClassDescription;
 
 public class AnnotationResolverTestCase extends TestCase {
 

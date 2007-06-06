@@ -13,11 +13,11 @@ import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.ClassPathResource;
 
 import com.mutation.BasicDriver;
-import com.mutation.runner.events.listener.CompositeEventListener;
-import com.mutation.runner.events.listener.SummaryCreatorEventListener;
-import com.mutation.runner.events.listener.SummaryCreatorEventListener.Summary;
-import com.mutation.testrunner.junit3.JUnitRunner;
-import com.mutation.transform.TransitionGroupConfig;
+import com.retroduction.carma.core.runner.events.listener.CompositeEventListener;
+import com.retroduction.carma.core.runner.events.listener.SummaryCreatorEventListener;
+import com.retroduction.carma.core.runner.events.listener.SummaryCreatorEventListener.Summary;
+import com.retroduction.carma.core.testrunner.junit3.JUnitRunner;
+import com.retroduction.carma.core.transform.TransitionGroupConfig;
 
 public class MavenTestExecuter {
 	private List<URL> dependencyClassPathUrls;

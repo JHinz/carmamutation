@@ -8,7 +8,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 
 import junit.framework.TestCase;
 
-import com.mutation.runner.events.listener.SummaryCreatorEventListener.Summary;
+import com.retroduction.carma.core.runner.events.listener.SummaryCreatorEventListener.Summary;
 
 public class MavenTestExecuterTestCase extends TestCase {
 

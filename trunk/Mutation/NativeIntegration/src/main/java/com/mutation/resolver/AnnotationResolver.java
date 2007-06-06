@@ -10,7 +10,7 @@ import java.util.Map;
 import com.mutation.annotations.TestClassToClassMapping;
 import com.mutation.report.generator.utils.ClassNameAnalyzer;
 import com.mutation.report.generator.utils.ClassNameAnalyzer.ClassNameInfo;
-import com.mutation.runner.ClassDescription;
+import com.retroduction.carma.core.runner.ClassDescription;
 
 public class AnnotationResolver extends AbstractFilteredResolver {
 
