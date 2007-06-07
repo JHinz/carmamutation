@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+
+	<parent>
+		<groupId>com.mutation</groupId>
+		<artifactId>Reactor</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.mutation.sampleapp</groupId>
+	<artifactId>SampleProjectUnderTest</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>Mutation Sample Under-Mutation Project</name>
+
+	<dependencies>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.mutation.driver.maven</groupId>
+				<artifactId>MavenPlugin</artifactId>
+				<executions>
+					<execution>
+						<id>mutationtest</id>
+						<goals>
+							<goal>mtest</goal>
+						</goals>
+					</execution>
+						<execution>
+						<id>mutationreport</id>
+						<goals>
+							<goal>mreport</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
