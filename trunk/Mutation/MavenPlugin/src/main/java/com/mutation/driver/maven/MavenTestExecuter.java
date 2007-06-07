@@ -36,7 +36,7 @@ public class MavenTestExecuter {
 
 		reportFile.getParentFile().mkdirs();
 
-		ClassPathResource springConfigResource = new ClassPathResource("mutationconfig.xml");
+		ClassPathResource springConfigResource = new ClassPathResource("mutationConfig.xml");
 		XmlBeanFactory factory = new XmlBeanFactory(springConfigResource);
 
 		factory.registerSingleton("classesDir", new File(classesDir.getAbsolutePath()));
