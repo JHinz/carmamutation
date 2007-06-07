@@ -16,7 +16,7 @@
 		<!--<module>../SampleProjectUnderTest</module>-->
 		<module>../MavenPlugin</module>
 		<module>../NativeIntegration</module>
-		<module>../MutationRunner</module>
+		<module>../Carma-Core</module>
 		<module>../Annotations</module>
 		<module>../Utilities</module>
 	</modules>
