@@ -15,11 +15,11 @@ public class MavenTestExecuterTestCase extends TestCase {
 	public void testExecuteTests() throws MojoExecutionException{
 		MavenTestExecuter executer = new MavenTestExecuter();
 		
-		File reportFile = new File("log/Report.xml");
-		File projectbaseDir = new File("../SampleProjectunderTest");
-		executer.setClassesDir(new File(projectbaseDir, "target/classes") );
-		executer.setTestClassesDir( new File(projectbaseDir, "target/test-classes") );
-		executer.setLogFile( new File("log/logfile.log"));
+		File reportFile = new File("target/it/it0001/log/Report.xml");
+		File projectbaseDir = new File("./");
+		executer.setClassesDir(new File(projectbaseDir, "src/test/it/it0001/target/classes") );
+		executer.setTestClassesDir( new File(projectbaseDir, "src/test/it/it0001/target/test-classes") );
+		executer.setLogFile( new File("target/it/it0001/log/logfile.log"));
 		executer.setReportFile(reportFile);
 		executer.setTestNamePattern("Test");
 		executer.setDependencyClassPathUrls(new ArrayList<URL>());
@@ -27,6 +27,7 @@ public class MavenTestExecuterTestCase extends TestCase {
 		if(reportFile.exists()){
 			reportFile.delete();
 		}
+		
 		Summary sum = executer.exeuteTests();
 		assertEquals(1, sum.numTests);
 		assertEquals(3.0, sum.mutantsPerClass);
