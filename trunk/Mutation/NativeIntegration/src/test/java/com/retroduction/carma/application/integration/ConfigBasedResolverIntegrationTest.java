@@ -1,4 +1,4 @@
-package com.mutation.integration;
+package com.retroduction.carma.application.integration;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,9 +10,9 @@ import junit.framework.TestCase;
 
 import org.apache.commons.cli.ParseException;
 
-import com.mutation.BasicDriver;
 import com.mutation.report.loader.ReportModelLoader;
 import com.mutation.report.om.MutationRun;
+import com.retroduction.carma.application.BasicDriver;
 
 public class ConfigBasedResolverIntegrationTest extends TestCase {
 

@@ -1,4 +1,4 @@
-package com.mutation;
+package com.retroduction.carma.application;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import org.apache.commons.cli.ParseException;
 import org.springframework.context.support.AbstractXmlApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.mutation.util.CLIValidator;
+import com.retroduction.carma.application.util.CLIValidator;
 import com.retroduction.carma.core.runner.ClassDescription;
 import com.retroduction.carma.core.runner.MutationRunner;
 import com.retroduction.carma.core.runner.events.ClassesUnderTestResolved;

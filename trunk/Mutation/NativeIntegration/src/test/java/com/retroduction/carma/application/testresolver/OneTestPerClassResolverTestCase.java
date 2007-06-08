@@ -1,8 +1,8 @@
-package com.mutation.testresolver;
+package com.retroduction.carma.application.testresolver;
 
 import junit.framework.TestCase;
 
-import com.mutation.resolver.OneTestPerClassResolver;
+import com.retroduction.carma.application.resolver.OneTestPerClassResolver;
 
 public class OneTestPerClassResolverTestCase extends TestCase {
 
