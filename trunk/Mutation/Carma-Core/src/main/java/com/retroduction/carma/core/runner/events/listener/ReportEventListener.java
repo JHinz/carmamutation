@@ -19,7 +19,6 @@ import com.mutation.report.om.Mutant;
 import com.mutation.report.om.MutationRatio;
 import com.mutation.report.om.MutationRun;
 import com.mutation.report.om.ProcessingInfo;
-import com.retroduction.carma.core.runner.MutationRunner;
 import com.retroduction.carma.core.runner.events.IEvent;
 import com.retroduction.carma.core.runner.events.IEventListener;
 import com.retroduction.carma.core.runner.events.ProcessingClassUnderTest;

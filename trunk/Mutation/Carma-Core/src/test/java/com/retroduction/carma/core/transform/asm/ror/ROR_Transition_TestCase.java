@@ -9,22 +9,6 @@ import junit.framework.TestCase;
 import com.retroduction.carma.core.runner.Mutant;
 import com.retroduction.carma.core.runner.events.EventListenerMock;
 import com.retroduction.carma.core.runner.utililties.ByteCodeFileReader;
-import com.retroduction.carma.core.transform.asm.ror.IFEQ_2_IFNE_Transition;
-import com.retroduction.carma.core.transform.asm.ror.IFGE_2_IFLT_Transition;
-import com.retroduction.carma.core.transform.asm.ror.IFGT_2_IFLE_Transition;
-import com.retroduction.carma.core.transform.asm.ror.IFLE_2_IFGT_Transition;
-import com.retroduction.carma.core.transform.asm.ror.IFLT_2_IFGE_Transition;
-import com.retroduction.carma.core.transform.asm.ror.IFNE_2_IFEQ_Transition;
-import com.retroduction.carma.core.transform.asm.ror.IFNONNULL_2_IFNULL_Transition;
-import com.retroduction.carma.core.transform.asm.ror.IFNULL_2_IFNONNULL_Transition;
-import com.retroduction.carma.core.transform.asm.ror.IF_ACMPEQ_2_IF_ACMPNE_Transition;
-import com.retroduction.carma.core.transform.asm.ror.IF_ACMPNE_2_IF_ACMPEQ_Transition;
-import com.retroduction.carma.core.transform.asm.ror.IF_ICMPEQ_2_IF_ICMPNE_Transition;
-import com.retroduction.carma.core.transform.asm.ror.IF_ICMPGE_2_IF_ICMPLT_Transition;
-import com.retroduction.carma.core.transform.asm.ror.IF_ICMPGT_2_IF_ICMPLE_Transition;
-import com.retroduction.carma.core.transform.asm.ror.IF_ICMPLE_2_IF_ICMPGT_Transition;
-import com.retroduction.carma.core.transform.asm.ror.IF_ICMPLT_2_IF_ICMPGE_Transition;
-import com.retroduction.carma.core.transform.asm.ror.IF_ICMPNE_2_IF_ICMPEQ_Transition;
 
 public class ROR_Transition_TestCase extends TestCase {
 

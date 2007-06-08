@@ -9,8 +9,6 @@ import java.util.Vector;
 
 import junit.framework.TestCase;
 
-import com.retroduction.carma.core.runner.ClassDescription;
-import com.retroduction.carma.core.runner.MutationRunner;
 import com.retroduction.carma.core.runner.events.IEvent;
 import com.retroduction.carma.core.runner.events.IEventListener;
 import com.retroduction.carma.core.runner.events.MutantsGenerated;
