@@ -4,21 +4,20 @@
   http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.mutation</groupId>
-	<artifactId>Reactor</artifactId>
+	<groupId>com.retroduction.carma.reactor</groupId>
+	<artifactId>Carma-Reactor</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>Mutation Project Reactor</name>
+	<name>Retroduction Carma Reactor Project</name>
 
 	<modules>
 		<module>../ReportModel</module>
 		<module>../ReportGenerator</module>
-		<!--<module>../SampleProjectUnderTest</module>-->
 		<module>../MavenPlugin</module>
-		<module>../NativeIntegration</module>
+		<module>../Carma-Application</module>
 		<module>../Carma-Core</module>
-		<module>../Annotations</module>
-		<module>../Utilities</module>
+		<module>../Carma-Annotations</module>
+		<module>../Carma-Utilities</module>
 	</modules>
 
 	<dependencies>
