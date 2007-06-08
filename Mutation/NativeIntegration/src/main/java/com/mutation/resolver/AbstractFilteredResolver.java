@@ -8,12 +8,17 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.mutation.IResolver;
 import com.mutation.resolver.util.FilterConfiguration;
 import com.retroduction.carma.core.runner.ClassDescription;
 
 public abstract class AbstractFilteredResolver implements IResolver {
 
+	private Log log = LogFactory.getLog(AbstractFilteredResolver.class);
+	
 	private FilterConfiguration filterConfiguration;
 
 	private File classesPath;
@@ -21,17 +26,6 @@ public abstract class AbstractFilteredResolver implements IResolver {
 	private File testClassesPath;
 
 	private URLClassLoader loader;
-//
-//	public AbstractFilteredResolver(FilterConfiguration filters, File classesPath, File testClassesPath)
-//			throws MalformedURLException {
-//		super();
-//
-//		setFilterConfiguration(filters);
-//		setClassesPath(classesPath);
-//		setTestClassesPath(testClassesPath);
-//
-//		reinitPrivateClassLoader();
-//	}
 
 	private void reinitPrivateClassLoader() throws MalformedURLException {
 		List<URL> urlList = new ArrayList<URL>();
@@ -140,7 +134,7 @@ public abstract class AbstractFilteredResolver implements IResolver {
 
 			if (getFilterConfiguration().getTestClassExcludeFilter().shouldBeExcluded(
 					testClassDescription.getQualifiedClassName())) {
-				System.out.println("Skipping class in test set due to exclude filter:"
+				log.info("Skipping class in test set due to exclude filter:"
 						+ testClassDescription.getQualifiedClassName());
 				continue;
 			}
@@ -149,17 +143,17 @@ public abstract class AbstractFilteredResolver implements IResolver {
 				Class testClass = loader.loadClass(testClassDescription.getQualifiedClassName());
 
 				if (Modifier.isAbstract(testClass.getModifiers()) || Modifier.isInterface(testClass.getModifiers())) {
-					System.out.println("Skipping abstract class or interface in test set:"
+					log.info("Skipping abstract class or interface in test set:"
 							+ testClassDescription.getQualifiedClassName());
 					continue;
 				}
 
 			} catch (ClassNotFoundException e) {
-				System.out.println("Skipping class in test set due to class loading problem:"
+				log.warn("Skipping class in test set due to class loading problem:"
 						+ testClassDescription.getQualifiedClassName());
 				continue;
 			} catch (NoClassDefFoundError e) {
-				System.out.println("Skipping class in test set due to class loading problem:"
+				log.warn("Skipping class in test set due to class loading problem:"
 						+ testClassDescription.getQualifiedClassName());
 				continue;
 			}
