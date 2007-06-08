@@ -15,12 +15,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.mutation.report.generator.utils.ClassNameAnalyzer;
 import com.mutation.report.generator.utils.ClassNameAnalyzer.ClassNameInfo;
 import com.retroduction.carma.core.runner.ClassDescription;
 
 public class ConfigBasedResolver extends AbstractFilteredResolver {
-	
+
+	private Log log = LogFactory.getLog(ConfigBasedResolver.class);
+
 	private File configurationFile;
 
 	public File getConfigurationFile() {
@@ -31,9 +36,11 @@ public class ConfigBasedResolver extends AbstractFilteredResolver {
 		this.configurationFile = configurationFile;
 	}
 
-	protected String readInputConfiguration(InputStream steram) throws IOException {
+	protected String readInputConfiguration(InputStream steram)
+			throws IOException {
 
-		BufferedReader reader = new BufferedReader(new InputStreamReader(steram));
+		BufferedReader reader = new BufferedReader(
+				new InputStreamReader(steram));
 
 		StringBuffer resultBuffer = new StringBuffer();
 
@@ -84,7 +91,8 @@ public class ConfigBasedResolver extends AbstractFilteredResolver {
 			clazz.setAssociatedTestNames(new HashSet<String>());
 
 			while (elementTokenizer.hasMoreTokens()) {
-				clazz.getAssociatedTestNames().add(elementTokenizer.nextToken());
+				clazz.getAssociatedTestNames()
+						.add(elementTokenizer.nextToken());
 
 			}
 
@@ -100,8 +108,9 @@ public class ConfigBasedResolver extends AbstractFilteredResolver {
 
 		URLClassLoader loader = null;
 		try {
-			loader = new URLClassLoader(new URL[] { getTestClassesPath().toURL(), getClassesPath().toURL() }, this
-					.getClass().getClassLoader());
+			loader = new URLClassLoader(new URL[] {
+					getTestClassesPath().toURL(), getClassesPath().toURL() },
+					this.getClass().getClassLoader());
 		} catch (MalformedURLException e1) {
 			e1.printStackTrace();
 			return new ArrayList<ClassDescription>();
@@ -120,23 +129,30 @@ public class ConfigBasedResolver extends AbstractFilteredResolver {
 
 		for (ClassDescription classDescription : classDescriptions) {
 
-			for (String testClassName : classDescription.getAssociatedTestNames()) {
+			for (String testClassName : classDescription
+					.getAssociatedTestNames()) {
 
-				if (getFilterConfiguration().getTestClassExcludeFilter().shouldBeExcluded(testClassName))
+				if (getFilterConfiguration().getTestClassExcludeFilter()
+						.shouldBeExcluded(testClassName))
 					continue;
 
 				try {
 					Class testClass = loader.loadClass(testClassName);
 
-					if (Modifier.isAbstract(testClass.getModifiers()) || Modifier.isInterface(testClass.getModifiers())) {
-						System.out.println("Skipping abstract class or interface in test set:" + testClassName);
-						classDescription.getAssociatedTestNames().remove(testClassName);
+					if (Modifier.isAbstract(testClass.getModifiers())
+							|| Modifier.isInterface(testClass.getModifiers())) {
+						log
+								.info("Skipping abstract class or interface in test set:"
+										+ testClassName);
+						classDescription.getAssociatedTestNames().remove(
+								testClassName);
 						continue;
 					}
 
 				} catch (ClassNotFoundException e) {
-					System.out.println("Skipping class in test set due to class loading problem:"
-							+ classDescription.getQualifiedClassName());
+					log
+							.warn("Skipping class in test set due to class loading problem:"
+									+ classDescription.getQualifiedClassName());
 					continue;
 				}
 			}
