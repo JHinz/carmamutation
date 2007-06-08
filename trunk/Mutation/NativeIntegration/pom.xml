@@ -10,11 +10,11 @@
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.mutation.integration</groupId>
-	<artifactId>NativeIntegration</artifactId>
+	<groupId>com.retroduction.carma.application</groupId>
+	<artifactId>Carma-Application</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>Mutation Native Java Integration</name>
+	<name>Retroduction Carma Application Package</name>
 
 	<dependencies>
 		<dependency>
