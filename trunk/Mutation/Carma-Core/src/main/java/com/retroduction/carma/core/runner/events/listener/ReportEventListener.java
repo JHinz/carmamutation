@@ -11,11 +11,15 @@ import javax.xml.bind.Marshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.mutation.report.om.ClassUnderTest;
 import com.mutation.report.om.Mutant;
 import com.mutation.report.om.MutationRatio;
 import com.mutation.report.om.MutationRun;
 import com.mutation.report.om.ProcessingInfo;
+import com.retroduction.carma.core.runner.MutationRunner;
 import com.retroduction.carma.core.runner.events.IEvent;
 import com.retroduction.carma.core.runner.events.IEventListener;
 import com.retroduction.carma.core.runner.events.ProcessingClassUnderTest;
@@ -24,6 +28,8 @@ import com.retroduction.carma.core.runner.events.ProcessingMutant;
 import com.retroduction.carma.core.runner.events.TestsExecuted;
 
 public class ReportEventListener implements IEventListener {
+
+	private Log log = LogFactory.getLog(ReportEventListener.class);
 
 	private MutationRun run;
 
@@ -53,7 +59,7 @@ public class ReportEventListener implements IEventListener {
 
 	public ReportEventListener(String fileName) throws JAXBException {
 
-		System.out.println("Initializing XML report: " + fileName);
+		log.info("Initializing XML report: " + fileName);
 
 		run = new MutationRun();
 		this.outputFile = fileName;
@@ -65,7 +71,7 @@ public class ReportEventListener implements IEventListener {
 
 	public void destroy() {
 
-		System.out.println("Finishing XML report");
+		log.info("Finishing XML report");
 
 		runProcessingEnd = System.currentTimeMillis();
 
@@ -73,9 +79,11 @@ public class ReportEventListener implements IEventListener {
 			ProcessingInfo info = new ProcessingInfo();
 			info.setDuration(runProcessingEnd - runProcessingStart);
 			calendar.setTimeInMillis(runProcessingStart);
-			info.setStart(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
+			info.setStart(DatatypeFactory.newInstance()
+					.newXMLGregorianCalendar(calendar));
 			calendar.setTimeInMillis(runProcessingEnd);
-			info.setEnd(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
+			info.setEnd(DatatypeFactory.newInstance().newXMLGregorianCalendar(
+					calendar));
 			run.setProcessingInfo(info);
 		} catch (DatatypeConfigurationException e) {
 			e.printStackTrace();
@@ -101,8 +109,6 @@ public class ReportEventListener implements IEventListener {
 
 	public void notifyEvent(IEvent event) {
 
-//		System.out.println("Added event " + event.toString() + " to XML report");
-
 		if (event instanceof ProcessingClassUnderTest) {
 
 			classProcessingStart = System.currentTimeMillis();
@@ -110,10 +116,13 @@ public class ReportEventListener implements IEventListener {
 			ProcessingClassUnderTest eventObj = (ProcessingClassUnderTest) event;
 
 			currentClassUnderTestSubReport = new ClassUnderTest();
-			currentClassUnderTestSubReport.setClassName(eventObj.getClassUnderTest().getClassName());
-			currentClassUnderTestSubReport.setPackageName(eventObj.getClassUnderTest().getPackageName());
-			currentClassUnderTestSubReport.setBaseClassFile(eventObj.getClassUnderTest().getClassFile());
-			
+			currentClassUnderTestSubReport.setClassName(eventObj
+					.getClassUnderTest().getClassName());
+			currentClassUnderTestSubReport.setPackageName(eventObj
+					.getClassUnderTest().getPackageName());
+			currentClassUnderTestSubReport.setBaseClassFile(eventObj
+					.getClassUnderTest().getClassFile());
+
 			numberOfMutantsForClass = 0;
 			numberOfSurvivorsForClass = 0;
 
@@ -124,16 +133,19 @@ public class ReportEventListener implements IEventListener {
 
 		if (event instanceof ProcessingClassUnderTestFinished) {
 
-			ClassUnderTest classUnderTest = run.getClassUnderTest().get(run.getClassUnderTest().size() - 1);
+			ClassUnderTest classUnderTest = run.getClassUnderTest().get(
+					run.getClassUnderTest().size() - 1);
 
 			classProcessingEnd = System.currentTimeMillis();
 			try {
 				ProcessingInfo info = new ProcessingInfo();
 				info.setDuration(classProcessingEnd - classProcessingStart);
 				calendar.setTimeInMillis(classProcessingStart);
-				info.setStart(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
+				info.setStart(DatatypeFactory.newInstance()
+						.newXMLGregorianCalendar(calendar));
 				calendar.setTimeInMillis(classProcessingEnd);
-				info.setEnd(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
+				info.setEnd(DatatypeFactory.newInstance()
+						.newXMLGregorianCalendar(calendar));
 				classUnderTest.setProcessingInfo(info);
 			} catch (DatatypeConfigurationException e) {
 				e.printStackTrace();
@@ -155,21 +167,23 @@ public class ReportEventListener implements IEventListener {
 			ProcessingMutant eventObj = (ProcessingMutant) event;
 
 			Mutant mutantInfo = new Mutant();
-			com.retroduction.carma.core.runner.Mutant mutant = eventObj.getMutant();
+			com.retroduction.carma.core.runner.Mutant mutant = eventObj
+					.getMutant();
 			mutantInfo.setName(mutant.getName());
 			mutantInfo.setBaseSourceLine(mutant.getSourceMapping().getLineNo());
-			
 
-			if ( mutant.getTransitionGroup()!=null)
-				mutantInfo.setTransitionGroup(mutant.getTransitionGroup().getName());
-			
-			if ( mutant.getTransition()!=null)
+			if (mutant.getTransitionGroup() != null)
+				mutantInfo.setTransitionGroup(mutant.getTransitionGroup()
+						.getName());
+
+			if (mutant.getTransition() != null)
 				mutantInfo.setTransition(mutant.getTransition().getName());
-			
+
 			currentMutantReport = mutantInfo;
 
 			currentClassUnderTestSubReport.getMutant().add(currentMutantReport);
-			currentClassUnderTestSubReport.setBaseSourceFile(eventObj.getMutant().getSourceMapping().getSourceFile());
+			currentClassUnderTestSubReport.setBaseSourceFile(eventObj
+					.getMutant().getSourceMapping().getSourceFile());
 			return;
 
 		}
@@ -178,10 +192,13 @@ public class ReportEventListener implements IEventListener {
 
 			TestsExecuted eventObj = (TestsExecuted) event;
 			currentMutantReport.setSurvived(eventObj.isMutantSurvived());
-			currentMutantReport.getKillerTests().addAll(eventObj.getKillerTestNames());
-			//TODO not very beautiful here - is executed for each mutant for relevant for whole class
+			currentMutantReport.getKillerTests().addAll(
+					eventObj.getKillerTestNames());
+			// TODO not very beautiful here - is executed for each mutant for
+			// relevant for whole class
 			currentClassUnderTestSubReport.getExecutedTests().clear();
-			currentClassUnderTestSubReport.getExecutedTests().addAll(eventObj.getTestNames());
+			currentClassUnderTestSubReport.getExecutedTests().addAll(
+					eventObj.getTestNames());
 			numberOfMutantsForClass++;
 			numberOfMutantsForRun++;
 

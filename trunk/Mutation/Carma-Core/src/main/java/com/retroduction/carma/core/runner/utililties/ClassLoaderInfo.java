@@ -1,31 +1,21 @@
 package com.retroduction.carma.core.runner.utililties;
 
-import junit.framework.Test;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class ClassLoaderInfo {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		printLoader(Test.class);
-		
-	}
-	
-	public static void printLoader(Class clazz){
-		System.out.println("Class: " +clazz);
+	private static Log log = LogFactory.getLog(ClassLoaderInfo.class);
+
+	public static void printLoader(Class clazz) {
+		log.info("Class: " + clazz);
 		ClassLoader cl = clazz.getClassLoader();
-		System.out.println("Loader: " +cl);
+		log.info("Loader: " + cl);
 		StringBuffer s = new StringBuffer(" ");
-		while((cl = cl.getParent()) != null){
-			System.out.println(s +"" +cl);
+		while ((cl = cl.getParent()) != null) {
+			log.info(s + "" + cl);
 			s.append("  ");
 		}
 	}
-	
-	
-	
-	
 
 }
