@@ -1,8 +1,0 @@
-	log4j.rootCategory=DEBUG, ConApp
-	log4j.appender.ConApp=org.apache.log4j.ConsoleAppender
-	log4j.appender.ConApp.layout=org.apache.log4j.PatternLayout
-	log4j.appender.ConApp.layout.ConversionPattern=%d [%t] %-5p %c - %m%n
-	log4j.appender.FileApp.MaxBackupIndex=1
-	log4j.appender.FileApp.layout=org.apache.log4j.PatternLayout
-	log4j.appender.FileApp.layout.ConversionPattern=%d [%t] %-5p %c - %m%n
-	

@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.retroduction.carma.core.runner.events.IEventListener;
 import com.retroduction.carma.core.runner.events.MutantsGenerated;
 import com.retroduction.carma.core.runner.events.ProcessingClassUnderTest;
@@ -14,7 +17,6 @@ import com.retroduction.carma.core.runner.utililties.ByteCodeFileReader;
 import com.retroduction.carma.core.testrunner.ITestRunner;
 import com.retroduction.carma.core.transform.AbstractTransitionGroup;
 import com.retroduction.carma.core.transform.IMutationGenerator;
-import com.retroduction.carma.core.transform.MutantGenerator;
 
 public class MutationRunner {
 
@@ -25,6 +27,8 @@ public class MutationRunner {
 	private File classesUnderTestPath;
 
 	private IEventListener eventListener;
+	
+	private Log log = LogFactory.getLog(MutationRunner.class);
 
 	/**
 	 * 
@@ -54,7 +58,7 @@ public class MutationRunner {
 				List<Mutant> mutants = mutantGenerator.generateMutants(fqClassName, byteCode, transitionGroups,
 						eventListener);
 
-				System.out.println("Number of created mutants for current class: " + mutants.size());
+				log.info("Number of created mutants for current class: " + mutants.size());
 
 				eventListener.notifyEvent(new MutantsGenerated(mutants, fqClassName, transitionGroup));
 

@@ -28,8 +28,6 @@ public class MutationClassLoader extends URLClassLoader {
 	@Override
 	public Class<?> loadClass(String name) throws ClassNotFoundException {
 
-		// System.out.print("Loading class: " + name);
-
 		Class clazz;
 		// TODO is that needed for all mutation dependencies? Find a better
 		// solution (mike)
