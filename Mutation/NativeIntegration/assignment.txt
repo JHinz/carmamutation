@@ -1,2 +1,0 @@
-org.springframework.core.AttributeAccessorSupport=org.springframework.core.AttributeAccessorSupportTests
-org.springframework.core.CollectionFactory=org.springframework.core.CollectionFactoryTests

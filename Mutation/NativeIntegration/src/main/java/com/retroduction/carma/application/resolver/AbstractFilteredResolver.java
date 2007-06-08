@@ -1,4 +1,4 @@
-package com.mutation.resolver;
+package com.retroduction.carma.application.resolver;
 
 import java.io.File;
 import java.lang.reflect.Modifier;
@@ -11,8 +11,8 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.mutation.IResolver;
-import com.mutation.resolver.util.FilterConfiguration;
+import com.retroduction.carma.application.IResolver;
+import com.retroduction.carma.application.resolver.util.FilterConfiguration;
 import com.retroduction.carma.core.runner.ClassDescription;
 
 public abstract class AbstractFilteredResolver implements IResolver {

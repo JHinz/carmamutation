@@ -1,12 +1,13 @@
-package com.mutation.resolver;
+package com.retroduction.carma.application.resolver;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.Iterator;
 import java.util.List;
 
-import com.mutation.resolver.util.ExcludeFilter;
-import com.mutation.resolver.util.FilterConfiguration;
+import com.retroduction.carma.application.resolver.BruteForceResolver;
+import com.retroduction.carma.application.resolver.util.ExcludeFilter;
+import com.retroduction.carma.application.resolver.util.FilterConfiguration;
 import com.retroduction.carma.core.runner.ClassDescription;
 
 import junit.framework.TestCase;

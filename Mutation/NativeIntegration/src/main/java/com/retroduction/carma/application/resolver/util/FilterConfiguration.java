@@ -1,4 +1,4 @@
-package com.mutation.resolver.util;
+package com.retroduction.carma.application.resolver.util;
 
 public class FilterConfiguration {
 

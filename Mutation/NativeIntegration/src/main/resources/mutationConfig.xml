@@ -20,7 +20,7 @@
 	</bean>
 
 	<!-- the driver main class which constructs a proper mutation runner -->
-	<bean id="testDriver" class="com.mutation.BasicDriver">
+	<bean id="testDriver" class="com.retroduction.carma.application.BasicDriver">
 		<property name="resolver" ref="usedResolver" />
 		<property name="runner" ref="runner" />
 		<property name="eventListener" ref="eventListener"></property>
@@ -75,28 +75,28 @@
 	</bean>
 
 	<bean id="classMatchResolver"
-		class="com.mutation.resolver.ClassMatchResolver">
+		class="com.retroduction.carma.application.resolver.ClassMatchResolver">
 		<property name="filterConfiguration" ref="filterConfig" />
 		<property name="classesPath" ref="classesDir" />
 		<property name="testClassesPath" ref="testClassesDir" />
 	</bean>
 
 	<bean id="bruteForceResolver"
-		class="com.mutation.resolver.BruteForceResolver">
+		class="com.retroduction.carma.application.resolver.BruteForceResolver">
 		<property name="filterConfiguration" ref="filterConfig" />
 		<property name="classesPath" ref="classesDir" />
 		<property name="testClassesPath" ref="testClassesDir" />
 	</bean>
 
 	<bean id="annotationResolver"
-		class="com.mutation.resolver.AnnotationResolver">
+		class="com.retroduction.carma.application.resolver.AnnotationResolver">
 		<property name="filterConfiguration" ref="filterConfig" />
 		<property name="classesPath" ref="classesDir" />
 		<property name="testClassesPath" ref="testClassesDir" />
 	</bean>
 
 	<bean id="configurationBasedResolver"
-		class="com.mutation.resolver.ConfigBasedResolver">
+		class="com.retroduction.carma.application.resolver.ConfigBasedResolver">
 		<property name="filterConfiguration" ref="filterConfig" />
 		<property name="classesPath" ref="classesDir" />
 		<property name="testClassesPath" ref="testClassesDir" />
@@ -104,7 +104,7 @@
 	</bean>
 
 	<bean id="filterConfig"
-		class="com.mutation.resolver.util.FilterConfiguration">
+		class="com.retroduction.carma.application.resolver.util.FilterConfiguration">
 		<property name="classIncludeFilter" ref="classIncludeFilter" />
 		<property name="testClassIncludeFilter"
 			ref="testClassIncludeFilter" />
@@ -114,28 +114,28 @@
 	</bean>
 
 	<bean id="testClassIncludeFilter"
-		class="com.mutation.resolver.util.IncludeFilter">
+		class="com.retroduction.carma.application.resolver.util.IncludeFilter">
 		<property name="includePattern">
 			<value>(.*)</value>
 		</property>
 	</bean>
 
 	<bean id="classIncludeFilter"
-		class="com.mutation.resolver.util.IncludeFilter">
+		class="com.retroduction.carma.application.resolver.util.IncludeFilter">
 		<property name="includePattern">
 			<value>(.*)</value>
 		</property>
 	</bean>
 
 	<bean id="testClassExcludeFilter"
-		class="com.mutation.resolver.util.ExcludeFilter">
+		class="com.retroduction.carma.application.resolver.util.ExcludeFilter">
 		<property name="excludePattern">
 			<value></value>
 		</property>
 	</bean>
 
 	<bean id="classExcludeFilter"
-		class="com.mutation.resolver.util.ExcludeFilter">
+		class="com.retroduction.carma.application.resolver.util.ExcludeFilter">
 		<property name="excludePattern">
 			<value></value>
 		</property>

@@ -1,4 +1,4 @@
-package com.mutation.resolver;
+package com.retroduction.carma.application.resolver;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -9,7 +9,8 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
-import com.mutation.resolver.util.FilterConfiguration;
+import com.retroduction.carma.application.resolver.ConfigBasedResolver;
+import com.retroduction.carma.application.resolver.util.FilterConfiguration;
 import com.retroduction.carma.core.runner.ClassDescription;
 
 public class ConfigBasedResolverTestCase extends TestCase {

@@ -1,4 +1,4 @@
-package com.mutation.resolver;
+package com.retroduction.carma.application.resolver;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -7,8 +7,9 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
-import com.mutation.resolver.util.ExcludeFilter;
-import com.mutation.resolver.util.FilterConfiguration;
+import com.retroduction.carma.application.resolver.AnnotationResolver;
+import com.retroduction.carma.application.resolver.util.ExcludeFilter;
+import com.retroduction.carma.application.resolver.util.FilterConfiguration;
 import com.retroduction.carma.core.runner.ClassDescription;
 
 public class AnnotationResolverTestCase extends TestCase {
