@@ -45,6 +45,9 @@ public class JUnitRunner implements ITestRunner {
 		MutantJUnitRunner runner = new MutantJUnitRunner(urls, mutant);
 		Test suite = runner.getTest(testCase);
 		TestResult result = runner.doRun(suite, false);
+		
+		runner.restoreReplacedClassLoader();
+		
 		int errors = result.errorCount();
 		int failures = result.failureCount();
 		return errors + failures;
@@ -93,6 +96,22 @@ public class JUnitRunner implements ITestRunner {
 			}
 		}
 		eventListener.notifyEvent(new TestsExecuted(mutant, executedTestsNames, survived, killerTestNames));
+	}
+	
+	public Set<String> execute(Set<String> origTestNames) {
+
+		Set<String> brokenTestNames = new TreeSet<String>();
+		for (String testCase : origTestNames) {
+			try {
+				int failures = runTest(testCase, null);
+				if (failures > 0) {
+					brokenTestNames.add(testCase);
+				}
+
+			} catch (Exception e) {
+			}
+		}
+		return brokenTestNames;
 	}
 
 	public void setStopOnFirstFailedTest(boolean stopOnFirstFailedTest) {

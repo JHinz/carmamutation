@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URL;
+import java.net.URLClassLoader;
 
 import junit.framework.Test;
 import junit.framework.TestResult;
@@ -15,9 +16,11 @@ import com.retroduction.carma.core.runner.Mutant;
 import com.retroduction.carma.core.testrunner.MutationClassLoader;
 
 /**
- * JUnit Runner for mutation tests. Uses specific class loeader to load thze mutants
+ * JUnit Runner for mutation tests. Uses specific class loeader to load thze
+ * mutants
+ * 
  * @author mike
- *
+ * 
  */
 public class MutantJUnitRunner extends BaseTestRunner {
 	MyTestSuiteLoader loader;
@@ -28,69 +31,80 @@ public class MutantJUnitRunner extends BaseTestRunner {
 	}
 
 	private ClassLoader mutantLoader;
+	
+	private ClassLoader replacedClassLoader;
 
 	public MutantJUnitRunner(URL[] testClassesLocation, Mutant mutant) {
 
-//		ClassLoaderInfo.printLoader(getClass());
-		mutantLoader = new MutationClassLoader(testClassesLocation, mutant
-				.getClassName(), mutant.getByteCode(), getClass().getClassLoader());
+		// ClassLoaderInfo.printLoader(getClass());
+
+		if (mutant != null) {
+			mutantLoader = new MutationClassLoader(testClassesLocation, mutant.getClassName(), mutant.getByteCode(),
+					Thread.currentThread().getContextClassLoader());
+		} else {
+			mutantLoader = new MutationClassLoader(testClassesLocation, null, null, Thread.currentThread().getContextClassLoader());
+		}
 		loader = new MyTestSuiteLoader();
+		replacedClassLoader = Thread.currentThread().getContextClassLoader();
 		Thread.currentThread().setContextClassLoader(mutantLoader);
 	}
 	
+	public void restoreReplacedClassLoader() {
+		Thread.currentThread().setContextClassLoader(replacedClassLoader);
+	}
+
 	/**
-	 * Returns the Test corresponding to the given suite. This is
-	 * a template method, subclasses override runFailed(), clearStatus().
+	 * Returns the Test corresponding to the given suite. This is a template
+	 * method, subclasses override runFailed(), clearStatus().
 	 */
 	public Test getTest(String suiteClassName) {
 		if (suiteClassName.length() <= 0) {
 			clearStatus();
 			return null;
 		}
-		Class testClass= null;
+		Class testClass = null;
 		try {
-			testClass= loadSuiteClass(suiteClassName);
+			testClass = loadSuiteClass(suiteClassName);
 		} catch (ClassNotFoundException e) {
-			String clazz= e.getMessage();
+			String clazz = e.getMessage();
 			if (clazz == null)
-				clazz= suiteClassName;
-			runFailed("Class not found \""+clazz+"\"");
+				clazz = suiteClassName;
+			runFailed("Class not found \"" + clazz + "\"");
 			return null;
-		} catch(Exception e) {
-			runFailed("Error: "+e.toString());
+		} catch (Exception e) {
+			runFailed("Error: " + e.toString());
 			return null;
 		}
-		Method suiteMethod= null;
+		Method suiteMethod = null;
 		try {
-			suiteMethod= testClass.getMethod(SUITE_METHODNAME, new Class[0]);
-	 	} catch(Exception e) {
-	 		// try to extract a test suite automatically
+			suiteMethod = testClass.getMethod(SUITE_METHODNAME, new Class[0]);
+		} catch (Exception e) {
+			// try to extract a test suite automatically
 			clearStatus();
 			return new TestSuite(testClass);
 		}
-		if (! Modifier.isStatic(suiteMethod.getModifiers())) {
+		if (!Modifier.isStatic(suiteMethod.getModifiers())) {
 			runFailed("Suite() method must be static");
 			return null;
 		}
-		Test test= null;
+		Test test = null;
 		try {
-			Object testO = suiteMethod.invoke(null, (Object[])new Class[0]); // static method
-			test= (Test)testO;
+			Object testO = suiteMethod.invoke(null, (Object[]) new Class[0]); // static
+			// method
+			test = (Test) testO;
 			if (test == null)
 				return test;
-		}
-		catch (InvocationTargetException e) {
+		} catch (InvocationTargetException e) {
 			runFailed("Failed to invoke suite():" + e.getTargetException().toString());
 			return null;
-		}
-		catch (IllegalAccessException e) {
+		} catch (IllegalAccessException e) {
 			runFailed("Failed to invoke suite():" + e.toString());
 			return null;
 		}
 
 		clearStatus();
 		return test;
-	}	
+	}
 
 	class MyTestSuiteLoader implements TestSuiteLoader {
 		public Class load(String suiteClassName) throws ClassNotFoundException {
@@ -102,12 +116,12 @@ public class MutantJUnitRunner extends BaseTestRunner {
 		}
 	}
 
-	
 	public TestResult doRun(Test suite, boolean wait) {
-		TestResult result= createTestResult();
+		TestResult result = createTestResult();
 		suite.run(result);
 		return result;
 	}
+
 	/**
 	 * Creates the TestResult to be used for the test run.
 	 */
@@ -120,24 +134,21 @@ public class MutantJUnitRunner extends BaseTestRunner {
 		throw new RuntimeException(message);
 	}
 
-
 	@Override
 	public void testEnded(String testName) {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 	@Override
 	public void testFailed(int status, Test test, Throwable t) {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 	@Override
 	public void testStarted(String testName) {
 		// TODO Auto-generated method stub
-		
-	}	
+
 	}
+}

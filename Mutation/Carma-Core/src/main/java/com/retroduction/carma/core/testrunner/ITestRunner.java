@@ -8,5 +8,7 @@ import com.retroduction.carma.core.runner.events.IEventListener;
 public interface ITestRunner {
 
 	void execute(Mutant mutant, Set<String> testNames, IEventListener eventListener);
+	
+	Set<String> execute(Set<String> testNames);
 
 }

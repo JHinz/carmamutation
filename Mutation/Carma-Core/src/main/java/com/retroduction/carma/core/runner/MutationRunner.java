@@ -3,6 +3,7 @@ package com.retroduction.carma.core.runner;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -42,8 +43,12 @@ public class MutationRunner {
 	 */
 	public void performMutations(List<AbstractTransitionGroup> transitionGroups,
 			List<ClassDescription> classUnderTestDescriptions) throws IOException {
-
+		
+		log.info("Performing mutation on all classes");
+				
 		for (ClassDescription classUnderTestDescription : classUnderTestDescriptions) {
+			
+			log.info("Performing mutation on class: " + classUnderTestDescription.getQualifiedClassName());
 
 			eventListener.notifyEvent(new ProcessingClassUnderTest(classUnderTestDescription));
 
@@ -52,6 +57,8 @@ public class MutationRunner {
 			byte[] byteCode = loadClass(fqClassName);
 
 			for (AbstractTransitionGroup transitionGroup : transitionGroups) {
+				
+				log.info("Using transition group <"+transitionGroup.getName()+"> for mutation process");
 
 				eventListener.notifyEvent(new ProcessingMutationOperator(transitionGroup.getClass().getName()));
 
@@ -74,6 +81,33 @@ public class MutationRunner {
 
 			eventListener.notifyEvent(new ProcessingClassUnderTestFinished());
 
+		}
+
+	}
+	
+	/**
+	 * 
+	 * Integration interface method for direct access using complex datatypes.
+	 * 
+	 * @param operators
+	 * @param byteCodeFileReader
+	 * @param classUnderTestDescription
+	 * @param testNames
+	 * @throws IOException
+	 */
+	public boolean performTestsetVerification(Set<String> testDescriptions) {
+
+		log.info("Performing verification run for test set sanity");
+
+		Set<String> brokenTestNames = testRunner.execute(testDescriptions);
+
+		if (brokenTestNames.size() > 0) {
+			log
+					.error("Testset not sane. There are test failures without mutations");
+			return false;
+		} else {
+			log.info("Testset is sane. No broken tests without mutation");
+			return true;
 		}
 
 	}
