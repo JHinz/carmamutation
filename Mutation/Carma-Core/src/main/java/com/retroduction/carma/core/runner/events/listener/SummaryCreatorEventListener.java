@@ -3,6 +3,8 @@ package com.retroduction.carma.core.runner.events.listener;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.util.StopWatch;
+
 import com.retroduction.carma.core.runner.Mutant;
 import com.retroduction.carma.core.runner.events.ClassesUnderTestResolved;
 import com.retroduction.carma.core.runner.events.IEvent;
@@ -11,7 +13,6 @@ import com.retroduction.carma.core.runner.events.MutantsGenerated;
 import com.retroduction.carma.core.runner.events.MutationProcessStarted;
 import com.retroduction.carma.core.runner.events.TestNotExecuted;
 import com.retroduction.carma.core.runner.events.TestsExecuted;
-import com.retroduction.carma.core.runner.utililties.StopWatch;
 
 /**
  * this event listeners creates summary information
@@ -39,8 +40,8 @@ public class SummaryCreatorEventListener implements IEventListener {
 	 * @return
 	 */
 	public Summary createSummary() {
-		Summary summary = new Summary();
-		double elapsed = watch.stop();
+		Summary summary = new Summary();watch.stop();
+		double elapsed = watch.getLastTaskTimeMillis();
 		Set<String> executedTests = new HashSet<String>(testNames);
 		executedTests.removeAll(testsNotExecuted);
 		double mutantsPerClass = (double) totalMutants.size() / (double) numClassesUnderTest;

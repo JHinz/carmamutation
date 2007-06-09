@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.util.StopWatch;
+
 import com.retroduction.carma.core.runner.Mutant;
 import com.retroduction.carma.core.runner.events.ClassesUnderTestResolved;
 import com.retroduction.carma.core.runner.events.IEvent;
@@ -13,7 +15,6 @@ import com.retroduction.carma.core.runner.events.MutationProcessFinished;
 import com.retroduction.carma.core.runner.events.MutationProcessStarted;
 import com.retroduction.carma.core.runner.events.TestSetDetermined;
 import com.retroduction.carma.core.runner.events.TestsExecuted;
-import com.retroduction.carma.core.runner.utililties.StopWatch;
 
 public class ConsoleEventListener implements IEventListener {
 	int numSurvivors;
@@ -21,7 +22,7 @@ public class ConsoleEventListener implements IEventListener {
 	int numKilled;
 
 	int numClassesUnderTest;
-	
+
 	int numTests;
 
 	private boolean showSummaryOnly;
@@ -39,7 +40,8 @@ public class ConsoleEventListener implements IEventListener {
 		if (event instanceof MutationProcessStarted) {
 			watch.start();
 		} else if (event instanceof MutationProcessFinished) {
-			double elapsed = watch.stop();
+			watch.stop();
+			double elapsed = watch.getLastTaskTimeMillis(); 
 			double mutantsPerClass = (double) totalMutants.size() / (double) numClassesUnderTest;
 			double testsPerClass = (double) numTests / (double) numClassesUnderTest;
 			double survivorRatio = (double) suvivors.size() / (double) totalMutants.size() * 100;
