@@ -1,14 +1,10 @@
 package com.mutation.driver.maven;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.ClassPathResource;
 
@@ -16,7 +12,6 @@ import com.retroduction.carma.application.BasicDriver;
 import com.retroduction.carma.core.runner.events.listener.CompositeEventListener;
 import com.retroduction.carma.core.runner.events.listener.SummaryCreatorEventListener;
 import com.retroduction.carma.core.runner.events.listener.SummaryCreatorEventListener.Summary;
-import com.retroduction.carma.core.testrunner.junit3.JUnitRunner;
 import com.retroduction.carma.core.transform.TransitionGroupConfig;
 
 public class MavenTestExecuter {

@@ -3,11 +3,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mutation.report.generator.ProjectBuilder;
+import junit.framework.TestCase;
+
 import com.mutation.report.source.om.Project;
 import com.mutation.report.source.om.SourceFile;
-
-import junit.framework.TestCase;
 
 public class ProjectBuilderIntegrationTest extends TestCase {
 
