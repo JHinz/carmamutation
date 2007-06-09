@@ -1,11 +1,9 @@
 package com.retroduction.carma.application.util;
 
+import junit.framework.TestCase;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.ParseException;
-
-import com.retroduction.carma.application.util.CLIValidator;
-
-import junit.framework.TestCase;
 
 public class CLIValidatorTestCase extends TestCase {
 

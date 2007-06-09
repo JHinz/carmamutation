@@ -4,9 +4,9 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 
-import org.apache.maven.plugin.MojoExecutionException;
-
 import junit.framework.TestCase;
+
+import org.apache.maven.plugin.MojoExecutionException;
 
 import com.retroduction.carma.core.runner.events.listener.SummaryCreatorEventListener.Summary;
 

@@ -2,9 +2,9 @@ package com.mutation.annotation;
 
 import java.lang.annotation.Annotation;
 
-import com.mutation.annotations.TestClassToClassMapping;
-
 import junit.framework.TestCase;
+
+import com.mutation.annotations.TestClassToClassMapping;
 
 public class SampleGetAnnotationsTestCase extends TestCase {
 

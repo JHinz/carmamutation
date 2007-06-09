@@ -5,12 +5,11 @@ import java.net.MalformedURLException;
 import java.util.Iterator;
 import java.util.List;
 
-import com.retroduction.carma.application.resolver.BruteForceResolver;
+import junit.framework.TestCase;
+
 import com.retroduction.carma.application.resolver.util.ExcludeFilter;
 import com.retroduction.carma.application.resolver.util.FilterConfiguration;
 import com.retroduction.carma.core.runner.ClassDescription;
-
-import junit.framework.TestCase;
 
 public class BruteForceResolverTestCase extends TestCase {
 
