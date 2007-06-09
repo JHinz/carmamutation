@@ -9,12 +9,12 @@
 	<bean id="usedResolver" parent="configurationBasedResolver"></bean>
 
 	<bean id="classesDir" class="java.io.File">
-		<constructor-arg value="./src/test/it/it0005/target/classes/" />
+		<constructor-arg value="./src/test/it/it0006/target/classes/" />
 	</bean>
 
 	<bean id="testClassesDir" class="java.io.File">
 		<constructor-arg
-			value="./src/test/it/it0005/target/test-classes/" />
+			value="./src/test/it/it0006/target/test-classes/" />
 	</bean>
 
 	<bean id="sourceDir" class="java.io.File">
@@ -22,7 +22,7 @@
 	</bean>
 
 	<bean id="assignmentFile" class="java.io.File">
-		<constructor-arg value="./src/test/it/it0005/assignment.txt" />
+		<constructor-arg value="./src/test/it/it0006/assignment.txt" />
 	</bean>
 
 	<bean id="testCaseSuffix" class="java.lang.String">
