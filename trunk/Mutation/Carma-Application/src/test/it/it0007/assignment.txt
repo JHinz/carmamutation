@@ -1,0 +1,2 @@
+SampleClass1=SampleTestClass1
+SampleClass2=SampleTestClass2
