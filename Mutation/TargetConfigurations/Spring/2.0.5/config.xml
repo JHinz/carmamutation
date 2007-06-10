@@ -28,11 +28,11 @@
 	</bean>
 
 	<bean id="log.filename" class="java.lang.String">
-		<constructor-arg value="mutant.log" />
+		<constructor-arg value="../TargetConfigurations/spring/2.0.5/mutant.log" />
 	</bean>
 
 	<bean id="report.filename" class="java.lang.String">
-		<constructor-arg value="target/report.xml" />
+		<constructor-arg value="../TargetConfigurations/spring/2.0.5/report.xml" />
 	</bean>
 
 	<bean id="report.reportSurvivorsOnly" class="java.lang.Boolean">
