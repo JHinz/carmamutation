@@ -19,8 +19,8 @@ public class AnnotationResolverTestCase extends TestCase {
 
 		AnnotationResolver resolver = new AnnotationResolver();
 		resolver.setFilterConfiguration(new FilterConfiguration());
-		resolver.setClassesPath(testClassPath);
-		resolver.setTestClassesPath(testClassPath);
+		resolver.setClassesPath(new File[] { testClassPath });
+		resolver.setTestClassesPath(new File[] { testClassPath });
 
 		List<ClassDescription> classes = resolver.resolve();
 
@@ -56,8 +56,8 @@ public class AnnotationResolverTestCase extends TestCase {
 
 		AnnotationResolver resolver = new AnnotationResolver();
 		resolver.setFilterConfiguration(filters);
-		resolver.setClassesPath(testClassPath);
-		resolver.setTestClassesPath(testClassPath);
+		resolver.setClassesPath(new File[] { testClassPath });
+		resolver.setTestClassesPath(new File[] { testClassPath });
 
 		List<ClassDescription> classes = resolver.resolve();
 
