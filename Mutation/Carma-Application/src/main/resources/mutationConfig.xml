@@ -65,12 +65,8 @@
 	<bean id="testRunner"
 		class="com.retroduction.carma.core.testrunner.junit3.JUnitRunner">
 		<property name="stopOnFirstFailedTest" value="true" />
-		<property name="testClassesLocationsAsFiles">
-			<list>
-				<ref bean="classesDir" />
-				<ref bean="testClassesDir" />
-			</list>
-		</property>
+		<property name="classesLocationsAsFiles" ref="classesDir" />
+		<property name="testClassesLocationsAsFiles" ref="testClassesDir" />
 		<property name="libraries" ref="libraries" />
 	</bean>
 

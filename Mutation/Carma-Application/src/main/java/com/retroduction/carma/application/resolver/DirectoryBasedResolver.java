@@ -13,18 +13,22 @@ import com.retroduction.carma.core.runner.ClassDescription;
  * 
  */
 public class DirectoryBasedResolver {
+
 	/**
 	 * base directory for classes
 	 */
-	private File classesBaseDir;
+	private File[] classesBaseDir;
 
 	public List<ClassDescription> determineClassNames() {
 		List<ClassDescription> classDescriptions = new ArrayList<ClassDescription>();
-		iterate(this.classesBaseDir, "", "", classDescriptions);
+
+		for (File classesDirectory : classesBaseDir)
+			iterate(classesDirectory, "", "", classDescriptions);
+
 		return classDescriptions;
 	}
 
-	public void setClassesBaseDir(File classesBaseDir) {
+	public void setClassesBaseDir(File[] classesBaseDir) {
 		this.classesBaseDir = classesBaseDir;
 	}
 

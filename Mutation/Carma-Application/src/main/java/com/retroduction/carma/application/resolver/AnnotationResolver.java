@@ -14,11 +14,6 @@ import com.retroduction.carma.core.runner.ClassDescription;
 
 public class AnnotationResolver extends AbstractFilteredResolver {
 
-//	public AnnotationResolver(FilterConfiguration filters, File classesPath, File testClassesPath)
-//			throws MalformedURLException {
-//		super(filters, classesPath, testClassesPath);
-//	}
-
 	public List<ClassDescription> resolve() {
 
 		DirectoryBasedResolver directoryResolver = new DirectoryBasedResolver();
@@ -37,7 +32,8 @@ public class AnnotationResolver extends AbstractFilteredResolver {
 		return new ArrayList<ClassDescription>(classDescriptions.values());
 	}
 
-	private void determineAnnotationMappings(Map<String, ClassDescription> classDescriptions, List<ClassDescription> usefulTestClasses) {
+	private void determineAnnotationMappings(Map<String, ClassDescription> classDescriptions,
+			List<ClassDescription> usefulTestClasses) {
 		for (ClassDescription testClassDescription : usefulTestClasses) {
 
 			try {

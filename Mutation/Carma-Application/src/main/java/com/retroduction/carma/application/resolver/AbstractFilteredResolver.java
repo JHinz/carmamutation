@@ -18,27 +18,34 @@ import com.retroduction.carma.core.runner.ClassDescription;
 public abstract class AbstractFilteredResolver implements IResolver {
 
 	private Log log = LogFactory.getLog(AbstractFilteredResolver.class);
-	
+
 	private FilterConfiguration filterConfiguration;
 
-	private File classesPath;
+	private File[] classesPath;
 
-	private File testClassesPath;
+	private File[] testClassesPath;
 
 	private URLClassLoader loader;
 
 	private void reinitPrivateClassLoader() throws MalformedURLException {
+
 		List<URL> urlList = new ArrayList<URL>();
 
-		if (getClassesPath() != null)
-			urlList.add(getClassesPath().toURL());
+		if (getClassesPath() != null) {
+			for (File file : getClassesPath()) {
+				if (file != null)
+					urlList.add(file.toURL());
+			}
+		}
 
-		if (getTestClassesPath() != null)
-			urlList.add(getTestClassesPath().toURL());
+		if (getTestClassesPath() != null) {
+			for (File file : getTestClassesPath()) {
+				if (file != null)
+					urlList.add(file.toURL());
+			}
+		}
 
-		URL[] bla = (URL[]) urlList.toArray(new URL[0]);
-
-		setLoader(new URLClassLoader(bla, this.getClass().getClassLoader()));
+		setLoader(new URLClassLoader((URL[]) urlList.toArray(new URL[0]), this.getClass().getClassLoader()));
 	}
 
 	protected URLClassLoader getLoader() {
@@ -49,20 +56,20 @@ public abstract class AbstractFilteredResolver implements IResolver {
 		this.loader = loader;
 	}
 
-	public File getClassesPath() {
+	public File[] getClassesPath() {
 		return classesPath;
 	}
 
-	public void setClassesPath(File classesPath) throws MalformedURLException {
+	public void setClassesPath(File[] classesPath) throws MalformedURLException {
 		this.classesPath = classesPath;
 		reinitPrivateClassLoader();
 	}
 
-	public File getTestClassesPath() {
+	public File[] getTestClassesPath() {
 		return testClassesPath;
 	}
 
-	public void setTestClassesPath(File testClassesPath) throws MalformedURLException {
+	public void setTestClassesPath(File[] testClassesPath) throws MalformedURLException {
 		this.testClassesPath = testClassesPath;
 		reinitPrivateClassLoader();
 	}
