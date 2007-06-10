@@ -60,8 +60,16 @@ public class ConfigBasedResolver extends AbstractFilteredResolver {
 
 		while (lineTokenzier.hasMoreTokens()) {
 
-			String line = lineTokenzier.nextToken().replaceAll(" ", "");
+			String line = lineTokenzier.nextToken().replaceAll(" ", "").trim();
 
+			if (line.startsWith("#"))
+				continue;
+			
+			int commentChar = line.indexOf("#");
+			
+			if ( commentChar >=0)
+				line = line.substring(0, commentChar);
+			
 			if (!line.contains("="))
 				continue;
 

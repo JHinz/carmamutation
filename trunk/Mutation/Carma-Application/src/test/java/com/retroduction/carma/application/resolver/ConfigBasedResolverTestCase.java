@@ -129,6 +129,63 @@ public class ConfigBasedResolverTestCase extends TestCase {
 		assertEquals("com.b.TestClass2", testNames.get(0));
 
 	}
+	
+	public void test_ReadConfig_SkipComments_CompleteCommentLine() throws MalformedURLException {
+
+		StringBuffer inputConfig = new StringBuffer();
+
+		inputConfig.append("#com.b.TestClass1=org.AnotherTestClass2\n");
+		inputConfig.append("com.b.Class2=com.b.TestClass2\n");
+
+		ConfigBasedResolver resolver = new ConfigBasedResolver();
+
+		List<ClassDescription> result = resolver.parseInputConfiguration(inputConfig.toString());
+
+		assertEquals(1, result.size());
+		assertEquals("com.b.Class2", result.get(0).getQualifiedClassName());
+		assertEquals("com.b", result.get(0).getPackageName());
+		assertEquals("Class2", result.get(0).getClassName());
+
+		List<String> testNames;
+
+		testNames = new ArrayList<String>();
+		testNames.addAll(result.get(0).getAssociatedTestNames());
+
+		assertEquals(1, testNames.size());
+		assertEquals("com.b.TestClass2", testNames.get(0));
+
+	}
+
+	public void test_ReadConfig_SkipComments_PartialCommentLine() throws MalformedURLException {
+
+		StringBuffer inputConfig = new StringBuffer();
+
+		inputConfig.append("com.b.TestClass1=org.AnotherTestClass2#Comment\n");
+		inputConfig.append("com.b.Class2=com.b.TestClass2\n");
+
+		ConfigBasedResolver resolver = new ConfigBasedResolver();
+
+		List<ClassDescription> result = resolver.parseInputConfiguration(inputConfig.toString());
+
+		assertEquals(2, result.size());
+		assertEquals("com.b.TestClass1", result.get(0).getQualifiedClassName());
+		assertEquals("com.b.Class2", result.get(1).getQualifiedClassName());
+
+		List<String> testNames;
+
+		testNames = new ArrayList<String>();
+		testNames.addAll(result.get(0).getAssociatedTestNames());
+
+		assertEquals(1, testNames.size());
+		assertEquals("org.AnotherTestClass2", testNames.get(0));
+
+		testNames = new ArrayList<String>();
+		testNames.addAll(result.get(1).getAssociatedTestNames());
+
+		assertEquals(1, testNames.size());
+		assertEquals("com.b.TestClass2", testNames.get(0));
+
+	}
 
 	public void test_ReadInputStream() throws IOException {
 
