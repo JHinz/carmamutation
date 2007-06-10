@@ -1,5 +1,11 @@
+# Spring 2.0.5 testclass to class mapping
+
+# org.springframework.beans 
+
 org.springframework.beans.BeanUtils=org.springframework.beans.BeanUtilsTests
-org.springframework.beans.BeanWrapperImpl=org.springframework.beans.BeanWrapperTests
+org.springframework.beans.BeanWrapperImpl=org.springframework.beans.BeanWrapperTests,org.springframework.beans.ConcurrentBeanWrapperTests
 org.springframework.beans.CachedIntrospectionResults=org.springframework.beans.CachedIntrospectionResultsTests
 org.springframework.beans.PropertyAccessorUtils=org.springframework.beans.PropertyAccessorUtilsTests
 org.springframework.beans.MutablePropertyValues=org.springframework.beans.MutablePropertyValuesTests
+#org.springframework.beans.CachedIntrosprectionResults=org.springframework.beans.CachedIntrosprectionResultsTests # does not work until CAR-20 is fixed
+
