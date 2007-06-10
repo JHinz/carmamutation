@@ -1,2 +1,5 @@
 org.springframework.beans.BeanUtils=org.springframework.beans.BeanUtilsTests
 org.springframework.beans.BeanWrapperImpl=org.springframework.beans.BeanWrapperTests
+org.springframework.beans.CachedIntrospectionResults=org.springframework.beans.CachedIntrospectionResultsTests
+org.springframework.beans.PropertyAccessorUtils=org.springframework.beans.PropertyAccessorUtilsTests
+org.springframework.beans.MutablePropertyValues=org.springframework.beans.MutablePropertyValuesTests
