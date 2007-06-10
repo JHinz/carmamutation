@@ -13,6 +13,7 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
@@ -36,11 +37,9 @@ public class ConfigBasedResolver extends AbstractFilteredResolver {
 		this.configurationFile = configurationFile;
 	}
 
-	protected String readInputConfiguration(InputStream steram)
-			throws IOException {
+	protected String readInputConfiguration(InputStream steram) throws IOException {
 
-		BufferedReader reader = new BufferedReader(
-				new InputStreamReader(steram));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(steram));
 
 		StringBuffer resultBuffer = new StringBuffer();
 
@@ -64,12 +63,12 @@ public class ConfigBasedResolver extends AbstractFilteredResolver {
 
 			if (line.startsWith("#"))
 				continue;
-			
+
 			int commentChar = line.indexOf("#");
-			
-			if ( commentChar >=0)
+
+			if (commentChar >= 0)
 				line = line.substring(0, commentChar);
-			
+
 			if (!line.contains("="))
 				continue;
 
@@ -99,8 +98,7 @@ public class ConfigBasedResolver extends AbstractFilteredResolver {
 			clazz.setAssociatedTestNames(new HashSet<String>());
 
 			while (elementTokenizer.hasMoreTokens()) {
-				clazz.getAssociatedTestNames()
-						.add(elementTokenizer.nextToken());
+				clazz.getAssociatedTestNames().add(elementTokenizer.nextToken());
 
 			}
 
@@ -113,16 +111,6 @@ public class ConfigBasedResolver extends AbstractFilteredResolver {
 	}
 
 	public List<ClassDescription> resolve() {
-
-		URLClassLoader loader = null;
-		try {
-			loader = new URLClassLoader(new URL[] {
-					getTestClassesPath().toURL(), getClassesPath().toURL() },
-					this.getClass().getClassLoader());
-		} catch (MalformedURLException e1) {
-			e1.printStackTrace();
-			return new ArrayList<ClassDescription>();
-		}
 
 		String inputConfiguration;
 		try {
@@ -137,30 +125,23 @@ public class ConfigBasedResolver extends AbstractFilteredResolver {
 
 		for (ClassDescription classDescription : classDescriptions) {
 
-			for (String testClassName : classDescription
-					.getAssociatedTestNames()) {
+			for (String testClassName : classDescription.getAssociatedTestNames()) {
 
-				if (getFilterConfiguration().getTestClassExcludeFilter()
-						.shouldBeExcluded(testClassName))
+				if (getFilterConfiguration().getTestClassExcludeFilter().shouldBeExcluded(testClassName))
 					continue;
 
 				try {
-					Class testClass = loader.loadClass(testClassName);
+					Class testClass = getLoader().loadClass(testClassName);
 
-					if (Modifier.isAbstract(testClass.getModifiers())
-							|| Modifier.isInterface(testClass.getModifiers())) {
-						log
-								.info("Skipping abstract class or interface in test set:"
-										+ testClassName);
-						classDescription.getAssociatedTestNames().remove(
-								testClassName);
+					if (Modifier.isAbstract(testClass.getModifiers()) || Modifier.isInterface(testClass.getModifiers())) {
+						log.info("Skipping abstract class or interface in test set:" + testClassName);
+						classDescription.getAssociatedTestNames().remove(testClassName);
 						continue;
 					}
 
 				} catch (ClassNotFoundException e) {
-					log
-							.warn("Skipping class in test set due to class loading problem:"
-									+ classDescription.getQualifiedClassName());
+					log.warn("Skipping class in test set due to class loading problem:"
+							+ classDescription.getQualifiedClassName());
 					continue;
 				}
 			}
