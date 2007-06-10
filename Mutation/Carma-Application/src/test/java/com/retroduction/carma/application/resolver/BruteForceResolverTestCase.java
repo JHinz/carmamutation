@@ -21,8 +21,8 @@ public class BruteForceResolverTestCase extends TestCase {
 
 		BruteForceResolver resolver = new BruteForceResolver();
 		resolver.setFilterConfiguration(filters);
-		resolver.setClassesPath(testClassPath);
-		resolver.setTestClassesPath(testClassPath);
+		resolver.setClassesPath(new File[] { testClassPath });
+		resolver.setTestClassesPath(new File[] { testClassPath });
 		
 		List<ClassDescription> classes = resolver.resolve();
 
@@ -58,8 +58,8 @@ public class BruteForceResolverTestCase extends TestCase {
 		
 		BruteForceResolver resolver = new BruteForceResolver();
 		resolver.setFilterConfiguration(filters);
-		resolver.setClassesPath(testClassPath);
-		resolver.setTestClassesPath(testClassPath);
+		resolver.setClassesPath(new File[] { testClassPath });
+		resolver.setTestClassesPath(new File[] { testClassPath });
 
 		List<ClassDescription> classes = resolver.resolve();
 

@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URL;
-import java.net.URLClassLoader;
 
 import junit.framework.Test;
 import junit.framework.TestResult;
@@ -150,5 +149,9 @@ public class MutantJUnitRunner extends BaseTestRunner {
 	public void testStarted(String testName) {
 		// TODO Auto-generated method stub
 
+	}
+
+	ClassLoader getMutantLoader() {
+		return mutantLoader;
 	}
 }

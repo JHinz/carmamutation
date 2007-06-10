@@ -25,10 +25,10 @@ public class MutationRunner {
 
 	private IMutationGenerator mutantGenerator;
 
-	private File classesUnderTestPath;
+	private File[] classesUnderTestPath;
 
 	private IEventListener eventListener;
-	
+
 	private Log log = LogFactory.getLog(MutationRunner.class);
 
 	/**
@@ -43,11 +43,11 @@ public class MutationRunner {
 	 */
 	public void performMutations(List<AbstractTransitionGroup> transitionGroups,
 			List<ClassDescription> classUnderTestDescriptions) throws IOException {
-		
+
 		log.info("Performing mutation on all classes");
-				
+
 		for (ClassDescription classUnderTestDescription : classUnderTestDescriptions) {
-			
+
 			log.info("Performing mutation on class: " + classUnderTestDescription.getQualifiedClassName());
 
 			eventListener.notifyEvent(new ProcessingClassUnderTest(classUnderTestDescription));
@@ -57,8 +57,8 @@ public class MutationRunner {
 			byte[] byteCode = loadClass(fqClassName);
 
 			for (AbstractTransitionGroup transitionGroup : transitionGroups) {
-				
-				log.info("Using transition group <"+transitionGroup.getName()+"> for mutation process");
+
+				log.info("Using transition group <" + transitionGroup.getName() + "> for mutation process");
 
 				eventListener.notifyEvent(new ProcessingMutationOperator(transitionGroup.getClass().getName()));
 
@@ -84,7 +84,7 @@ public class MutationRunner {
 		}
 
 	}
-	
+
 	/**
 	 * 
 	 * Integration interface method for direct access using complex datatypes.
@@ -102,8 +102,7 @@ public class MutationRunner {
 		Set<String> brokenTestNames = testRunner.execute(testDescriptions);
 
 		if (brokenTestNames.size() > 0) {
-			log
-					.error("Testset not sane. There are test failures without mutations");
+			log.error("Testset not sane. There are test failures without mutations");
 			return false;
 		} else {
 			log.info("Testset is sane. No broken tests without mutation");
@@ -114,11 +113,15 @@ public class MutationRunner {
 
 	private byte[] loadClass(String classUnderTestName) throws IOException {
 
-		String path = classesUnderTestPath.getAbsolutePath() + "/" + classUnderTestName.replace('.', '/') + ".class";
-
-		File originalClassFile = new File(path);
-
-		return new ByteCodeFileReader().readByteCodeFromDisk(originalClassFile);
+		for (File classDirectory : getClassesUnderTestPath()) {
+			String path = classDirectory.getAbsolutePath() + "/" + classUnderTestName.replace('.', '/')
+					+ ".class";
+			File originalClassFile = new File(path);
+			if (originalClassFile.exists()) {
+				return new ByteCodeFileReader().readByteCodeFromDisk(originalClassFile);
+			}
+		}
+		throw new IOException("File not found");
 	}
 
 	public void setMutantGenerator(IMutationGenerator mutantGenerator) {
@@ -129,11 +132,11 @@ public class MutationRunner {
 		this.testRunner = testRunner;
 	}
 
-	public File getClassesUnderTestPath() {
+	public File[] getClassesUnderTestPath() {
 		return classesUnderTestPath;
 	}
 
-	public void setClassesUnderTestPath(File classesUnderTestPath) {
+	public void setClassesUnderTestPath(File[] classesUnderTestPath) {
 		this.classesUnderTestPath = classesUnderTestPath;
 	}
 

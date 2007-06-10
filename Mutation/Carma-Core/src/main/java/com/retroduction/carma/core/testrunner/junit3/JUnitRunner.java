@@ -25,6 +25,8 @@ import com.retroduction.carma.core.testrunner.ITestRunner;
  */
 public class JUnitRunner implements ITestRunner {
 
+	private URL[] classesLocations = new URL[0];
+
 	private URL[] testClassesLocations = new URL[0];
 
 	private URL[] libraries = new URL[0];
@@ -37,20 +39,28 @@ public class JUnitRunner implements ITestRunner {
 	 */
 	private int runTest(String testCase, Mutant mutant) {
 
-		URL[] urls = new URL[testClassesLocations.length + libraries.length];
+		URL[] urls = new URL[classesLocations.length + testClassesLocations.length + libraries.length];
 
-		System.arraycopy(testClassesLocations, 0, urls, 0, testClassesLocations.length);
-		System.arraycopy(libraries, 0, urls, testClassesLocations.length, libraries.length);
+		System.arraycopy(classesLocations, 0, urls, 0, classesLocations.length);
+		System.arraycopy(testClassesLocations, 0, urls, classesLocations.length, testClassesLocations.length);
+		System.arraycopy(libraries, 0, urls, classesLocations.length + testClassesLocations.length, libraries.length);
 
 		MutantJUnitRunner runner = new MutantJUnitRunner(urls, mutant);
-		Test suite = runner.getTest(testCase);
-		TestResult result = runner.doRun(suite, false);
+		try {
+			Test suite = runner.getTest(testCase);
+			TestResult result = runner.doRun(suite, false);
+
+			runner.restoreReplacedClassLoader();
+			
+			int errors = result.errorCount();
+			int failures = result.failureCount();
+			return errors + failures;
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			runner.restoreReplacedClassLoader();
+			throw e;
+		}
 		
-		runner.restoreReplacedClassLoader();
-		
-		int errors = result.errorCount();
-		int failures = result.failureCount();
-		return errors + failures;
 	}
 
 	public URL[] getTestClassesLocations() {
@@ -68,6 +78,15 @@ public class JUnitRunner implements ITestRunner {
 		}
 
 		this.testClassesLocations = urls;
+	}
+
+	public void setClassesLocationsAsFiles(List<File> classesLocPaths) throws MalformedURLException {
+		URL[] urls = new URL[classesLocPaths.size()];
+		for (int i = 0; i < classesLocPaths.size(); i++) {
+			urls[i] = classesLocPaths.get(i).toURL();
+		}
+
+		this.classesLocations = urls;
 	}
 
 	public void execute(Mutant mutant, Set<String> origTestNames, IEventListener eventListener) {
@@ -97,7 +116,7 @@ public class JUnitRunner implements ITestRunner {
 		}
 		eventListener.notifyEvent(new TestsExecuted(mutant, executedTestsNames, survived, killerTestNames));
 	}
-	
+
 	public Set<String> execute(Set<String> origTestNames) {
 
 		Set<String> brokenTestNames = new TreeSet<String>();
@@ -120,6 +139,10 @@ public class JUnitRunner implements ITestRunner {
 
 	public void setLibraries(URL[] libraries) {
 		this.libraries = libraries;
+	}
+
+	public void setClassesLocations(URL[] classesLocations) {
+		this.classesLocations = classesLocations;
 	}
 
 }
