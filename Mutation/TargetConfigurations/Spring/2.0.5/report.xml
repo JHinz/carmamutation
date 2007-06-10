@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mutationRun>
     <processingInfo>
-        <start>2007-06-10T12:49:45.254+02:00</start>
-        <duration>67803</duration>
-        <end>2007-06-10T12:50:53.057+02:00</end>
+        <start>2007-06-10T13:23:57.367+02:00</start>
+        <duration>143251</duration>
+        <end>2007-06-10T13:26:20.618+02:00</end>
     </processingInfo>
     <mutationRatio>
         <mutationCount>198</mutationCount>
@@ -13,9 +13,9 @@
         <className>BeanUtils</className>
         <packageName>org.springframework.beans</packageName>
         <processingInfo>
-            <start>2007-06-10T12:49:46.527+02:00</start>
-            <duration>6542</duration>
-            <end>2007-06-10T12:49:53.069+02:00</end>
+            <start>2007-06-10T13:24:00.792+02:00</start>
+            <duration>6459</duration>
+            <end>2007-06-10T13:24:07.251+02:00</end>
         </processingInfo>
         <mutationRatio>
             <mutationCount>45</mutationCount>
@@ -318,9 +318,9 @@
         <className>BeanWrapperImpl</className>
         <packageName>org.springframework.beans</packageName>
         <processingInfo>
-            <start>2007-06-10T12:49:53.076+02:00</start>
-            <duration>54331</duration>
-            <end>2007-06-10T12:50:47.407+02:00</end>
+            <start>2007-06-10T13:24:07.258+02:00</start>
+            <duration>128050</duration>
+            <end>2007-06-10T13:26:15.308+02:00</end>
         </processingInfo>
         <mutationRatio>
             <mutationCount>77</mutationCount>
@@ -419,7 +419,7 @@
             <transitionGroup>ROR</transitionGroup>
             <transition>IF_ICMPLE_to_IF_ICMPGT</transition>
             <baseSourceLine>415</baseSourceLine>
-            <killerTests>org.springframework.beans.BeanWrapperTests</killerTests>
+            <killerTests>org.springframework.beans.ConcurrentBeanWrapperTests</killerTests>
         </mutant>
         <mutant>
             <survived>true</survived>
@@ -562,7 +562,7 @@
             <transitionGroup>ROR</transitionGroup>
             <transition>IFEQ_to_IFNE</transition>
             <baseSourceLine>815</baseSourceLine>
-            <killerTests>org.springframework.beans.BeanWrapperTests</killerTests>
+            <killerTests>org.springframework.beans.ConcurrentBeanWrapperTests</killerTests>
         </mutant>
         <mutant>
             <survived>true</survived>
@@ -596,7 +596,7 @@
             <transitionGroup>ROR</transitionGroup>
             <transition>IFNE_to_IFEQ</transition>
             <baseSourceLine>508</baseSourceLine>
-            <killerTests>org.springframework.beans.BeanWrapperTests</killerTests>
+            <killerTests>org.springframework.beans.ConcurrentBeanWrapperTests</killerTests>
         </mutant>
         <mutant>
             <survived>false</survived>
@@ -698,7 +698,7 @@
             <transitionGroup>ROR</transitionGroup>
             <transition>IFNONNULL_to_IFNULL</transition>
             <baseSourceLine>791</baseSourceLine>
-            <killerTests>org.springframework.beans.BeanWrapperTests</killerTests>
+            <killerTests>org.springframework.beans.ConcurrentBeanWrapperTests</killerTests>
         </mutant>
         <mutant>
             <survived>false</survived>
@@ -725,7 +725,7 @@
             <transitionGroup>ROR</transitionGroup>
             <transition>IFNULL_to_IFNONNULL</transition>
             <baseSourceLine>234</baseSourceLine>
-            <killerTests>org.springframework.beans.BeanWrapperTests</killerTests>
+            <killerTests>org.springframework.beans.ConcurrentBeanWrapperTests</killerTests>
         </mutant>
         <mutant>
             <survived>true</survived>
@@ -801,7 +801,7 @@
             <transitionGroup>ROR</transitionGroup>
             <transition>IFNULL_to_IFNONNULL</transition>
             <baseSourceLine>506</baseSourceLine>
-            <killerTests>org.springframework.beans.BeanWrapperTests</killerTests>
+            <killerTests>org.springframework.beans.ConcurrentBeanWrapperTests</killerTests>
         </mutant>
         <mutant>
             <survived>false</survived>
@@ -822,14 +822,14 @@
             <transitionGroup>ROR</transitionGroup>
             <transition>IFNULL_to_IFNONNULL</transition>
             <baseSourceLine>656</baseSourceLine>
-            <killerTests>org.springframework.beans.BeanWrapperTests</killerTests>
+            <killerTests>org.springframework.beans.ConcurrentBeanWrapperTests</killerTests>
         </mutant>
         <mutant>
             <survived>false</survived>
             <transitionGroup>ROR</transitionGroup>
             <transition>IFNULL_to_IFNONNULL</transition>
             <baseSourceLine>791</baseSourceLine>
-            <killerTests>org.springframework.beans.BeanWrapperTests</killerTests>
+            <killerTests>org.springframework.beans.ConcurrentBeanWrapperTests</killerTests>
         </mutant>
         <mutant>
             <survived>true</survived>
@@ -843,15 +843,16 @@
             <transition>IFNULL_to_IFNONNULL</transition>
             <baseSourceLine>849</baseSourceLine>
         </mutant>
+        <executedTests>org.springframework.beans.ConcurrentBeanWrapperTests</executedTests>
         <executedTests>org.springframework.beans.BeanWrapperTests</executedTests>
     </classUnderTest>
     <classUnderTest>
         <className>CachedIntrospectionResults</className>
         <packageName>org.springframework.beans</packageName>
         <processingInfo>
-            <start>2007-06-10T12:50:47.410+02:00</start>
-            <duration>4628</duration>
-            <end>2007-06-10T12:50:52.038+02:00</end>
+            <start>2007-06-10T13:26:15.310+02:00</start>
+            <duration>4652</duration>
+            <end>2007-06-10T13:26:19.962+02:00</end>
         </processingInfo>
         <mutationRatio>
             <mutationCount>28</mutationCount>
@@ -1040,9 +1041,9 @@
         <className>PropertyAccessorUtils</className>
         <packageName>org.springframework.beans</packageName>
         <processingInfo>
-            <start>2007-06-10T12:50:52.040+02:00</start>
-            <duration>50</duration>
-            <end>2007-06-10T12:50:52.090+02:00</end>
+            <start>2007-06-10T13:26:19.964+02:00</start>
+            <duration>46</duration>
+            <end>2007-06-10T13:26:20.010+02:00</end>
         </processingInfo>
         <mutationRatio>
             <mutationCount>26</mutationCount>
@@ -1220,9 +1221,9 @@
         <className>MutablePropertyValues</className>
         <packageName>org.springframework.beans</packageName>
         <processingInfo>
-            <start>2007-06-10T12:50:52.093+02:00</start>
-            <duration>534</duration>
-            <end>2007-06-10T12:50:52.627+02:00</end>
+            <start>2007-06-10T13:26:20.012+02:00</start>
+            <duration>199</duration>
+            <end>2007-06-10T13:26:20.211+02:00</end>
         </processingInfo>
         <mutationRatio>
             <mutationCount>22</mutationCount>
