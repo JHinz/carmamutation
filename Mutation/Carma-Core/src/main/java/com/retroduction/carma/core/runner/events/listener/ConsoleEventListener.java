@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.util.StopWatch;
 
 import com.retroduction.carma.core.runner.Mutant;
@@ -17,6 +19,9 @@ import com.retroduction.carma.core.runner.events.TestSetDetermined;
 import com.retroduction.carma.core.runner.events.TestsExecuted;
 
 public class ConsoleEventListener implements IEventListener {
+
+	private Log log = LogFactory.getLog(ConsoleEventListener.class);
+
 	int numSurvivors;
 
 	int numKilled;
@@ -35,25 +40,25 @@ public class ConsoleEventListener implements IEventListener {
 
 	public void notifyEvent(IEvent event) {
 		if (!showSummaryOnly) {
-			System.out.println(new Date() + ": " + event);
+			log.info(new Date() + ": " + event);
 		}
 		if (event instanceof MutationProcessStarted) {
 			watch.start();
 		} else if (event instanceof MutationProcessFinished) {
 			watch.stop();
-			double elapsed = watch.getLastTaskTimeMillis(); 
+			double elapsed = watch.getLastTaskTimeMillis();
 			double mutantsPerClass = (double) totalMutants.size() / (double) numClassesUnderTest;
 			double testsPerClass = (double) numTests / (double) numClassesUnderTest;
 			double survivorRatio = (double) suvivors.size() / (double) totalMutants.size() * 100;
-			System.out.println("# --------------------------------------------------------------------------------");
-			System.out.println("# TEST RESULTS SUMMARY ");
-			System.out.println("#   Total time                : " + elapsed / 1000 + " sec.");
-			System.out.println("#   Classes/Tests             : " + numClassesUnderTest +"/" +numTests);
-			System.out.println("#   Tests Per Class           : " + testsPerClass);
-			System.out.println("#   Mutants/Class             : " + mutantsPerClass);
-			System.out.println("#   Mutants/Survivors         : "  + totalMutants.size() + "/" + suvivors.size());
-			System.out.println("#   SurvivorRatio             : " +survivorRatio +" %");
-			System.out.println("# --------------------------------------------------------------------------------");
+			log.info("# --------------------------------------------------------------------------------");
+			log.info("# TEST RESULTS SUMMARY ");
+			log.info("#   Total time                : " + elapsed / 1000 + " sec.");
+			log.info("#   Classes/Tests             : " + numClassesUnderTest + "/" + numTests);
+			log.info("#   Tests Per Class           : " + testsPerClass);
+			log.info("#   Mutants/Class             : " + mutantsPerClass);
+			log.info("#   Mutants/Survivors         : " + totalMutants.size() + "/" + suvivors.size());
+			log.info("#   SurvivorRatio             : " + survivorRatio + " %");
+			log.info("# --------------------------------------------------------------------------------");
 		} else if (event instanceof TestsExecuted) {
 			TestsExecuted te = (TestsExecuted) event;
 			if (te.isMutantSurvived()) {
