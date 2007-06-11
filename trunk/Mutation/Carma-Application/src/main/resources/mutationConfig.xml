@@ -20,7 +20,7 @@
 	</bean>
 
 	<!-- the driver main class which constructs a proper mutation runner -->
-	<bean id="testDriver" class="com.retroduction.carma.application.BasicDriver">
+	<bean id="testDriver" class="com.retroduction.carma.application.Carma">
 		<property name="resolver" ref="usedResolver" />
 		<property name="runner" ref="runner" />
 		<property name="eventListener" ref="eventListener"></property>
@@ -32,13 +32,6 @@
 		<property name="eventListener" ref="eventListener" />
 		<property name="mutantGenerator" ref="mutantGenerator" />
 		<property name="classesUnderTestPath" ref="classesDir" />
-	</bean>
-
-	<bean id="file.eventListener"
-		class="com.retroduction.carma.core.runner.events.listener.FileEventListener">
-		<constructor-arg>
-			<ref bean="report.filename" />
-		</constructor-arg>
 	</bean>
 
 	<bean id="report.eventListener"

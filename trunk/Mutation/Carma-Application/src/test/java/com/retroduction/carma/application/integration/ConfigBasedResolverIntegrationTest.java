@@ -12,7 +12,7 @@ import org.apache.commons.cli.ParseException;
 
 import com.mutation.report.loader.ReportModelLoader;
 import com.mutation.report.om.MutationRun;
-import com.retroduction.carma.application.BasicDriver;
+import com.retroduction.carma.application.Carma;
 import com.retroduction.carma.core.testrunner.MutationClassLoader;
 
 public class ConfigBasedResolverIntegrationTest extends TestCase {
@@ -29,7 +29,7 @@ public class ConfigBasedResolverIntegrationTest extends TestCase {
 			report.delete();
 		}
 
-		BasicDriver.main(new String[] { "-uc", "src/test/it/it0004/config.xml" });
+		Carma.main(new String[] { "-uc", "src/test/it/it0004/config.xml" });
 
 		assertTrue("Report.xml has not been created.", report.exists());
 
@@ -62,7 +62,7 @@ public class ConfigBasedResolverIntegrationTest extends TestCase {
 			report.delete();
 		}
 
-		BasicDriver.main(new String[] { "-uc", "src/test/it/it0007/config.xml" });
+		Carma.main(new String[] { "-uc", "src/test/it/it0007/config.xml" });
 
 		assertTrue("Report.xml has not been created.", report.exists());
 
