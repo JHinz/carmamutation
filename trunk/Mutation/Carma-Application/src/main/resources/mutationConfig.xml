@@ -20,14 +20,18 @@
 	</bean>
 
 	<!-- the driver main class which constructs a proper mutation runner -->
-	<bean id="testDriver" class="com.retroduction.carma.application.Carma">
+	<bean id="testDriver"
+		class="com.retroduction.carma.application.Carma">
 		<property name="resolver" ref="usedResolver" />
 		<property name="runner" ref="runner" />
 		<property name="eventListener" ref="eventListener"></property>
+		<property name="filterVerifier" ref="filterVerifier"></property>
+		<property name="instantiationVerifier" ref="instantiationVerifier"></property>
 	</bean>
 
 	<!-- the core mutation runner class which executes the tests -->
-	<bean id="runner" class="com.retroduction.carma.core.runner.MutationRunner">
+	<bean id="runner"
+		class="com.retroduction.carma.core.runner.MutationRunner">
 		<property name="testRunner" ref="testRunner" />
 		<property name="eventListener" ref="eventListener" />
 		<property name="mutantGenerator" ref="mutantGenerator" />
@@ -58,40 +62,48 @@
 		class="com.retroduction.carma.core.testrunner.junit3.JUnitRunner">
 		<property name="stopOnFirstFailedTest" value="true" />
 		<property name="classesLocationsAsFiles" ref="classesDir" />
-		<property name="testClassesLocationsAsFiles" ref="testClassesDir" />
+		<property name="testClassesLocationsAsFiles"
+			ref="testClassesDir" />
 		<property name="libraries" ref="libraries" />
+	</bean>
+
+	<bean id="filterVerifier"
+		class="com.retroduction.carma.application.resolver.FilterVerifier">
+		<property name="filterConfiguration" ref="filterConfiguration" />
+	</bean>
+
+	<bean id="instantiationVerifier"
+		class="com.retroduction.carma.application.resolver.InstantiationVerifier">
+		<property name="classesPath" ref="classesDir" />
+		<property name="testClassesPath" ref="testClassesDir" />
 	</bean>
 
 	<bean id="classMatchResolver"
 		class="com.retroduction.carma.application.resolver.ClassMatchResolver">
-		<property name="filterConfiguration" ref="filterConfig" />
 		<property name="classesPath" ref="classesDir" />
 		<property name="testClassesPath" ref="testClassesDir" />
 	</bean>
 
 	<bean id="bruteForceResolver"
 		class="com.retroduction.carma.application.resolver.BruteForceResolver">
-		<property name="filterConfiguration" ref="filterConfig" />
 		<property name="classesPath" ref="classesDir" />
 		<property name="testClassesPath" ref="testClassesDir" />
 	</bean>
 
 	<bean id="annotationResolver"
 		class="com.retroduction.carma.application.resolver.AnnotationResolver">
-		<property name="filterConfiguration" ref="filterConfig" />
 		<property name="classesPath" ref="classesDir" />
 		<property name="testClassesPath" ref="testClassesDir" />
 	</bean>
 
 	<bean id="configurationBasedResolver"
 		class="com.retroduction.carma.application.resolver.ConfigBasedResolver">
-		<property name="filterConfiguration" ref="filterConfig" />
 		<property name="classesPath" ref="classesDir" />
 		<property name="testClassesPath" ref="testClassesDir" />
 		<property name="configurationFile" ref="assignmentFile" />
 	</bean>
 
-	<bean id="filterConfig"
+	<bean id="filterConfiguration"
 		class="com.retroduction.carma.application.resolver.util.FilterConfiguration">
 		<property name="classIncludeFilter" ref="classIncludeFilter" />
 		<property name="testClassIncludeFilter"

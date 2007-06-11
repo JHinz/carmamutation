@@ -13,6 +13,9 @@ import org.apache.commons.cli.ParseException;
 import org.springframework.context.support.AbstractXmlApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.retroduction.carma.application.resolver.AbstractFilteredResolver;
+import com.retroduction.carma.application.resolver.FilterVerifier;
+import com.retroduction.carma.application.resolver.InstantiationVerifier;
 import com.retroduction.carma.application.util.CLIValidator;
 import com.retroduction.carma.core.runner.ClassDescription;
 import com.retroduction.carma.core.runner.MutationRunner;
@@ -31,64 +34,68 @@ public class Carma {
 
 	private IEventListener eventListener;
 
-	private IResolver resolver;
+	private AbstractFilteredResolver resolver;
 
 	private MutationRunner runner;
+
+	private InstantiationVerifier instantiationVerifier;
+
+	private FilterVerifier filterVerifier;
 
 	/**
 	 * command line test runner, reads configuration from mutationconfig.xml
 	 * 
 	 * @throws ParseException
 	 */
-	public static void main(String[] args) throws MalformedURLException,
-			FileNotFoundException, ParseException {
+	public static void main(String[] args) throws MalformedURLException, FileNotFoundException, ParseException {
 
 		CommandLine line = new CLIValidator().readCLI(args);
 
 		List<String> springResources = new ArrayList<String>();
 
 		if (line.hasOption(CLIValidator.USER_CONFIG_OPTION_SHORT)) {
-			springResources
-					.add("file:"
-							+ line
-									.getOptionValue(CLIValidator.USER_CONFIG_OPTION_SHORT));
+			springResources.add("file:" + line.getOptionValue(CLIValidator.USER_CONFIG_OPTION_SHORT));
 		} else {
 			springResources.add("file:" + DEFAULT_USER_CONFIG);
 		}
 
 		springResources.add(DEFAULT_GLUE_CONFIG);
 
-		AbstractXmlApplicationContext appContext = new ClassPathXmlApplicationContext(
-				springResources.toArray(new String[0]));
+		AbstractXmlApplicationContext appContext = new ClassPathXmlApplicationContext(springResources
+				.toArray(new String[0]));
 
 		appContext.registerShutdownHook();
 
-		TransitionGroupConfig tgConfig = (TransitionGroupConfig) appContext
-				.getBean("operators");
+		TransitionGroupConfig tgConfig = (TransitionGroupConfig) appContext.getBean("operators");
 		Carma driver = (Carma) appContext.getBean("testDriver");
 		driver.execute(tgConfig);
 	}
 
 	public void execute(TransitionGroupConfig tgConfig) {
 
-		eventListener.notifyEvent(new MutationProcessStarted(tgConfig
-				.getTransitionGroups()));
+		eventListener.notifyEvent(new MutationProcessStarted(tgConfig.getTransitionGroups()));
 
 		List<ClassDescription> classesUnderTest = resolver.resolve();
 
-		eventListener
-				.notifyEvent(new ClassesUnderTestResolved(classesUnderTest));
+		List<ClassDescription> filteredClassesUnderTest = instantiationVerifier
+				.removeNonInstantiatableClasses(classesUnderTest);
+
+		List<ClassDescription> filteredInstantiableClassesUnderTest = filterVerifier
+				.removeExcludedClasses(filteredClassesUnderTest);
+
+		List<ClassDescription> filteredInstantiableClassesUnderTest2 = filterVerifier
+				.removeExcludedClasses(filteredInstantiableClassesUnderTest);
+
+		eventListener.notifyEvent(new ClassesUnderTestResolved(filteredInstantiableClassesUnderTest2));
 
 		Set<String> availableTests = new HashSet<String>();
 
-		for (ClassDescription classUnderTestDescription : classesUnderTest) {
+		for (ClassDescription classUnderTestDescription : filteredInstantiableClassesUnderTest2) {
 
-			eventListener.notifyEvent(new TestSetDetermined(
-					classUnderTestDescription.getQualifiedClassName(),
+			eventListener.notifyEvent(new TestSetDetermined(classUnderTestDescription.getQualifiedClassName(),
 					classUnderTestDescription.getAssociatedTestNames()));
 
-			availableTests.addAll(classUnderTestDescription
-					.getAssociatedTestNames());
+			availableTests.addAll(classUnderTestDescription.getAssociatedTestNames());
 
 		}
 
@@ -99,8 +106,7 @@ public class Carma {
 		}
 
 		try {
-			runner.performMutations(tgConfig.getTransitionGroups(),
-					classesUnderTest);
+			runner.performMutations(tgConfig.getTransitionGroups(), filteredInstantiableClassesUnderTest2);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return;
@@ -124,12 +130,28 @@ public class Carma {
 		this.eventListener = eventListener;
 	}
 
-	public IResolver getResolver() {
+	public AbstractFilteredResolver getResolver() {
 		return resolver;
 	}
 
-	public void setResolver(IResolver resolver) {
+	public void setResolver(AbstractFilteredResolver resolver) {
 		this.resolver = resolver;
+	}
+
+	private FilterVerifier getFilterVerifier() {
+		return filterVerifier;
+	}
+
+	public void setFilterVerifier(FilterVerifier filterVerifier) {
+		this.filterVerifier = filterVerifier;
+	}
+
+	private InstantiationVerifier getInstantiationVerifier() {
+		return instantiationVerifier;
+	}
+
+	public void setInstantiationVerifier(InstantiationVerifier verifier) {
+		this.instantiationVerifier = verifier;
 	}
 
 }

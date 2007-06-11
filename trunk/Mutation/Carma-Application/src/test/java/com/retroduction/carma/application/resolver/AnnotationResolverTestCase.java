@@ -18,7 +18,6 @@ public class AnnotationResolverTestCase extends TestCase {
 		File testClassPath = new File("src/test/it/it0002/test-classes/");
 
 		AnnotationResolver resolver = new AnnotationResolver();
-		resolver.setFilterConfiguration(new FilterConfiguration());
 		resolver.setClassesPath(new File[] { testClassPath });
 		resolver.setTestClassesPath(new File[] { testClassPath });
 
@@ -44,30 +43,4 @@ public class AnnotationResolverTestCase extends TestCase {
 		assertEquals("sub1.SampleClassUsingAnnotation", testNameIterator.next());
 	}
 
-	public void testGetClassesWithFilter() throws MalformedURLException {
-
-		File testClassPath = new File("src/test/it/it0002/test-classes/");
-
-		ExcludeFilter testExcludeFilter = new ExcludeFilter();
-		testExcludeFilter.setExcludePattern("sub2");
-
-		FilterConfiguration filters = new FilterConfiguration();
-		filters.setTestClassExcludeFilter(testExcludeFilter);
-
-		AnnotationResolver resolver = new AnnotationResolver();
-		resolver.setFilterConfiguration(filters);
-		resolver.setClassesPath(new File[] { testClassPath });
-		resolver.setTestClassesPath(new File[] { testClassPath });
-
-		List<ClassDescription> classes = resolver.resolve();
-
-		assertEquals(1, classes.size());
-
-		assertEquals("sample.Sample", classes.get(0).getQualifiedClassName());
-		assertEquals(1, classes.get(0).getAssociatedTestNames().size());
-
-		Iterator<String> testNameIterator = classes.get(0).getAssociatedTestNames().iterator();
-
-		assertEquals("sub1.SampleClassUsingAnnotation", testNameIterator.next());
-	}
 }
