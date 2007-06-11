@@ -35,8 +35,7 @@
 	</bean>
 
 	<bean id="report.eventListener"
-		class="com.retroduction.carma.core.runner.events.listener.ReportEventListener"
-		destroy-method="destroy">
+		class="com.retroduction.carma.core.runner.events.listener.ReportEventListener">
 		<constructor-arg>
 			<ref bean="report.filename" />
 		</constructor-arg>
