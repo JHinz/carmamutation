@@ -56,7 +56,6 @@ public class JUnitRunner implements ITestRunner {
 			int failures = result.failureCount();
 			return errors + failures;
 		} catch (RuntimeException e) {
-			e.printStackTrace();
 			runner.restoreReplacedClassLoader();
 			throw e;
 		}
@@ -110,7 +109,6 @@ public class JUnitRunner implements ITestRunner {
 				}
 
 			} catch (Exception e) {
-				e.printStackTrace();
 				eventListener.notifyEvent(new TestNotExecuted(mutant, testCase, e));
 			}
 		}
@@ -128,6 +126,7 @@ public class JUnitRunner implements ITestRunner {
 				}
 
 			} catch (Exception e) {
+				brokenTestNames.add(testCase);
 			}
 		}
 		return brokenTestNames;
