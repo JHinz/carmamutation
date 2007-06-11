@@ -42,16 +42,15 @@ public class MavenTestExecuter {
 		factory.registerSingleton("testCaseSuffix", testNamePattern);
 		factory.registerSingleton("log.filename", logFile.getAbsolutePath());
 
-		SummaryCreatorEventListener summaryListener = new SummaryCreatorEventListener();
-		factory.registerSingleton("summaryCreator", summaryListener);
+		SummaryCreatorEventListener summaryCreator = new SummaryCreatorEventListener();
+		factory.registerSingleton("summaryCreator", summaryCreator);
 		
-		((CompositeEventListener) factory.getBean("eventListener")).getListeners().add(summaryListener);
+		((CompositeEventListener) factory.getBean("eventListener")).getListeners().add(summaryCreator);
 
 		TransitionGroupConfig tgGroup = (TransitionGroupConfig) factory.getBean("operators");
 		Carma driver = (Carma) factory.getBean("testDriver");
 		driver.execute(tgGroup);
 
-		SummaryCreatorEventListener summaryCreator = (SummaryCreatorEventListener) factory.getBean("summaryCreator");
 		Summary sum = summaryCreator.createSummary();
 		factory.destroySingletons();
 		return sum;
