@@ -29,10 +29,6 @@
 		<constructor-arg value="Test" />
 	</bean>
 
-	<bean id="log.filename" class="java.lang.String">
-		<constructor-arg value="mutant.log" />
-	</bean>
-
 	<bean id="report.filename" class="java.lang.String">
 		<constructor-arg value="target/report.xml" />
 	</bean>

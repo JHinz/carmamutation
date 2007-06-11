@@ -23,7 +23,7 @@ import com.retroduction.carma.core.runner.events.MutationProcessStarted;
 import com.retroduction.carma.core.runner.events.TestSetDetermined;
 import com.retroduction.carma.core.transform.TransitionGroupConfig;
 
-public class BasicDriver {
+public class Carma {
 
 	private static final String DEFAULT_USER_CONFIG = "config.xml";
 
@@ -65,7 +65,7 @@ public class BasicDriver {
 
 		TransitionGroupConfig tgConfig = (TransitionGroupConfig) appContext
 				.getBean("operators");
-		BasicDriver driver = (BasicDriver) appContext.getBean("testDriver");
+		Carma driver = (Carma) appContext.getBean("testDriver");
 		driver.execute(tgConfig);
 	}
 

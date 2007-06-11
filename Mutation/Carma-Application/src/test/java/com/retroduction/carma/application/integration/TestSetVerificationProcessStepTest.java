@@ -12,7 +12,7 @@ import org.apache.commons.cli.ParseException;
 
 import com.mutation.report.loader.ReportModelLoader;
 import com.mutation.report.om.MutationRun;
-import com.retroduction.carma.application.BasicDriver;
+import com.retroduction.carma.application.Carma;
 import com.retroduction.carma.core.testrunner.MutationClassLoader;
 
 public class TestSetVerificationProcessStepTest extends TestCase {
@@ -31,7 +31,7 @@ public class TestSetVerificationProcessStepTest extends TestCase {
 		assertFalse("Mutation ClassLoader still in use (legacy artifact of previous runs?)", MutationClassLoader.class
 				.getName().equals(Thread.currentThread().getContextClassLoader().getClass().getName()));
 
-		BasicDriver.main(new String[] { "-uc", "src/test/it/it0005/config.xml" });
+		Carma.main(new String[] { "-uc", "src/test/it/it0005/config.xml" });
 
 		File report = new File("target/report.xml");
 
@@ -54,7 +54,7 @@ public class TestSetVerificationProcessStepTest extends TestCase {
 		assertFalse("Mutation ClassLoader still in use (legacy artifact of previous runs?)", MutationClassLoader.class
 				.getName().equals(Thread.currentThread().getContextClassLoader().getClass().getName()));
 
-		BasicDriver.main(new String[] { "-uc", "src/test/it/it0006/config.xml" });
+		Carma.main(new String[] { "-uc", "src/test/it/it0006/config.xml" });
 
 		File report = new File("target/report.xml");
 
@@ -77,7 +77,7 @@ public class TestSetVerificationProcessStepTest extends TestCase {
 		assertFalse("Mutation ClassLoader still in use (legacy artifact of previous runs?)", MutationClassLoader.class
 				.getName().equals(Thread.currentThread().getContextClassLoader().getClass().getName()));
 
-		BasicDriver.main(new String[] { "-uc", "src/test/it/it0005/config.xml" });
+		Carma.main(new String[] { "-uc", "src/test/it/it0005/config.xml" });
 
 		File report = new File("target/report.xml");
 

@@ -8,7 +8,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.ClassPathResource;
 
-import com.retroduction.carma.application.BasicDriver;
+import com.retroduction.carma.application.Carma;
 import com.retroduction.carma.core.runner.events.listener.CompositeEventListener;
 import com.retroduction.carma.core.runner.events.listener.SummaryCreatorEventListener;
 import com.retroduction.carma.core.runner.events.listener.SummaryCreatorEventListener.Summary;
@@ -48,7 +48,7 @@ public class MavenTestExecuter {
 		((CompositeEventListener) factory.getBean("eventListener")).getListeners().add(summaryListener);
 
 		TransitionGroupConfig tgGroup = (TransitionGroupConfig) factory.getBean("operators");
-		BasicDriver driver = (BasicDriver) factory.getBean("testDriver");
+		Carma driver = (Carma) factory.getBean("testDriver");
 		driver.execute(tgGroup);
 
 		SummaryCreatorEventListener summaryCreator = (SummaryCreatorEventListener) factory.getBean("summaryCreator");
