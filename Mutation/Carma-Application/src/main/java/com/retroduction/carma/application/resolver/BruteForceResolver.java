@@ -7,11 +7,6 @@ import com.retroduction.carma.core.runner.ClassDescription;
 
 public class BruteForceResolver extends AbstractFilteredResolver {
 
-//	public BruteForceResolver(FilterConfiguration filters, File classesPath, File testClassesPath)
-//			throws MalformedURLException {
-//		super(filters, classesPath, testClassesPath);
-//	}
-
 	public List<ClassDescription> resolve() {
 
 		DirectoryBasedResolver directoryResolver = new DirectoryBasedResolver();
@@ -23,12 +18,7 @@ public class BruteForceResolver extends AbstractFilteredResolver {
 
 		List<ClassDescription> existingTestClasses = directoryResolver.determineClassNames();
 
-		List<ClassDescription> invokableTestClasses = removeNonInstantiatableClasses(existingTestClasses);
-		List<ClassDescription> usefulTestClasses = removeExcludedClasses(invokableTestClasses);
-
-		List<ClassDescription> usefulClasses = removeExcludedClasses(classDescriptions);
-
-		assignAllClassesAllTestClasses(usefulTestClasses, usefulClasses);
+		assignAllClassesAllTestClasses(existingTestClasses, classDescriptions);
 
 		return classDescriptions;
 	}

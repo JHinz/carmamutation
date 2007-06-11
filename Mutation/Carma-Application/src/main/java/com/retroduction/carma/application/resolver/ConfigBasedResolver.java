@@ -6,14 +6,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Modifier;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
@@ -121,34 +116,7 @@ public class ConfigBasedResolver extends AbstractFilteredResolver {
 			return new ArrayList<ClassDescription>();
 		}
 
-		List<ClassDescription> classDescriptions = parseInputConfiguration(inputConfiguration);
-
-		for (ClassDescription classDescription : classDescriptions) {
-
-			for (String testClassName : classDescription.getAssociatedTestNames()) {
-
-				if (getFilterConfiguration().getTestClassExcludeFilter().shouldBeExcluded(testClassName))
-					continue;
-
-				try {
-					Class testClass = getLoader().loadClass(testClassName);
-
-					if (Modifier.isAbstract(testClass.getModifiers()) || Modifier.isInterface(testClass.getModifiers())) {
-						log.info("Skipping abstract class or interface in test set:" + testClassName);
-						classDescription.getAssociatedTestNames().remove(testClassName);
-						continue;
-					}
-
-				} catch (ClassNotFoundException e) {
-					log.warn("Skipping class in test set due to class loading problem:"
-							+ classDescription.getQualifiedClassName());
-					continue;
-				}
-			}
-
-		}
-
-		return classDescriptions;
+		return parseInputConfiguration(inputConfiguration);
 	}
 
 }

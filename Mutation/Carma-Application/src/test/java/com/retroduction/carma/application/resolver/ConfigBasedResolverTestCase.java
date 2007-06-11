@@ -8,7 +8,6 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
-import com.retroduction.carma.application.resolver.util.FilterConfiguration;
 import com.retroduction.carma.core.runner.ClassDescription;
 
 public class ConfigBasedResolverTestCase extends TestCase {
@@ -21,10 +20,9 @@ public class ConfigBasedResolverTestCase extends TestCase {
 		inputConfig.append("com.b.Class2=com.b.TestClass2\n");
 
 		ConfigBasedResolver resolver = new ConfigBasedResolver();
-		resolver.setFilterConfiguration(new FilterConfiguration());
 		resolver.setClassesPath(null);
 		resolver.setTestClassesPath(null);
-		
+
 		List<ClassDescription> result = resolver.parseInputConfiguration(inputConfig.toString());
 
 		assertEquals(2, result.size());
@@ -129,7 +127,7 @@ public class ConfigBasedResolverTestCase extends TestCase {
 		assertEquals("com.b.TestClass2", testNames.get(0));
 
 	}
-	
+
 	public void test_ReadConfig_SkipComments_CompleteCommentLine() throws MalformedURLException {
 
 		StringBuffer inputConfig = new StringBuffer();
