@@ -40,7 +40,8 @@ public class SummaryCreatorEventListener implements IEventListener {
 	 * @return
 	 */
 	public Summary createSummary() {
-		Summary summary = new Summary();watch.stop();
+		Summary summary = new Summary();
+		watch.stop();
 		double elapsed = watch.getLastTaskTimeMillis();
 		Set<String> executedTests = new HashSet<String>(testNames);
 		executedTests.removeAll(testsNotExecuted);
