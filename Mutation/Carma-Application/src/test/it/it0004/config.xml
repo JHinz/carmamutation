@@ -6,7 +6,15 @@
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd"
 >
 
-	<bean id="usedResolver" parent="configurationBasedResolver"></bean>
+	<bean id="resolver" parent="configurationBasedResolver"></bean>
+
+	<bean id="configurationBasedResolver"
+		class="com.retroduction.carma.application.resolver.ConfigBasedResolver">
+		<property name="classesPath" ref="classesDir" />
+		<property name="testClassesPath" ref="testClassesDir" />
+		<property name="configurationFile" ref="assignmentFile" />
+	</bean>
+
 
 	<bean id="classesDir" class="java.io.File">
 		<constructor-arg value="./src/test/it/it0004/target/classes/" />

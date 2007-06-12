@@ -5,7 +5,14 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
-	<bean id="usedResolver" parent="configurationBasedResolver"></bean>
+	<bean id="resolver" parent="configurationBasedResolver"></bean>
+	
+	<bean id="configurationBasedResolver"
+		class="com.retroduction.carma.application.resolver.ConfigBasedResolver">
+		<property name="classesPath" ref="classesDir" />
+		<property name="testClassesPath" ref="testClassesDir" />
+		<property name="configurationFile" ref="assignmentFile" />
+	</bean>
 
 	<util:list id="classesDir">
 		<value type="java.io.File">file:src/test/it/it0007/project1/target/classes</value>

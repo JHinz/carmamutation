@@ -4,9 +4,21 @@
 		<configExtension>xml</configExtension>
 	</configExtensions>
 	<configs>
-		<config>src/main/resources/mutationconfig.xml</config>
-		<config>testconfig.xml</config>
+		<config>src/main/resources/mutationConfig.xml</config>
+		<config>src/packaging/config.xml</config>
 	</configs>
 	<configSets>
+		<configSet>
+			<name>CarmaApplication</name>
+			<allowBeanDefinitionOverriding>false</allowBeanDefinitionOverriding>
+			<incomplete>false</incomplete>
+			<configs>
+				<config>src/main/resources/mutationConfig.xml</config>
+				<config>src/packaging/config.xml</config>
+				<config>/Carma-Core/src/main/resources/carma-eventlistener.xml</config>
+				<config>/Carma-Core/src/main/resources/carma-runner.xml</config>
+				<config>/Carma-Core/src/main/resources/carma-transitions.xml</config>
+			</configs>
+		</configSet>
 	</configSets>
 </beansProjectDescription>

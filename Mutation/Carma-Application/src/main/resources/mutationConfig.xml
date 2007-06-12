@@ -2,28 +2,13 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 
 <beans>
-
-	<!--  set of operators considered for tests -->
-
-	<bean id="operators"
-		class="com.retroduction.carma.core.transform.TransitionGroupConfig">
-		<property name="transitionGroups">
-			<list>
-				<bean
-					class="com.retroduction.carma.core.transform.asm.ror.ROR_TransitionGroup">
-					<constructor-arg>
-						<value>true</value>
-					</constructor-arg>
-				</bean>
-			</list>
-		</property>
-	</bean>
-
+		
 	<!-- the driver main class which constructs a proper mutation runner -->
 	<bean id="testDriver"
 		class="com.retroduction.carma.application.Carma">
-		<property name="resolver" ref="usedResolver" />
+		<property name="resolver" ref="resolver" />
 		<property name="runner" ref="runner" />
+		<property name="transitionGroupConfig" ref="operators"></property>
 		<property name="eventListener" ref="eventListener"></property>
 		<property name="filterVerifier" ref="filterVerifier"></property>
 		<property name="testCaseInstantiationVerifier"
@@ -31,43 +16,6 @@
 		</property>
 	</bean>
 
-	<!-- the core mutation runner class which executes the tests -->
-	<bean id="runner"
-		class="com.retroduction.carma.core.runner.MutationRunner">
-		<property name="testRunner" ref="testRunner" />
-		<property name="eventListener" ref="eventListener" />
-		<property name="mutantGenerator" ref="mutantGenerator" />
-		<property name="classesUnderTestPath" ref="classesDir" />
-	</bean>
-
-	<bean id="report.eventListener"
-		class="com.retroduction.carma.core.runner.events.listener.ReportEventListener">
-		<constructor-arg>
-			<ref bean="report.filename" />
-		</constructor-arg>
-	</bean>
-
-	<bean id="eventListener"
-		class="com.retroduction.carma.core.runner.events.listener.CompositeEventListener">
-		<property name="listeners">
-			<list>
-				<bean
-					class="com.retroduction.carma.core.runner.events.listener.ConsoleEventListener">
-					<property name="showSummaryOnly" value="false" />
-				</bean>
-				<ref bean="report.eventListener" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="testRunner"
-		class="com.retroduction.carma.core.testrunner.junit3.JUnitRunner">
-		<property name="stopOnFirstFailedTest" value="true" />
-		<property name="classesLocationsAsFiles" ref="classesDir" />
-		<property name="testClassesLocationsAsFiles"
-			ref="testClassesDir" />
-		<property name="libraries" ref="libraries" />
-	</bean>
 
 	<bean id="filterVerifier"
 		class="com.retroduction.carma.application.util.FilterVerifier">
@@ -79,7 +27,7 @@
 		<property name="classPath" ref="classesDir" />
 		<property name="testClassPath" ref="testClassesDir" />
 	</bean>
-
+<!-- 
 	<bean id="classMatchResolver"
 		class="com.retroduction.carma.application.resolver.ClassMatchResolver">
 		<property name="classesPath" ref="classesDir" />
@@ -105,6 +53,9 @@
 		<property name="configurationFile" ref="assignmentFile" />
 	</bean>
 
+
+-->
+
 	<bean id="filterConfiguration"
 		class="com.retroduction.carma.application.resolver.util.FilterConfiguration">
 		<property name="includeFilter" ref="includeFilter" />
@@ -124,13 +75,5 @@
 			<value></value>
 		</property>
 	</bean>
-
-	<bean id="mutantGenerator"
-		class="com.retroduction.carma.core.transform.MutantGenerator">
-	</bean>
-
-	<bean id="dummyMutantGenerator"
-		class="com.retroduction.carma.core.transform.DummyMutantGenerator">
-	</bean>
-
+ 
 </beans>

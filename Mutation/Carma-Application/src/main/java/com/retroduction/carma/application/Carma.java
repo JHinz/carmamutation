@@ -17,6 +17,7 @@ import com.retroduction.carma.application.resolver.AbstractFilteredResolver;
 import com.retroduction.carma.application.util.CLIValidator;
 import com.retroduction.carma.application.util.FilterVerifier;
 import com.retroduction.carma.application.util.TestCaseInstantiationVerifier;
+import com.retroduction.carma.core.ICoreConfigConsts;
 import com.retroduction.carma.core.runner.ClassDescription;
 import com.retroduction.carma.core.runner.MutationRunner;
 import com.retroduction.carma.core.runner.events.ClassesUnderTestResolved;
@@ -30,8 +31,6 @@ public class Carma {
 
 	private static final String DEFAULT_USER_CONFIG = "config.xml";
 
-	private final static String DEFAULT_GLUE_CONFIG = "mutationConfig.xml";
-
 	private IEventListener eventListener;
 
 	private AbstractFilteredResolver resolver;
@@ -41,6 +40,8 @@ public class Carma {
 	private TestCaseInstantiationVerifier testCaseInstantiationVerifier;
 
 	private FilterVerifier filterVerifier;
+	
+	private TransitionGroupConfig transitionGroupConfig;
 
 	/**
 	 * command line test runner, reads configuration from mutationconfig.xml
@@ -59,21 +60,23 @@ public class Carma {
 			springResources.add("file:" + DEFAULT_USER_CONFIG);
 		}
 
-		springResources.add(DEFAULT_GLUE_CONFIG);
+		springResources.add(ICoreConfigConsts.EVENTLISTENER_CONFIG_FILE);
+		springResources.add(ICoreConfigConsts.RUNNER_CONFIG_FILE);
+		springResources.add(ICoreConfigConsts.TRANSITIONS_CONFIG_FILE);
+		springResources.add(ICarmaConfigConsts.CARMA_APPLICATION_CONFIG_FILE);
 
 		AbstractXmlApplicationContext appContext = new ClassPathXmlApplicationContext(springResources
 				.toArray(new String[0]));
 
 		appContext.registerShutdownHook();
 
-		TransitionGroupConfig tgConfig = (TransitionGroupConfig) appContext.getBean("operators");
-		Carma driver = (Carma) appContext.getBean("testDriver");
-		driver.execute(tgConfig);
+		Carma driver = (Carma) appContext.getBean(ICarmaConfigConsts.BEAN_CARMA);
+		driver.execute();
 	}
 
-	public void execute(TransitionGroupConfig tgConfig) {
+	public void execute() {
 
-		eventListener.notifyEvent(new MutationProcessStarted(tgConfig.getTransitionGroups()));
+		eventListener.notifyEvent(new MutationProcessStarted(getTransitionGroupConfig().getTransitionGroups()));
 
 		List<ClassDescription> classesUnderTest = resolver.resolve();
 
@@ -110,7 +113,7 @@ public class Carma {
 		}
 
 		try {// expect set instead of list below !
-			runner.performMutations(tgConfig.getTransitionGroups(), new ArrayList<ClassDescription>(
+			runner.performMutations(getTransitionGroupConfig().getTransitionGroups(), new ArrayList<ClassDescription>(
 					classesWithWorkingTestSet));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -178,6 +181,14 @@ public class Carma {
 
 	public void setTestCaseInstantiationVerifier(TestCaseInstantiationVerifier verifier) {
 		this.testCaseInstantiationVerifier = verifier;
+	}
+
+	public TransitionGroupConfig getTransitionGroupConfig() {
+		return transitionGroupConfig;
+	}
+
+	public void setTransitionGroupConfig(TransitionGroupConfig transitionGroupConfig) {
+		this.transitionGroupConfig = transitionGroupConfig;
 	}
 
 }
