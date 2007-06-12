@@ -7,8 +7,6 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
-import com.retroduction.carma.application.resolver.util.ExcludeFilter;
-import com.retroduction.carma.application.resolver.util.FilterConfiguration;
 import com.retroduction.carma.core.runner.ClassDescription;
 
 public class AnnotationResolverTestCase extends TestCase {

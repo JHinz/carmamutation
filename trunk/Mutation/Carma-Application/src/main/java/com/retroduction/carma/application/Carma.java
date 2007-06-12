@@ -14,9 +14,9 @@ import org.springframework.context.support.AbstractXmlApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.retroduction.carma.application.resolver.AbstractFilteredResolver;
-import com.retroduction.carma.application.resolver.FilterVerifier;
-import com.retroduction.carma.application.resolver.InstantiationVerifier;
 import com.retroduction.carma.application.util.CLIValidator;
+import com.retroduction.carma.application.util.FilterVerifier;
+import com.retroduction.carma.application.util.TestCaseInstantiationVerifier;
 import com.retroduction.carma.core.runner.ClassDescription;
 import com.retroduction.carma.core.runner.MutationRunner;
 import com.retroduction.carma.core.runner.events.ClassesUnderTestResolved;
@@ -38,7 +38,7 @@ public class Carma {
 
 	private MutationRunner runner;
 
-	private InstantiationVerifier instantiationVerifier;
+	private TestCaseInstantiationVerifier testCaseInstantiationVerifier;
 
 	private FilterVerifier filterVerifier;
 
@@ -77,36 +77,41 @@ public class Carma {
 
 		List<ClassDescription> classesUnderTest = resolver.resolve();
 
-		List<ClassDescription> filteredClassesUnderTest = instantiationVerifier
-				.removeNonInstantiatableClasses(classesUnderTest);
+		// get set instead of list above !
 
-		List<ClassDescription> filteredInstantiableClassesUnderTest = filterVerifier
-				.removeExcludedClasses(filteredClassesUnderTest);
+		Set<ClassDescription> classDescriptions = new HashSet<ClassDescription>(classesUnderTest);
 
-		List<ClassDescription> filteredInstantiableClassesUnderTest2 = filterVerifier
-				.removeExcludedClasses(filteredInstantiableClassesUnderTest);
+		Set<ClassDescription> remainingClassDescriptions = removeSuperfluousClassNames(classDescriptions);
 
-		eventListener.notifyEvent(new ClassesUnderTestResolved(filteredInstantiableClassesUnderTest2));
+		eventListener.notifyEvent(new ClassesUnderTestResolved(new ArrayList<ClassDescription>(
+				remainingClassDescriptions)));
 
-		Set<String> availableTests = new HashSet<String>();
+		for (ClassDescription classUnderTestDescription : remainingClassDescriptions) {
 
-		for (ClassDescription classUnderTestDescription : filteredInstantiableClassesUnderTest2) {
+			Set<String> associatedTestNames = classUnderTestDescription.getAssociatedTestNames();
+
+			Set<String> remainingTestNames = filterVerifier.removeExcludedClasses(associatedTestNames);
+
+			remainingTestNames = testCaseInstantiationVerifier.removeNonInstantiatableClasses(remainingTestNames);
+
+			classUnderTestDescription.setAssociatedTestNames(remainingTestNames);
 
 			eventListener.notifyEvent(new TestSetDetermined(classUnderTestDescription.getQualifiedClassName(),
-					classUnderTestDescription.getAssociatedTestNames()));
-
-			availableTests.addAll(classUnderTestDescription.getAssociatedTestNames());
+					remainingTestNames));
 
 		}
 
-		if (!runner.performTestsetVerification(availableTests)) {
-			this.eventListener.destroy();
+		Set<ClassDescription> classesWithWorkingTestSet = new HashSet<ClassDescription>();
 
-			return;
+		for (ClassDescription classUnderTestDescription : remainingClassDescriptions) {
+			if (runner.performTestsetVerification(classUnderTestDescription.getAssociatedTestNames())) {
+				classesWithWorkingTestSet.add(classUnderTestDescription);
+			}
 		}
 
-		try {
-			runner.performMutations(tgConfig.getTransitionGroups(), filteredInstantiableClassesUnderTest2);
+		try {// expect set instead of list below !
+			runner.performMutations(tgConfig.getTransitionGroups(), new ArrayList<ClassDescription>(
+					classesWithWorkingTestSet));
 		} catch (IOException e) {
 			e.printStackTrace();
 			return;
@@ -116,6 +121,27 @@ public class Carma {
 
 		eventListener.destroy();
 
+	}
+
+	private Set<ClassDescription> removeSuperfluousClassNames(Set<ClassDescription> classesUnderTest) {
+
+		HashSet<String> resolvedClassNames = new HashSet<String>();
+
+		for (ClassDescription classDescription : classesUnderTest) {
+			resolvedClassNames.add(classDescription.getQualifiedClassName());
+		}
+
+		Set<String> remainingClassesNames = filterVerifier.removeExcludedClasses(resolvedClassNames);
+
+		remainingClassesNames = testCaseInstantiationVerifier.removeNonInstantiatableClasses(remainingClassesNames);
+
+		Set<ClassDescription> remainingClassDescriptions = new HashSet<ClassDescription>();
+
+		for (ClassDescription classDescription : classesUnderTest) {
+			if (remainingClassesNames.contains(classDescription.getQualifiedClassName()))
+				remainingClassDescriptions.add(classDescription);
+		}
+		return remainingClassDescriptions;
 	}
 
 	public MutationRunner getRunner() {
@@ -146,12 +172,12 @@ public class Carma {
 		this.filterVerifier = filterVerifier;
 	}
 
-	private InstantiationVerifier getInstantiationVerifier() {
-		return instantiationVerifier;
+	private TestCaseInstantiationVerifier getTestCaseInstantiationVerifier() {
+		return testCaseInstantiationVerifier;
 	}
 
-	public void setInstantiationVerifier(InstantiationVerifier verifier) {
-		this.instantiationVerifier = verifier;
+	public void setTestCaseInstantiationVerifier(TestCaseInstantiationVerifier verifier) {
+		this.testCaseInstantiationVerifier = verifier;
 	}
 
 }

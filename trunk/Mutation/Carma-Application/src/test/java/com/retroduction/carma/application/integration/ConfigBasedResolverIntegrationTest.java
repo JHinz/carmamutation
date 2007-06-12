@@ -71,11 +71,6 @@ public class ConfigBasedResolverIntegrationTest extends TestCase {
 		MutationRun run = new ReportModelLoader().loadReportModel(report);
 
 		assertEquals("Wrong class under test count", 2, run.getClassUnderTest().size());
-		assertEquals("Wrong class under test name", "SampleClass1", run.getClassUnderTest().get(0).getClassName());
-		assertEquals("Wrong class under test name", "SampleClass2", run.getClassUnderTest().get(1).getClassName());
-		
-		assertEquals("Wrong class under test name", "SampleTestClass1", run.getClassUnderTest().get(0).getExecutedTests().get(0));
-		assertEquals("Wrong class under test name", "SampleTestClass2", run.getClassUnderTest().get(1).getExecutedTests().get(0));
 
 	}
 }

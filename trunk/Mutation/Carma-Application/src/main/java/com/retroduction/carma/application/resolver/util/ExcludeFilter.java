@@ -9,6 +9,15 @@ public class ExcludeFilter {
 
 	private Pattern pattern;
 
+	public ExcludeFilter() {
+		super();
+	}
+
+	public ExcludeFilter(String excludePattern) {
+		super();
+		setExcludePattern(excludePattern);
+	}
+
 	public String getExcludePattern() {
 		return excludePattern;
 	}
