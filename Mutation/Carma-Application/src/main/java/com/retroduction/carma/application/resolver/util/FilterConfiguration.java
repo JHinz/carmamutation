@@ -2,51 +2,29 @@ package com.retroduction.carma.application.resolver.util;
 
 public class FilterConfiguration {
 
-	private IncludeFilter classIncludeFilter;
+	private IncludeFilter includeFilter;
 
-	private IncludeFilter testClassIncludeFilter;
-
-	private ExcludeFilter classExcludeFilter;
-
-	private ExcludeFilter testClassExcludeFilter;
+	private ExcludeFilter excludeFilter;
 
 	public FilterConfiguration() {
-		setClassIncludeFilter(new IncludeFilter());
-		setTestClassIncludeFilter(new IncludeFilter());
-		setClassExcludeFilter(new ExcludeFilter());
-		setTestClassExcludeFilter(new ExcludeFilter());
+		setIncludeFilter(new IncludeFilter());
+		setExcludeFilter(new ExcludeFilter());
 	}
 
-	public ExcludeFilter getClassExcludeFilter() {
-		return classExcludeFilter;
+	public ExcludeFilter getExcludeFilter() {
+		return excludeFilter;
 	}
 
-	public void setClassExcludeFilter(ExcludeFilter classExcludeFilter) {
-		this.classExcludeFilter = classExcludeFilter;
+	public void setExcludeFilter(ExcludeFilter classExcludeFilter) {
+		this.excludeFilter = classExcludeFilter;
 	}
 
-	public IncludeFilter getClassIncludeFilter() {
-		return classIncludeFilter;
+	public IncludeFilter getIncludeFilter() {
+		return includeFilter;
 	}
 
-	public void setClassIncludeFilter(IncludeFilter classIncludeFilter) {
-		this.classIncludeFilter = classIncludeFilter;
-	}
-
-	public ExcludeFilter getTestClassExcludeFilter() {
-		return testClassExcludeFilter;
-	}
-
-	public void setTestClassExcludeFilter(ExcludeFilter testClassExcludeFilter) {
-		this.testClassExcludeFilter = testClassExcludeFilter;
-	}
-
-	public IncludeFilter getTestClassIncludeFilter() {
-		return testClassIncludeFilter;
-	}
-
-	public void setTestClassIncludeFilter(IncludeFilter testClassIncludeFilter) {
-		this.testClassIncludeFilter = testClassIncludeFilter;
+	public void setIncludeFilter(IncludeFilter classIncludeFilter) {
+		this.includeFilter = classIncludeFilter;
 	}
 
 }

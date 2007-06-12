@@ -26,7 +26,9 @@
 		<property name="runner" ref="runner" />
 		<property name="eventListener" ref="eventListener"></property>
 		<property name="filterVerifier" ref="filterVerifier"></property>
-		<property name="instantiationVerifier" ref="instantiationVerifier"></property>
+		<property name="testCaseInstantiationVerifier"
+			ref="testCaseInstantiationVerifier">
+		</property>
 	</bean>
 
 	<!-- the core mutation runner class which executes the tests -->
@@ -68,14 +70,14 @@
 	</bean>
 
 	<bean id="filterVerifier"
-		class="com.retroduction.carma.application.resolver.FilterVerifier">
+		class="com.retroduction.carma.application.util.FilterVerifier">
 		<property name="filterConfiguration" ref="filterConfiguration" />
 	</bean>
 
-	<bean id="instantiationVerifier"
-		class="com.retroduction.carma.application.resolver.InstantiationVerifier">
-		<property name="classesPath" ref="classesDir" />
-		<property name="testClassesPath" ref="testClassesDir" />
+	<bean id="testCaseInstantiationVerifier"
+		class="com.retroduction.carma.application.util.TestCaseInstantiationVerifier">
+		<property name="classPath" ref="classesDir" />
+		<property name="testClassPath" ref="testClassesDir" />
 	</bean>
 
 	<bean id="classMatchResolver"
@@ -105,36 +107,18 @@
 
 	<bean id="filterConfiguration"
 		class="com.retroduction.carma.application.resolver.util.FilterConfiguration">
-		<property name="classIncludeFilter" ref="classIncludeFilter" />
-		<property name="testClassIncludeFilter"
-			ref="testClassIncludeFilter" />
-		<property name="classExcludeFilter" ref="classExcludeFilter" />
-		<property name="testClassExcludeFilter"
-			ref="testClassExcludeFilter" />
+		<property name="includeFilter" ref="includeFilter" />
+		<property name="excludeFilter" ref="excludeFilter" />
 	</bean>
 
-	<bean id="testClassIncludeFilter"
+	<bean id="includeFilter"
 		class="com.retroduction.carma.application.resolver.util.IncludeFilter">
 		<property name="includePattern">
 			<value>(.*)</value>
 		</property>
 	</bean>
 
-	<bean id="classIncludeFilter"
-		class="com.retroduction.carma.application.resolver.util.IncludeFilter">
-		<property name="includePattern">
-			<value>(.*)</value>
-		</property>
-	</bean>
-
-	<bean id="testClassExcludeFilter"
-		class="com.retroduction.carma.application.resolver.util.ExcludeFilter">
-		<property name="excludePattern">
-			<value></value>
-		</property>
-	</bean>
-
-	<bean id="classExcludeFilter"
+	<bean id="excludeFilter"
 		class="com.retroduction.carma.application.resolver.util.ExcludeFilter">
 		<property name="excludePattern">
 			<value></value>
