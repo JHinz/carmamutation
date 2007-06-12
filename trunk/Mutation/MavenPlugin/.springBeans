@@ -4,8 +4,20 @@
 		<configExtension>xml</configExtension>
 	</configExtensions>
 	<configs>
-		<config>src/main/resources/mutationconfig-maven.xml</config>
+		<config>carma.xml</config>
 	</configs>
 	<configSets>
+		<configSet>
+			<name>MavenPlugin</name>
+			<allowBeanDefinitionOverriding>false</allowBeanDefinitionOverriding>
+			<incomplete>false</incomplete>
+			<configs>
+				<config>/Carma-Application/src/main/resources/mutationConfig.xml</config>
+				<config>/Carma-Core/src/main/resources/carma-eventlistener.xml</config>
+				<config>/Carma-Core/src/main/resources/carma-runner.xml</config>
+				<config>/Carma-Core/src/main/resources/carma-transitions.xml</config>
+				<config>carma.xml</config>
+			</configs>
+		</configSet>
 	</configSets>
 </beansProjectDescription>
