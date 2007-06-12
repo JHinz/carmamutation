@@ -5,10 +5,20 @@ import java.net.URL;
 import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.support.PropertiesBeanDefinitionReader;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 
 import com.retroduction.carma.application.Carma;
+import com.retroduction.carma.application.ICarmaConfigConsts;
+import com.retroduction.carma.core.ICoreConfigConsts;
 import com.retroduction.carma.core.runner.events.listener.CompositeEventListener;
 import com.retroduction.carma.core.runner.events.listener.SummaryCreatorEventListener;
 import com.retroduction.carma.core.runner.events.listener.SummaryCreatorEventListener.Summary;
@@ -28,31 +38,42 @@ public class MavenTestExecuter {
 	private String testNamePattern = "Test";
 
 	public Summary exeuteTests() throws MojoExecutionException {
+		// TODO how to merge configurations? take base config, add maven
+		// specific attributes a) runtime attibutes, b) external file - refresh
+		// config
 
+		// merge multiple bean definition sources into application context
+		GenericApplicationContext factory = new GenericApplicationContext();
+		XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(factory);
+		// add base configuration from classpath
+		xmlReader.loadBeanDefinitions(new ClassPathResource(ICoreConfigConsts.EVENTLISTENER_CONFIG_FILE));
+		xmlReader.loadBeanDefinitions(new ClassPathResource(ICoreConfigConsts.RUNNER_CONFIG_FILE));
+		xmlReader.loadBeanDefinitions(new ClassPathResource(ICoreConfigConsts.TRANSITIONS_CONFIG_FILE));
+
+		xmlReader.loadBeanDefinitions(new ClassPathResource(ICarmaConfigConsts.CARMA_APPLICATION_CONFIG_FILE));
+
+		// add custom configuration from file
+		xmlReader.loadBeanDefinitions(new FileSystemResource("carma.xml"));
+
+		// TODO reportfile bean should use File instead of String
+		factory.getBeanFactory().registerSingleton(ICoreConfigConsts.BEAN_REPORTFILE, reportFile.getPath());
+		factory.getBeanFactory().registerSingleton(ICoreConfigConsts.BEAN_CLASSESLOCATIONS, classesDir);
+		factory.getBeanFactory().registerSingleton(ICoreConfigConsts.BEAN_TESTCLASSESLOCATIONS, testClassesDir);
+		factory.getBeanFactory().registerSingleton(ICoreConfigConsts.BEAN_LIBRARIES, dependencyClassPathUrls);
+
+		// initialize factory
+		factory.refresh();
+
+		// add runtime parameters
 		reportFile.getParentFile().mkdirs();
 
-		ClassPathResource springConfigResource = new ClassPathResource("mutationConfig.xml");
-		XmlBeanFactory factory = new XmlBeanFactory(springConfigResource);
-
-		factory.registerSingleton("classesDir", new File(classesDir.getAbsolutePath()));
-		factory.registerSingleton("testClassesDir", new File(testClassesDir.getAbsolutePath()));
-		factory.registerSingleton("libraries", getDependencyClassPathUrls());
-		factory.registerSingleton("usedResolver", factory.getBean("classMatchResolver"));
-		factory.registerSingleton("report.filename", reportFile.getAbsolutePath());
-		factory.registerSingleton("testCaseSuffix", testNamePattern);
-		factory.registerSingleton("log.filename", logFile.getAbsolutePath());
-
 		SummaryCreatorEventListener summaryCreator = new SummaryCreatorEventListener();
-		factory.registerSingleton("summaryCreator", summaryCreator);
-		
 		((CompositeEventListener) factory.getBean("eventListener")).getListeners().add(summaryCreator);
 
-		TransitionGroupConfig tgGroup = (TransitionGroupConfig) factory.getBean("operators");
-		Carma driver = (Carma) factory.getBean("testDriver");
-		driver.execute(tgGroup);
+		Carma driver = (Carma) factory.getBean(ICarmaConfigConsts.BEAN_CARMA);
+		driver.execute();
 
 		Summary sum = summaryCreator.createSummary();
-		factory.destroySingletons();
 		return sum;
 	}
 

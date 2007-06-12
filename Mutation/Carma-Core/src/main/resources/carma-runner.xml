@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+	<!-- the core mutation runner class which executes the tests -->
+	<bean id="runner"
+		class="com.retroduction.carma.core.runner.MutationRunner">
+		<property name="testRunner" ref="testRunner" />
+		<property name="eventListener" ref="eventListener" />
+		<property name="mutantGenerator" ref="mutantGenerator" />
+		<property name="classesUnderTestPath" ref="classesDir" />
+	</bean>
+
+	<bean id="testRunner"
+		class="com.retroduction.carma.core.testrunner.junit3.JUnitRunner">
+		<property name="stopOnFirstFailedTest" value="true" />
+		<property name="classesLocationsAsFiles" ref="classesDir" />
+		<property name="testClassesLocationsAsFiles"
+			ref="testClassesDir" />
+		<property name="libraries" ref="libraries" />
+	</bean>
+
+	<bean id="mutantGenerator"
+		class="com.retroduction.carma.core.transform.MutantGenerator">
+	</bean>
+
+	<bean id="dummyMutantGenerator"
+		class="com.retroduction.carma.core.transform.DummyMutantGenerator">
+	</bean>
+
+</beans>
