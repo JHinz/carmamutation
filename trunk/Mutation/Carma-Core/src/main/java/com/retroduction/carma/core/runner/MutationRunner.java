@@ -103,6 +103,9 @@ public class MutationRunner {
 
 		if (brokenTestNames.size() > 0) {
 			log.error("Testset not sane. There are test failures without mutations");
+			for (String brokenTest : brokenTestNames) {
+				log.error("Failing test: " + brokenTest);
+			}
 			return false;
 		} else {
 			log.info("Testset is sane. No broken tests without mutation");
@@ -114,8 +117,7 @@ public class MutationRunner {
 	private byte[] loadClass(String classUnderTestName) throws IOException {
 
 		for (File classDirectory : getClassesUnderTestPath()) {
-			String path = classDirectory.getAbsolutePath() + "/" + classUnderTestName.replace('.', '/')
-					+ ".class";
+			String path = classDirectory.getAbsolutePath() + "/" + classUnderTestName.replace('.', '/') + ".class";
 			File originalClassFile = new File(path);
 			if (originalClassFile.exists()) {
 				return new ByteCodeFileReader().readByteCodeFromDisk(originalClassFile);
