@@ -25,8 +25,4 @@
 		class="com.retroduction.carma.core.transform.MutantGenerator">
 	</bean>
 
-	<bean id="dummyMutantGenerator"
-		class="com.retroduction.carma.core.transform.DummyMutantGenerator">
-	</bean>
-
 </beans>
