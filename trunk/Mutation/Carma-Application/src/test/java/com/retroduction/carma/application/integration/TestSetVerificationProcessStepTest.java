@@ -13,7 +13,6 @@ import org.apache.commons.cli.ParseException;
 import com.mutation.report.loader.ReportModelLoader;
 import com.mutation.report.om.MutationRun;
 import com.retroduction.carma.application.Carma;
-import com.retroduction.carma.core.testrunner.MutationClassLoader;
 
 public class TestSetVerificationProcessStepTest extends TestCase {
 
@@ -28,8 +27,7 @@ public class TestSetVerificationProcessStepTest extends TestCase {
 	public void test_TestSet_Broken() throws MalformedURLException, FileNotFoundException, ParseException,
 			JAXBException, InterruptedException {
 
-		assertFalse("Mutation ClassLoader still in use (legacy artifact of previous runs?)", MutationClassLoader.class
-				.getName().equals(Thread.currentThread().getContextClassLoader().getClass().getName()));
+		ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
 
 		Carma.main(new String[] { "-uc", "src/test/it/it0005/config.xml" });
 
@@ -46,13 +44,15 @@ public class TestSetVerificationProcessStepTest extends TestCase {
 		assertEquals("Wrong mutation count", 0, run.getMutationRatio().getMutationCount());
 		assertEquals("Wrong survivor count", 0, run.getMutationRatio().getSurvivorCount());
 
+		assertSame("Mutation ClassLoader probably still in use (legacy artifact of previous testcase?)",
+				originalClassLoader, Thread.currentThread().getContextClassLoader());
+
 	}
 
 	public void test_TestSet_Sane() throws MalformedURLException, FileNotFoundException, ParseException, JAXBException,
 			InterruptedException {
 
-		assertFalse("Mutation ClassLoader still in use (legacy artifact of previous runs?)", MutationClassLoader.class
-				.getName().equals(Thread.currentThread().getContextClassLoader().getClass().getName()));
+		ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
 
 		Carma.main(new String[] { "-uc", "src/test/it/it0006/config.xml" });
 
@@ -69,13 +69,15 @@ public class TestSetVerificationProcessStepTest extends TestCase {
 		assertTrue("Wrong mutation count", run.getMutationRatio().getMutationCount() > 0);
 		assertTrue("Wrong survivor count", run.getMutationRatio().getSurvivorCount() > 0);
 
+		assertSame("Mutation ClassLoader probably still in use (legacy artifact of previous testcase?)",
+				originalClassLoader, Thread.currentThread().getContextClassLoader());
+
 	}
 
 	public void test_TestSet_Broken2() throws MalformedURLException, FileNotFoundException, ParseException,
 			JAXBException, InterruptedException {
 
-		assertFalse("Mutation ClassLoader still in use (legacy artifact of previous runs?)", MutationClassLoader.class
-				.getName().equals(Thread.currentThread().getContextClassLoader().getClass().getName()));
+		ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
 
 		Carma.main(new String[] { "-uc", "src/test/it/it0005/config.xml" });
 
@@ -91,6 +93,9 @@ public class TestSetVerificationProcessStepTest extends TestCase {
 
 		assertEquals("Wrong mutation count", 0, run.getMutationRatio().getMutationCount());
 		assertEquals("Wrong survivor count", 0, run.getMutationRatio().getSurvivorCount());
+
+		assertSame("Mutation ClassLoader probably still in use (legacy artifact of previous testcase?)",
+				originalClassLoader, Thread.currentThread().getContextClassLoader());
 
 	}
 
