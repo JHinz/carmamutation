@@ -10,9 +10,9 @@ import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.LineNumberNode;
 import org.objectweb.asm.tree.MethodNode;
 
+import com.retroduction.carma.core.api.ITransition;
 import com.retroduction.carma.core.runner.Mutant;
 import com.retroduction.carma.core.runner.events.IEventListener;
-import com.retroduction.carma.core.transform.ITransition;
 
  abstract class AbstractASMTransition implements ITransition {
 

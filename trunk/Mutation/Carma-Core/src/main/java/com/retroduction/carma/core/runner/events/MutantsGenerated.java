@@ -2,9 +2,9 @@ package com.retroduction.carma.core.runner.events;
 
 import java.util.List;
 
+import com.retroduction.carma.core.api.ITransitionGroup;
 import com.retroduction.carma.core.runner.Mutant;
 import com.retroduction.carma.core.runner.utililties.ToStringUtils;
-import com.retroduction.carma.core.transform.AbstractTransitionGroup;
 
 public class MutantsGenerated implements IEvent {
 
@@ -12,7 +12,7 @@ public class MutantsGenerated implements IEvent {
 
 	private String classUnderTest;
 
-	private AbstractTransitionGroup transitionGroup;
+	private ITransitionGroup transitionGroup;
 
 	public String getClassUnderTest() {
 		return classUnderTest;
@@ -22,11 +22,11 @@ public class MutantsGenerated implements IEvent {
 		return generatedMutants;
 	}
 
-	public AbstractTransitionGroup getTransitionGroup() {
+	public ITransitionGroup getTransitionGroup() {
 		return transitionGroup;
 	}
 
-	public MutantsGenerated(List<Mutant> generateMutants, String classUnderTest, AbstractTransitionGroup transitionGroup) {
+	public MutantsGenerated(List<Mutant> generateMutants, String classUnderTest, ITransitionGroup transitionGroup) {
 		super();
 		this.generatedMutants = generateMutants;
 		this.classUnderTest = classUnderTest;

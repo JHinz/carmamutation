@@ -18,6 +18,7 @@ import com.retroduction.carma.application.util.CLIValidator;
 import com.retroduction.carma.application.util.FilterVerifier;
 import com.retroduction.carma.application.util.TestCaseInstantiationVerifier;
 import com.retroduction.carma.core.ICoreConfigConsts;
+import com.retroduction.carma.core.api.TransitionGroupConfig;
 import com.retroduction.carma.core.runner.ClassDescription;
 import com.retroduction.carma.core.runner.MutationRunner;
 import com.retroduction.carma.core.runner.events.ClassesUnderTestResolved;
@@ -25,7 +26,6 @@ import com.retroduction.carma.core.runner.events.IEventListener;
 import com.retroduction.carma.core.runner.events.MutationProcessFinished;
 import com.retroduction.carma.core.runner.events.MutationProcessStarted;
 import com.retroduction.carma.core.runner.events.TestSetDetermined;
-import com.retroduction.carma.core.transform.TransitionGroupConfig;
 
 public class Carma {
 

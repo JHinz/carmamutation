@@ -23,7 +23,11 @@
 			<artifactId>Carma-Core</artifactId>
 			<version>0.1-SNAPSHOT</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>Transformer</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>com.mutation.core</groupId>
 			<artifactId>ReportModel</artifactId>

@@ -1,14 +1,13 @@
 package com.retroduction.carma.core.transform.asm.ror;
 
-import com.retroduction.carma.core.transform.AbstractTransitionGroup;
-import com.retroduction.carma.core.transform.ITransition;
+import com.retroduction.carma.core.api.ITransition;
+import com.retroduction.carma.core.api.ITransitionGroup;
 
-public class ROR_TransitionGroup extends AbstractTransitionGroup {
+public class ROR_TransitionGroup implements ITransitionGroup {
 
 	private AbstractASMTransition[] transitions;
 
 	public ROR_TransitionGroup(boolean useDefaultTransitions) {
-		super(useDefaultTransitions);
 		if (useDefaultTransitions) {
 			initWithDefaultTransitions();
 		}

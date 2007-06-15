@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import junit.framework.TestCase;
 
+import com.retroduction.carma.core.api.ITransitionGroup;
 import com.retroduction.carma.core.runner.events.IEvent;
 import com.retroduction.carma.core.runner.events.IEventListener;
 import com.retroduction.carma.core.runner.events.MutantsGenerated;
@@ -19,7 +20,6 @@ import com.retroduction.carma.core.runner.events.ProcessingMutationOperator;
 import com.retroduction.carma.core.runner.events.TestsExecuted;
 import com.retroduction.carma.core.runner.utililties.ByteCodeFileReader;
 import com.retroduction.carma.core.testrunner.junit3.JUnitRunner;
-import com.retroduction.carma.core.transform.AbstractTransitionGroup;
 import com.retroduction.carma.core.transform.MutantGenerator;
 import com.retroduction.carma.core.transform.asm.ror.ROR_TransitionGroup;
 
@@ -63,7 +63,7 @@ public class MutationRunnerTestCase extends TestCase {
 		runner.setTestRunner(testRunner);
 		runner.setClassesUnderTestPath(new File[] { new File("src/test/it/it0001") });
 
-		List<AbstractTransitionGroup> mutationOperators = new ArrayList<AbstractTransitionGroup>();
+		List<ITransitionGroup> mutationOperators = new ArrayList<ITransitionGroup>();
 		mutationOperators.add(new ROR_TransitionGroup(true));
 
 		ClassDescription classDescription = new ClassDescription();
