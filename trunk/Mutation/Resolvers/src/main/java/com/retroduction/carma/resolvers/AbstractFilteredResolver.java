@@ -1,9 +1,9 @@
-package com.retroduction.carma.application.resolver;
+package com.retroduction.carma.resolvers;
 
 import java.io.File;
 import java.net.MalformedURLException;
 
-import com.retroduction.carma.application.IResolver;
+import com.retroduction.carma.core.api.resolvers.IResolver;
 
 public abstract class AbstractFilteredResolver implements IResolver {
 

@@ -18,12 +18,12 @@
 
 
 	<bean id="filterVerifier"
-		class="com.retroduction.carma.application.util.FilterVerifier">
+		class="com.retroduction.carma.resolvers.util.FilterVerifier">
 		<property name="filterConfiguration" ref="filterConfiguration" />
 	</bean>
 
 	<bean id="testCaseInstantiationVerifier"
-		class="com.retroduction.carma.application.util.TestCaseInstantiationVerifier">
+		class="com.retroduction.carma.resolvers.util.TestCaseInstantiationVerifier">
 		<property name="classPath" ref="classesDir" />
 		<property name="testClassPath" ref="testClassesDir" />
 	</bean>
@@ -57,20 +57,20 @@
 -->
 
 	<bean id="filterConfiguration"
-		class="com.retroduction.carma.application.resolver.util.FilterConfiguration">
+		class="com.retroduction.carma.resolvers.util.FilterConfiguration">
 		<property name="includeFilter" ref="includeFilter" />
 		<property name="excludeFilter" ref="excludeFilter" />
 	</bean>
 
 	<bean id="includeFilter"
-		class="com.retroduction.carma.application.resolver.util.IncludeFilter">
+		class="com.retroduction.carma.resolvers.util.IncludeFilter">
 		<property name="includePattern">
 			<value>(.*)</value>
 		</property>
 	</bean>
 
 	<bean id="excludeFilter"
-		class="com.retroduction.carma.application.resolver.util.ExcludeFilter">
+		class="com.retroduction.carma.resolvers.util.ExcludeFilter">
 		<property name="excludePattern">
 			<value></value>
 		</property>

@@ -1,4 +1,4 @@
-package com.retroduction.carma.application.util;
+package com.retroduction.carma.resolvers.util;
 
 import java.io.File;
 import java.lang.reflect.Modifier;
@@ -11,7 +11,9 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class TestCaseInstantiationVerifier {
+import com.retroduction.carma.core.api.testrunners.ITestCaseInstantiationVerifier;
+
+public class TestCaseInstantiationVerifier implements ITestCaseInstantiationVerifier {
 
 	private Log log = LogFactory.getLog(TestCaseInstantiationVerifier.class);
 
@@ -24,13 +26,13 @@ public class TestCaseInstantiationVerifier {
 	private void reinitPrivateClassLoader() {
 
 		Set<File> combinedClassPathSet = new HashSet<File>();
-		
-		if ( getClassPath()!=null)
+
+		if (getClassPath() != null)
 			combinedClassPathSet.addAll(getClassPath());
 
-		if ( getTestClassPath()!=null)
+		if (getTestClassPath() != null)
 			combinedClassPathSet.addAll(getTestClassPath());
-		
+
 		Set<URL> validURLs = filterInvalidURLs(combinedClassPathSet);
 
 		setLoader(new URLClassLoader((URL[]) validURLs.toArray(new URL[0]), this.getClass().getClassLoader()));

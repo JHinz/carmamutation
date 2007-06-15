@@ -1,9 +1,11 @@
-package com.retroduction.carma.application.util;
+package com.retroduction.carma.resolvers.util;
 
 import java.io.File;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.retroduction.carma.resolvers.util.TestCaseInstantiationVerifier;
 
 import junit.framework.TestCase;
 

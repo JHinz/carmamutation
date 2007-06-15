@@ -1,8 +1,8 @@
-package com.retroduction.carma.application.testresolver;
+package com.retroduction.carma.resolvers;
 
 import junit.framework.TestCase;
 
-import com.retroduction.carma.application.resolver.OneTestPerClassResolver;
+import com.retroduction.carma.resolvers.OneTestPerClassResolver;
 
 public class OneTestPerClassResolverTestCase extends TestCase {
 

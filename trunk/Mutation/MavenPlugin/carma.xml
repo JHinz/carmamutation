@@ -8,7 +8,7 @@
 	<bean id="resolver" parent="classMatchResolver"></bean>
 
 	<bean id="classMatchResolver"
-		class="com.retroduction.carma.application.resolver.ClassMatchResolver">
+		class="com.retroduction.carma.resolvers.ClassMatchResolver">
 		<property name="classesPath" ref="classesDir" />
 		<property name="testClassesPath" ref="testClassesDir" />
 		<property name="testNameSuffix" value="Test"></property>

@@ -39,14 +39,13 @@
 			<version>0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>com.mutation.core</groupId>
-			<artifactId>ReportModel</artifactId>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>Resolvers</artifactId>
 			<version>0.1-SNAPSHOT</version>
 		</dependency>
-
 		<dependency>
-			<groupId>com.retroduction.carma.annotations</groupId>
-			<artifactId>Carma-Annotations</artifactId>
+			<groupId>com.mutation.core</groupId>
+			<artifactId>ReportModel</artifactId>
 			<version>0.1-SNAPSHOT</version>
 		</dependency>
 

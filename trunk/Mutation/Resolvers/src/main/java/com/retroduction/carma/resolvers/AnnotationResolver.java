@@ -1,4 +1,4 @@
-package com.retroduction.carma.application.resolver;
+package com.retroduction.carma.resolvers;
 
 import java.io.File;
 import java.lang.annotation.Annotation;

@@ -1,4 +1,4 @@
-package com.retroduction.carma.application.resolver;
+package com.retroduction.carma.resolvers;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -8,6 +8,7 @@ import java.util.List;
 import junit.framework.TestCase;
 
 import com.retroduction.carma.core.api.testrunners.ClassDescription;
+import com.retroduction.carma.resolvers.BruteForceResolver;
 
 public class BruteForceResolverTestCase extends TestCase {
 

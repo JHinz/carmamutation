@@ -9,7 +9,7 @@
 	<bean id="resolver" parent="configurationBasedResolver"></bean>
 
 	<bean id="configurationBasedResolver"
-		class="com.retroduction.carma.application.resolver.ConfigBasedResolver">
+		class="com.retroduction.carma.resolvers.ConfigBasedResolver">
 		<property name="classesPath" ref="classesDir" />
 		<property name="testClassesPath" ref="testClassesDir" />
 		<property name="configurationFile" ref="assignmentFile" />
