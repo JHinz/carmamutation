@@ -27,6 +27,7 @@
 		<module>../Carma-Annotations</module>
 		<module>../Carma-Utilities</module>
 		<module>../Transformer</module>
+		<module>../EventListeners</module>
 	</modules>
 
 </project>

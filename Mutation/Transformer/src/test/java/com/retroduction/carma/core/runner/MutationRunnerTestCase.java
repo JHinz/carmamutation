@@ -9,19 +9,19 @@ import java.util.Vector;
 
 import junit.framework.TestCase;
 
-import com.retroduction.carma.core.api.ITransitionGroup;
-import com.retroduction.carma.core.runner.events.IEvent;
-import com.retroduction.carma.core.runner.events.IEventListener;
-import com.retroduction.carma.core.runner.events.MutantsGenerated;
-import com.retroduction.carma.core.runner.events.ProcessingClassUnderTest;
-import com.retroduction.carma.core.runner.events.ProcessingClassUnderTestFinished;
-import com.retroduction.carma.core.runner.events.ProcessingMutant;
-import com.retroduction.carma.core.runner.events.ProcessingMutationOperator;
-import com.retroduction.carma.core.runner.events.TestsExecuted;
-import com.retroduction.carma.core.runner.utililties.ByteCodeFileReader;
+import com.retroduction.carma.core.api.transitions.ITransitionGroup;
+import com.retroduction.carma.core.api.transitions.events.IEvent;
+import com.retroduction.carma.core.api.transitions.events.IEventListener;
+import com.retroduction.carma.core.api.transitions.events.MutantsGenerated;
+import com.retroduction.carma.core.api.transitions.events.ProcessingClassUnderTest;
+import com.retroduction.carma.core.api.transitions.events.ProcessingClassUnderTestFinished;
+import com.retroduction.carma.core.api.transitions.events.ProcessingMutant;
+import com.retroduction.carma.core.api.transitions.events.ProcessingMutationOperator;
+import com.retroduction.carma.core.api.transitions.events.TestsExecuted;
 import com.retroduction.carma.core.testrunner.junit3.JUnitRunner;
 import com.retroduction.carma.core.transform.MutantGenerator;
 import com.retroduction.carma.core.transform.asm.ror.ROR_TransitionGroup;
+import com.retroduction.carma.utilities.ByteCodeFileReader;
 
 public class MutationRunnerTestCase extends TestCase {
 

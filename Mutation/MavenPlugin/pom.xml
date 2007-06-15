@@ -33,6 +33,11 @@
 			<artifactId>Carma-Application</artifactId>
 			<version>0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>EventListeners</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.mutation.core</groupId>

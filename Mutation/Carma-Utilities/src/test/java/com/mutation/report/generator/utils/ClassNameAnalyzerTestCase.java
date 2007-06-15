@@ -3,6 +3,8 @@ package com.mutation.report.generator.utils;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import com.retroduction.carma.utilities.ClassNameAnalyzer;
+
 import junit.framework.TestCase;
 
 public class ClassNameAnalyzerTestCase extends TestCase {
