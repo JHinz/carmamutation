@@ -13,10 +13,7 @@ import org.apache.commons.cli.ParseException;
 import org.springframework.context.support.AbstractXmlApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.retroduction.carma.application.resolver.AbstractFilteredResolver;
 import com.retroduction.carma.application.util.CLIValidator;
-import com.retroduction.carma.application.util.FilterVerifier;
-import com.retroduction.carma.application.util.TestCaseInstantiationVerifier;
 import com.retroduction.carma.core.ICoreConfigConsts;
 import com.retroduction.carma.core.MutationRunner;
 import com.retroduction.carma.core.api.events.ClassesUnderTestResolved;
@@ -24,7 +21,10 @@ import com.retroduction.carma.core.api.events.IEventListener;
 import com.retroduction.carma.core.api.events.MutationProcessFinished;
 import com.retroduction.carma.core.api.events.MutationProcessStarted;
 import com.retroduction.carma.core.api.events.TestSetDetermined;
+import com.retroduction.carma.core.api.resolvers.IResolver;
 import com.retroduction.carma.core.api.testrunners.ClassDescription;
+import com.retroduction.carma.core.api.testrunners.IFilterVerifier;
+import com.retroduction.carma.core.api.testrunners.ITestCaseInstantiationVerifier;
 import com.retroduction.carma.core.api.transitions.TransitionGroupConfig;
 
 public class Carma {
@@ -33,13 +33,13 @@ public class Carma {
 
 	private IEventListener eventListener;
 
-	private AbstractFilteredResolver resolver;
+	private IResolver resolver;
 
 	private MutationRunner runner;
 
-	private TestCaseInstantiationVerifier testCaseInstantiationVerifier;
+	private ITestCaseInstantiationVerifier testCaseInstantiationVerifier;
 
-	private FilterVerifier filterVerifier;
+	private IFilterVerifier filterVerifier;
 	
 	private TransitionGroupConfig transitionGroupConfig;
 
@@ -159,27 +159,27 @@ public class Carma {
 		this.eventListener = eventListener;
 	}
 
-	public AbstractFilteredResolver getResolver() {
+	public IResolver getResolver() {
 		return resolver;
 	}
 
-	public void setResolver(AbstractFilteredResolver resolver) {
+	public void setResolver(IResolver resolver) {
 		this.resolver = resolver;
 	}
 
-	private FilterVerifier getFilterVerifier() {
+	private IFilterVerifier getFilterVerifier() {
 		return filterVerifier;
 	}
 
-	public void setFilterVerifier(FilterVerifier filterVerifier) {
+	public void setFilterVerifier(IFilterVerifier filterVerifier) {
 		this.filterVerifier = filterVerifier;
 	}
 
-	private TestCaseInstantiationVerifier getTestCaseInstantiationVerifier() {
+	private ITestCaseInstantiationVerifier getTestCaseInstantiationVerifier() {
 		return testCaseInstantiationVerifier;
 	}
 
-	public void setTestCaseInstantiationVerifier(TestCaseInstantiationVerifier verifier) {
+	public void setTestCaseInstantiationVerifier(ITestCaseInstantiationVerifier verifier) {
 		this.testCaseInstantiationVerifier = verifier;
 	}
 

@@ -1,11 +1,12 @@
-package com.retroduction.carma.application.util;
+package com.retroduction.carma.resolvers;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import com.retroduction.carma.application.resolver.util.ExcludeFilter;
-import com.retroduction.carma.application.resolver.util.FilterConfiguration;
-import com.retroduction.carma.application.resolver.util.IncludeFilter;
+import com.retroduction.carma.resolvers.util.ExcludeFilter;
+import com.retroduction.carma.resolvers.util.FilterConfiguration;
+import com.retroduction.carma.resolvers.util.FilterVerifier;
+import com.retroduction.carma.resolvers.util.IncludeFilter;
 
 import junit.framework.TestCase;
 

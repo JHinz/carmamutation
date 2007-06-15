@@ -1,4 +1,4 @@
-package com.retroduction.carma.application.resolver.util;
+package com.retroduction.carma.resolvers.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

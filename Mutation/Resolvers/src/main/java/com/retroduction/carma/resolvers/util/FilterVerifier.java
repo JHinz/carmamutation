@@ -1,4 +1,4 @@
-package com.retroduction.carma.application.util;
+package com.retroduction.carma.resolvers.util;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -6,9 +6,10 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.retroduction.carma.application.resolver.util.FilterConfiguration;
+import com.retroduction.carma.core.api.testrunners.IFilterVerifier;
 
-public class FilterVerifier {
+
+public class FilterVerifier implements IFilterVerifier {
 
 	private Log log = LogFactory.getLog(FilterVerifier.class);
 

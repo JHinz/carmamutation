@@ -1,4 +1,4 @@
-package com.retroduction.carma.application.resolver;
+package com.retroduction.carma.resolvers;
 
 import java.util.HashSet;
 import java.util.Set;

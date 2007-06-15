@@ -29,6 +29,7 @@
 		<module>../Transformer</module>
 		<module>../EventListeners</module>
 		<module>../TestRunners</module>
+		<module>../Resolvers</module>
 	</modules>
 
 </project>

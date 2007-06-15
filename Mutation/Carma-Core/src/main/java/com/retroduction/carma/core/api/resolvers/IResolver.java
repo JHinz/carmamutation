@@ -1,4 +1,4 @@
-package com.retroduction.carma.application;
+package com.retroduction.carma.core.api.resolvers;
 
 import java.util.List;
 
