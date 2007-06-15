@@ -18,11 +18,23 @@ import com.retroduction.carma.core.api.testrunners.ClassDescription;
 import com.retroduction.carma.utilities.ClassNameAnalyzer;
 import com.retroduction.carma.utilities.ClassNameAnalyzer.ClassNameInfo;
 
-public class AnnotationResolver extends AbstractFilteredResolver {
+public class AnnotationResolver {
 
 	private Log log = LogFactory.getLog(AnnotationResolver.class);
 
 	private URLClassLoader loader;
+
+	private File[] classesPath;
+
+	private File[] testClassesPath;
+
+	public File[] getClassesPath() {
+		return classesPath;
+	}
+
+	public File[] getTestClassesPath() {
+		return testClassesPath;
+	}
 
 	private URLClassLoader getLoader() {
 		return loader;
@@ -32,15 +44,13 @@ public class AnnotationResolver extends AbstractFilteredResolver {
 		this.loader = loader;
 	}
 
-	@Override
 	public void setClassesPath(File[] classesPath) throws MalformedURLException {
-		super.setClassesPath(classesPath);
+		this.classesPath = classesPath;
 		reinitPrivateClassLoader();
 	}
 
-	@Override
 	public void setTestClassesPath(File[] testClassesPath) throws MalformedURLException {
-		super.setTestClassesPath(testClassesPath);
+		this.testClassesPath = testClassesPath;
 		reinitPrivateClassLoader();
 	}
 

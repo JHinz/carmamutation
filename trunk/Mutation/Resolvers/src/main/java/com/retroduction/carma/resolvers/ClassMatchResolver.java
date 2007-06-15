@@ -1,14 +1,36 @@
 package com.retroduction.carma.resolvers;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import com.retroduction.carma.core.api.testrunners.ClassDescription;
 
-public class ClassMatchResolver extends AbstractFilteredResolver {
+public class ClassMatchResolver {
 
 	private String testNameSuffix = "Test";
+
+	private File[] classesPath;
+
+	private File[] testClassesPath;
+
+	public File[] getClassesPath() {
+		return classesPath;
+	}
+
+	public void setClassesPath(File[] classesPath) throws MalformedURLException {
+		this.classesPath = classesPath;
+	}
+
+	public File[] getTestClassesPath() {
+		return testClassesPath;
+	}
+
+	public void setTestClassesPath(File[] testClassesPath) throws MalformedURLException {
+		this.testClassesPath = testClassesPath;
+	}
 
 	public List<ClassDescription> resolve() {
 
