@@ -2,8 +2,8 @@ package com.retroduction.carma.core.api.transitions;
 
 import java.util.List;
 
-import com.retroduction.carma.core.api.transitions.events.IEventListener;
-import com.retroduction.carma.core.runner.Mutant;
+import com.retroduction.carma.core.api.events.IEventListener;
+import com.retroduction.carma.core.api.testrunners.Mutant;
 
 public interface ITransition {
 

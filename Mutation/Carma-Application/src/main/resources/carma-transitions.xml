@@ -10,7 +10,7 @@
 		<property name="transitionGroups">
 			<list>
 				<bean
-					class="com.retroduction.carma.core.transform.asm.ror.ROR_TransitionGroup">
+					class="com.retroduction.carma.transformer.asm.ror.ROR_TransitionGroup">
 					<constructor-arg>
 						<value>true</value>
 					</constructor-arg>

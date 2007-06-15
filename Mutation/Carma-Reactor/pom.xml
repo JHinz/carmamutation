@@ -28,6 +28,7 @@
 		<module>../Carma-Utilities</module>
 		<module>../Transformer</module>
 		<module>../EventListeners</module>
+		<module>../TestRunners</module>
 	</modules>
 
 </project>

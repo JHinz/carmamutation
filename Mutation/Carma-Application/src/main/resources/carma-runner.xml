@@ -5,7 +5,7 @@
 
 	<!-- the core mutation runner class which executes the tests -->
 	<bean id="runner"
-		class="com.retroduction.carma.core.runner.MutationRunner">
+		class="com.retroduction.carma.core.MutationRunner">
 		<property name="testRunner" ref="testRunner" />
 		<property name="eventListener" ref="eventListener" />
 		<property name="mutantGenerator" ref="mutantGenerator" />
@@ -13,7 +13,7 @@
 	</bean>
 
 	<bean id="testRunner"
-		class="com.retroduction.carma.core.testrunner.junit3.JUnitRunner">
+		class="com.retroduction.carma.testrunners.junit3.JUnitRunner">
 		<property name="stopOnFirstFailedTest" value="true" />
 		<property name="classesLocationsAsFiles" ref="classesDir" />
 		<property name="testClassesLocationsAsFiles"
@@ -22,7 +22,7 @@
 	</bean>
 
 	<bean id="mutantGenerator"
-		class="com.retroduction.carma.core.transform.MutantGenerator">
+		class="com.retroduction.carma.core.MutantGenerator">
 	</bean>
 
 </beans>
