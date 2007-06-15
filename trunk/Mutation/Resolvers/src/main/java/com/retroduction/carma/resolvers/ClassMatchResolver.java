@@ -6,9 +6,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.retroduction.carma.core.api.resolvers.IResolver;
 import com.retroduction.carma.core.api.testrunners.ClassDescription;
 
-public class ClassMatchResolver {
+public class ClassMatchResolver implements IResolver {
 
 	private String testNameSuffix = "Test";
 

@@ -8,15 +8,20 @@
 		class="com.retroduction.carma.application.Carma">
 		<property name="resolver" ref="resolver" />
 		<property name="runner" ref="runner" />
-		<property name="transitionGroupConfig" ref="operators"></property>
-		<property name="eventListener" ref="eventListener"></property>
-		<property name="filterVerifier" ref="filterVerifier"></property>
-		<property name="testCaseInstantiationVerifier"
-			ref="testCaseInstantiationVerifier">
-		</property>
+		<property name="transitionGroupConfig" ref="operators"/>
+		<property name="eventListener" ref="eventListener"/>
 	</bean>
 
-
+	<bean id="resolver"
+		class="com.retroduction.carma.resolvers.Resolver">
+		<property name="filterVerifier" ref="filterVerifier" />
+		<property name="instantiationVerifier" ref="testCaseInstantiationVerifier" />
+		<property name="nestedResolver" ref="nestedResolver" />
+		<property name="classesPath" ref="classesDir" />
+		<property name="testClassesPath" ref="testClassesDir" />
+		<property name="eventListener" ref="eventListener" />
+	</bean>
+	
 	<bean id="filterVerifier"
 		class="com.retroduction.carma.resolvers.util.FilterVerifier">
 		<property name="filterConfiguration" ref="filterConfiguration" />

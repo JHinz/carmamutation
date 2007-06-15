@@ -16,15 +16,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.retroduction.carma.application.util.CLIValidator;
 import com.retroduction.carma.core.ICoreConfigConsts;
 import com.retroduction.carma.core.MutationRunner;
-import com.retroduction.carma.core.api.events.ClassesUnderTestResolved;
 import com.retroduction.carma.core.api.events.IEventListener;
 import com.retroduction.carma.core.api.events.MutationProcessFinished;
 import com.retroduction.carma.core.api.events.MutationProcessStarted;
-import com.retroduction.carma.core.api.events.TestSetDetermined;
 import com.retroduction.carma.core.api.resolvers.IResolver;
 import com.retroduction.carma.core.api.testrunners.ClassDescription;
-import com.retroduction.carma.core.api.testrunners.IFilterVerifier;
-import com.retroduction.carma.core.api.testrunners.ITestCaseInstantiationVerifier;
 import com.retroduction.carma.core.api.transitions.TransitionGroupConfig;
 
 public class Carma {
@@ -37,10 +33,6 @@ public class Carma {
 
 	private MutationRunner runner;
 
-	private ITestCaseInstantiationVerifier testCaseInstantiationVerifier;
-
-	private IFilterVerifier filterVerifier;
-	
 	private TransitionGroupConfig transitionGroupConfig;
 
 	/**
@@ -80,33 +72,9 @@ public class Carma {
 
 		List<ClassDescription> classesUnderTest = resolver.resolve();
 
-		// get set instead of list above !
-
-		Set<ClassDescription> classDescriptions = new HashSet<ClassDescription>(classesUnderTest);
-
-		Set<ClassDescription> remainingClassDescriptions = removeSuperfluousClassNames(classDescriptions);
-
-		eventListener.notifyEvent(new ClassesUnderTestResolved(new ArrayList<ClassDescription>(
-				remainingClassDescriptions)));
-
-		for (ClassDescription classUnderTestDescription : remainingClassDescriptions) {
-
-			Set<String> associatedTestNames = classUnderTestDescription.getAssociatedTestNames();
-
-			Set<String> remainingTestNames = filterVerifier.removeExcludedClasses(associatedTestNames);
-
-			remainingTestNames = testCaseInstantiationVerifier.removeNonInstantiatableClasses(remainingTestNames);
-
-			classUnderTestDescription.setAssociatedTestNames(remainingTestNames);
-
-			eventListener.notifyEvent(new TestSetDetermined(classUnderTestDescription.getQualifiedClassName(),
-					remainingTestNames));
-
-		}
-
 		Set<ClassDescription> classesWithWorkingTestSet = new HashSet<ClassDescription>();
 
-		for (ClassDescription classUnderTestDescription : remainingClassDescriptions) {
+		for (ClassDescription classUnderTestDescription : classesUnderTest) {
 			if (runner.performTestsetVerification(classUnderTestDescription.getAssociatedTestNames())) {
 				classesWithWorkingTestSet.add(classUnderTestDescription);
 			}
@@ -124,27 +92,6 @@ public class Carma {
 
 		eventListener.destroy();
 
-	}
-
-	private Set<ClassDescription> removeSuperfluousClassNames(Set<ClassDescription> classesUnderTest) {
-
-		HashSet<String> resolvedClassNames = new HashSet<String>();
-
-		for (ClassDescription classDescription : classesUnderTest) {
-			resolvedClassNames.add(classDescription.getQualifiedClassName());
-		}
-
-		Set<String> remainingClassesNames = filterVerifier.removeExcludedClasses(resolvedClassNames);
-
-		remainingClassesNames = testCaseInstantiationVerifier.removeNonInstantiatableClasses(remainingClassesNames);
-
-		Set<ClassDescription> remainingClassDescriptions = new HashSet<ClassDescription>();
-
-		for (ClassDescription classDescription : classesUnderTest) {
-			if (remainingClassesNames.contains(classDescription.getQualifiedClassName()))
-				remainingClassDescriptions.add(classDescription);
-		}
-		return remainingClassDescriptions;
 	}
 
 	public MutationRunner getRunner() {
@@ -165,22 +112,6 @@ public class Carma {
 
 	public void setResolver(IResolver resolver) {
 		this.resolver = resolver;
-	}
-
-	private IFilterVerifier getFilterVerifier() {
-		return filterVerifier;
-	}
-
-	public void setFilterVerifier(IFilterVerifier filterVerifier) {
-		this.filterVerifier = filterVerifier;
-	}
-
-	private ITestCaseInstantiationVerifier getTestCaseInstantiationVerifier() {
-		return testCaseInstantiationVerifier;
-	}
-
-	public void setTestCaseInstantiationVerifier(ITestCaseInstantiationVerifier verifier) {
-		this.testCaseInstantiationVerifier = verifier;
 	}
 
 	public TransitionGroupConfig getTransitionGroupConfig() {
