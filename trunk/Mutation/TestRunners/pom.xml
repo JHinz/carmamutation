@@ -7,7 +7,7 @@
 		<groupId>com.retroduction.carma.metadefinition</groupId>
 		<artifactId>Carma-MetaDefinition</artifactId>
 		<version>0.1-SNAPSHOT</version>
-		<relativePath>../Carma-MetaDefinition/pom.xml</relativePath>
+		<relativePath>../Carma-MetaDefinition</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -17,10 +17,22 @@
 	<version>0.1-SNAPSHOT</version>
 	<name>Retroduction Carma TestRunners</name>
 	<description>
-		Retroduction Carma TestRunner project which integrates different test suites for running testcases on mutated bytecode.a
+		Retroduction Carma TestRunner project which integrates different
+		test suites for running testcases on mutated bytecode.a
 	</description>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.retroduction.carma.core</groupId>
+			<artifactId>Carma-Core</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.2</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 
 </project>

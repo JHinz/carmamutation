@@ -19,12 +19,12 @@ import com.mutation.report.om.Mutant;
 import com.mutation.report.om.MutationRatio;
 import com.mutation.report.om.MutationRun;
 import com.mutation.report.om.ProcessingInfo;
-import com.retroduction.carma.core.api.transitions.events.IEvent;
-import com.retroduction.carma.core.api.transitions.events.IEventListener;
-import com.retroduction.carma.core.api.transitions.events.ProcessingClassUnderTest;
-import com.retroduction.carma.core.api.transitions.events.ProcessingClassUnderTestFinished;
-import com.retroduction.carma.core.api.transitions.events.ProcessingMutant;
-import com.retroduction.carma.core.api.transitions.events.TestsExecuted;
+import com.retroduction.carma.core.api.events.IEvent;
+import com.retroduction.carma.core.api.events.IEventListener;
+import com.retroduction.carma.core.api.events.ProcessingClassUnderTest;
+import com.retroduction.carma.core.api.events.ProcessingClassUnderTestFinished;
+import com.retroduction.carma.core.api.events.ProcessingMutant;
+import com.retroduction.carma.core.api.events.TestsExecuted;
 
 public class ReportEventListener implements IEventListener {
 
@@ -166,7 +166,7 @@ public class ReportEventListener implements IEventListener {
 			ProcessingMutant eventObj = (ProcessingMutant) event;
 
 			Mutant mutantInfo = new Mutant();
-			com.retroduction.carma.core.runner.Mutant mutant = eventObj
+			com.retroduction.carma.core.api.testrunners.Mutant mutant = eventObj
 					.getMutant();
 			mutantInfo.setName(mutant.getName());
 			mutantInfo.setBaseSourceLine(mutant.getSourceMapping().getLineNo());

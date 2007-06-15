@@ -34,6 +34,11 @@
 			<version>0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>TestRunners</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>com.mutation.core</groupId>
 			<artifactId>ReportModel</artifactId>
 			<version>0.1-SNAPSHOT</version>

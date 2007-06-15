@@ -7,7 +7,7 @@
 		<groupId>com.retroduction.carma.metadefinition</groupId>
 		<artifactId>Carma-MetaDefinition</artifactId>
 		<version>0.1-SNAPSHOT</version>
-		<relativePath>../Carma-MetaDefinition/pom.xml</relativePath>
+		<relativePath>../Carma-MetaDefinition</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>

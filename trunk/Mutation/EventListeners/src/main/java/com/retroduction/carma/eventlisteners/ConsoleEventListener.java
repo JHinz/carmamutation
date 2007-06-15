@@ -8,15 +8,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.util.StopWatch;
 
-import com.retroduction.carma.core.api.transitions.events.ClassesUnderTestResolved;
-import com.retroduction.carma.core.api.transitions.events.IEvent;
-import com.retroduction.carma.core.api.transitions.events.IEventListener;
-import com.retroduction.carma.core.api.transitions.events.MutantsGenerated;
-import com.retroduction.carma.core.api.transitions.events.MutationProcessFinished;
-import com.retroduction.carma.core.api.transitions.events.MutationProcessStarted;
-import com.retroduction.carma.core.api.transitions.events.TestSetDetermined;
-import com.retroduction.carma.core.api.transitions.events.TestsExecuted;
-import com.retroduction.carma.core.runner.Mutant;
+import com.retroduction.carma.core.api.events.ClassesUnderTestResolved;
+import com.retroduction.carma.core.api.events.IEvent;
+import com.retroduction.carma.core.api.events.IEventListener;
+import com.retroduction.carma.core.api.events.MutantsGenerated;
+import com.retroduction.carma.core.api.events.MutationProcessFinished;
+import com.retroduction.carma.core.api.events.MutationProcessStarted;
+import com.retroduction.carma.core.api.events.TestSetDetermined;
+import com.retroduction.carma.core.api.events.TestsExecuted;
+import com.retroduction.carma.core.api.testrunners.Mutant;
 
 public class ConsoleEventListener implements IEventListener {
 

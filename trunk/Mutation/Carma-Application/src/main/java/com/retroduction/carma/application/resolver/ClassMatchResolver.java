@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.retroduction.carma.core.runner.ClassDescription;
+import com.retroduction.carma.core.api.testrunners.ClassDescription;
 
 public class ClassMatchResolver extends AbstractFilteredResolver {
 

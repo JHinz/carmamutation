@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.retroduction.carma.core.runner.ClassDescription;
+import com.retroduction.carma.core.api.testrunners.ClassDescription;
 
 /**
  * determines set of all classes within a directory of class files
