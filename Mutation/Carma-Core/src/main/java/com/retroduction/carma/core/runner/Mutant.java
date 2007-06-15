@@ -1,7 +1,7 @@
 package com.retroduction.carma.core.runner;
 
-import com.retroduction.carma.core.transform.AbstractTransitionGroup;
-import com.retroduction.carma.core.transform.ITransition;
+import com.retroduction.carma.core.api.ITransition;
+import com.retroduction.carma.core.api.ITransitionGroup;
 
 /**
  * Specification of a mutant
@@ -37,7 +37,7 @@ public class Mutant {
 
 	private SourceCodeMapping sourceMapping;
 
-	private AbstractTransitionGroup transitionGroup;
+	private ITransitionGroup transitionGroup;
 	
 	private ITransition transition;
 
@@ -83,11 +83,11 @@ public class Mutant {
 		this.name = name;
 	}
 
-	public AbstractTransitionGroup getTransitionGroup() {
+	public ITransitionGroup getTransitionGroup() {
 		return transitionGroup;
 	}
 
-	public void setTransitionGroup(AbstractTransitionGroup transitionGroup) {
+	public void setTransitionGroup(ITransitionGroup transitionGroup) {
 		this.transitionGroup = transitionGroup;
 	}
 

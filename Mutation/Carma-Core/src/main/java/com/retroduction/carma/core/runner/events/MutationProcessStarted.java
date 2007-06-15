@@ -2,17 +2,17 @@ package com.retroduction.carma.core.runner.events;
 
 import java.util.List;
 
+import com.retroduction.carma.core.api.ITransitionGroup;
 import com.retroduction.carma.core.runner.utililties.ToStringUtils;
-import com.retroduction.carma.core.transform.AbstractTransitionGroup;
 
 public class MutationProcessStarted implements IEvent {
-	private List<AbstractTransitionGroup> transitionGroups;
+	private List<ITransitionGroup> transitionGroups;
 
-	public List<AbstractTransitionGroup> getTransitionGroups() {
+	public List<ITransitionGroup> getTransitionGroups() {
 		return transitionGroups;
 	}
 
-	public MutationProcessStarted(List<AbstractTransitionGroup> transitionGroups) {
+	public MutationProcessStarted(List<ITransitionGroup> transitionGroups) {
 		super();
 		this.transitionGroups = transitionGroups;
 	}

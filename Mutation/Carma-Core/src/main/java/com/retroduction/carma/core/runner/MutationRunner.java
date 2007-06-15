@@ -8,6 +8,8 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.retroduction.carma.core.api.IMutationGenerator;
+import com.retroduction.carma.core.api.ITransitionGroup;
 import com.retroduction.carma.core.runner.events.IEventListener;
 import com.retroduction.carma.core.runner.events.MutantsGenerated;
 import com.retroduction.carma.core.runner.events.ProcessingClassUnderTest;
@@ -16,8 +18,6 @@ import com.retroduction.carma.core.runner.events.ProcessingMutant;
 import com.retroduction.carma.core.runner.events.ProcessingMutationOperator;
 import com.retroduction.carma.core.runner.utililties.ByteCodeFileReader;
 import com.retroduction.carma.core.testrunner.ITestRunner;
-import com.retroduction.carma.core.transform.AbstractTransitionGroup;
-import com.retroduction.carma.core.transform.IMutationGenerator;
 
 public class MutationRunner {
 
@@ -41,7 +41,7 @@ public class MutationRunner {
 	 * @param testNames
 	 * @throws IOException
 	 */
-	public void performMutations(List<AbstractTransitionGroup> transitionGroups,
+	public void performMutations(List<ITransitionGroup> transitionGroups,
 			List<ClassDescription> classUnderTestDescriptions) throws IOException {
 
 		log.info("Performing mutation on all classes");
@@ -56,7 +56,7 @@ public class MutationRunner {
 
 			byte[] byteCode = loadClass(fqClassName);
 
-			for (AbstractTransitionGroup transitionGroup : transitionGroups) {
+			for (ITransitionGroup transitionGroup : transitionGroups) {
 
 				log.info("Using transition group <" + transitionGroup.getName() + "> for mutation process");
 

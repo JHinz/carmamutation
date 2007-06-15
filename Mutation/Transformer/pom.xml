@@ -16,5 +16,17 @@
 	<packaging>jar</packaging>
 	<version>0.1-SNAPSHOT</version>
 	<name>Retroduction Carma Transformer</name>
-	<description>Retroduction Carma Transformer project which handles byte code modifications depending on predefined bytecode transitions.</description>
+	<description>
+		Retroduction Carma Transformer project which handles byte code
+		modifications depending on predefined bytecode transitions.
+	</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.retroduction.carma.core</groupId>
+			<artifactId>Carma-Core</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
 </project>
