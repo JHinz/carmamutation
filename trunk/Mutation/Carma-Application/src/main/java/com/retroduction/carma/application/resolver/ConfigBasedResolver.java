@@ -14,9 +14,9 @@ import java.util.StringTokenizer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.mutation.report.generator.utils.ClassNameAnalyzer;
-import com.mutation.report.generator.utils.ClassNameAnalyzer.ClassNameInfo;
 import com.retroduction.carma.core.runner.ClassDescription;
+import com.retroduction.carma.utilities.ClassNameAnalyzer;
+import com.retroduction.carma.utilities.ClassNameAnalyzer.ClassNameInfo;
 
 public class ConfigBasedResolver extends AbstractFilteredResolver {
 

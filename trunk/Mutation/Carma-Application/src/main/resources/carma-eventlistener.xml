@@ -4,18 +4,18 @@
 <beans>
 
 	<bean id="report.eventListener"
-		class="com.retroduction.carma.core.runner.events.listener.ReportEventListener">
+		class="com.retroduction.carma.eventlisteners.ReportEventListener">
 		<constructor-arg>
 			<ref bean="report.filename" />
 		</constructor-arg>
 	</bean>
 
 	<bean id="eventListener"
-		class="com.retroduction.carma.core.runner.events.listener.CompositeEventListener">
+		class="com.retroduction.carma.eventlisteners.CompositeEventListener">
 		<property name="listeners">
 			<list>
 				<bean
-					class="com.retroduction.carma.core.runner.events.listener.ConsoleEventListener">
+					class="com.retroduction.carma.eventlisteners.ConsoleEventListener">
 					<property name="showSummaryOnly" value="false" />
 				</bean>
 				<ref bean="report.eventListener" />

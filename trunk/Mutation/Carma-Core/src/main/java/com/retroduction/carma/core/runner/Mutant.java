@@ -1,7 +1,7 @@
 package com.retroduction.carma.core.runner;
 
-import com.retroduction.carma.core.api.ITransition;
-import com.retroduction.carma.core.api.ITransitionGroup;
+import com.retroduction.carma.core.api.transitions.ITransition;
+import com.retroduction.carma.core.api.transitions.ITransitionGroup;
 
 /**
  * Specification of a mutant

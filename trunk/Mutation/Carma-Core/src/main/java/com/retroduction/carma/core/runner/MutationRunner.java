@@ -8,16 +8,16 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.retroduction.carma.core.api.IMutationGenerator;
-import com.retroduction.carma.core.api.ITransitionGroup;
-import com.retroduction.carma.core.runner.events.IEventListener;
-import com.retroduction.carma.core.runner.events.MutantsGenerated;
-import com.retroduction.carma.core.runner.events.ProcessingClassUnderTest;
-import com.retroduction.carma.core.runner.events.ProcessingClassUnderTestFinished;
-import com.retroduction.carma.core.runner.events.ProcessingMutant;
-import com.retroduction.carma.core.runner.events.ProcessingMutationOperator;
-import com.retroduction.carma.core.runner.utililties.ByteCodeFileReader;
+import com.retroduction.carma.core.api.transitions.IMutationGenerator;
+import com.retroduction.carma.core.api.transitions.ITransitionGroup;
+import com.retroduction.carma.core.api.transitions.events.IEventListener;
+import com.retroduction.carma.core.api.transitions.events.MutantsGenerated;
+import com.retroduction.carma.core.api.transitions.events.ProcessingClassUnderTest;
+import com.retroduction.carma.core.api.transitions.events.ProcessingClassUnderTestFinished;
+import com.retroduction.carma.core.api.transitions.events.ProcessingMutant;
+import com.retroduction.carma.core.api.transitions.events.ProcessingMutationOperator;
 import com.retroduction.carma.core.testrunner.ITestRunner;
+import com.retroduction.carma.utilities.ByteCodeFileReader;
 
 public class MutationRunner {
 

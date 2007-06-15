@@ -1,7 +1,7 @@
 package com.retroduction.carma.core.transform.asm.ror;
 
-import com.retroduction.carma.core.api.ITransition;
-import com.retroduction.carma.core.api.ITransitionGroup;
+import com.retroduction.carma.core.api.transitions.ITransition;
+import com.retroduction.carma.core.api.transitions.ITransitionGroup;
 
 public class ROR_TransitionGroup implements ITransitionGroup {
 

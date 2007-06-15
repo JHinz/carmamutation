@@ -2,7 +2,8 @@ package com.retroduction.carma.core.runner;
 
 import java.util.Set;
 
-import com.retroduction.carma.core.runner.utililties.ToStringUtils;
+import com.retroduction.carma.utilities.ToStringUtils;
+
 
 public class ClassDescription {
 

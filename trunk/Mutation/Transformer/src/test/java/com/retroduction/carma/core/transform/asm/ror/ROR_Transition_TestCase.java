@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 
 import com.retroduction.carma.core.runner.Mutant;
 import com.retroduction.carma.core.runner.events.EventListenerMock;
-import com.retroduction.carma.core.runner.utililties.ByteCodeFileReader;
+import com.retroduction.carma.utilities.ByteCodeFileReader;
 
 public class ROR_Transition_TestCase extends TestCase {
 

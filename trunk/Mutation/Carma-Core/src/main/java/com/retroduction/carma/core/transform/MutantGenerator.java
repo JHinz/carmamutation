@@ -3,11 +3,11 @@ package com.retroduction.carma.core.transform;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.retroduction.carma.core.api.IMutationGenerator;
-import com.retroduction.carma.core.api.ITransition;
-import com.retroduction.carma.core.api.ITransitionGroup;
+import com.retroduction.carma.core.api.transitions.IMutationGenerator;
+import com.retroduction.carma.core.api.transitions.ITransition;
+import com.retroduction.carma.core.api.transitions.ITransitionGroup;
+import com.retroduction.carma.core.api.transitions.events.IEventListener;
 import com.retroduction.carma.core.runner.Mutant;
-import com.retroduction.carma.core.runner.events.IEventListener;
 
 public class MutantGenerator implements IMutationGenerator{
 

@@ -1,0 +1,31 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+  http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>com.retroduction.carma.metadefinition</groupId>
+		<artifactId>Carma-MetaDefinition</artifactId>
+		<version>0.1-SNAPSHOT</version>
+		<relativePath>../Carma-MetaDefinition/pom.xml</relativePath>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.retroduction.carma</groupId>
+	<artifactId>EventListeners</artifactId>
+	<packaging>jar</packaging>
+	<version>0.1-SNAPSHOT</version>
+	<name>Retroduction Carma EventListeners</name>
+	<description>
+		Retroduction Carma EventListener project which handles fired events during the mutation process.
+	</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.retroduction.carma.core</groupId>
+			<artifactId>Carma-Core</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+</project>

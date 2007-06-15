@@ -19,10 +19,10 @@ import org.springframework.core.io.FileSystemResource;
 import com.retroduction.carma.application.Carma;
 import com.retroduction.carma.application.ICarmaConfigConsts;
 import com.retroduction.carma.core.ICoreConfigConsts;
-import com.retroduction.carma.core.api.TransitionGroupConfig;
-import com.retroduction.carma.core.runner.events.listener.CompositeEventListener;
-import com.retroduction.carma.core.runner.events.listener.SummaryCreatorEventListener;
-import com.retroduction.carma.core.runner.events.listener.SummaryCreatorEventListener.Summary;
+import com.retroduction.carma.core.api.transitions.TransitionGroupConfig;
+import com.retroduction.carma.eventlisteners.CompositeEventListener;
+import com.retroduction.carma.eventlisteners.SummaryCreatorEventListener;
+import com.retroduction.carma.eventlisteners.SummaryCreatorEventListener.Summary;
 
 public class MavenTestExecuter {
 	private List<URL> dependencyClassPathUrls;
