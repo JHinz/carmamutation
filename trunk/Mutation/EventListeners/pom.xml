@@ -4,10 +4,10 @@
   http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<parent>
-		<groupId>com.retroduction.carma.metadefinition</groupId>
-		<artifactId>Carma-MetaDefinition</artifactId>
+		<groupId>com.retroduction.carma</groupId>
+		<artifactId>MetaDefinition</artifactId>
 		<version>0.1-SNAPSHOT</version>
-		<relativePath>../Carma-MetaDefinition</relativePath>
+		<relativePath>../MetaDefinition</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -22,8 +22,8 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.retroduction.carma.core</groupId>
-			<artifactId>Carma-Core</artifactId>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>Core</artifactId>
 			<version>0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
