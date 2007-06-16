@@ -2,6 +2,8 @@ package com.retroduction.carma.core;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -10,18 +12,22 @@ import org.apache.commons.logging.LogFactory;
 
 import com.retroduction.carma.core.api.events.IEventListener;
 import com.retroduction.carma.core.api.events.MutantsGenerated;
+import com.retroduction.carma.core.api.events.MutationProcessFinished;
+import com.retroduction.carma.core.api.events.MutationProcessStarted;
 import com.retroduction.carma.core.api.events.ProcessingClassUnderTest;
 import com.retroduction.carma.core.api.events.ProcessingClassUnderTestFinished;
 import com.retroduction.carma.core.api.events.ProcessingMutant;
 import com.retroduction.carma.core.api.events.ProcessingMutationOperator;
+import com.retroduction.carma.core.api.resolvers.IResolver;
 import com.retroduction.carma.core.api.testrunners.ClassDescription;
 import com.retroduction.carma.core.api.testrunners.ITestRunner;
 import com.retroduction.carma.core.api.testrunners.Mutant;
 import com.retroduction.carma.core.api.transitions.IMutationGenerator;
 import com.retroduction.carma.core.api.transitions.ITransitionGroup;
+import com.retroduction.carma.core.api.transitions.TransitionGroupConfig;
 import com.retroduction.carma.utilities.ByteCodeFileReader;
 
-public class MutationRunner {
+public class Core {
 
 	private ITestRunner testRunner;
 
@@ -31,7 +37,43 @@ public class MutationRunner {
 
 	private IEventListener eventListener;
 
-	private Log log = LogFactory.getLog(MutationRunner.class);
+	private Log log = LogFactory.getLog(Core.class);
+
+	private TransitionGroupConfig transitionGroupConfig;
+
+	private IResolver resolver;
+
+	public void setTransitionGroupConfig(TransitionGroupConfig transitionGroupConfig) {
+		this.transitionGroupConfig = transitionGroupConfig;
+	}
+
+	public void execute() {
+
+		eventListener.notifyEvent(new MutationProcessStarted(transitionGroupConfig.getTransitionGroups()));
+
+		List<ClassDescription> classesUnderTest = resolver.resolve();
+
+		Set<ClassDescription> classesWithWorkingTestSet = new HashSet<ClassDescription>();
+
+		for (ClassDescription classUnderTestDescription : classesUnderTest) {
+			if (performTestsetVerification(classUnderTestDescription.getAssociatedTestNames())) {
+				classesWithWorkingTestSet.add(classUnderTestDescription);
+			}
+		}
+
+		try {// expect set instead of list below !
+			performMutations(transitionGroupConfig.getTransitionGroups(), new ArrayList<ClassDescription>(
+					classesWithWorkingTestSet));
+		} catch (IOException e) {
+			e.printStackTrace();
+			return;
+		}
+
+		eventListener.notifyEvent(new MutationProcessFinished());
+
+		eventListener.destroy();
+
+	}
 
 	/**
 	 * 
@@ -146,6 +188,10 @@ public class MutationRunner {
 
 	public void setEventListener(IEventListener eventListener) {
 		this.eventListener = eventListener;
+	}
+
+	public void setResolver(IResolver resolver) {
+		this.resolver = resolver;
 	}
 
 }

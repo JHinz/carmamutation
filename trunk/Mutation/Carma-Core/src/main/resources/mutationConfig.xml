@@ -5,11 +5,13 @@
 		
 	<!-- the driver main class which constructs a proper mutation runner -->
 	<bean id="testDriver"
-		class="com.retroduction.carma.application.Carma">
+		class="com.retroduction.carma.core.Core">
+		<property name="testRunner" ref="testRunner" />
+		<property name="eventListener" ref="eventListener" />
+		<property name="mutantGenerator" ref="mutantGenerator" />
+		<property name="classesUnderTestPath" ref="classesDir" />
 		<property name="resolver" ref="resolver" />
-		<property name="runner" ref="runner" />
-		<property name="transitionGroupConfig" ref="operators"/>
-		<property name="eventListener" ref="eventListener"/>
+		<property name="transitionGroupConfig" ref="operators" />
 	</bean>
 
 	<bean id="resolver"
