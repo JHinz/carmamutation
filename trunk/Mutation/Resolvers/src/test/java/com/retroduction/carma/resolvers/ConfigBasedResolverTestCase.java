@@ -9,7 +9,6 @@ import java.util.List;
 import junit.framework.TestCase;
 
 import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
-import com.retroduction.carma.resolvers.ConfigBasedResolver;
 
 public class ConfigBasedResolverTestCase extends TestCase {
 
