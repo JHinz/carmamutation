@@ -4,14 +4,14 @@
   http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<parent>
-		<groupId>com.retroduction.carma.metadefinition</groupId>
-		<artifactId>Carma-MetaDefinition</artifactId>
+		<groupId>com.retroduction.carma</groupId>
+		<artifactId>MetaDefinition</artifactId>
 		<version>0.1-SNAPSHOT</version>
-		<relativePath>../Carma-MetaDefinition/pom.xml</relativePath>
+		<relativePath>../MetaDefinition</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.mutation.core</groupId>
+	<groupId>com.retroduction.carma</groupId>
 	<artifactId>ReportGenerator</artifactId>
 	<packaging>jar</packaging>
 	<version>0.1-SNAPSHOT</version>
@@ -29,7 +29,7 @@
 			<version>2.0.3</version>
 		</dependency>
 		<dependency>
-			<groupId>com.mutation.core</groupId>
+			<groupId>com.retroduction.carma</groupId>
 			<artifactId>ReportModel</artifactId>
 			<version>0.1-SNAPSHOT</version>
 		</dependency>

@@ -4,8 +4,8 @@
   http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.retroduction.carma.metadefinition</groupId>
-	<artifactId>Carma-MetaDefinition</artifactId>
+	<groupId>com.retroduction.carma</groupId>
+	<artifactId>MetaDefinition</artifactId>
 	<packaging>pom</packaging>
 	<version>0.1-SNAPSHOT</version>
 	<name>Retroduction Carma Meta Definition Project</name>

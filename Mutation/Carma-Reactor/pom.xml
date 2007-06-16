@@ -4,29 +4,29 @@
   http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<parent>
-		<groupId>com.retroduction.carma.metadefinition</groupId>
-		<artifactId>Carma-MetaDefinition</artifactId>
+		<groupId>com.retroduction.carma</groupId>
+		<artifactId>MetaDefinition</artifactId>
 		<version>0.1-SNAPSHOT</version>
-		<relativePath>../Carma-MetaDefinition/pom.xml</relativePath>
+		<relativePath>../MetaDefinition</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.retroduction.carma.reactor</groupId>
-	<artifactId>Carma-Reactor</artifactId>
+	<groupId>com.retroduction.carma</groupId>
+	<artifactId>Reactor</artifactId>
 	<packaging>pom</packaging>
 	<version>0.1-SNAPSHOT</version>
 	<name>Retroduction Carma Reactor Project</name>
 
 	<modules>
-		<module>../Carma-MetaDefinition</module>
+		<module>../MetaDefinition</module>
 		<module>../ReportModel</module>
 		<module>../ReportGenerator</module>
 		<module>../MavenPlugin</module>
-		<module>../Carma-Application</module>
-		<module>../Carma-Core</module>
-		<module>../Carma-Annotations</module>
-		<module>../Carma-Utilities</module>
-		<module>../Transformer</module>
+		<module>../Application</module>
+		<module>../Core</module>
+		<module>../Annotations</module>
+		<module>../Utilities</module>
+		<module>../Transformers</module>
 		<module>../EventListeners</module>
 		<module>../TestRunners</module>
 		<module>../Resolvers</module>
