@@ -3,8 +3,6 @@ package com.retroduction.carma.resolvers;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -16,7 +14,7 @@ public class AnnotationResolverTestCase extends TestCase {
 
 	public void testGetClasses() throws MalformedURLException {
 
-		File testClassPath = new File("src/test/it/it0002/test-classes/");
+		File testClassPath = new File("src/test/it/it0002/target/test-classes/");
 
 		AnnotationResolver resolver = new AnnotationResolver();
 		resolver.setClassesPath(new File[] { testClassPath });
