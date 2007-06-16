@@ -7,9 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
@@ -68,9 +67,9 @@ public class ConfigBasedResolver implements IResolver {
 		return resultBuffer.toString();
 	}
 
-	public List<ClassDescription> parseInputConfiguration(String inputConfig) {
+	public Set<ClassDescription> parseInputConfiguration(String inputConfig) {
 
-		List<ClassDescription> result = new ArrayList<ClassDescription>();
+		HashSet<ClassDescription> result = new HashSet<ClassDescription>();
 
 		StringTokenizer lineTokenzier = new StringTokenizer(inputConfig, "\n");
 
@@ -127,7 +126,7 @@ public class ConfigBasedResolver implements IResolver {
 
 	}
 
-	public List<ClassDescription> resolve() {
+	public Set<ClassDescription> resolve() {
 
 		String inputConfiguration;
 		try {
@@ -135,7 +134,7 @@ public class ConfigBasedResolver implements IResolver {
 			inputConfiguration = readInputConfiguration(reader);
 		} catch (IOException e1) {
 			e1.printStackTrace();
-			return new ArrayList<ClassDescription>();
+			return new HashSet<ClassDescription>();
 		}
 
 		return parseInputConfiguration(inputConfiguration);

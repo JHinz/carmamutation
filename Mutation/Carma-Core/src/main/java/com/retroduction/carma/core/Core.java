@@ -51,7 +51,7 @@ public class Core {
 
 		eventListener.notifyEvent(new MutationProcessStarted(transitionGroupConfig.getTransitionGroups()));
 
-		List<ClassDescription> classesUnderTest = resolver.resolve();
+		Set<ClassDescription> classesUnderTest = resolver.resolve();
 
 		Set<ClassDescription> classesWithWorkingTestSet = new HashSet<ClassDescription>();
 

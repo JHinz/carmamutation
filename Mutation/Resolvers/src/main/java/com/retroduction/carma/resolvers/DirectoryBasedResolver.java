@@ -1,8 +1,8 @@
 package com.retroduction.carma.resolvers;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
 
@@ -19,8 +19,8 @@ public class DirectoryBasedResolver {
 	 */
 	private File[] classesBaseDir;
 
-	public List<ClassDescription> determineClassNames() {
-		List<ClassDescription> classDescriptions = new ArrayList<ClassDescription>();
+	public Set<ClassDescription> determineClassNames() {
+		HashSet<ClassDescription> classDescriptions = new HashSet<ClassDescription>();
 
 		for (File classesDirectory : classesBaseDir)
 			iterate(classesDirectory, "", "", classDescriptions);
@@ -45,7 +45,7 @@ public class DirectoryBasedResolver {
 	 * @param classNames
 	 *            set of class names to add classes found
 	 */
-	void iterate(File baseDir, String packagePrefix, String relPath, List<ClassDescription> classNames) {
+	void iterate(File baseDir, String packagePrefix, String relPath, Set<ClassDescription> classNames) {
 
 		File[] files = baseDir.listFiles();
 		if (files == null) {

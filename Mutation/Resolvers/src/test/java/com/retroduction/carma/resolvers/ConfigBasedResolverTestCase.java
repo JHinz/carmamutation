@@ -4,7 +4,10 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import junit.framework.TestCase;
 
@@ -23,30 +26,29 @@ public class ConfigBasedResolverTestCase extends TestCase {
 		resolver.setClassesPath(null);
 		resolver.setTestClassesPath(null);
 
-		List<ClassDescription> result = resolver.parseInputConfiguration(inputConfig.toString());
+		SortedSet<ClassDescription> result = new TreeSet<ClassDescription>(resolver.parseInputConfiguration(inputConfig
+				.toString()));
 
 		assertEquals(2, result.size());
-		assertEquals("com.a.Class1", result.get(0).getQualifiedClassName());
-		assertEquals("com.a", result.get(0).getPackageName());
-		assertEquals("Class1", result.get(0).getClassName());
-		assertEquals("com.b.Class2", result.get(1).getQualifiedClassName());
-		assertEquals("com.b", result.get(1).getPackageName());
-		assertEquals("Class2", result.get(1).getClassName());
 
-		List<String> testNames;
+		Iterator<ClassDescription> resultIterator = result.iterator();
 
-		testNames = new ArrayList<String>();
-		testNames.addAll(result.get(0).getAssociatedTestNames());
+		ClassDescription resultClass;
 
-		assertEquals(2, testNames.size());
-		assertEquals("org.AnotherTestClass2", testNames.get(0));
-		assertEquals("com.b.TestClass1", testNames.get(1));
+		resultClass = resultIterator.next();
 
-		testNames = new ArrayList<String>();
-		testNames.addAll(result.get(1).getAssociatedTestNames());
+		assertEquals("com.a.Class1", resultClass.getQualifiedClassName());
 
-		assertEquals(1, testNames.size());
-		assertEquals("com.b.TestClass2", testNames.get(0));
+		assertEquals(2, resultClass.getAssociatedTestNames().size());
+		assertTrue(resultClass.getAssociatedTestNames().contains("org.AnotherTestClass2"));
+		assertTrue(resultClass.getAssociatedTestNames().contains("com.b.TestClass1"));
+
+		resultClass = resultIterator.next();
+
+		assertEquals("com.b.Class2", resultClass.getQualifiedClassName());
+
+		assertEquals(1, resultClass.getAssociatedTestNames().size());
+		assertTrue(resultClass.getAssociatedTestNames().contains("com.b.TestClass2"));
 
 	}
 
@@ -59,20 +61,21 @@ public class ConfigBasedResolverTestCase extends TestCase {
 
 		ConfigBasedResolver resolver = new ConfigBasedResolver();
 
-		List<ClassDescription> result = resolver.parseInputConfiguration(inputConfig.toString());
+		SortedSet<ClassDescription> result = new TreeSet<ClassDescription>(resolver.parseInputConfiguration(inputConfig
+				.toString()));
 
 		assertEquals(1, result.size());
-		assertEquals("com.b.Class2", result.get(0).getQualifiedClassName());
-		assertEquals("com.b", result.get(0).getPackageName());
-		assertEquals("Class2", result.get(0).getClassName());
 
-		List<String> testNames;
+		Iterator<ClassDescription> resultIterator = result.iterator();
 
-		testNames = new ArrayList<String>();
-		testNames.addAll(result.get(0).getAssociatedTestNames());
+		ClassDescription resultClass;
 
-		assertEquals(1, testNames.size());
-		assertEquals("com.b.TestClass2", testNames.get(0));
+		resultClass = resultIterator.next();
+
+		assertEquals("com.b.Class2", resultClass.getQualifiedClassName());
+
+		assertEquals(1, resultClass.getAssociatedTestNames().size());
+		assertTrue(resultClass.getAssociatedTestNames().contains("com.b.TestClass2"));
 
 	}
 
@@ -85,20 +88,21 @@ public class ConfigBasedResolverTestCase extends TestCase {
 
 		ConfigBasedResolver resolver = new ConfigBasedResolver();
 
-		List<ClassDescription> result = resolver.parseInputConfiguration(inputConfig.toString());
+		SortedSet<ClassDescription> result = new TreeSet<ClassDescription>(resolver.parseInputConfiguration(inputConfig
+				.toString()));
 
 		assertEquals(1, result.size());
-		assertEquals("com.b.Class2", result.get(0).getQualifiedClassName());
-		assertEquals("com.b", result.get(0).getPackageName());
-		assertEquals("Class2", result.get(0).getClassName());
 
-		List<String> testNames;
+		Iterator<ClassDescription> resultIterator = result.iterator();
 
-		testNames = new ArrayList<String>();
-		testNames.addAll(result.get(0).getAssociatedTestNames());
+		ClassDescription resultClass;
 
-		assertEquals(1, testNames.size());
-		assertEquals("com.b.TestClass2", testNames.get(0));
+		resultClass = resultIterator.next();
+
+		assertEquals("com.b.Class2", resultClass.getQualifiedClassName());
+
+		assertEquals(1, resultClass.getAssociatedTestNames().size());
+		assertTrue(resultClass.getAssociatedTestNames().contains("com.b.TestClass2"));
 
 	}
 
@@ -111,20 +115,21 @@ public class ConfigBasedResolverTestCase extends TestCase {
 
 		ConfigBasedResolver resolver = new ConfigBasedResolver();
 
-		List<ClassDescription> result = resolver.parseInputConfiguration(inputConfig.toString());
+		SortedSet<ClassDescription> result = new TreeSet<ClassDescription>(resolver.parseInputConfiguration(inputConfig
+				.toString()));
 
 		assertEquals(1, result.size());
-		assertEquals("com.b.Class2", result.get(0).getQualifiedClassName());
-		assertEquals("com.b", result.get(0).getPackageName());
-		assertEquals("Class2", result.get(0).getClassName());
 
-		List<String> testNames;
+		Iterator<ClassDescription> resultIterator = result.iterator();
 
-		testNames = new ArrayList<String>();
-		testNames.addAll(result.get(0).getAssociatedTestNames());
+		ClassDescription resultClass;
 
-		assertEquals(1, testNames.size());
-		assertEquals("com.b.TestClass2", testNames.get(0));
+		resultClass = resultIterator.next();
+
+		assertEquals("com.b.Class2", resultClass.getQualifiedClassName());
+
+		assertEquals(1, resultClass.getAssociatedTestNames().size());
+		assertTrue(resultClass.getAssociatedTestNames().contains("com.b.TestClass2"));
 
 	}
 
@@ -137,20 +142,21 @@ public class ConfigBasedResolverTestCase extends TestCase {
 
 		ConfigBasedResolver resolver = new ConfigBasedResolver();
 
-		List<ClassDescription> result = resolver.parseInputConfiguration(inputConfig.toString());
+		SortedSet<ClassDescription> result = new TreeSet<ClassDescription>(resolver.parseInputConfiguration(inputConfig
+				.toString()));
 
 		assertEquals(1, result.size());
-		assertEquals("com.b.Class2", result.get(0).getQualifiedClassName());
-		assertEquals("com.b", result.get(0).getPackageName());
-		assertEquals("Class2", result.get(0).getClassName());
 
-		List<String> testNames;
+		Iterator<ClassDescription> resultIterator = result.iterator();
 
-		testNames = new ArrayList<String>();
-		testNames.addAll(result.get(0).getAssociatedTestNames());
+		ClassDescription resultClass;
 
-		assertEquals(1, testNames.size());
-		assertEquals("com.b.TestClass2", testNames.get(0));
+		resultClass = resultIterator.next();
+
+		assertEquals("com.b.Class2", resultClass.getQualifiedClassName());
+
+		assertEquals(1, resultClass.getAssociatedTestNames().size());
+		assertTrue(resultClass.getAssociatedTestNames().contains("com.b.TestClass2"));
 
 	}
 
@@ -163,25 +169,27 @@ public class ConfigBasedResolverTestCase extends TestCase {
 
 		ConfigBasedResolver resolver = new ConfigBasedResolver();
 
-		List<ClassDescription> result = resolver.parseInputConfiguration(inputConfig.toString());
+		SortedSet<ClassDescription> result = new TreeSet<ClassDescription>(resolver.parseInputConfiguration(inputConfig
+				.toString()));
 
 		assertEquals(2, result.size());
-		assertEquals("com.b.TestClass1", result.get(0).getQualifiedClassName());
-		assertEquals("com.b.Class2", result.get(1).getQualifiedClassName());
 
-		List<String> testNames;
+		Iterator<ClassDescription> resultIterator = result.iterator();
 
-		testNames = new ArrayList<String>();
-		testNames.addAll(result.get(0).getAssociatedTestNames());
+		ClassDescription resultClass;
 
-		assertEquals(1, testNames.size());
-		assertEquals("org.AnotherTestClass2", testNames.get(0));
+		resultClass = resultIterator.next();
 
-		testNames = new ArrayList<String>();
-		testNames.addAll(result.get(1).getAssociatedTestNames());
+		assertEquals("com.b.Class2", resultClass.getQualifiedClassName());
+		assertEquals(1, resultClass.getAssociatedTestNames().size());
+		assertTrue(resultClass.getAssociatedTestNames().contains("com.b.TestClass2"));
 
-		assertEquals(1, testNames.size());
-		assertEquals("com.b.TestClass2", testNames.get(0));
+		resultClass = resultIterator.next();
+
+		assertEquals("com.b.TestClass1", resultClass.getQualifiedClassName());
+
+		assertEquals(1, resultClass.getAssociatedTestNames().size());
+		assertTrue(resultClass.getAssociatedTestNames().contains("org.AnotherTestClass2"));
 
 	}
 
