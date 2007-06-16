@@ -3,7 +3,6 @@ package com.retroduction.carma.resolvers;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import com.retroduction.carma.core.api.resolvers.IResolver;
@@ -33,12 +32,12 @@ public class ClassMatchResolver implements IResolver {
 		this.testClassesPath = testClassesPath;
 	}
 
-	public List<ClassDescription> resolve() {
+	public Set<ClassDescription> resolve() {
 
 		DirectoryBasedResolver directoryResolver = new DirectoryBasedResolver();
 		directoryResolver.setClassesBaseDir(getClassesPath());
 
-		List<ClassDescription> classDescriptions = directoryResolver.determineClassNames();
+		Set<ClassDescription> classDescriptions = directoryResolver.determineClassNames();
 
 		OneTestPerClassResolver testResolver = new OneTestPerClassResolver();
 		testResolver.setTestCaseSuffix(getTestNameSuffix());

@@ -4,6 +4,8 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import junit.framework.TestCase;
 
@@ -19,25 +21,27 @@ public class BruteForceResolverTestCase extends TestCase {
 		resolver.setClassesPath(new File[] { testClassPath });
 		resolver.setTestClassesPath(new File[] { testClassPath });
 
-		List<ClassDescription> classes = resolver.resolve();
+		SortedSet<ClassDescription> classes = new TreeSet<ClassDescription>(resolver.resolve());
 
 		assertEquals(2, classes.size());
 
-		assertEquals(2, classes.get(0).getAssociatedTestNames().size());
+		Iterator<ClassDescription> resultIterator = classes.iterator();
 
-		Iterator<String> testNameIterator;
+		ClassDescription resultClass;
 
-		testNameIterator = classes.get(0).getAssociatedTestNames().iterator();
+		resultClass = resultIterator.next();
 
-		assertEquals("TestClass1", testNameIterator.next());
-		assertEquals("sub1.sub2.TestClass2", testNameIterator.next());
+		assertEquals(2, resultClass.getAssociatedTestNames().size());
 
-		assertEquals(2, classes.get(1).getAssociatedTestNames().size());
+		assertTrue(resultClass.getAssociatedTestNames().contains("TestClass1"));
+		assertTrue(resultClass.getAssociatedTestNames().contains("sub1.sub2.TestClass2"));
 
-		testNameIterator = classes.get(1).getAssociatedTestNames().iterator();
+		resultClass = resultIterator.next();
 
-		assertEquals("TestClass1", testNameIterator.next());
-		assertEquals("sub1.sub2.TestClass2", testNameIterator.next());
+		assertEquals(2, resultClass.getAssociatedTestNames().size());
+
+		assertTrue(resultClass.getAssociatedTestNames().contains("TestClass1"));
+		assertTrue(resultClass.getAssociatedTestNames().contains("sub1.sub2.TestClass2"));
 
 	}
 }

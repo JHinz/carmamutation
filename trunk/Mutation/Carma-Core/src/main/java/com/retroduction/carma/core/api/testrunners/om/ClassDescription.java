@@ -4,8 +4,7 @@ import java.util.Set;
 
 import com.retroduction.carma.utilities.ToStringUtils;
 
-
-public class ClassDescription {
+public class ClassDescription implements Comparable<ClassDescription> {
 
 	private String className;
 
@@ -83,5 +82,19 @@ public class ClassDescription {
 
 	public void setQualifiedClassName(String qualifiedName) {
 		this.qualifiedClassName = qualifiedName;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return getQualifiedClassName().equals(((ClassDescription) obj).getQualifiedClassName());
+	}
+
+	@Override
+	public int hashCode() {
+		return getQualifiedClassName().hashCode();
+	}
+
+	public int compareTo(ClassDescription o) {
+		return this.getQualifiedClassName().compareTo(o.getQualifiedClassName());
 	}
 }

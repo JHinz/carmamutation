@@ -4,6 +4,9 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import junit.framework.TestCase;
 
@@ -19,26 +22,32 @@ public class AnnotationResolverTestCase extends TestCase {
 		resolver.setClassesPath(new File[] { testClassPath });
 		resolver.setTestClassesPath(new File[] { testClassPath });
 
-		List<ClassDescription> classes = resolver.resolve();
+		SortedSet<ClassDescription> sortedResults = new TreeSet<ClassDescription>(resolver.resolve());
 
-		assertEquals(2, classes.size());
+		assertEquals(2, sortedResults.size());
 
-		assertEquals("different.sample.Class", classes.get(0).getQualifiedClassName());
-		assertEquals(1, classes.get(0).getAssociatedTestNames().size());
+		Iterator<ClassDescription> resultIterator = sortedResults.iterator();
 
-		Iterator<String> testNameIterator;
+		ClassDescription resultingClassDescription;
 
-		testNameIterator = classes.get(0).getAssociatedTestNames().iterator();
+		resultingClassDescription = resultIterator.next();
 
-		assertEquals("sub2.AnotherSampleClassUsingAnnotation", testNameIterator.next());
+		assertEquals("different.sample.Class", resultingClassDescription.getQualifiedClassName());
 
-		assertEquals("sample.Sample", classes.get(1).getQualifiedClassName());
-		assertEquals(2, classes.get(1).getAssociatedTestNames().size());
+		assertEquals(1, resultingClassDescription.getAssociatedTestNames().size());
 
-		testNameIterator = classes.get(1).getAssociatedTestNames().iterator();
+		assertTrue(resultingClassDescription.getAssociatedTestNames()
+				.contains("sub2.AnotherSampleClassUsingAnnotation"));
 
-		assertEquals("sub2.AnotherSampleClassUsingAnnotation", testNameIterator.next());
-		assertEquals("sub1.SampleClassUsingAnnotation", testNameIterator.next());
+		resultingClassDescription = resultIterator.next();
+
+		assertEquals("sample.Sample", resultingClassDescription.getQualifiedClassName());
+		assertEquals(2, resultingClassDescription.getAssociatedTestNames().size());
+
+		assertTrue(resultingClassDescription.getAssociatedTestNames().contains("sub1.SampleClassUsingAnnotation"));
+		assertTrue(resultingClassDescription.getAssociatedTestNames()
+				.contains("sub2.AnotherSampleClassUsingAnnotation"));
+
 	}
 
 }

@@ -1,11 +1,11 @@
 package com.retroduction.carma.core.api.resolvers;
 
-import java.util.List;
+import java.util.Set;
 
 import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
 
 public interface IResolver {
 
-	List<ClassDescription> resolve();
+	Set<ClassDescription> resolve();
 
 }

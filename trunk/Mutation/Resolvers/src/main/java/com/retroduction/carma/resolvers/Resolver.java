@@ -4,7 +4,6 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import com.retroduction.carma.core.api.eventlisteners.IEventListener;
@@ -61,7 +60,7 @@ public class Resolver implements IResolver {
 		this.nestedResolver = nestedResolver;
 	}
 
-	public List<ClassDescription> resolve() {
+	public Set<ClassDescription> resolve() {
 
 		// TODO: remove uneccessary conversions between list -> set -> list !
 		Set<ClassDescription> classDescriptions = new HashSet<ClassDescription>(nestedResolver.resolve());
@@ -73,7 +72,7 @@ public class Resolver implements IResolver {
 
 		Set<ClassDescription> remainingClassesUnderTestWithWorkingTestClasses = removeSuperfluousTestClasses(remainingClassUnderTest);
 
-		return new ArrayList<ClassDescription>(remainingClassesUnderTestWithWorkingTestClasses);
+		return remainingClassesUnderTestWithWorkingTestClasses;
 
 	}
 

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -86,19 +87,19 @@ public class AnnotationResolver implements IResolver {
 		setLoader(new URLClassLoader((URL[]) urlList.toArray(new URL[0]), this.getClass().getClassLoader()));
 	}
 
-	public List<ClassDescription> resolve() {
+	public Set<ClassDescription> resolve() {
 
 		DirectoryBasedResolver directoryResolver = new DirectoryBasedResolver();
 		directoryResolver.setClassesBaseDir(getTestClassesPath());
 
-		List<ClassDescription> testClassDescriptions = directoryResolver.determineClassNames();
+		Set<ClassDescription> testClassDescriptions = directoryResolver.determineClassNames();
 
-		List<ClassDescription> annotationBasedClassDescriptions = determineAnnotationMappings(testClassDescriptions);
+		Set<ClassDescription> annotationBasedClassDescriptions = determineAnnotationMappings(testClassDescriptions);
 
 		return annotationBasedClassDescriptions;
 	}
 
-	private List<ClassDescription> determineAnnotationMappings(List<ClassDescription> testClassDescriptions) {
+	private Set<ClassDescription> determineAnnotationMappings(Set<ClassDescription> testClassDescriptions) {
 
 		HashMap<String, ClassDescription> resolvedClasses = new HashMap<String, ClassDescription>();
 
@@ -139,7 +140,7 @@ public class AnnotationResolver implements IResolver {
 			}
 		}
 
-		return new ArrayList<ClassDescription>(resolvedClasses.values());
+		return new HashSet<ClassDescription>(resolvedClasses.values());
 	}
 
 }
