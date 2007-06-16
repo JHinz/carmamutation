@@ -2,7 +2,6 @@ package com.retroduction.carma.core;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -62,8 +61,7 @@ public class Core {
 		}
 
 		try {// expect set instead of list below !
-			performMutations(transitionGroupConfig.getTransitionGroups(), new ArrayList<ClassDescription>(
-					classesWithWorkingTestSet));
+			performMutations(transitionGroupConfig.getTransitionGroups(), classesWithWorkingTestSet);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return;
@@ -85,8 +83,8 @@ public class Core {
 	 * @param testNames
 	 * @throws IOException
 	 */
-	public void performMutations(List<ITransitionGroup> transitionGroups,
-			List<ClassDescription> classUnderTestDescriptions) throws IOException {
+	public void performMutations(Set<ITransitionGroup> transitionGroups,
+			Set<ClassDescription> classUnderTestDescriptions) throws IOException {
 
 		log.info("Performing mutation on all classes");
 

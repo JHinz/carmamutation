@@ -2,6 +2,7 @@ package com.retroduction.carma.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import com.retroduction.carma.core.api.eventlisteners.IEventListener;
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
@@ -9,10 +10,10 @@ import com.retroduction.carma.core.api.transitions.IMutationGenerator;
 import com.retroduction.carma.core.api.transitions.ITransition;
 import com.retroduction.carma.core.api.transitions.ITransitionGroup;
 
-public class MutantGenerator implements IMutationGenerator{
+public class MutantGenerator implements IMutationGenerator {
 
 	public List<Mutant> generateMutants(String classUnderTest, byte[] originalClassByteCode,
-			List<ITransitionGroup> transitionGroups, IEventListener listener) {
+			Set<ITransitionGroup> transitionGroups, IEventListener listener) {
 
 		List<Mutant> result = new ArrayList<Mutant>();
 

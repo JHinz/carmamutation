@@ -1,19 +1,18 @@
 package com.retroduction.carma.core.api.transitions.om;
 
-import java.util.List;
+import java.util.Set;
 
 import com.retroduction.carma.core.api.transitions.ITransitionGroup;
 
-
 public class TransitionGroupConfig {
 
-	private List<ITransitionGroup> transitionGroups;
+	private Set<ITransitionGroup> transitionGroups;
 
-	public List<ITransitionGroup> getTransitionGroups() {
+	public Set<ITransitionGroup> getTransitionGroups() {
 		return transitionGroups;
 	}
 
-	public void setTransitionGroups(List<ITransitionGroup> transitionGroups) {
+	public void setTransitionGroups(Set<ITransitionGroup> transitionGroups) {
 		this.transitionGroups = transitionGroups;
 	}
 
