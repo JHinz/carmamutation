@@ -7,11 +7,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.retroduction.carma.core.api.events.ClassesUnderTestResolved;
-import com.retroduction.carma.core.api.events.IEventListener;
-import com.retroduction.carma.core.api.events.TestSetDetermined;
+import com.retroduction.carma.core.api.eventlisteners.IEventListener;
+import com.retroduction.carma.core.api.eventlisteners.om.ClassesUnderTestResolved;
+import com.retroduction.carma.core.api.eventlisteners.om.TestSetDetermined;
 import com.retroduction.carma.core.api.resolvers.IResolver;
-import com.retroduction.carma.core.api.testrunners.ClassDescription;
+import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
 import com.retroduction.carma.resolvers.util.FilterVerifier;
 import com.retroduction.carma.resolvers.util.TestCaseInstantiationVerifier;
 

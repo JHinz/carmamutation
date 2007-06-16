@@ -6,7 +6,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
-import com.retroduction.carma.core.api.testrunners.Mutant;
+import com.retroduction.carma.core.api.testrunners.om.Mutant;
 import com.retroduction.carma.transformer.asm.ror.IFEQ_2_IFNE_Transition;
 import com.retroduction.carma.transformer.asm.ror.IFGE_2_IFLT_Transition;
 import com.retroduction.carma.transformer.asm.ror.IFGT_2_IFLE_Transition;

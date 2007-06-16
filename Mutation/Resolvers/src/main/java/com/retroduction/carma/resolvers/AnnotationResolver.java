@@ -15,7 +15,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.mutation.annotations.TestClassToClassMapping;
 import com.retroduction.carma.core.api.resolvers.IResolver;
-import com.retroduction.carma.core.api.testrunners.ClassDescription;
+import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
 import com.retroduction.carma.utilities.ClassNameAnalyzer;
 import com.retroduction.carma.utilities.ClassNameAnalyzer.ClassNameInfo;
 

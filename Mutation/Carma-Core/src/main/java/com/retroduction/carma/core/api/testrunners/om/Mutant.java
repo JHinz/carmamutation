@@ -1,4 +1,4 @@
-package com.retroduction.carma.core.api.testrunners;
+package com.retroduction.carma.core.api.testrunners.om;
 
 import com.retroduction.carma.core.api.transitions.ITransition;
 import com.retroduction.carma.core.api.transitions.ITransitionGroup;

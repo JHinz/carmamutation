@@ -1,4 +1,4 @@
-package com.retroduction.carma.core.api.testrunners;
+package com.retroduction.carma.core.api.testrunners.om;
 
 /**
  * Information about the mapping of a change to the original source code

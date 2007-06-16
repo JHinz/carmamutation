@@ -2,8 +2,8 @@ package com.retroduction.carma.transformer.test.eventlisteners;
 
 import java.util.Vector;
 
-import com.retroduction.carma.core.api.events.IEvent;
-import com.retroduction.carma.core.api.events.IEventListener;
+import com.retroduction.carma.core.api.eventlisteners.IEvent;
+import com.retroduction.carma.core.api.eventlisteners.IEventListener;
 
 public class EventListenerMock implements IEventListener {
 

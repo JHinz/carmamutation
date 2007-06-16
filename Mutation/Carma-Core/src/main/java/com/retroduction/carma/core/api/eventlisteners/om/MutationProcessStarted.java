@@ -1,7 +1,8 @@
-package com.retroduction.carma.core.api.events;
+package com.retroduction.carma.core.api.eventlisteners.om;
 
 import java.util.List;
 
+import com.retroduction.carma.core.api.eventlisteners.IEvent;
 import com.retroduction.carma.core.api.transitions.ITransitionGroup;
 import com.retroduction.carma.utilities.ToStringUtils;
 

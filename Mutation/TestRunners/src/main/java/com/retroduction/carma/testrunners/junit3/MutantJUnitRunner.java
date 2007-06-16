@@ -12,7 +12,7 @@ import junit.runner.BaseTestRunner;
 import junit.runner.TestSuiteLoader;
 
 import com.retroduction.carma.core.MutationClassLoader;
-import com.retroduction.carma.core.api.testrunners.Mutant;
+import com.retroduction.carma.core.api.testrunners.om.Mutant;
 
 /**
  * JUnit Runner for mutation tests. Uses specific class loeader to load thze

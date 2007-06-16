@@ -1,6 +1,7 @@
-package com.retroduction.carma.core.api.events;
+package com.retroduction.carma.core.api.eventlisteners.om;
 
-import com.retroduction.carma.core.api.testrunners.ClassDescription;
+import com.retroduction.carma.core.api.eventlisteners.IEvent;
+import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
 import com.retroduction.carma.utilities.ToStringUtils;
 
 public class ProcessingClassUnderTest implements IEvent {
