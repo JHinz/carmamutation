@@ -29,8 +29,8 @@
 			<version>0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>com.retroduction.carma.application</groupId>
-			<artifactId>Carma-Application</artifactId>
+			<groupId>com.mutation.core</groupId>
+			<artifactId>ReportGenerator</artifactId>
 			<version>0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
@@ -38,10 +38,19 @@
 			<artifactId>EventListeners</artifactId>
 			<version>0.1-SNAPSHOT</version>
 		</dependency>
-
 		<dependency>
-			<groupId>com.mutation.core</groupId>
-			<artifactId>ReportGenerator</artifactId>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>TestRunners</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>Transformer</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>Resolvers</artifactId>
 			<version>0.1-SNAPSHOT</version>
 		</dependency>
 
@@ -58,7 +67,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
+			<version>3.8.2</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

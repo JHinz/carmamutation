@@ -6,7 +6,7 @@
 	<!--  set of operators considered for tests -->
 
 	<bean id="operators"
-		class="com.retroduction.carma.core.api.transitions.TransitionGroupConfig">
+		class="com.retroduction.carma.core.api.transitions.om.TransitionGroupConfig">
 		<property name="transitionGroups">
 			<list>
 				<bean
