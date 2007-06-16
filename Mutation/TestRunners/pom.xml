@@ -24,7 +24,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
-			<artifactId>Carma</artifactId>
+			<artifactId>Core</artifactId>
 			<version>0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
