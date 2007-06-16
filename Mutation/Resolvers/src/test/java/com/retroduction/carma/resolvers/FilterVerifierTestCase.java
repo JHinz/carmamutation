@@ -3,12 +3,12 @@ package com.retroduction.carma.resolvers;
 import java.util.HashSet;
 import java.util.Set;
 
+import junit.framework.TestCase;
+
 import com.retroduction.carma.resolvers.util.ExcludeFilter;
 import com.retroduction.carma.resolvers.util.FilterConfiguration;
 import com.retroduction.carma.resolvers.util.FilterVerifier;
 import com.retroduction.carma.resolvers.util.IncludeFilter;
-
-import junit.framework.TestCase;
 
 public class FilterVerifierTestCase extends TestCase {
 

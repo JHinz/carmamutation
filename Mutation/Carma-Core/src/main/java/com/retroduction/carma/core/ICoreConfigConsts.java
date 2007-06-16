@@ -1,6 +1,5 @@
 package com.retroduction.carma.core;
 
-import java.net.URL;
 
 /**
  * this interface defines names of configuration files and spring beans

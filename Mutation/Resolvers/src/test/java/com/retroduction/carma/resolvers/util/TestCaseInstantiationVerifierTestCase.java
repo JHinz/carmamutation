@@ -5,8 +5,6 @@ import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.retroduction.carma.resolvers.util.TestCaseInstantiationVerifier;
-
 import junit.framework.TestCase;
 
 public class TestCaseInstantiationVerifierTestCase extends TestCase {

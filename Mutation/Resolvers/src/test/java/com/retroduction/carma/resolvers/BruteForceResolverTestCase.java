@@ -8,7 +8,6 @@ import java.util.List;
 import junit.framework.TestCase;
 
 import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
-import com.retroduction.carma.resolvers.BruteForceResolver;
 
 public class BruteForceResolverTestCase extends TestCase {
 
