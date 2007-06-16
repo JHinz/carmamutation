@@ -31,6 +31,7 @@ public class FilterVerifierTestCase extends TestCase {
 
 		potentialClasses = new HashSet<String>();
 		potentialClasses.add("package.Class");
+		potentialClasses.add("package.Class$InnerClass");
 		potentialClasses.add("");
 
 		result = verifier.removeExcludedClasses(potentialClasses);

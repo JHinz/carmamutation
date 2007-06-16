@@ -9,8 +9,11 @@ public class ExcludeFilter {
 
 	private Pattern pattern;
 
+	private String fixedPatternString = "(.*\\$.*)";
+
 	public ExcludeFilter() {
 		super();
+		setExcludePattern("");
 	}
 
 	public ExcludeFilter(String excludePattern) {
@@ -25,14 +28,14 @@ public class ExcludeFilter {
 	public void setExcludePattern(String excludePattern) {
 		this.excludePattern = excludePattern;
 
-		pattern = Pattern.compile(excludePattern);
+		if ((excludePattern == null) || excludePattern.trim().equals("")) {
+			pattern = Pattern.compile(fixedPatternString);
+		} else {
+			pattern = Pattern.compile(excludePattern + "|" + fixedPatternString);
+		}
 	}
 
 	public boolean shouldBeExcluded(String fqClassName) {
-
-		if (excludePattern == null || excludePattern.trim().equals("")) {
-			setExcludePattern("\\(.*\\)");
-		}
 
 		Matcher matcher = pattern.matcher(fqClassName);
 
