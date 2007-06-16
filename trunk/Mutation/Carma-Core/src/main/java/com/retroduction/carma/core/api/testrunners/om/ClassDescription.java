@@ -1,4 +1,4 @@
-package com.retroduction.carma.core.api.testrunners;
+package com.retroduction.carma.core.api.testrunners.om;
 
 import java.util.Set;
 

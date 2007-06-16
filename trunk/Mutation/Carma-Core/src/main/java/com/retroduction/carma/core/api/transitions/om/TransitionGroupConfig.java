@@ -1,6 +1,8 @@
-package com.retroduction.carma.core.api.transitions;
+package com.retroduction.carma.core.api.transitions.om;
 
 import java.util.List;
+
+import com.retroduction.carma.core.api.transitions.ITransitionGroup;
 
 
 public class TransitionGroupConfig {

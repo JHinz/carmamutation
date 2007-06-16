@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import com.retroduction.carma.core.api.resolvers.IResolver;
-import com.retroduction.carma.core.api.testrunners.ClassDescription;
+import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
 
 public class BruteForceResolver implements IResolver {
 	

@@ -2,8 +2,8 @@ package com.retroduction.carma.eventlisteners;
 
 import java.util.List;
 
-import com.retroduction.carma.core.api.events.IEvent;
-import com.retroduction.carma.core.api.events.IEventListener;
+import com.retroduction.carma.core.api.eventlisteners.IEvent;
+import com.retroduction.carma.core.api.eventlisteners.IEventListener;
 
 /**
  * delegates events to several event listeners

@@ -11,11 +11,11 @@ import java.util.TreeSet;
 import junit.framework.Test;
 import junit.framework.TestResult;
 
-import com.retroduction.carma.core.api.events.IEventListener;
-import com.retroduction.carma.core.api.events.TestNotExecuted;
-import com.retroduction.carma.core.api.events.TestsExecuted;
+import com.retroduction.carma.core.api.eventlisteners.IEventListener;
+import com.retroduction.carma.core.api.eventlisteners.om.TestNotExecuted;
+import com.retroduction.carma.core.api.eventlisteners.om.TestsExecuted;
 import com.retroduction.carma.core.api.testrunners.ITestRunner;
-import com.retroduction.carma.core.api.testrunners.Mutant;
+import com.retroduction.carma.core.api.testrunners.om.Mutant;
 
 /**
  * Executes mutation tests using junit tests

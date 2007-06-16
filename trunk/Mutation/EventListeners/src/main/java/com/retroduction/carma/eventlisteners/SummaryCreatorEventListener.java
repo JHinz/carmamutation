@@ -5,14 +5,14 @@ import java.util.Set;
 
 import org.springframework.util.StopWatch;
 
-import com.retroduction.carma.core.api.events.ClassesUnderTestResolved;
-import com.retroduction.carma.core.api.events.IEvent;
-import com.retroduction.carma.core.api.events.IEventListener;
-import com.retroduction.carma.core.api.events.MutantsGenerated;
-import com.retroduction.carma.core.api.events.MutationProcessStarted;
-import com.retroduction.carma.core.api.events.TestNotExecuted;
-import com.retroduction.carma.core.api.events.TestsExecuted;
-import com.retroduction.carma.core.api.testrunners.Mutant;
+import com.retroduction.carma.core.api.eventlisteners.IEvent;
+import com.retroduction.carma.core.api.eventlisteners.IEventListener;
+import com.retroduction.carma.core.api.eventlisteners.om.ClassesUnderTestResolved;
+import com.retroduction.carma.core.api.eventlisteners.om.MutantsGenerated;
+import com.retroduction.carma.core.api.eventlisteners.om.MutationProcessStarted;
+import com.retroduction.carma.core.api.eventlisteners.om.TestNotExecuted;
+import com.retroduction.carma.core.api.eventlisteners.om.TestsExecuted;
+import com.retroduction.carma.core.api.testrunners.om.Mutant;
 
 /**
  * this event listeners creates summary information

@@ -7,8 +7,8 @@ import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.JumpInsnNode;
 
-import com.retroduction.carma.core.api.testrunners.Mutant;
-import com.retroduction.carma.core.api.testrunners.SourceCodeMapping;
+import com.retroduction.carma.core.api.testrunners.om.Mutant;
+import com.retroduction.carma.core.api.testrunners.om.SourceCodeMapping;
 
 public abstract class ROR_Transition extends AbstractASMTransition {
 	

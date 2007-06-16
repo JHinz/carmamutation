@@ -1,4 +1,4 @@
-package com.retroduction.carma.core.api.events;
+package com.retroduction.carma.core.api.eventlisteners;
 
 public interface IEventListener {
 	

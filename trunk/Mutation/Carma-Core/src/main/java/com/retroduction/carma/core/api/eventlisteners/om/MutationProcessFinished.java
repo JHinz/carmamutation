@@ -1,5 +1,6 @@
-package com.retroduction.carma.core.api.events;
+package com.retroduction.carma.core.api.eventlisteners.om;
 
+import com.retroduction.carma.core.api.eventlisteners.IEvent;
 import com.retroduction.carma.utilities.ToStringUtils;
 
 public class MutationProcessFinished implements IEvent {

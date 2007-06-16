@@ -2,7 +2,8 @@ package com.retroduction.carma.core.api.testrunners;
 
 import java.util.Set;
 
-import com.retroduction.carma.core.api.events.IEventListener;
+import com.retroduction.carma.core.api.eventlisteners.IEventListener;
+import com.retroduction.carma.core.api.testrunners.om.Mutant;
 
 public interface ITestRunner {
 

@@ -10,21 +10,21 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.retroduction.carma.core.api.events.IEventListener;
-import com.retroduction.carma.core.api.events.MutantsGenerated;
-import com.retroduction.carma.core.api.events.MutationProcessFinished;
-import com.retroduction.carma.core.api.events.MutationProcessStarted;
-import com.retroduction.carma.core.api.events.ProcessingClassUnderTest;
-import com.retroduction.carma.core.api.events.ProcessingClassUnderTestFinished;
-import com.retroduction.carma.core.api.events.ProcessingMutant;
-import com.retroduction.carma.core.api.events.ProcessingMutationOperator;
+import com.retroduction.carma.core.api.eventlisteners.IEventListener;
+import com.retroduction.carma.core.api.eventlisteners.om.MutantsGenerated;
+import com.retroduction.carma.core.api.eventlisteners.om.MutationProcessFinished;
+import com.retroduction.carma.core.api.eventlisteners.om.MutationProcessStarted;
+import com.retroduction.carma.core.api.eventlisteners.om.ProcessingClassUnderTest;
+import com.retroduction.carma.core.api.eventlisteners.om.ProcessingClassUnderTestFinished;
+import com.retroduction.carma.core.api.eventlisteners.om.ProcessingMutant;
+import com.retroduction.carma.core.api.eventlisteners.om.ProcessingMutationOperator;
 import com.retroduction.carma.core.api.resolvers.IResolver;
-import com.retroduction.carma.core.api.testrunners.ClassDescription;
 import com.retroduction.carma.core.api.testrunners.ITestRunner;
-import com.retroduction.carma.core.api.testrunners.Mutant;
+import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
+import com.retroduction.carma.core.api.testrunners.om.Mutant;
 import com.retroduction.carma.core.api.transitions.IMutationGenerator;
 import com.retroduction.carma.core.api.transitions.ITransitionGroup;
-import com.retroduction.carma.core.api.transitions.TransitionGroupConfig;
+import com.retroduction.carma.core.api.transitions.om.TransitionGroupConfig;
 import com.retroduction.carma.utilities.ByteCodeFileReader;
 
 public class Core {
