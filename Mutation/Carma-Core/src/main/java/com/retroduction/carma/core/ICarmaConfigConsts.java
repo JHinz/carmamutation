@@ -1,4 +1,4 @@
-package com.retroduction.carma.application;
+package com.retroduction.carma.core;
 
 /**
  * this interface defines names of configuration files and spring beans
@@ -17,7 +17,7 @@ public interface ICarmaConfigConsts {
 	 * <br/>Value: "testDriver"
 	 * <br/>Type: Carma
 	 */
-	String BEAN_CARMA = "testDriver";
+	String CORE_BEAN = "testDriver";
 
 	/**
 	 * name of the resolver bean that provides the classes and test set. 

@@ -5,21 +5,14 @@ import java.net.URL;
 import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.beans.factory.support.PropertiesBeanDefinitionReader;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 
-import com.retroduction.carma.application.Carma;
-import com.retroduction.carma.application.ICarmaConfigConsts;
+import com.retroduction.carma.core.Core;
+import com.retroduction.carma.core.ICarmaConfigConsts;
 import com.retroduction.carma.core.ICoreConfigConsts;
-import com.retroduction.carma.core.api.transitions.TransitionGroupConfig;
 import com.retroduction.carma.eventlisteners.CompositeEventListener;
 import com.retroduction.carma.eventlisteners.SummaryCreatorEventListener;
 import com.retroduction.carma.eventlisteners.SummaryCreatorEventListener.Summary;
@@ -70,7 +63,7 @@ public class MavenTestExecuter {
 		SummaryCreatorEventListener summaryCreator = new SummaryCreatorEventListener();
 		((CompositeEventListener) factory.getBean("eventListener")).getListeners().add(summaryCreator);
 
-		Carma driver = (Carma) factory.getBean(ICarmaConfigConsts.BEAN_CARMA);
+		Core driver = (Core) factory.getBean(ICarmaConfigConsts.CORE_BEAN);
 		driver.execute();
 
 		Summary sum = summaryCreator.createSummary();
