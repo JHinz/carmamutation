@@ -5,9 +5,9 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
-import com.mutation.report.source.om.Project;
-import com.mutation.report.source.om.SourceFile;
 import com.retroduction.carma.report.generator.ProjectBuilder;
+import com.retroduction.carma.report.om.Project;
+import com.retroduction.carma.report.om.SourceFile;
 
 public class ProjectBuilderIntegrationTest extends TestCase {
 

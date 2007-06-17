@@ -6,10 +6,10 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
-import com.mutation.report.om.ClassUnderTest;
-import com.mutation.report.source.om.SourceFile;
 import com.retroduction.carma.report.generator.SourceLineInfo;
 import com.retroduction.carma.report.generator.html.SingleClassReportCreator;
+import com.retroduction.carma.report.om.SourceFile;
+import com.retroduction.carma.xmlreport.om.ClassUnderTest;
 
 public class SingleClassReportCreatorTestCase extends TestCase {
 	@SuppressWarnings("unchecked")

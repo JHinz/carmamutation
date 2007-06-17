@@ -1,4 +1,4 @@
-package com.mutation.report.loader;
+package com.retroduction.carma.xmlreport.utilities;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,7 +7,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import com.mutation.report.om.MutationRun;
+import com.retroduction.carma.xmlreport.om.MutationRun;
 
 public class ReportModelLoader {
 

@@ -2,7 +2,7 @@ package com.retroduction.carma.report.generator.reportobjects;
 
 import java.util.Comparator;
 
-import com.mutation.report.om.ClassUnderTest;
+import com.retroduction.carma.xmlreport.om.ClassUnderTest;
 
 public class ClassUnderTestComparator implements Comparator<ClassUnderTest> {
 

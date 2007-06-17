@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.mutation.report.om.ClassUnderTest;
+import com.retroduction.carma.xmlreport.om.ClassUnderTest;
 /**
  * provides package level information for a set of classes
  * @author mike

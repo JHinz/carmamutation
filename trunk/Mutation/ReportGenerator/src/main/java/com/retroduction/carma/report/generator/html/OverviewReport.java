@@ -7,12 +7,12 @@ import java.util.List;
 
 import org.apache.velocity.VelocityContext;
 
-import com.mutation.report.om.MutationRun;
-import com.mutation.report.source.om.Project;
 import com.retroduction.carma.report.generator.chart.CoverageBarChartCreator;
 import com.retroduction.carma.report.generator.html.coverage.ICoverageReport;
 import com.retroduction.carma.report.generator.reportobjects.ClassInfo;
 import com.retroduction.carma.report.generator.reportobjects.ClassInfoCreator;
+import com.retroduction.carma.report.om.Project;
+import com.retroduction.carma.xmlreport.om.MutationRun;
 
 /**
  * Creates a project overview report with charts and links to the class details reports

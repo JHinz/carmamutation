@@ -2,7 +2,6 @@ package com.retroduction.carma.core;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -17,6 +16,7 @@ import com.retroduction.carma.core.api.eventlisteners.om.ProcessingClassUnderTes
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingClassUnderTestFinished;
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingMutant;
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingMutationOperator;
+import com.retroduction.carma.core.api.eventlisteners.om.TestSetNotSane;
 import com.retroduction.carma.core.api.resolvers.IResolver;
 import com.retroduction.carma.core.api.testrunners.ITestRunner;
 import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
@@ -52,16 +52,8 @@ public class Core {
 
 		Set<ClassDescription> classesUnderTest = resolver.resolve();
 
-		Set<ClassDescription> classesWithWorkingTestSet = new HashSet<ClassDescription>();
-
-		for (ClassDescription classUnderTestDescription : classesUnderTest) {
-			if (performTestsetVerification(classUnderTestDescription.getAssociatedTestNames())) {
-				classesWithWorkingTestSet.add(classUnderTestDescription);
-			}
-		}
-
 		try {// expect set instead of list below !
-			performMutations(transitionGroupConfig.getTransitionGroups(), classesWithWorkingTestSet);
+			performMutations(transitionGroupConfig.getTransitionGroups(), classesUnderTest);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return;
@@ -93,6 +85,18 @@ public class Core {
 			log.info("Performing mutation on class: " + classUnderTestDescription.getQualifiedClassName());
 
 			eventListener.notifyEvent(new ProcessingClassUnderTest(classUnderTestDescription));
+
+			Set<String> brokenTestNames = performTestsetVerification(classUnderTestDescription.getAssociatedTestNames());
+
+			if (brokenTestNames.size() > 0) {
+				log.error("Testset not sane. There are test failures without mutations");
+				eventListener.notifyEvent(new TestSetNotSane(brokenTestNames, classUnderTestDescription));
+				for (String brokenTest : brokenTestNames) {
+					log.error("Failing test: " + brokenTest);
+				}
+				continue;
+
+			}
 
 			String fqClassName = classUnderTestDescription.getQualifiedClassName();
 
@@ -137,22 +141,13 @@ public class Core {
 	 * @param testNames
 	 * @throws IOException
 	 */
-	public boolean performTestsetVerification(Set<String> testDescriptions) {
+	public Set<String> performTestsetVerification(Set<String> testDescriptions) {
 
 		log.info("Performing verification run for test set sanity");
 
 		Set<String> brokenTestNames = testRunner.execute(testDescriptions);
 
-		if (brokenTestNames.size() > 0) {
-			log.error("Testset not sane. There are test failures without mutations");
-			for (String brokenTest : brokenTestNames) {
-				log.error("Failing test: " + brokenTest);
-			}
-			return false;
-		} else {
-			log.info("Testset is sane. No broken tests without mutation");
-			return true;
-		}
+		return brokenTestNames;
 
 	}
 

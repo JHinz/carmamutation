@@ -3,7 +3,7 @@ package com.retroduction.carma.report.generator.reportobjects;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mutation.report.om.ClassUnderTest;
+import com.retroduction.carma.xmlreport.om.ClassUnderTest;
 
 public class ClassInfoCreator {
 	private List<ClassUnderTest> classes;

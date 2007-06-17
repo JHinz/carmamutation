@@ -5,10 +5,10 @@ import java.util.Set;
 
 import junit.framework.TestCase;
 
-import com.mutation.report.om.ClassUnderTest;
-import com.mutation.report.om.MutationRatio;
 import com.retroduction.carma.report.generator.reportobjects.AggregatedClassInfo;
 import com.retroduction.carma.report.generator.reportobjects.Aggregator;
+import com.retroduction.carma.xmlreport.om.ClassUnderTest;
+import com.retroduction.carma.xmlreport.om.MutationRatio;
 
 public class AggregatorTestCase extends TestCase {
 

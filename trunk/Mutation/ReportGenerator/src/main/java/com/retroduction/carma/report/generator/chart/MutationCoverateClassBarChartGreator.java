@@ -18,10 +18,10 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-import com.mutation.report.loader.ReportModelLoader;
-import com.mutation.report.om.MutationRun;
 import com.retroduction.carma.report.generator.reportobjects.ClassInfo;
 import com.retroduction.carma.report.generator.reportobjects.ClassInfoCreator;
+import com.retroduction.carma.xmlreport.om.MutationRun;
+import com.retroduction.carma.xmlreport.utilities.ReportModelLoader;
 
 public class MutationCoverateClassBarChartGreator {
 

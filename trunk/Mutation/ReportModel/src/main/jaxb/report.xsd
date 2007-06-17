@@ -23,8 +23,10 @@
 			<xs:element name="baseSourceFile" type="xs:string" />
 			<xs:element name="mutant" type="Mutant" minOccurs="0"
 				maxOccurs="unbounded" />
-			<xs:element name="executedTests" type="xs:string" minOccurs="0"
-				maxOccurs="unbounded" />
+			<xs:element name="executedTests" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="brokenTests" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
 		</xs:sequence>
 	</xs:complexType>
 
@@ -37,8 +39,8 @@
 			<xs:element name="sourceInstruction" type="xs:string" />
 			<xs:element name="targetInstruction" type="xs:string" />
 			<xs:element name="baseSourceLine" type="xs:long" />
-			<xs:element name="killerTests" type="xs:string" minOccurs="0"
-				maxOccurs="unbounded" />
+			<xs:element name="killerTests" type="xs:string"
+				minOccurs="0" maxOccurs="unbounded" />
 		</xs:sequence>
 	</xs:complexType>
 
