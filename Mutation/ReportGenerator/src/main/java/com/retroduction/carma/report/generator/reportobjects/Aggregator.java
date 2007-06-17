@@ -2,8 +2,8 @@ package com.retroduction.carma.report.generator.reportobjects;
 
 import java.util.Set;
 
-import com.mutation.report.om.ClassUnderTest;
-import com.mutation.report.om.MutationRatio;
+import com.retroduction.carma.xmlreport.om.ClassUnderTest;
+import com.retroduction.carma.xmlreport.om.MutationRatio;
 
 /**
  * aggregates information for a set of classes

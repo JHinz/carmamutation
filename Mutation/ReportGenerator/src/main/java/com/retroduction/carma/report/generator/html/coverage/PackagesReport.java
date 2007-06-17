@@ -9,12 +9,12 @@ import java.util.HashSet;
 
 import org.apache.velocity.VelocityContext;
 
-import com.mutation.report.om.ClassUnderTest;
-import com.mutation.report.om.MutationRun;
-import com.mutation.report.source.om.Project;
 import com.retroduction.carma.report.generator.html.IRenderer;
 import com.retroduction.carma.report.generator.html.RenderException;
 import com.retroduction.carma.report.generator.reportobjects.PackageInfo;
+import com.retroduction.carma.report.om.Project;
+import com.retroduction.carma.xmlreport.om.ClassUnderTest;
+import com.retroduction.carma.xmlreport.om.MutationRun;
 
 /**
  * creates a report for a single class

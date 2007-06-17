@@ -5,9 +5,9 @@ import java.io.IOException;
 
 import org.apache.velocity.VelocityContext;
 
-import com.mutation.report.om.ClassUnderTest;
-import com.mutation.report.source.om.SourceFile;
 import com.retroduction.carma.report.generator.SourceInfoCreator;
+import com.retroduction.carma.report.om.SourceFile;
+import com.retroduction.carma.xmlreport.om.ClassUnderTest;
 
 public class SingleClassReportCreator {
 

@@ -12,9 +12,9 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 
-import com.mutation.report.loader.ReportModelLoader;
-import com.mutation.report.om.MutationRun;
 import com.retroduction.carma.report.generator.SingleReportGenerator;
+import com.retroduction.carma.xmlreport.om.MutationRun;
+import com.retroduction.carma.xmlreport.utilities.ReportModelLoader;
 
 /**
  * Goal which generates site reports.

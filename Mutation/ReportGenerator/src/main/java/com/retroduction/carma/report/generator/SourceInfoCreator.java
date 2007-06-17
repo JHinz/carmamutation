@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.mutation.report.om.ClassUnderTest;
-import com.mutation.report.om.Mutant;
-import com.mutation.report.source.om.SourceFile;
+import com.retroduction.carma.report.om.SourceFile;
+import com.retroduction.carma.xmlreport.om.ClassUnderTest;
+import com.retroduction.carma.xmlreport.om.Mutant;
 
 public class SourceInfoCreator {
 	private SourceFile sourceFile;

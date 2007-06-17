@@ -8,12 +8,12 @@ import java.util.Properties;
 
 import javax.xml.bind.JAXBException;
 
-import com.mutation.report.loader.ReportModelLoader;
-import com.mutation.report.om.MutationRun;
-import com.mutation.report.source.om.Project;
 import com.retroduction.carma.report.generator.html.IHTMLReport;
 import com.retroduction.carma.report.generator.html.VelocityRenderer;
 import com.retroduction.carma.report.generator.html.coverage.CoverageReport;
+import com.retroduction.carma.report.om.Project;
+import com.retroduction.carma.xmlreport.om.MutationRun;
+import com.retroduction.carma.xmlreport.utilities.ReportModelLoader;
 
 public class SingleReportGenerator {
 

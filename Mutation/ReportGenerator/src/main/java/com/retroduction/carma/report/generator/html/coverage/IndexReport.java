@@ -5,10 +5,10 @@ import java.io.IOException;
 
 import org.apache.velocity.VelocityContext;
 
-import com.mutation.report.om.MutationRun;
-import com.mutation.report.source.om.Project;
 import com.retroduction.carma.report.generator.html.IRenderer;
 import com.retroduction.carma.report.generator.html.RenderException;
+import com.retroduction.carma.report.om.Project;
+import com.retroduction.carma.xmlreport.om.MutationRun;
 
 
 public class IndexReport implements ICoverageReport {

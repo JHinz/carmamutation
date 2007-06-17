@@ -3,6 +3,7 @@ package com.retroduction.carma.application.integration;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
+import java.util.List;
 
 import javax.xml.bind.JAXBException;
 
@@ -10,9 +11,9 @@ import junit.framework.TestCase;
 
 import org.apache.commons.cli.ParseException;
 
-import com.mutation.report.loader.ReportModelLoader;
-import com.mutation.report.om.MutationRun;
 import com.retroduction.carma.application.Carma;
+import com.retroduction.carma.xmlreport.om.MutationRun;
+import com.retroduction.carma.xmlreport.utilities.ReportModelLoader;
 
 public class TestSetVerificationProcessStepTest extends TestCase {
 
@@ -43,6 +44,11 @@ public class TestSetVerificationProcessStepTest extends TestCase {
 
 		assertEquals("Wrong mutation count", 0, run.getMutationRatio().getMutationCount());
 		assertEquals("Wrong survivor count", 0, run.getMutationRatio().getSurvivorCount());
+		
+		List<String> brokenTests = run.getClassUnderTest().iterator().next().getBrokenTests();
+		
+		assertEquals("Broken test has not been reported", 1, brokenTests.size());
+		assertEquals("Broken test has not been reported", "AnotherSampleClassUsingAnnotation", brokenTests.get(0));
 
 		assertSame("Mutation ClassLoader probably still in use (legacy artifact of previous testcase?)",
 				originalClassLoader, Thread.currentThread().getContextClassLoader());
@@ -93,6 +99,11 @@ public class TestSetVerificationProcessStepTest extends TestCase {
 
 		assertEquals("Wrong mutation count", 0, run.getMutationRatio().getMutationCount());
 		assertEquals("Wrong survivor count", 0, run.getMutationRatio().getSurvivorCount());
+
+		List<String> brokenTests = run.getClassUnderTest().iterator().next().getBrokenTests();
+		
+		assertEquals("Broken test has not been reported", 1, brokenTests.size());
+		assertEquals("Broken test has not been reported", "AnotherSampleClassUsingAnnotation", brokenTests.get(0));
 
 		assertSame("Mutation ClassLoader probably still in use (legacy artifact of previous testcase?)",
 				originalClassLoader, Thread.currentThread().getContextClassLoader());

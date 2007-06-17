@@ -3,8 +3,8 @@ package com.retroduction.carma.report.generator.html;
 import java.io.File;
 import java.io.IOException;
 
-import com.mutation.report.om.MutationRun;
-import com.mutation.report.source.om.Project;
+import com.retroduction.carma.report.om.Project;
+import com.retroduction.carma.xmlreport.om.MutationRun;
 
 /**
  * interface for creating an html report for a test run

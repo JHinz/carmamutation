@@ -2,7 +2,7 @@ package com.retroduction.carma.report.generator;
 
 import java.util.List;
 
-import com.mutation.report.om.Mutant;
+import com.retroduction.carma.xmlreport.om.Mutant;
 
 /**
  * represents information for a single source line
