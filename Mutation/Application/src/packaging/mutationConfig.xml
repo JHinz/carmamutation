@@ -2,6 +2,42 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 
 <beans>
+
+
+	<bean id="usedResolver" parent="configurationBasedResolver"></bean>
+
+	<bean id="classesDir" class="java.io.File">
+		<constructor-arg value="./src/test/it/it0006/target/classes/" />
+	</bean>
+
+	<bean id="testClassesDir" class="java.io.File">
+		<constructor-arg
+			value="./src/test/it/it0006/target/test-classes/" />
+	</bean>
+
+	<bean id="sourceDir" class="java.io.File">
+		<constructor-arg value="./src/main" />
+	</bean>
+
+	<bean id="assignmentFile" class="java.io.File">
+		<constructor-arg value="./src/test/it/it0006/assignment.txt" />
+	</bean>
+
+	<bean id="testCaseSuffix" class="java.lang.String">
+		<constructor-arg value="Test" />
+	</bean>
+
+	<bean id="report.filename" class="java.lang.String">
+		<constructor-arg value="target/report.xml" />
+	</bean>
+
+	<bean id="report.reportSurvivorsOnly" class="java.lang.Boolean">
+		<constructor-arg value="true" />
+	</bean>
+
+	<util:list id="libraries">
+	</util:list>
+
 		
 	<!-- the driver main class which constructs a proper mutation runner -->
 	<bean id="testDriver"
@@ -80,6 +116,56 @@
 		class="com.retroduction.carma.resolvers.util.ExcludeFilter">
 		<property name="excludePattern">
 			<value></value>
+		</property>
+	</bean>
+	
+		<!--  set of operators considered for tests -->
+
+	<bean id="operators"
+		class="com.retroduction.carma.core.api.transitions.om.TransitionGroupConfig">
+		<property name="transitionGroups">
+			<list>
+				<bean
+					class="com.retroduction.carma.transformer.asm.ror.ROR_TransitionGroup">
+					<constructor-arg>
+						<value>true</value>
+					</constructor-arg>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="testRunner"
+		class="com.retroduction.carma.testrunners.junit3.JUnitRunner">
+		<property name="stopOnFirstFailedTest" value="true" />
+		<property name="classesLocationsAsFiles" ref="classesDir" />
+		<property name="testClassesLocationsAsFiles"
+			ref="testClassesDir" />
+		<property name="libraries" ref="libraries" />
+	</bean>
+
+	<bean id="mutantGenerator"
+		class="com.retroduction.carma.core.MutantGenerator">
+	</bean>
+	
+	<bean id="report.eventListener"
+		class="com.retroduction.carma.eventlisteners.ReportEventListener">
+		<constructor-arg>
+			<ref bean="report.filename" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="eventListener"
+		class="com.retroduction.carma.eventlisteners.CompositeEventListener">
+		<property name="listeners">
+			<list>
+				<bean
+					class="com.retroduction.carma.eventlisteners.ConsoleEventListener">
+					<property name="showSummaryOnly" value="false" />
+				</bean>
+				<ref bean="report.eventListener" />
+			</list>
 		</property>
 	</bean>
  

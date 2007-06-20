@@ -27,7 +27,7 @@ public class ConfigBasedResolverIntegrationTest extends TestCase {
 			report.delete();
 		}
 
-		Carma.main(new String[] { "-uc", "src/test/it/it0004/config.xml" });
+		Carma.main(new String[] { "-uc", "src/test/it/it0004/mutationConfig.xml" });
 
 		assertTrue("Report.xml has not been created.", report.exists());
 
@@ -62,7 +62,7 @@ public class ConfigBasedResolverIntegrationTest extends TestCase {
 			report.delete();
 		}
 
-		Carma.main(new String[] { "-uc", "src/test/it/it0007/config.xml" });
+		Carma.main(new String[] { "-uc", "src/test/it/it0007/mutationConfig.xml" });
 
 		assertTrue("Report.xml has not been created.", report.exists());
 

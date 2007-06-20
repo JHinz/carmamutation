@@ -23,6 +23,9 @@
 			<plugin>
 				<groupId>com.retroduction.carma</groupId>
 				<artifactId>MavenPlugin</artifactId>
+				<configuration>
+					<mutationConfigFile>./mutationConfig.xml</mutationConfigFile>
+				</configuration>
 				<executions>
 					<execution>
 						<id>mutationtest</id>

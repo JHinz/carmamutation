@@ -10,7 +10,7 @@ public interface ICarmaConfigConsts {
 	 * name of the file that holds the Carma Application configuration
 	 * <br/>Value: "mutationConfig.xml"
 	 */
-	String CARMA_APPLICATION_CONFIG_FILE = "mutationConfig.xml";
+	String CARMA_APPLICATION_CONFIG_FILE = "file:mutationConfig.xml";
 	
 	/**
 	 * name of the Carma bean. 

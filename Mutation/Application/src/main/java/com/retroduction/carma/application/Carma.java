@@ -17,7 +17,7 @@ import com.retroduction.carma.core.ICoreConfigConsts;
 
 public class Carma {
 
-	private static final String DEFAULT_USER_CONFIG = "config.xml";
+	private static final String DEFAULT_USER_CONFIG = "mutationConfig.xml";
 
 	/**
 	 * command line test runner, reads configuration from mutationconfig.xml
@@ -35,11 +35,6 @@ public class Carma {
 		} else {
 			springResources.add("file:" + DEFAULT_USER_CONFIG);
 		}
-
-		springResources.add(ICoreConfigConsts.EVENTLISTENER_CONFIG_FILE);
-		springResources.add(ICoreConfigConsts.RUNNER_CONFIG_FILE);
-		springResources.add(ICoreConfigConsts.TRANSITIONS_CONFIG_FILE);
-		springResources.add(ICarmaConfigConsts.CARMA_APPLICATION_CONFIG_FILE);
 
 		AbstractXmlApplicationContext appContext = new ClassPathXmlApplicationContext(springResources
 				.toArray(new String[0]));
