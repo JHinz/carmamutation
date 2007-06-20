@@ -25,6 +25,15 @@ import com.retroduction.carma.eventlisteners.SummaryCreatorEventListener.Summary
  */
 
 public class MutationTestMojo extends AbstractMojo {
+	
+	/**
+	 * The test name pattern
+	 * 
+	 * @parameter expression="${mutationconfig}"
+	 *            default-value="mutationConfig.xml"
+	 * @required
+	 */
+	private String mutationConfigFile;
 
 	/**
 	 * The test name pattern
@@ -114,7 +123,8 @@ public class MutationTestMojo extends AbstractMojo {
 			executer.setReportFile(reportFile);
 			executer.setTestNamePattern(testNamePattern);
 
-			Summary sum = executer.exeuteTests();
+			Summary sum = executer.executeTests(new URL("file:"+mutationConfigFile));
+			log.info(mutationConfigFile);
 			NumberFormat format = NumberFormat.getInstance();
 			format.setMaximumFractionDigits(2);
 			format.setMinimumFractionDigits(2);

@@ -30,7 +30,7 @@ public class MavenTestExecuter {
 
 	private String testNamePattern = "Test";
 
-	public Summary exeuteTests() throws MojoExecutionException {
+	public Summary executeTests(URL configuration) throws MojoExecutionException {
 		// TODO how to merge configurations? take base config, add maven
 		// specific attributes a) runtime attibutes, b) external file - refresh
 		// config
@@ -39,14 +39,7 @@ public class MavenTestExecuter {
 		GenericApplicationContext factory = new GenericApplicationContext();
 		XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(factory);
 		// add base configuration from classpath
-		xmlReader.loadBeanDefinitions(new ClassPathResource(ICoreConfigConsts.EVENTLISTENER_CONFIG_FILE));
-		xmlReader.loadBeanDefinitions(new ClassPathResource(ICoreConfigConsts.RUNNER_CONFIG_FILE));
-		xmlReader.loadBeanDefinitions(new ClassPathResource(ICoreConfigConsts.TRANSITIONS_CONFIG_FILE));
-
-		xmlReader.loadBeanDefinitions(new ClassPathResource(ICarmaConfigConsts.CARMA_APPLICATION_CONFIG_FILE));
-
-		// add custom configuration from file
-		xmlReader.loadBeanDefinitions(new FileSystemResource("carma.xml"));
+		xmlReader.loadBeanDefinitions(new FileSystemResource(configuration.getFile()));
 
 		// TODO reportfile bean should use File instead of String
 		factory.getBeanFactory().registerSingleton(ICoreConfigConsts.BEAN_REPORTFILE, reportFile.getPath());

@@ -1,6 +1,7 @@
 package com.retroduction.carma.mavenplugin;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ import com.retroduction.carma.mavenplugin.MavenTestExecuter;
 
 public class MavenTestExecuterTestCase extends TestCase {
 
-	public void testExecuteTests() throws MojoExecutionException{
+	public void testExecuteTests() throws MojoExecutionException, MalformedURLException{
 		MavenTestExecuter executer = new MavenTestExecuter();
 		
 		File reportFile = new File("target/it/it0001/log/Report.xml");
@@ -29,7 +30,7 @@ public class MavenTestExecuterTestCase extends TestCase {
 			reportFile.delete();
 		}
 		
-		Summary sum = executer.exeuteTests();
+		Summary sum = executer.executeTests(new URL("file:src/test/it/it0001/mutationConfig.xml"));
 		assertEquals(1, sum.numTests);
 		assertEquals(3.0, sum.mutantsPerClass);
 		assertEquals(33, Math.round(sum.coverageRatioPercentage));
