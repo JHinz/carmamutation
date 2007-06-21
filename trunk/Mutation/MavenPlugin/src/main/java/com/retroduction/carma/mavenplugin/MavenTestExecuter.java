@@ -7,7 +7,6 @@ import java.util.List;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.support.GenericApplicationContext;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 
 import com.retroduction.carma.core.Core;
