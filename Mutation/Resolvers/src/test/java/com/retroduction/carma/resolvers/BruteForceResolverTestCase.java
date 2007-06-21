@@ -3,7 +3,6 @@ package com.retroduction.carma.resolvers;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.Iterator;
-import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 

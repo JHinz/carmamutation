@@ -13,7 +13,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.retroduction.carma.application.util.CLIValidator;
 import com.retroduction.carma.core.Core;
 import com.retroduction.carma.core.ICarmaConfigConsts;
-import com.retroduction.carma.core.ICoreConfigConsts;
 
 public class Carma {
 

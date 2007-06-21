@@ -11,7 +11,6 @@ import org.springframework.beans.factory.config.ConstructorArgumentValues;
 import org.springframework.beans.factory.config.TypedStringValue;
 import org.springframework.beans.factory.support.ChildBeanDefinition;
 import org.springframework.beans.factory.support.ManagedList;
-import org.springframework.context.support.AbstractXmlApplicationContext;
 
 public class ConfigurationAdapter implements BeanFactoryPostProcessor {
 
