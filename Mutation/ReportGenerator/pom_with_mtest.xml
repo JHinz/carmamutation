@@ -44,7 +44,7 @@
 		<plugins>
 			<!--  integrate the plugin below into your pom.xml -->
 			<plugin>
-				<groupId>com.mutation.driver.maven</groupId>
+				<groupId>com.retroduction.carma</groupId>
 				<artifactId>MavenPlugin</artifactId>
 				<configuration>
 					<testNamePattern>TestCase</testNamePattern>
