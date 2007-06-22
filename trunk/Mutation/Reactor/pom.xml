@@ -22,7 +22,7 @@
 		<module>../ReportModel</module>
 		<module>../ReportGenerator</module>
 		<module>../MavenPlugin</module>
-		<module>../Application</module>
+		<module>../JavaApplication</module>
 		<module>../Core</module>
 		<module>../Annotations</module>
 		<module>../Utilities</module>
