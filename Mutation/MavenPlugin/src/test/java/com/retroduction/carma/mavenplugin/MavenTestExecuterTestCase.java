@@ -21,16 +21,15 @@ public class MavenTestExecuterTestCase extends TestCase {
 		File projectbaseDir = new File("./");
 		executer.setClassesDir(new File(projectbaseDir, "src/test/it/it0001/target/classes") );
 		executer.setTestClassesDir( new File(projectbaseDir, "src/test/it/it0001/target/test-classes") );
-		executer.setLogFile( new File("target/it/it0001/log/logfile.log"));
 		executer.setReportFile(reportFile);
-		executer.setTestNamePattern("Test");
+		executer.setConfigFile(new File("src/test/it/it0001/carma.properties"));
 		executer.setDependencyClassPathUrls(new ArrayList<URL>());
 		
 		if(reportFile.exists()){
 			reportFile.delete();
 		}
 		
-		Summary sum = executer.executeTests(new URL("file:src/test/it/it0001/mutationConfig.xml"));
+		Summary sum = executer.executeTests();
 		assertEquals(1, sum.numTests);
 		assertEquals(3.0, sum.mutantsPerClass);
 		assertEquals(33, Math.round(sum.coverageRatioPercentage));

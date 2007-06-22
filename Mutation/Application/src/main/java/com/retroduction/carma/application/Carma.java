@@ -1,47 +1,50 @@
 package com.retroduction.carma.application;
 
-import java.io.FileNotFoundException;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.ParseException;
-import org.springframework.context.support.AbstractXmlApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.retroduction.carma.application.util.CLIValidator;
 import com.retroduction.carma.core.Core;
-import com.retroduction.carma.core.ICarmaConfigConsts;
 
 public class Carma {
 
-	private static final String DEFAULT_USER_CONFIG = "mutationConfig.xml";
+	private static final String DEFAULT_USER_CONFIG = "carma.properties";
 
 	/**
 	 * command line test runner, reads configuration from mutationconfig.xml
 	 * 
 	 * @throws ParseException
+	 * @throws IOException
 	 */
-	public static void main(String[] args) throws MalformedURLException, FileNotFoundException, ParseException {
+	public static void main(String[] args) throws ParseException {
 
 		CommandLine line = new CLIValidator().readCLI(args);
 
-		List<String> springResources = new ArrayList<String>();
-
+		File customPropertiesFile;
 		if (line.hasOption(CLIValidator.USER_CONFIG_OPTION_SHORT)) {
-			springResources.add("file:" + line.getOptionValue(CLIValidator.USER_CONFIG_OPTION_SHORT));
+			customPropertiesFile = new File(line.getOptionValue(CLIValidator.USER_CONFIG_OPTION_SHORT));
 		} else {
-			springResources.add("file:" + DEFAULT_USER_CONFIG);
+			customPropertiesFile = new File(DEFAULT_USER_CONFIG);
 		}
 
-		AbstractXmlApplicationContext appContext = new ClassPathXmlApplicationContext(springResources
-				.toArray(new String[0]));
+		CarmaDriverSetup setup = new CarmaDriverSetup();
 
-		appContext.registerShutdownHook();
-
-		Core driver = (Core) appContext.getBean(ICarmaConfigConsts.CORE_BEAN);
+		Properties customProps = new Properties();
+		try {
+			customProps.load(new FileInputStream(customPropertiesFile));
+		
+		} catch (IOException e) {
+			throw new CarmaException("Failed to load configuration", e);
+		}
+		setup.addCustomConfiguration(customProps);
+		Core driver = setup.getDriver();
 		driver.execute();
+
 	}
 
 }
