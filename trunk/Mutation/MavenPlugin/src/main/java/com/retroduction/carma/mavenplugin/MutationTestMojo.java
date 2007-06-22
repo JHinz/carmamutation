@@ -25,25 +25,6 @@ import com.retroduction.carma.eventlisteners.SummaryCreatorEventListener.Summary
  */
 
 public class MutationTestMojo extends AbstractMojo {
-	
-	/**
-	 * The test name pattern
-	 * 
-	 * @parameter expression="${mutationconfig}"
-	 *            default-value="mutationConfig.xml"
-	 * @required
-	 */
-	private String mutationConfigFile;
-
-	/**
-	 * The test name pattern
-	 * 
-	 * @parameter expression="${mutation.testNamePattern}"
-	 *            default-value="Test"
-	 * @required
-	 */
-	private String testNamePattern;
-	
 
 	/**
 	 * The location of the generated class files
@@ -73,15 +54,6 @@ public class MutationTestMojo extends AbstractMojo {
 	private File reportFile;
 
 	/**
-	 * The name of the log file for mutation test driver
-	 * 
-	 * @parameter expression="${mutation.reportFile}"
-	 *            default-value="${project.reporting.outputDirectory}/mutationtest/mutationTests.log"
-	 * @required
-	 */
-	private File logFile;
-
-	/**
 	 * The set of dependencies required by the project
 	 * 
 	 * @parameter default-value="${project.artifacts}"
@@ -90,20 +62,10 @@ public class MutationTestMojo extends AbstractMojo {
 	 */
 	private java.util.Set dependencies;
 
-	/**
-	 * local maven repository
-	 * 
-	 * @parameter default-value="${localRepository}"
-	 * @required
-	 * @readonly
-	 */
-	private org.apache.maven.artifact.repository.ArtifactRepository repository;
-
 	public static void main(String[] args) throws MojoExecutionException, MojoFailureException {
 		// just for easy debugging
 		MutationTestMojo mojo = new MutationTestMojo();
 		mojo.classesDir = new File("../SampleProjectUnderTest/target/classes");
-		mojo.logFile = new File("target/mutation.log");
 		mojo.reportFile = new File("target/report.xml");
 		mojo.testClassesDir = new File("../SampleProjectUnderTest/target/test-classes");
 		mojo.execute();
@@ -119,12 +81,9 @@ public class MutationTestMojo extends AbstractMojo {
 			executer.setClassesDir(classesDir);
 			executer.setTestClassesDir(testClassesDir);
 			executer.setDependencyClassPathUrls(getDependencyClassPathUrls());
-			executer.setLogFile(logFile);
 			executer.setReportFile(reportFile);
-			executer.setTestNamePattern(testNamePattern);
 
-			Summary sum = executer.executeTests(new URL("file:"+mutationConfigFile));
-			log.info(mutationConfigFile);
+			Summary sum = executer.executeTests();
 			NumberFormat format = NumberFormat.getInstance();
 			format.setMaximumFractionDigits(2);
 			format.setMinimumFractionDigits(2);

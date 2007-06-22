@@ -30,7 +30,7 @@ public class TestSetVerificationProcessStepTest extends TestCase {
 
 		ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
 
-		Carma.main(new String[] { "-uc", "src/test/it/it0005/mutationConfig.xml" });
+		Carma.main(new String[] { "-uc", "src/test/it/it0005/carma.properties" });
 
 		File report = new File("target/report.xml");
 
@@ -60,7 +60,7 @@ public class TestSetVerificationProcessStepTest extends TestCase {
 
 		ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
 
-		Carma.main(new String[] { "-uc", "src/test/it/it0006/mutationConfig.xml" });
+		Carma.main(new String[] { "-uc", "src/test/it/it0006/carma.properties" });
 
 		File report = new File("target/report.xml");
 
@@ -85,7 +85,8 @@ public class TestSetVerificationProcessStepTest extends TestCase {
 
 		ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
 
-		Carma.main(new String[] { "-uc", "src/test/it/it0005/mutationConfig.xml" });
+		//TODO mike: is it right or shoud it be 007?
+		Carma.main(new String[] { "-uc", "src/test/it/it0005/carma.properties" });
 
 		File report = new File("target/report.xml");
 
