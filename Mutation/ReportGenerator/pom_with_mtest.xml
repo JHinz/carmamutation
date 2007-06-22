@@ -46,9 +46,6 @@
 			<plugin>
 				<groupId>com.retroduction.carma</groupId>
 				<artifactId>MavenPlugin</artifactId>
-				<configuration>
-					<testNamePattern>TestCase</testNamePattern>
-				</configuration>
 				<executions>
 					<execution>
 						<id>mutationtest</id>
