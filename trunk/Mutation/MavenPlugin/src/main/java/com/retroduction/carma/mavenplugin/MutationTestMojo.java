@@ -52,6 +52,15 @@ public class MutationTestMojo extends AbstractMojo {
 	 * @required
 	 */
 	private File reportFile;
+	
+	/**
+	 * The target location for the mutation report
+	 * 
+	 * @parameter expression="${carma.config}"
+	 *            default-value="${basedir}/src/main/carma/carma.properties"
+	 * @required
+	 */
+	private File carmaConfigFile;
 
 	/**
 	 * The set of dependencies required by the project
@@ -82,6 +91,7 @@ public class MutationTestMojo extends AbstractMojo {
 			executer.setTestClassesDir(testClassesDir);
 			executer.setDependencyClassPathUrls(getDependencyClassPathUrls());
 			executer.setReportFile(reportFile);
+			executer.setConfigFile(carmaConfigFile);
 
 			Summary sum = executer.executeTests();
 			NumberFormat format = NumberFormat.getInstance();
@@ -121,5 +131,9 @@ public class MutationTestMojo extends AbstractMojo {
 		}
 		return urls;
 
+	}
+
+	public void setCarmaConfigFile(File carmaConfigFile) {
+		this.carmaConfigFile = carmaConfigFile;
 	}
 }
