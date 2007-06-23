@@ -1,13 +1,24 @@
 package com.retroduction.carma.utilities;
 
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class ByteCodeFileReader {
+public class ByteCodeFileReader implements IByteCodeFileReader {
+
+	public byte[] readByteCodeFromMultipleFolders(String classUnderTestName, File[] paths) throws IOException {
+
+		for (File classDirectory : paths) {
+			String path = classDirectory.getAbsolutePath() + "/" + classUnderTestName.replace('.', '/') + ".class";
+			File originalClassFile = new File(path);
+			if (originalClassFile.exists()) {
+				return readByteCodeFromDisk(originalClassFile);
+			}
+		}
+		throw new IOException("File not found");
+	}
 
 	public byte[] readByteCodeFromDisk(File originalClassFile) throws FileNotFoundException, IOException {
 

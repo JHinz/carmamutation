@@ -42,6 +42,10 @@
 		<property name="classesUnderTestPath" ref="${project.classesdir.source}" />
 		<property name="resolver" ref="resolver" />
 		<property name="transitionGroupConfig" ref="operators" />
+		<property name="byteCodeFileReader" ref="byteCodeFileReader" />
+	</bean>
+	
+	<bean id="byteCodeFileReader" class="com.retroduction.carma.utilities.ByteCodeFileReader">
 	</bean>
 
 	<bean id="resolver"
