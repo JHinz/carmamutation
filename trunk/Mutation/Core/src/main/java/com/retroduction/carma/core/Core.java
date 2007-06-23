@@ -24,9 +24,11 @@ import com.retroduction.carma.core.api.testrunners.om.Mutant;
 import com.retroduction.carma.core.api.transitions.IMutationGenerator;
 import com.retroduction.carma.core.api.transitions.ITransitionGroup;
 import com.retroduction.carma.core.api.transitions.om.TransitionGroupConfig;
-import com.retroduction.carma.utilities.ByteCodeFileReader;
+import com.retroduction.carma.utilities.IByteCodeFileReader;
 
 public class Core {
+
+	private Log log = LogFactory.getLog(Core.class);
 
 	private ITestRunner testRunner;
 
@@ -36,11 +38,15 @@ public class Core {
 
 	private IEventListener eventListener;
 
-	private Log log = LogFactory.getLog(Core.class);
-
 	private TransitionGroupConfig transitionGroupConfig;
 
 	private IResolver resolver;
+
+	private IByteCodeFileReader byteCodeFileReader;
+
+	public void setByteCodeFileReader(IByteCodeFileReader byteCodeFileReader) {
+		this.byteCodeFileReader = byteCodeFileReader;
+	}
 
 	public void setTransitionGroupConfig(TransitionGroupConfig transitionGroupConfig) {
 		this.transitionGroupConfig = transitionGroupConfig;
@@ -75,8 +81,8 @@ public class Core {
 	 * @param testNames
 	 * @throws IOException
 	 */
-	public void performMutations(Set<ITransitionGroup> transitionGroups,
-			Set<ClassDescription> classUnderTestDescriptions) throws IOException {
+	void performMutations(Set<ITransitionGroup> transitionGroups, Set<ClassDescription> classUnderTestDescriptions)
+			throws IOException {
 
 		log.info("Performing mutation on all classes");
 
@@ -86,7 +92,9 @@ public class Core {
 
 			eventListener.notifyEvent(new ProcessingClassUnderTest(classUnderTestDescription));
 
-			Set<String> brokenTestNames = performTestsetVerification(classUnderTestDescription.getAssociatedTestNames());
+			log.info("Performing verification run for test set sanity");
+
+			Set<String> brokenTestNames = testRunner.execute(classUnderTestDescription.getAssociatedTestNames());
 
 			if (brokenTestNames.size() > 0) {
 				log.error("Testset not sane. There are test failures without mutations");
@@ -94,13 +102,15 @@ public class Core {
 				for (String brokenTest : brokenTestNames) {
 					log.error("Failing test: " + brokenTest);
 				}
+				eventListener.notifyEvent(new ProcessingClassUnderTestFinished());
 				continue;
 
 			}
 
 			String fqClassName = classUnderTestDescription.getQualifiedClassName();
 
-			byte[] byteCode = loadClass(fqClassName);
+			byte[] byteCode = byteCodeFileReader
+					.readByteCodeFromMultipleFolders(fqClassName, getClassesUnderTestPath());
 
 			for (ITransitionGroup transitionGroup : transitionGroups) {
 
@@ -129,38 +139,6 @@ public class Core {
 
 		}
 
-	}
-
-	/**
-	 * 
-	 * Integration interface method for direct access using complex datatypes.
-	 * 
-	 * @param operators
-	 * @param byteCodeFileReader
-	 * @param classUnderTestDescription
-	 * @param testNames
-	 * @throws IOException
-	 */
-	public Set<String> performTestsetVerification(Set<String> testDescriptions) {
-
-		log.info("Performing verification run for test set sanity");
-
-		Set<String> brokenTestNames = testRunner.execute(testDescriptions);
-
-		return brokenTestNames;
-
-	}
-
-	private byte[] loadClass(String classUnderTestName) throws IOException {
-
-		for (File classDirectory : getClassesUnderTestPath()) {
-			String path = classDirectory.getAbsolutePath() + "/" + classUnderTestName.replace('.', '/') + ".class";
-			File originalClassFile = new File(path);
-			if (originalClassFile.exists()) {
-				return new ByteCodeFileReader().readByteCodeFromDisk(originalClassFile);
-			}
-		}
-		throw new IOException("File not found");
 	}
 
 	public void setMutantGenerator(IMutationGenerator mutantGenerator) {
