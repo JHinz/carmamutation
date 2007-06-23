@@ -17,7 +17,7 @@
 	<version>0.1-SNAPSHOT</version>
 	<name>Retroduction Carma Annotations Package</name>
 
-	
+	<!-- enable for Carma report 
 	<build>
 		<plugins>
 			<plugin>
@@ -40,5 +40,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
+ -->
 </project>
