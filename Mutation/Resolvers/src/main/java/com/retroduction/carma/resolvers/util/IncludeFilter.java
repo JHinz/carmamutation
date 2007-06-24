@@ -5,34 +5,28 @@ import java.util.regex.Pattern;
 
 public class IncludeFilter {
 
-	private String includePattern;
-
 	private Pattern pattern;
 
 	public IncludeFilter() {
 		super();
+		setIncludePattern(null);
 	}
-	
+
 	public IncludeFilter(String includePattern) {
 		super();
 		setIncludePattern(includePattern);
 	}
 
-	public String getIncludePattern() {
-		return includePattern;
-	}
-
 	public void setIncludePattern(String includePattern) {
-		this.includePattern = includePattern;
+
+		if (includePattern == null || includePattern.trim().equals("")) {
+			includePattern = "(.*)";
+		}
 
 		pattern = Pattern.compile(includePattern);
 	}
 
 	public boolean shouldBeIncluded(String fqClassName) {
-
-		if (includePattern == null || includePattern.trim().equals("")) {
-			setIncludePattern("(.*)");
-		}
 
 		Matcher matcher = pattern.matcher(fqClassName);
 

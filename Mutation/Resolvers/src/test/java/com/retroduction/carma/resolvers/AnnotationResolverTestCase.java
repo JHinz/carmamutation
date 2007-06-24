@@ -47,5 +47,33 @@ public class AnnotationResolverTestCase extends TestCase {
 				.contains("sub2.AnotherSampleClassUsingAnnotation"));
 
 	}
+	
+	public void testGetClasses_TestClassHasNoCarmaAnnotation() throws MalformedURLException {
+
+		File testClassPath = new File("src/test/it/it0003/target/test-classes/");
+
+		AnnotationResolver resolver = new AnnotationResolver();
+		resolver.setClassesPath(new File[] { testClassPath });
+		resolver.setTestClassesPath(new File[] { testClassPath });
+
+		SortedSet<ClassDescription> sortedResults = new TreeSet<ClassDescription>(resolver.resolve());
+
+		assertEquals(0, sortedResults.size());
+
+	}
+	
+	public void testGetClasses_TestClassInvalidJavaByteCode() throws MalformedURLException {
+
+		File testClassPath = new File("src/test/it/it0004/target/test-classes/");
+
+		AnnotationResolver resolver = new AnnotationResolver();
+		resolver.setClassesPath(new File[] { testClassPath });
+		resolver.setTestClassesPath(new File[] { testClassPath });
+
+		SortedSet<ClassDescription> sortedResults = new TreeSet<ClassDescription>(resolver.resolve());
+
+		assertEquals(0, sortedResults.size());
+
+	}
 
 }
