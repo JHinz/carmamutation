@@ -4,15 +4,16 @@ import com.retroduction.carma.core.api.eventlisteners.IEvent;
 import com.retroduction.carma.utilities.ToStringUtils;
 
 public class ProcessingMutationOperator implements IEvent {
-	private String operatorName;
+	
+	private String transitionGroupName;
 
-	public String getOperatorName() {
-		return operatorName;
+	public String getTransitionGroupName() {
+		return transitionGroupName;
 	}
 
 	public ProcessingMutationOperator(String classUnderTest) {
 		super();
-		this.operatorName = classUnderTest;
+		this.transitionGroupName = classUnderTest;
 	}
 
 	@Override

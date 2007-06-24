@@ -212,12 +212,20 @@ public class CoreTestCase extends TestCase {
 
 		event = eventIterator.next();
 		assertTrue(event instanceof MutationProcessStarted);
+		assertEquals(1, ((MutationProcessStarted) event).getTransitionGroups().size());
+		assertTrue(((MutationProcessStarted) event).getTransitionGroups().contains(transitionGroup));
 
 		event = eventIterator.next();
 		assertTrue(event instanceof ProcessingClassUnderTest);
+		assertEquals("com.retroduction.carma.ClassUnderTest", ((ProcessingClassUnderTest) event).getClassUnderTest()
+				.getQualifiedClassName());
+		assertEquals(1, ((ProcessingClassUnderTest) event).getClassUnderTest().getAssociatedTestNames().size());
+		assertTrue(((ProcessingClassUnderTest) event).getClassUnderTest().getAssociatedTestNames().contains(
+				"com.retroduction.carma.SomeTestCase"));
 
 		event = eventIterator.next();
 		assertTrue(event instanceof ProcessingMutationOperator);
+		assertEquals("MockTransitionGroup", ((ProcessingMutationOperator) event).getTransitionGroupName());
 
 		event = eventIterator.next();
 		assertTrue(event instanceof MutantsGenerated);
@@ -227,6 +235,7 @@ public class CoreTestCase extends TestCase {
 
 		event = eventIterator.next();
 		assertTrue(event instanceof ProcessingMutant);
+		assertEquals("PseudoMutant", ((ProcessingMutant) event).getMutant().getName());
 
 		event = eventIterator.next();
 		assertTrue(event instanceof ProcessingClassUnderTestFinished);

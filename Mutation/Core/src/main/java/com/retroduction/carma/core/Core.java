@@ -116,7 +116,7 @@ public class Core {
 
 				log.info("Using transition group <" + transitionGroup.getName() + "> for mutation process");
 
-				eventListener.notifyEvent(new ProcessingMutationOperator(transitionGroup.getClass().getName()));
+				eventListener.notifyEvent(new ProcessingMutationOperator(transitionGroup.getName()));
 
 				List<Mutant> mutants = mutantGenerator.generateMutants(fqClassName, byteCode, transitionGroups,
 						eventListener);
