@@ -15,11 +15,11 @@ public class FilterVerifier implements IFilterVerifier {
 
 	private FilterConfiguration filterConfiguration;
 
-	public Set<String> removeExcludedClasses(Set<String> classDescriptions) {
+	public Set<String> removeExcludedClasses(Set<String> classNames) {
 
 		LinkedHashSet<String> removedClassNames = new LinkedHashSet<String>();
 
-		for (String classDescription : classDescriptions) {
+		for (String classDescription : classNames) {
 
 			if (!getFilterConfiguration().getIncludeFilter().shouldBeIncluded(classDescription)) {
 				removedClassNames.add(classDescription);
@@ -36,10 +36,10 @@ public class FilterVerifier implements IFilterVerifier {
 		}
 
 		for (String removedClassName : removedClassNames) {
-			classDescriptions.remove(removedClassName);
+			classNames.remove(removedClassName);
 		}
 
-		return classDescriptions;
+		return classNames;
 	}
 
 	private FilterConfiguration getFilterConfiguration() {

@@ -1,7 +1,5 @@
 package com.retroduction.carma.resolvers;
 
-import java.io.File;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,21 +8,19 @@ import com.retroduction.carma.core.api.eventlisteners.IEventListener;
 import com.retroduction.carma.core.api.eventlisteners.om.ClassesUnderTestResolved;
 import com.retroduction.carma.core.api.eventlisteners.om.TestSetDetermined;
 import com.retroduction.carma.core.api.resolvers.IResolver;
+import com.retroduction.carma.core.api.testrunners.ITestCaseInstantiationVerifier;
 import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
 import com.retroduction.carma.resolvers.util.FilterVerifier;
-import com.retroduction.carma.resolvers.util.TestCaseInstantiationVerifier;
 
 public class Resolver implements IResolver {
 
-	private FilterVerifier filterVerifier;
+	private FilterVerifier classFilterVerifier;
 
-	private TestCaseInstantiationVerifier instantiationVerifier;
+	private FilterVerifier testClassFilterVerifier;
+
+	private ITestCaseInstantiationVerifier instantiationVerifier;
 
 	private IResolver nestedResolver;
-
-	private File[] classesPath;
-
-	private File[] testClassesPath;
 
 	private IEventListener eventListener;
 
@@ -32,27 +28,11 @@ public class Resolver implements IResolver {
 		this.eventListener = eventListener;
 	}
 
-	public File[] getClassesPath() {
-		return classesPath;
+	public void setClassFilterVerifier(FilterVerifier filterVerifier) {
+		this.classFilterVerifier = filterVerifier;
 	}
 
-	public void setClassesPath(File[] classesPath) throws MalformedURLException {
-		this.classesPath = classesPath;
-	}
-
-	public File[] getTestClassesPath() {
-		return testClassesPath;
-	}
-
-	public void setTestClassesPath(File[] testClassesPath) throws MalformedURLException {
-		this.testClassesPath = testClassesPath;
-	}
-
-	public void setFilterVerifier(FilterVerifier filterVerifier) {
-		this.filterVerifier = filterVerifier;
-	}
-
-	public void setInstantiationVerifier(TestCaseInstantiationVerifier instantiationVerifier) {
+	public void setInstantiationVerifier(ITestCaseInstantiationVerifier instantiationVerifier) {
 		this.instantiationVerifier = instantiationVerifier;
 	}
 
@@ -84,7 +64,7 @@ public class Resolver implements IResolver {
 			resolvedClassNames.add(classDescription.getQualifiedClassName());
 		}
 
-		Set<String> remainingClassesNames = filterVerifier.removeExcludedClasses(resolvedClassNames);
+		Set<String> remainingClassesNames = classFilterVerifier.removeExcludedClasses(resolvedClassNames);
 
 		remainingClassesNames = instantiationVerifier.removeNonInstantiatableClasses(remainingClassesNames);
 
@@ -97,13 +77,13 @@ public class Resolver implements IResolver {
 		return remainingClassDescriptions;
 	}
 
-	private Set<ClassDescription> removeSuperfluousTestClasses(Set<ClassDescription> remainingClassDescriptions) {
+	Set<ClassDescription> removeSuperfluousTestClasses(Set<ClassDescription> remainingClassDescriptions) {
 
 		for (ClassDescription classUnderTestDescription : remainingClassDescriptions) {
 
 			Set<String> associatedTestNames = classUnderTestDescription.getAssociatedTestNames();
 
-			Set<String> remainingTestNames = filterVerifier.removeExcludedClasses(associatedTestNames);
+			Set<String> remainingTestNames = testClassFilterVerifier.removeExcludedClasses(associatedTestNames);
 
 			remainingTestNames = instantiationVerifier.removeNonInstantiatableClasses(remainingTestNames);
 
@@ -117,5 +97,8 @@ public class Resolver implements IResolver {
 		return remainingClassDescriptions;
 	}
 
+	public void setTestClassFilterVerifier(FilterVerifier testClassFilterVerifier) {
+		this.testClassFilterVerifier = testClassFilterVerifier;
+	}
 
 }
