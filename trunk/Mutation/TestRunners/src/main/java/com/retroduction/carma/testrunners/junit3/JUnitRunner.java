@@ -39,11 +39,7 @@ public class JUnitRunner implements ITestRunner {
 	 */
 	private int runTest(String testCase, Mutant mutant) {
 
-		URL[] urls = new URL[classesLocations.length + testClassesLocations.length + libraries.length];
-
-		System.arraycopy(classesLocations, 0, urls, 0, classesLocations.length);
-		System.arraycopy(testClassesLocations, 0, urls, classesLocations.length, testClassesLocations.length);
-		System.arraycopy(libraries, 0, urls, classesLocations.length + testClassesLocations.length, libraries.length);
+		URL[] urls = calculateCombinedClassPath();
 
 		MutantJUnitRunner runner = new MutantJUnitRunner(urls, mutant);
 		try {
@@ -51,7 +47,7 @@ public class JUnitRunner implements ITestRunner {
 			TestResult result = runner.doRun(suite, false);
 
 			runner.restoreReplacedClassLoader();
-			
+
 			int errors = result.errorCount();
 			int failures = result.failureCount();
 			return errors + failures;
@@ -59,11 +55,16 @@ public class JUnitRunner implements ITestRunner {
 			runner.restoreReplacedClassLoader();
 			throw e;
 		}
-		
+
 	}
 
-	public URL[] getTestClassesLocations() {
-		return testClassesLocations;
+	URL[] calculateCombinedClassPath() {
+		URL[] urls = new URL[classesLocations.length + testClassesLocations.length + libraries.length];
+
+		System.arraycopy(classesLocations, 0, urls, 0, classesLocations.length);
+		System.arraycopy(testClassesLocations, 0, urls, classesLocations.length, testClassesLocations.length);
+		System.arraycopy(libraries, 0, urls, classesLocations.length + testClassesLocations.length, libraries.length);
+		return urls;
 	}
 
 	public void setTestClassesLocations(URL[] testClassesLocation) {
