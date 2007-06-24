@@ -105,13 +105,22 @@ public class AnnotationResolver implements IResolver {
 
 		for (ClassDescription testClassDescription : testClassDescriptions) {
 
-			try {
-				Class testClass = getLoader().loadClass(testClassDescription.getQualifiedClassName());
+		
+				Class testClass = null;
+				
+				try {
+					testClass = getLoader().loadClass(testClassDescription.getQualifiedClassName());
+				} catch (Throwable e) {
+					log.warn("TestClass could not be loaded: " + testClassDescription.getQualifiedClassName());
+					continue;
+				}
 
 				Annotation annotation = testClass.getAnnotation(TestClassToClassMapping.class);
 
-				if (annotation == null)
+				if (annotation == null) {
+					log.warn("TestClass has no annotation: " + testClass.getCanonicalName());
 					continue;
+				}
 
 				String[] fqClassNames = ((TestClassToClassMapping) annotation).classNames();
 
@@ -135,9 +144,6 @@ public class AnnotationResolver implements IResolver {
 					resolvedClasses.put(classDescription.getQualifiedClassName(), classDescription);
 
 				}
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
 		}
 
 		return new HashSet<ClassDescription>(resolvedClasses.values());

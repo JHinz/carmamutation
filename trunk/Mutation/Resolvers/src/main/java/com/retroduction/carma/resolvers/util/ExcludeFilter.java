@@ -5,15 +5,13 @@ import java.util.regex.Pattern;
 
 public class ExcludeFilter {
 
-	private String excludePattern;
-
 	private Pattern pattern;
 
 	private String fixedPatternString = "(.*\\$.*)";
 
 	public ExcludeFilter() {
 		super();
-		setExcludePattern("");
+		setExcludePattern(null);
 	}
 
 	public ExcludeFilter(String excludePattern) {
@@ -21,12 +19,7 @@ public class ExcludeFilter {
 		setExcludePattern(excludePattern);
 	}
 
-	public String getExcludePattern() {
-		return excludePattern;
-	}
-
 	public void setExcludePattern(String excludePattern) {
-		this.excludePattern = excludePattern;
 
 		if ((excludePattern == null) || excludePattern.trim().equals("")) {
 			pattern = Pattern.compile(fixedPatternString);
