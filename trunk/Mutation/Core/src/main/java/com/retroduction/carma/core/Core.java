@@ -58,12 +58,7 @@ public class Core {
 
 		Set<ClassDescription> classesUnderTest = resolver.resolve();
 
-		try {// expect set instead of list below !
-			performMutations(transitionGroupConfig.getTransitionGroups(), classesUnderTest);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return;
-		}
+		performMutations(transitionGroupConfig.getTransitionGroups(), classesUnderTest);
 
 		eventListener.notifyEvent(new MutationProcessFinished());
 
@@ -81,8 +76,7 @@ public class Core {
 	 * @param testNames
 	 * @throws IOException
 	 */
-	void performMutations(Set<ITransitionGroup> transitionGroups, Set<ClassDescription> classUnderTestDescriptions)
-			throws IOException {
+	void performMutations(Set<ITransitionGroup> transitionGroups, Set<ClassDescription> classUnderTestDescriptions) {
 
 		log.info("Performing mutation on all classes");
 
@@ -109,8 +103,14 @@ public class Core {
 
 			String fqClassName = classUnderTestDescription.getQualifiedClassName();
 
-			byte[] byteCode = byteCodeFileReader
-					.readByteCodeFromMultipleFolders(fqClassName, getClassesUnderTestPath());
+			byte[] byteCode = null;
+			try {
+				byteCode = byteCodeFileReader.readByteCodeFromMultipleFolders(fqClassName, getClassesUnderTestPath());
+			} catch (IOException e) {
+				log.warn("ByteCode for class could not be read from disk");
+				eventListener.notifyEvent(new ProcessingClassUnderTestFinished());
+				continue;
+			}
 
 			for (ITransitionGroup transitionGroup : transitionGroups) {
 

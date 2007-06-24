@@ -21,9 +21,7 @@ import com.retroduction.carma.core.api.eventlisteners.om.ProcessingClassUnderTes
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingClassUnderTestFinished;
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingMutant;
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingMutationOperator;
-import com.retroduction.carma.core.api.eventlisteners.om.TestSetDetermined;
 import com.retroduction.carma.core.api.eventlisteners.om.TestSetNotSane;
-import com.retroduction.carma.core.api.eventlisteners.om.TestsExecuted;
 import com.retroduction.carma.core.api.resolvers.IResolver;
 import com.retroduction.carma.core.api.testrunners.ITestRunner;
 import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
@@ -150,17 +148,33 @@ public class CoreTestCase extends TestCase {
 
 	private class MockByteCodeFileReader implements IByteCodeFileReader {
 
+		private boolean fail;
+
+		public MockByteCodeFileReader(boolean fail) {
+			super();
+			this.fail = fail;
+		}
+
 		public byte[] readByteCodeFromDisk(File originalClassFile) throws FileNotFoundException, IOException {
-			return new byte[] { 1, 2, 3, 4, 5 };
+			if (fail)
+				throw new IOException("Mock doomed to fail");
+			else
+				return new byte[] { 1, 2, 3, 4, 5 };
 		}
 
 		public byte[] readByteCodeFromMultipleFolders(String classUnderTestName, File[] paths) throws IOException {
-			return new byte[] { 1, 2, 3, 4, 5 };
+			if (fail)
+				throw new IOException("Mock doomed to fail");
+			else
+				return new byte[] { 1, 2, 3, 4, 5 };
 		}
 
 		public byte[] readByteCodeFromStream(InputStream originalClassFileInputStream) throws FileNotFoundException,
 				IOException {
-			return new byte[] { 1, 2, 3, 4, 5 };
+			if (fail)
+				throw new IOException("Mock doomed to fail");
+			else
+				return new byte[] { 1, 2, 3, 4, 5 };
 		}
 
 	}
@@ -172,7 +186,7 @@ public class CoreTestCase extends TestCase {
 		MockResolver mockResolver = new MockResolver();
 		MockTestRunner testRunner = new MockTestRunner(false);
 		MockTransitionGroup transitionGroup = new MockTransitionGroup();
-		MockByteCodeFileReader byteCodeReader = new MockByteCodeFileReader();
+		MockByteCodeFileReader byteCodeReader = new MockByteCodeFileReader(false);
 
 		TransitionGroupConfig tgConfig = new TransitionGroupConfig();
 		Set<ITransitionGroup> setOfTransitionGroups = new HashSet<ITransitionGroup>();
@@ -229,7 +243,7 @@ public class CoreTestCase extends TestCase {
 		MockResolver mockResolver = new MockResolver();
 		MockTestRunner testRunner = new MockTestRunner(true);
 		MockTransitionGroup transitionGroup = new MockTransitionGroup();
-		MockByteCodeFileReader byteCodeReader = new MockByteCodeFileReader();
+		MockByteCodeFileReader byteCodeReader = new MockByteCodeFileReader(false);
 
 		TransitionGroupConfig tgConfig = new TransitionGroupConfig();
 		Set<ITransitionGroup> setOfTransitionGroups = new HashSet<ITransitionGroup>();
@@ -261,6 +275,51 @@ public class CoreTestCase extends TestCase {
 
 		event = eventIterator.next();
 		assertTrue(event instanceof TestSetNotSane);
+
+		event = eventIterator.next();
+		assertTrue(event instanceof ProcessingClassUnderTestFinished);
+
+		event = eventIterator.next();
+		assertTrue(event instanceof MutationProcessFinished);
+
+	}
+
+	public void test_TestSetSane_ClassByteCodeCannotBeRead() {
+
+		MockEventListener eventListener = new MockEventListener();
+		MockMutantGenerator mutantGenerator = new MockMutantGenerator();
+		MockResolver mockResolver = new MockResolver();
+		MockTestRunner testRunner = new MockTestRunner(false);
+		MockTransitionGroup transitionGroup = new MockTransitionGroup();
+		MockByteCodeFileReader byteCodeReader = new MockByteCodeFileReader(true);
+
+		TransitionGroupConfig tgConfig = new TransitionGroupConfig();
+		Set<ITransitionGroup> setOfTransitionGroups = new HashSet<ITransitionGroup>();
+		setOfTransitionGroups.add(transitionGroup);
+		tgConfig.setTransitionGroups(setOfTransitionGroups);
+
+		Core core = new Core();
+
+		core.setEventListener(eventListener);
+		core.setMutantGenerator(mutantGenerator);
+		core.setResolver(mockResolver);
+		core.setTestRunner(testRunner);
+		core.setTransitionGroupConfig(tgConfig);
+		core.setByteCodeFileReader(byteCodeReader);
+
+		core.execute();
+
+		assertEquals("Wrong number of events fired", 4, eventListener.getEvents().size());
+
+		Iterator<IEvent> eventIterator = eventListener.getEvents().iterator();
+
+		IEvent event;
+
+		event = eventIterator.next();
+		assertTrue(event instanceof MutationProcessStarted);
+
+		event = eventIterator.next();
+		assertTrue(event instanceof ProcessingClassUnderTest);
 
 		event = eventIterator.next();
 		assertTrue(event instanceof ProcessingClassUnderTestFinished);
