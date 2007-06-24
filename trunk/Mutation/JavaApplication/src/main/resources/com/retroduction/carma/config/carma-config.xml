@@ -50,24 +50,12 @@
 
 	<bean id="resolver"
 		class="com.retroduction.carma.resolvers.Resolver">
-		<property name="filterVerifier" ref="filterVerifier" />
+		<property name="classFilterVerifier" ref="classFilterVerifier" />
+		<property name="testClassFilterVerifier" ref="testClassFilterVerifier" />
 		<property name="instantiationVerifier"
 			ref="testCaseInstantiationVerifier" />
 		<property name="nestedResolver" ref="${resolver.name}" />
-		<property name="classesPath" ref="${project.classesdir.source}" />
-		<property name="testClassesPath" ref="${project.testclassesdir.source}" />
 		<property name="eventListener" ref="eventListener" />
-	</bean>
-
-	<bean id="filterVerifier"
-		class="com.retroduction.carma.resolvers.util.FilterVerifier">
-		<property name="filterConfiguration" ref="filterConfiguration" />
-	</bean>
-
-	<bean id="testCaseInstantiationVerifier"
-		class="com.retroduction.carma.resolvers.util.TestCaseInstantiationVerifier">
-		<property name="classPath" ref="${project.classesdir.source}" />
-		<property name="testClassPath" ref="${project.testclassesdir.source}" />
 	</bean>
 
 	<bean id="resolver.configbased"
@@ -98,26 +86,65 @@
 		<property name="testClassesPath" ref="${project.testclassesdir.source}" />
 	</bean>
 
-
-	<bean id="filterConfiguration"
-		class="com.retroduction.carma.resolvers.util.FilterConfiguration">
-		<property name="includeFilter" ref="includeFilter" />
-		<property name="excludeFilter" ref="excludeFilter" />
+	
+	<!--  Resolver filer configuration -->
+	
+	<bean id="classFilterVerifier"
+		class="com.retroduction.carma.resolvers.util.FilterVerifier">
+		<property name="filterConfiguration" ref="classFilterConfiguration" />
+	</bean>
+	
+	<bean id="testClassFilterVerifier"
+		class="com.retroduction.carma.resolvers.util.FilterVerifier">
+		<property name="filterConfiguration" ref="testClassFilterConfiguration" />
 	</bean>
 
-	<bean id="includeFilter"
+	<bean id="testCaseInstantiationVerifier"
+		class="com.retroduction.carma.resolvers.util.TestCaseInstantiationVerifier">
+		<property name="classPath" ref="${project.classesdir.source}" />
+		<property name="testClassPath" ref="${project.testclassesdir.source}" />
+	</bean>
+
+	<bean id="classFilterConfiguration"
+		class="com.retroduction.carma.resolvers.util.FilterConfiguration">
+		<property name="includeFilter" ref="classIncludeFilter" />
+		<property name="excludeFilter" ref="classExcludeFilter" />
+	</bean>
+
+	<bean id="testClassFilterConfiguration"
+		class="com.retroduction.carma.resolvers.util.FilterConfiguration">
+		<property name="includeFilter" ref="testClassIncludeFilter" />
+		<property name="excludeFilter" ref="testClassExcludeFilter" />
+	</bean>
+
+	<bean id="classIncludeFilter"
 		class="com.retroduction.carma.resolvers.util.IncludeFilter">
 		<property name="includePattern">
-			<value>${resolver.includePattern}</value>
+			<value>${resolver.classIncludePattern}</value>
 		</property>
 	</bean>
 
-	<bean id="excludeFilter"
+	<bean id="classExcludeFilter"
 		class="com.retroduction.carma.resolvers.util.ExcludeFilter">
 		<property name="excludePattern">
-			<value>${resolver.excludePattern}</value>
+			<value>${resolver.classExcludePattern}</value>
 		</property>
 	</bean>
+
+	<bean id="testClassIncludeFilter"
+		class="com.retroduction.carma.resolvers.util.IncludeFilter">
+		<property name="includePattern">
+			<value>${resolver.testClassIncludePattern}</value>
+		</property>
+	</bean>
+
+	<bean id="testClassExcludeFilter"
+		class="com.retroduction.carma.resolvers.util.ExcludeFilter">
+		<property name="excludePattern">
+			<value>${resolver.testClassExcludePattern}</value>
+		</property>
+	</bean>
+
 
 	<!--  set of operators considered for tests -->
 
