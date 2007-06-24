@@ -17,6 +17,15 @@
 	<version>0.1-SNAPSHOT</version>
 	<name>Retroduction Carma Resolvers</name>
 
+	<url>http://godhunter.homelinux.com:10080/Carma/Resolvers</url>
+
+	<distributionManagement>
+		<site>
+			<id>carma.retroduction.com</id>
+			<url>scp:192.168.1.5:222/Carma/Resolvers</url>
+		</site>
+	</distributionManagement>
+	
 	<dependencies>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
@@ -32,28 +41,28 @@
 	</dependencies>
 
 	<!-- enable for Carma report 
-	<build>
+		<build>
 		<plugins>
-			<plugin>
-				<groupId>com.retroduction.carma</groupId>
-				<artifactId>MavenPlugin</artifactId>
-				<executions>
-					<execution>
-						<id>mutationtest</id>
-						<goals>
-							<goal>mtest</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>mutationreport</id>
-						<goals>
-							<goal>mreport</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+		<plugin>
+		<groupId>com.retroduction.carma</groupId>
+		<artifactId>MavenPlugin</artifactId>
+		<executions>
+		<execution>
+		<id>mutationtest</id>
+		<goals>
+		<goal>mtest</goal>
+		</goals>
+		</execution>
+		<execution>
+		<id>mutationreport</id>
+		<goals>
+		<goal>mreport</goal>
+		</goals>
+		</execution>
+		</executions>
+		</plugin>
 		</plugins>
-	</build>
- -->
-	
+		</build>
+	-->
+
 </project>
