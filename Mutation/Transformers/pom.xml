@@ -21,6 +21,15 @@
 		modifications depending on predefined bytecode transitions.
 	</description>
 
+	<url>http://godhunter.homelinux.com:10080/Carma/Transformers</url>
+
+	<distributionManagement>
+		<site>
+			<id>carma.retroduction.com</id>
+			<url>scp:192.168.1.5:222/Carma/Transformers</url>
+		</site>
+	</distributionManagement>
+	
 	<dependencies>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
