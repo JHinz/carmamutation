@@ -14,47 +14,32 @@ public class ClassMatchResolver implements IResolver {
 
 	private File[] classesPath;
 
-	private File[] testClassesPath;
-
-	public File[] getClassesPath() {
-		return classesPath;
-	}
-
 	public void setClassesPath(File[] classesPath) throws MalformedURLException {
 		this.classesPath = classesPath;
-	}
-
-	public File[] getTestClassesPath() {
-		return testClassesPath;
-	}
-
-	public void setTestClassesPath(File[] testClassesPath) throws MalformedURLException {
-		this.testClassesPath = testClassesPath;
 	}
 
 	public Set<ClassDescription> resolve() {
 
 		DirectoryBasedResolver directoryResolver = new DirectoryBasedResolver();
-		directoryResolver.setClassesBaseDir(getClassesPath());
+		directoryResolver.setClassesBaseDir(classesPath);
 
 		Set<ClassDescription> classDescriptions = directoryResolver.determineClassNames();
 
-		OneTestPerClassResolver testResolver = new OneTestPerClassResolver();
-		testResolver.setTestCaseSuffix(getTestNameSuffix());
+		assignTestNames(classDescriptions);
 
+		return classDescriptions;
+	}
+
+	void assignTestNames(Set<ClassDescription> classDescriptions) {
 		for (ClassDescription classDescription : classDescriptions) {
 
-			Set<String> testNames = testResolver.determineTests(classDescription.getQualifiedClassName());
+			String testName = classDescription.getQualifiedClassName() + getTestNameSuffix();
 
 			classDescription.setAssociatedTestNames(new HashSet<String>());
 
-			for (String testName : testNames) {
-				classDescription.getAssociatedTestNames().add(testName);
-			}
+			classDescription.getAssociatedTestNames().add(testName);
 
 		}
-
-		return classDescriptions;
 	}
 
 	public String getTestNameSuffix() {

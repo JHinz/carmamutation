@@ -69,7 +69,6 @@
 	<bean id="resolver.classmatch"
 		class="com.retroduction.carma.resolvers.ClassMatchResolver">
 		<property name="classesPath" ref="${project.classesdir.source}" />
-		<property name="testClassesPath" ref="${project.testclassesdir.source}" />
 		<property name="testNameSuffix"
 			value="${resolver.classmatch.testNameSuffix}" />
 	</bean>
