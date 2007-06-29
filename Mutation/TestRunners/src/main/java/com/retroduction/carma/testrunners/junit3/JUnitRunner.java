@@ -8,11 +8,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import junit.framework.Test;
 import junit.framework.TestResult;
 
 import com.retroduction.carma.core.api.eventlisteners.IEventListener;
-import com.retroduction.carma.core.api.eventlisteners.om.TestNotExecuted;
 import com.retroduction.carma.core.api.eventlisteners.om.TestsExecuted;
 import com.retroduction.carma.core.api.testrunners.ITestRunner;
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
@@ -24,6 +26,8 @@ import com.retroduction.carma.core.api.testrunners.om.Mutant;
  * 
  */
 public class JUnitRunner implements ITestRunner {
+
+	private Log log = LogFactory.getLog(JUnitRunner.class);
 
 	private URL[] classesLocations = new URL[0];
 
@@ -100,7 +104,7 @@ public class JUnitRunner implements ITestRunner {
 				executedTestsNames.add(testCase);
 				if (failures > 0) {
 					survived = false;
-					// TODO IMHO it would be better to have the surived flag
+					// TODO IMHO it would be better to have the survived flag
 					// separated
 					mutant.setSurvived(false);
 					killerTestNames.add(testCase);
@@ -110,7 +114,7 @@ public class JUnitRunner implements ITestRunner {
 				}
 
 			} catch (Exception e) {
-				eventListener.notifyEvent(new TestNotExecuted(mutant, testCase, e));
+				log.warn(e.getMessage());
 			}
 		}
 		eventListener.notifyEvent(new TestsExecuted(mutant, executedTestsNames, survived, killerTestNames));

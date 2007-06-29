@@ -10,7 +10,6 @@ import com.retroduction.carma.core.api.eventlisteners.IEventListener;
 import com.retroduction.carma.core.api.eventlisteners.om.ClassesUnderTestResolved;
 import com.retroduction.carma.core.api.eventlisteners.om.MutantsGenerated;
 import com.retroduction.carma.core.api.eventlisteners.om.MutationProcessStarted;
-import com.retroduction.carma.core.api.eventlisteners.om.TestNotExecuted;
 import com.retroduction.carma.core.api.eventlisteners.om.TestsExecuted;
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
 
@@ -69,9 +68,6 @@ public class SummaryCreatorEventListener implements IEventListener {
 			}
 			TestsExecuted e = (TestsExecuted) event;
 			testNames.addAll(e.getTestNames());
-		} else if (event instanceof TestNotExecuted) {
-			TestNotExecuted e = (TestNotExecuted) event;
-			testsNotExecuted.add(e.getTestCaseName());
 		} else if (event instanceof MutantsGenerated) {
 			MutantsGenerated e = (MutantsGenerated) event;
 			totalMutants.addAll(e.getGeneratedMutants());
