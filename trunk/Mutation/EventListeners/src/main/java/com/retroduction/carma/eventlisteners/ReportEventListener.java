@@ -31,7 +31,7 @@ public class ReportEventListener implements IEventListener {
 
 	private Log log = LogFactory.getLog(ReportEventListener.class);
 
-	private MutationRun run;
+	MutationRun run;
 
 	private ClassUnderTest currentClassUnderTestSubReport;
 

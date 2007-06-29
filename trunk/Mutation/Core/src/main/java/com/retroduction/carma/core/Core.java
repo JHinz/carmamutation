@@ -92,7 +92,7 @@ public class Core {
 
 			if (brokenTestNames.size() > 0) {
 				log.error("Testset not sane. There are test failures without mutations");
-				eventListener.notifyEvent(new TestSetNotSane(brokenTestNames, classUnderTestDescription));
+				eventListener.notifyEvent(new TestSetNotSane(brokenTestNames));
 				for (String brokenTest : brokenTestNames) {
 					log.error("Failing test: " + brokenTest);
 				}
