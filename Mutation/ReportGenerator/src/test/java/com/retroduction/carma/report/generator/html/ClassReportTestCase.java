@@ -41,7 +41,7 @@ public class ClassReportTestCase extends TestCase {
 		assertEquals(cut, creatorMock.clazz);
 		assertEquals(new File(outputDirectory, "mypackage.myclass.html"), creatorMock.reportFile);
 		assertEquals(sourceInfo, creatorMock.sourceFile);
-		assertEquals("com/mutation/report/generator/html/coverage/class.html", creatorMock.templateName);
+		assertEquals("com/retroduction/carma/report/generator/html/coverage/class.html", creatorMock.templateName);
 		
 	}
 	
@@ -79,7 +79,7 @@ public class ClassReportTestCase extends TestCase {
 		assertEquals(cut2, creatorMock.clazz);
 		assertEquals(new File(outputDirectory, "mypackage.myclass2.html"), creatorMock.reportFile);
 		assertEquals(sourceInfo2, creatorMock.sourceFile);
-		assertEquals("com/mutation/report/generator/html/coverage/class.html", creatorMock.templateName);
+		assertEquals("com/retroduction/carma/report/generator/html/coverage/class.html", creatorMock.templateName);
 		
 	}
 
