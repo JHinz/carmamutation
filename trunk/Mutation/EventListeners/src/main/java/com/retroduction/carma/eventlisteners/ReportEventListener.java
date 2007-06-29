@@ -21,9 +21,9 @@ import com.retroduction.carma.core.api.eventlisteners.om.ProcessingClassUnderTes
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingMutant;
 import com.retroduction.carma.core.api.eventlisteners.om.TestSetNotSane;
 import com.retroduction.carma.core.api.eventlisteners.om.TestsExecuted;
+import com.retroduction.carma.eventlisteners.util.StatisticalReportAnalyzer;
 import com.retroduction.carma.xmlreport.om.ClassUnderTest;
 import com.retroduction.carma.xmlreport.om.Mutant;
-import com.retroduction.carma.xmlreport.om.MutationRatio;
 import com.retroduction.carma.xmlreport.om.MutationRun;
 import com.retroduction.carma.xmlreport.om.ProcessingInfo;
 
@@ -43,19 +43,9 @@ public class ReportEventListener implements IEventListener {
 
 	private long classProcessingStart;
 
-	private long classProcessingEnd;
-
 	private long runProcessingStart;
 
 	private long runProcessingEnd;
-
-	private long numberOfMutantsForRun;
-
-	private long numberOfSurvivorsForRun;
-
-	private long numberOfMutantsForClass;
-
-	private long numberOfSurvivorsForClass;
 
 	public ReportEventListener(String fileName) throws JAXBException {
 
@@ -75,22 +65,14 @@ public class ReportEventListener implements IEventListener {
 
 		runProcessingEnd = System.currentTimeMillis();
 
+		new StatisticalReportAnalyzer().enhanceReport(run);
+
 		try {
-			ProcessingInfo info = new ProcessingInfo();
-			info.setDuration(runProcessingEnd - runProcessingStart);
-			calendar.setTimeInMillis(runProcessingStart);
-			info.setStart(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
-			calendar.setTimeInMillis(runProcessingEnd);
-			info.setEnd(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
+			ProcessingInfo info = createTimingInformation(runProcessingStart, runProcessingEnd);
 			run.setProcessingInfo(info);
 		} catch (DatatypeConfigurationException e) {
 			e.printStackTrace();
 		}
-
-		MutationRatio ratio = new MutationRatio();
-		ratio.setMutationCount(numberOfMutantsForRun);
-		ratio.setSurvivorCount(numberOfSurvivorsForRun);
-		run.setMutationRatio(ratio);
 
 		try {
 			JAXBContext context = JAXBContext.newInstance(MutationRun.class);
@@ -108,58 +90,30 @@ public class ReportEventListener implements IEventListener {
 	public void notifyEvent(IEvent event) {
 
 		if (event instanceof ProcessingClassUnderTest) {
-
 			classProcessingStart = System.currentTimeMillis();
-
 			ProcessingClassUnderTest eventObj = (ProcessingClassUnderTest) event;
-
-			currentClassUnderTestSubReport = new ClassUnderTest();
-			currentClassUnderTestSubReport.setClassName(eventObj.getClassUnderTest().getClassName());
-			currentClassUnderTestSubReport.setPackageName(eventObj.getClassUnderTest().getPackageName());
-			currentClassUnderTestSubReport.setBaseClassFile(eventObj.getClassUnderTest().getClassFile());
-
-			numberOfMutantsForClass = 0;
-			numberOfSurvivorsForClass = 0;
-
-			run.getClassUnderTest().add(currentClassUnderTestSubReport);
+			ClassUnderTest clazz = new ClassUnderTest();
+			clazz.setClassName(eventObj.getClassUnderTest().getClassName());
+			clazz.setPackageName(eventObj.getClassUnderTest().getPackageName());
+			clazz.setBaseClassFile(eventObj.getClassUnderTest().getClassFile());
+			currentClassUnderTestSubReport = clazz;
 			return;
-
 		}
 
 		if (event instanceof ProcessingClassUnderTestFinished) {
-
-			ClassUnderTest classUnderTest = run.getClassUnderTest().get(run.getClassUnderTest().size() - 1);
-
-			classProcessingEnd = System.currentTimeMillis();
 			try {
-				ProcessingInfo info = new ProcessingInfo();
-				info.setDuration(classProcessingEnd - classProcessingStart);
-				calendar.setTimeInMillis(classProcessingStart);
-				info.setStart(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
-				calendar.setTimeInMillis(classProcessingEnd);
-				info.setEnd(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
-				classUnderTest.setProcessingInfo(info);
+				ProcessingInfo info = createTimingInformation(classProcessingStart, System.currentTimeMillis());
+				currentClassUnderTestSubReport.setProcessingInfo(info);
 			} catch (DatatypeConfigurationException e) {
 				e.printStackTrace();
 			}
-
-			MutationRatio ratio = new MutationRatio();
-
-			ratio.setMutationCount(numberOfMutantsForClass);
-			ratio.setSurvivorCount(numberOfSurvivorsForClass);
-
-			classUnderTest.setMutationRatio(ratio);
-
+			run.getClassUnderTest().add(currentClassUnderTestSubReport);
 			return;
-
 		}
 
 		if (event instanceof ProcessingMutant) {
-
-			ProcessingMutant eventObj = (ProcessingMutant) event;
-
+			com.retroduction.carma.core.api.testrunners.om.Mutant mutant = ((ProcessingMutant) event).getMutant();
 			Mutant mutantInfo = new Mutant();
-			com.retroduction.carma.core.api.testrunners.om.Mutant mutant = eventObj.getMutant();
 			mutantInfo.setName(mutant.getName());
 			mutantInfo.setBaseSourceLine(mutant.getSourceMapping().getLineNo());
 
@@ -168,13 +122,11 @@ public class ReportEventListener implements IEventListener {
 
 			if (mutant.getTransition() != null)
 				mutantInfo.setTransition(mutant.getTransition().getName());
-
 			currentMutantReport = mutantInfo;
-
 			currentClassUnderTestSubReport.getMutant().add(currentMutantReport);
-			currentClassUnderTestSubReport.setBaseSourceFile(eventObj.getMutant().getSourceMapping().getSourceFile());
+			currentClassUnderTestSubReport.setBaseSourceFile(((ProcessingMutant) event).getMutant().getSourceMapping()
+					.getSourceFile());
 			return;
-
 		}
 
 		if (event instanceof TestsExecuted) {
@@ -186,13 +138,6 @@ public class ReportEventListener implements IEventListener {
 			// relevant for whole class
 			currentClassUnderTestSubReport.getExecutedTests().clear();
 			currentClassUnderTestSubReport.getExecutedTests().addAll(eventObj.getTestNames());
-			numberOfMutantsForClass++;
-			numberOfMutantsForRun++;
-
-			if (eventObj.isMutantSurvived()) {
-				numberOfSurvivorsForClass++;
-				numberOfSurvivorsForRun++;
-			}
 
 			return;
 
@@ -208,4 +153,16 @@ public class ReportEventListener implements IEventListener {
 		}
 
 	}
+
+	ProcessingInfo createTimingInformation(long classProcessingStart, long classProcessingEnd)
+			throws DatatypeConfigurationException {
+		ProcessingInfo info = new ProcessingInfo();
+		info.setDuration(classProcessingEnd - classProcessingStart);
+		calendar.setTimeInMillis(classProcessingStart);
+		info.setStart(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
+		calendar.setTimeInMillis(classProcessingEnd);
+		info.setEnd(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
+		return info;
+	}
+
 }
