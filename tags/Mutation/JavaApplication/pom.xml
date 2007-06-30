@@ -1,0 +1,104 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+  http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>com.retroduction.carma</groupId>
+		<artifactId>MetaDefinition</artifactId>
+		<version>0.1</version>
+		<relativePath>../MetaDefinition</relativePath>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.retroduction.carma</groupId>
+	<artifactId>JavaApplication</artifactId>
+	<packaging>jar</packaging>
+	<name>Retroduction Carma Java Application Package</name>
+
+	<url>
+		http://godhunter.homelinux.com:10080/Carma/JavaApplication
+	</url>
+
+	<distributionManagement>
+		<site>
+			<id>carma.retroduction.com</id>
+			<url>scp:192.168.1.5:222/Carma/JavaApplication</url>
+		</site>
+	</distributionManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>Core</artifactId>
+			<version>0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>Resolvers</artifactId>
+			<version>0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>EventListeners</artifactId>
+			<version>0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>TestRunners</artifactId>
+			<version>0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>Transformers</artifactId>
+			<version>0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring</artifactId>
+			<version>2.0.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-cli</groupId>
+			<artifactId>commons-cli</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+	</dependencies>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptors>
+						<descriptor>src/assembly/src.xml</descriptor>
+					</descriptors>
+					<archive>
+						<manifest>
+							<mainClass>
+								com.retroduction.carma.application.Carma
+							</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>
+								com.retroduction.carma.application.Carma
+							</mainClass>
+							<addClasspath>true</addClasspath>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

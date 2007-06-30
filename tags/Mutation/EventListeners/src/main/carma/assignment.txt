@@ -1,0 +1,4 @@
+com.retroduction.carma.eventlisteners.CompositeEventListener=
+com.retroduction.carma.eventlisteners.ConsoleEventListener=
+com.retroduction.carma.eventlisteners.ReportEventListener=
+com.retroduction.carma.eventlisteners.SummaryCreatorEventListener=
