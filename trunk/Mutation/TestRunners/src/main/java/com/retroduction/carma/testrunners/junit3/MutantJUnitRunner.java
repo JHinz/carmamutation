@@ -47,7 +47,7 @@ public class MutantJUnitRunner extends BaseTestRunner implements IMutantJUnitRun
 		Thread.currentThread().setContextClassLoader(replacedClassLoader);
 	}
 
-	private int runTests(String testCase) {
+	private int runTest(String testCase) {
 		try {
 			Test suite = getTest(testCase);
 			TestResult result = doRun(suite, false);
@@ -63,7 +63,7 @@ public class MutantJUnitRunner extends BaseTestRunner implements IMutantJUnitRun
 
 	public int perform(String testCase, URL[] testClassesLocation, Mutant mutant) {
 		overrideClassLoader(testClassesLocation, mutant);
-		int errorCount = runTests(testCase);
+		int errorCount = runTest(testCase);
 		restoreReplacedClassLoader();
 		return errorCount;
 

@@ -137,7 +137,7 @@ public class ReportEventListener implements IEventListener {
 			// TODO not very beautiful here - is executed for each mutant for
 			// relevant for whole class
 			currentClassUnderTestSubReport.getExecutedTests().clear();
-			currentClassUnderTestSubReport.getExecutedTests().addAll(eventObj.getTestNames());
+			currentClassUnderTestSubReport.getExecutedTests().addAll(eventObj.getExecutedTests());
 
 			return;
 

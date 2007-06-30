@@ -36,15 +36,6 @@ public class JUnitRunner implements ITestRunner {
 
 	private IMutantJUnitRunner runner;
 
-	/**
-	 * 
-	 * @return sum of failures and errors
-	 */
-	private int runTest(String testCase, Mutant mutant) {
-		URL[] urls = calculateCombinedClassPath();
-		return runner.perform(testCase, urls, mutant);
-	}
-
 	URL[] calculateCombinedClassPath() {
 		URL[] urls = new URL[classesLocations.length + testClassesLocations.length + libraries.length];
 		System.arraycopy(classesLocations, 0, urls, 0, classesLocations.length);
@@ -56,11 +47,13 @@ public class JUnitRunner implements ITestRunner {
 	public void execute(Mutant mutant, Set<String> origTestNames, IEventListener eventListener) {
 		boolean survived = true;
 
+		URL[] urls = calculateCombinedClassPath();
+				
 		Set<String> executedTestsNames = new HashSet<String>();
 		Set<String> killerTestNames = new TreeSet<String>();
 		for (String testCase : origTestNames) {
 			try {
-				int failures = runTest(testCase, mutant);
+				int failures = runner.perform(testCase, urls, mutant);
 				executedTestsNames.add(testCase);
 				if (failures > 0) {
 					survived = false;
@@ -82,11 +75,13 @@ public class JUnitRunner implements ITestRunner {
 
 	public Set<String> execute(Set<String> origTestNames) {
 
+		URL[] urls = calculateCombinedClassPath();
+		
 		Set<String> brokenTestNames = new TreeSet<String>();
 		for (String testCase : origTestNames) {
 			try {
-				int failures = runTest(testCase, null);
-				if (failures > 0) {
+				
+				if (runner.perform(testCase, urls, null) > 0) {
 					brokenTestNames.add(testCase);
 				}
 
@@ -131,7 +126,7 @@ public class JUnitRunner implements ITestRunner {
 		this.classesLocations = urls;
 	}
 
-	public void setRunner(MutantJUnitRunner runner) {
+	public void setRunner(IMutantJUnitRunner runner) {
 		this.runner = runner;
 	}
 

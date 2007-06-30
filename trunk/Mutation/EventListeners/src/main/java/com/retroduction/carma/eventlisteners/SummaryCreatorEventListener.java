@@ -67,7 +67,7 @@ public class SummaryCreatorEventListener implements IEventListener {
 				suvivors.remove(te.getMutant());
 			}
 			TestsExecuted e = (TestsExecuted) event;
-			testNames.addAll(e.getTestNames());
+			testNames.addAll(e.getExecutedTests());
 		} else if (event instanceof MutantsGenerated) {
 			MutantsGenerated e = (MutantsGenerated) event;
 			totalMutants.addAll(e.getGeneratedMutants());

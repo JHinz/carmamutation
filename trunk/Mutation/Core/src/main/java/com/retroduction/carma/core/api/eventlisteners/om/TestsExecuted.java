@@ -10,7 +10,7 @@ public class TestsExecuted implements IEvent {
 
 	private Mutant mutant;
 
-	private Set<String> testNames;
+	private Set<String> executedTests;
 
 	private boolean mutantSurvived;
 
@@ -19,7 +19,7 @@ public class TestsExecuted implements IEvent {
 	public TestsExecuted(Mutant mutant, Set<String> testNames, boolean mutantSurvived, Set<String> killerTestNames) {
 		super();
 		this.mutant = mutant;
-		this.testNames = testNames;
+		this.executedTests = testNames;
 		this.mutantSurvived = mutantSurvived;
 		this.killerTestNames = killerTestNames;
 	}
@@ -36,8 +36,8 @@ public class TestsExecuted implements IEvent {
 		return mutantSurvived;
 	}
 
-	public Set<String> getTestNames() {
-		return testNames;
+	public Set<String> getExecutedTests() {
+		return executedTests;
 	}
 
 	@Override
