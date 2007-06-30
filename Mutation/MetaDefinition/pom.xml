@@ -18,7 +18,47 @@
 			<url>scp:192.168.1.5:222/Carma/MetaDefinition</url>
 		</site>
 	</distributionManagement>
-	
+
+	<profiles>
+		<profile>
+			<id>Carma</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+
+				<property>
+					<name>carma</name>
+					<value>true</value>
+				</property>
+
+			</activation>
+
+			<build>
+				<plugins>
+					<!-- enable Carma report -->
+					<plugin>
+						<groupId>com.retroduction.carma</groupId>
+						<artifactId>MavenPlugin</artifactId>
+						<executions>
+							<execution>
+								<id>mutationtest</id>
+								<goals>
+									<goal>mtest</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>mutationreport</id>
+								<goals>
+									<goal>mreport</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+
 	<dependencies>
 		<dependency>
 			<groupId>log4j</groupId>
