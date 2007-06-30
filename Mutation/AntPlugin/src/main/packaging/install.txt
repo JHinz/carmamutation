@@ -1,0 +1,18 @@
+- Unpack the Retroduction Carma Ant Plugin bundle and copy all java archives (*.jar) into 
+  the "lib" folder in you ant installation
+
+- Carma integration is done by using the following in your ant build.xml:
+
+
+	<target name="carmatest" description="Retroduction Carma test" >
+	
+		<taskdef name="carmatest" classname="com.retroduction.carma.ant.AntCarma" />
+		
+		<carmatest classesDir="target/classes/" testClassesDir="target/test-classes/" dependencyClassPathUrls=""/>
+		
+	</target>
+	
+
+- Adapt the properties classesDir, testClassesDir and add all libraries or dependencies needed for the project under test
+  to the dependencyClassPathUrls property
+
