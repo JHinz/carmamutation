@@ -14,7 +14,7 @@
 	<groupId>com.retroduction.carma</groupId>
 	<artifactId>ReportModel</artifactId>
 	<packaging>jar</packaging>
-	<name>Mutation Report Model</name>
+	<name>Retroduction Carma Report Model</name>
 
 	<url>http://godhunter.homelinux.com:10080/Carma/ReportModel</url>
 
