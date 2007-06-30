@@ -71,15 +71,6 @@ public class MutationTestMojo extends AbstractMojo {
 	 */
 	private java.util.Set dependencies;
 
-	public static void main(String[] args) throws MojoExecutionException, MojoFailureException {
-		// just for easy debugging
-		MutationTestMojo mojo = new MutationTestMojo();
-		mojo.classesDir = new File("../SampleProjectUnderTest/target/classes");
-		mojo.reportFile = new File("target/report.xml");
-		mojo.testClassesDir = new File("../SampleProjectUnderTest/target/test-classes");
-		mojo.execute();
-	}
-
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		Log log = getLog();
 

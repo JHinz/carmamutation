@@ -68,7 +68,8 @@ public class MavenTestExecuter {
 		setup.addCustomConfiguration(customProps);
 		
 		// add runtime parameters
-		reportFile.getParentFile().mkdirs();
+		if ( reportFile.getParentFile()!=null)
+			reportFile.getParentFile().mkdirs();
 
 		factory.refresh();
 		ApplicationContext ctx = setup.getApplicationContext();
