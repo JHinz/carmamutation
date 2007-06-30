@@ -169,11 +169,14 @@
 		<property name="testClassesLocationsAsFiles"
 			ref="${project.testclassesdir.source}" />
 		<property name="libraries" ref="${project.libraries.source}" />
+		<property name="runner" ref="mutantJUnitRunner"/>
 	</bean>
 
 	<bean id="mutantGenerator"
 		class="com.retroduction.carma.core.MutantGenerator" />
-
+		
+	<bean id="mutantJUnitRunner"
+		class="com.retroduction.carma.testrunners.junit3.MutantJUnitRunner" />
 
 	<bean id="report.eventListener"
 		class="com.retroduction.carma.eventlisteners.ReportEventListener">
