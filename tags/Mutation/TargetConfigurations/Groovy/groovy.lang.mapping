@@ -1,5 +1,0 @@
-groovy.lang.GroovyShell=groovy.lang.GroovyShellTest
-groovy.lang.IntRange=groovy.lang.IntRangeTest
-groovy.lang.Range=groovy.lang.RangeTest
-groovy.lang.Script=groovy.lang.ScriptIntegerDivideTestTest,groovy.lang.ScriptPrintTest
-groovy.lang.Tuple=groovy.lang.TupleTest

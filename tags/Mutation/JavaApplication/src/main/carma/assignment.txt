@@ -1,9 +1,0 @@
-com.retroduction.carma.application.Carma=com.retroduction.carma.application.integration.ConfigBasedResolverIntegrationTest,com.retroduction.carma.application.integration.TestSetVerificationProcessStepTest
-com.retroduction.carma.application.CarmaDriverSetup=com.retroduction.carma.application.integration.ConfigBasedResolverIntegrationTest,com.retroduction.carma.application.integration.TestSetVerificationProcessStepTest
-com.retroduction.carma.application.CarmaException=com.retroduction.carma.application.integration.ConfigBasedResolverIntegrationTest,com.retroduction.carma.application.integration.TestSetVerificationProcessStepTest
-com.retroduction.carma.application.util.CLIValidator=com.retroduction.carma.application.util.CLIValidatorTestCase
-com.retroduction.carma.config.CSVFileListFactoryBean=
-com.retroduction.carma.config.LibrariesFactoryBean=
-
-
-
