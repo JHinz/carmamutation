@@ -82,10 +82,9 @@ public class CarmaDriverSetup {
 		return driver;
 	}
 
-
 	private Properties getDefaultConfiguration() throws IOException {
 		Properties p = new Properties();
-		p.load(Carma.class.getResourceAsStream("/com/retroduction/carma/config/carma-defaults.properties"));
+		p.load(CarmaDriverSetup.class.getResourceAsStream("/com/retroduction/carma/config/carma-defaults.properties"));
 		return p;
 	}
 }

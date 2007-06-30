@@ -9,8 +9,8 @@ import junit.framework.TestCase;
 
 import org.apache.maven.plugin.MojoExecutionException;
 
+import com.retroduction.carma.application.MavenTestExecuter;
 import com.retroduction.carma.eventlisteners.SummaryCreatorEventListener.Summary;
-import com.retroduction.carma.mavenplugin.MavenTestExecuter;
 
 public class MavenTestExecuterTestCase extends TestCase {
 

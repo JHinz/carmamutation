@@ -39,6 +39,8 @@
 		<module>../EventListeners</module>
 		<module>../TestRunners</module>
 		<module>../Resolvers</module>
+		<module>../AntPlugin</module>
+		<module>../Integration</module>
 	</modules>
 
 </project>

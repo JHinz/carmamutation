@@ -1,4 +1,4 @@
-package com.retroduction.carma.mavenplugin;
+package com.retroduction.carma.ant;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -11,6 +11,7 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.Path;
 
+import com.retroduction.carma.application.MavenTestExecuter;
 import com.retroduction.carma.eventlisteners.SummaryCreatorEventListener.Summary;
 
 public class AntCarma extends Task {

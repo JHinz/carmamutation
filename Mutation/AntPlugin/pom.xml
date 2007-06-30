@@ -11,16 +11,16 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.retroduction.carma</groupId>
-	<artifactId>MavenPlugin</artifactId>
-	<packaging>maven-plugin</packaging>
-	<name>Retroduction Carma Maven Plugin</name>
+	<artifactId>AntPlugin</artifactId>
+	<packaging>jar</packaging>
+	<name>Retroduction Carma Ant Plugin</name>
 
-	<url>http://godhunter.homelinux.com:10080/Carma/MavenPlugin</url>
+	<url>http://godhunter.homelinux.com:10080/Carma/AntPlugin</url>
 
 	<distributionManagement>
 		<site>
 			<id>carma.retroduction.com</id>
-			<url>scp:192.168.1.5:222/Carma/MavenPlugin</url>
+			<url>scp:192.168.1.5:222/Carma/AntPlugin</url>
 		</site>
 	</distributionManagement>
 
@@ -28,19 +28,13 @@
 
 		<dependency>
 			<groupId>${groupId}</groupId>
-			<artifactId>Integration</artifactId>
+			<artifactId>JavaApplication</artifactId>
 			<version>${version}</version>
 		</dependency>
-
 		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-plugin-api</artifactId>
-			<version>2.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-artifact</artifactId>
-			<version>2.0</version>
+			<groupId>org.apache.ant</groupId>
+			<artifactId>ant</artifactId>
+			<version>1.7.0</version>
 		</dependency>
 	</dependencies>
 
