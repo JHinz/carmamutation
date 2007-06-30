@@ -1,1 +1,11 @@
-SampleClassUsingAnnotation=AnotherSampleClassUsingAnnotation
+# Assignment map between classes and test classes
+# Enter mappings as name value pairs where name is the fully qualified class name
+# under test and the value a comma-separated list of fully qualified test class names
+#
+# Classes and test classes must be resolvable by editing the directory properties
+# in carma.properties. Otherwise you will see error and warnings entries in the log output
+# that either classes or test classes could not be found or not be executed.
+#
+# Example:
+# com.retroduction.SampleClassUnderTest = com.retroduction.SampleClassUnderTestTestCase, com.retroduction.AnotherTestCase
+
