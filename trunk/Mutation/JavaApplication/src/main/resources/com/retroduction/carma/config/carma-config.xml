@@ -24,15 +24,6 @@
 		<property name="csvNamesList" value="${project.testclassesdir}" />
 	</bean>
 
-<!-- 
-	<bean id="classesDir" class="java.io.File">
-		<constructor-arg value="${project.classesdir}" />
-	</bean>
-
-	<bean id="testClassesDir" class="java.io.File">
-		<constructor-arg value="${project.testclassesdir}" />
-	</bean>
- -->
 
 	<!-- the driver main class which constructs a proper mutation runner -->
 	<bean id="testDriver" class="com.retroduction.carma.core.Core">
