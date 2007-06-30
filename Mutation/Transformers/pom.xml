@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.retroduction.carma</groupId>
 		<artifactId>MetaDefinition</artifactId>
-		<version>0.1-SNAPSHOT</version>
+		<version>0.1</version>
 		<relativePath>../MetaDefinition</relativePath>
 	</parent>
 
@@ -14,7 +14,6 @@
 	<groupId>com.retroduction.carma</groupId>
 	<artifactId>Transformers</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1-SNAPSHOT</version>
 	<name>Retroduction Carma Transformer</name>
 	<description>
 		Retroduction Carma Transformer project which handles byte code
@@ -34,12 +33,12 @@
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>Core</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>Utilities</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>asm</groupId>

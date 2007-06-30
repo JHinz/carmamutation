@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.retroduction.carma</groupId>
 		<artifactId>MetaDefinition</artifactId>
-		<version>0.1-SNAPSHOT</version>
+		<version>0.1</version>
 		<relativePath>../MetaDefinition</relativePath>
 	</parent>
 
@@ -14,7 +14,6 @@
 	<groupId>com.retroduction.carma</groupId>
 	<artifactId>Utilities</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1-SNAPSHOT</version>
 	<name>Retroduction Carma Utilities</name>
 
 	<url>http://godhunter.homelinux.com:10080/Carma/Utilities</url>

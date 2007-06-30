@@ -35,7 +35,7 @@
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>Annotations</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>0.1</version>
 		</dependency>
 
 	</dependencies>

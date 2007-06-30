@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.retroduction.carma</groupId>
 		<artifactId>MetaDefinition</artifactId>
-		<version>0.1-SNAPSHOT</version>
+		<version>0.1</version>
 		<relativePath>../MetaDefinition</relativePath>
 	</parent>
 
@@ -13,7 +13,6 @@
 	<groupId>com.retroduction.carma</groupId>
 	<artifactId>MavenPlugin</artifactId>
 	<packaging>maven-plugin</packaging>
-	<version>0.1-SNAPSHOT</version>
 	<name>Mutation Maven Plugin</name>
 
 	<url>http://godhunter.homelinux.com:10080/Carma/MavenPlugin</url>
@@ -30,42 +29,42 @@
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>JavaApplication</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>Core</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>ReportModel</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>ReportGenerator</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>EventListeners</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>TestRunners</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>Transformers</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>Resolvers</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>0.1</version>
 		</dependency>
 
 		<dependency>
