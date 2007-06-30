@@ -1,0 +1,12 @@
+com.retroduction.carma.resolvers.AnnotationResolver=com.retroduction.carma.resolvers.AnnotationResolverTestCase
+com.retroduction.carma.resolvers.BruteForceResolver=com.retroduction.carma.resolvers.BruteForceResolverTestCase
+com.retroduction.carma.resolvers.ClassMatchResolver=com.retroduction.carma.resolvers.ConfigBasedResolverTestCase
+com.retroduction.carma.resolvers.ConfigBasedResolver=
+com.retroduction.carma.resolvers.DirectoryBasedResolver=
+com.retroduction.carma.resolvers.OneTestPerClassResolver=com.retroduction.carma.resolvers.OneTestPerClassResolverTestCase
+com.retroduction.carma.resolvers.Resolver=com.retroduction.carma.resolvers.ResolverTestCase
+com.retroduction.carma.resolvers.util.ExcludeFilter=com.retroduction.carma.resolvers.FilterVerifierTestCase
+com.retroduction.carma.resolvers.util.FilterConfiguration=com.retroduction.carma.resolvers.FilterVerifierTestCase
+com.retroduction.carma.resolvers.util.FilterVerifier=com.retroduction.carma.resolvers.FilterVerifierTestCase
+com.retroduction.carma.resolvers.util.IncludeFilter=com.retroduction.carma.resolvers.FilterVerifierTestCase
+com.retroduction.carma.resolvers.util.TestCaseInstantiationVerifier=com.retroduction.carma.resolvers.util.TestCaseInstantiationVerifierTestCase

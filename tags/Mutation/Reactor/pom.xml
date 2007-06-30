@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+  http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>com.retroduction.carma</groupId>
+		<artifactId>MetaDefinition</artifactId>
+		<version>0.1-SNAPSHOT</version>
+		<relativePath>../MetaDefinition</relativePath>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.retroduction.carma</groupId>
+	<artifactId>Reactor</artifactId>
+	<packaging>pom</packaging>
+	<version>0.1-SNAPSHOT</version>
+	<name>Retroduction Carma Reactor Project</name>
+
+	<url>http://godhunter.homelinux.com:10080/Carma</url>
+
+
+	<distributionManagement>
+		<site>
+			<id>carma.retroduction.com</id>
+			<url>scp:192.168.1.5:222/Carma/</url>
+		</site>
+	</distributionManagement>
+
+	<modules>
+		<module>../MetaDefinition</module>
+		<module>../ReportModel</module>
+		<module>../ReportGenerator</module>
+		<module>../MavenPlugin</module>
+		<module>../JavaApplication</module>
+		<module>../Core</module>
+		<module>../Annotations</module>
+		<module>../Utilities</module>
+		<module>../Transformers</module>
+		<module>../EventListeners</module>
+		<module>../TestRunners</module>
+		<module>../Resolvers</module>
+	</modules>
+
+</project>
