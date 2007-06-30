@@ -44,29 +44,5 @@
 		</dependency>
 	</dependencies>
 
-	<!-- enable for Carma report
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>com.retroduction.carma</groupId>
-				<artifactId>MavenPlugin</artifactId>
-				<executions>
-					<execution>
-						<id>mutationtest</id>
-						<goals>
-							<goal>mtest</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>mutationreport</id>
-						<goals>
-							<goal>mreport</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
-	-->
 
 </project>
