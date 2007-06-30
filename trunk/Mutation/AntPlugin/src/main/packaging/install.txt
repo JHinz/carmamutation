@@ -6,7 +6,7 @@
 
 	<target name="carmatest" description="Retroduction Carma test" >
 	
-		<taskdef name="carmatest" classname="com.retroduction.carma.ant.AntCarma" />
+		<taskdef name="carmatest" classname="com.retroduction.carma.ant.AntCarmaTest" />
 		
 		<carmatest classesDir="target/classes/" testClassesDir="target/test-classes/" dependencyClassPathUrls=""/>
 		

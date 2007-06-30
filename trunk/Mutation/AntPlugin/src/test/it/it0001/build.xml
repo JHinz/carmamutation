@@ -1,7 +1,12 @@
 <project name="SampleProjectUnderTest" default="carmatest" basedir=".">
 
 	<target name="carmatest" description="Use the Task" >
-		<taskdef name="carmatest" classname="com.retroduction.carma.ant.AntCarma" classpath="../../../../target/classes/:../../../.././libs//activation-1.1.jar:../../../.././libs//Annotations-0.2-SNAPSHOT.jar:../../../.././libs//ant-1.7.0.jar:../../../.././libs//ant-launcher-1.7.0.jar:../../../.././libs//asm-3.0.jar:../../../.././libs//asm-analysis-3.0.jar:../../../.././libs//asm-commons-3.0.jar:../../../.././libs//asm-tree-3.0.jar:../../../.././libs//asm-util-3.0.jar:../../../.././libs//avalon-framework-4.1.3.jar:../../../.././libs//commons-cli-1.0.jar:../../../.././libs//commons-collections-3.1.jar:../../../.././libs//commons-lang-1.0.jar:../../../.././libs//commons-logging-1.1.jar:../../../.././libs//Core-0.2-SNAPSHOT.jar:../../../.././libs//EventListeners-0.2-SNAPSHOT.jar:../../../../libs//JavaApplication-0.2-SNAPSHOT.jar:../../../.././libs//jaxb-api-2.0.jar:../../../.././libs//jaxb-impl-2.0.3.jar:../../../.././libs//jcommon-1.0.8.jar:../../../.././libs//jfreechart-1.0.4.jar:../../../.././libs//jsr173_api-1.0.jar:../../../.././libs//junit-3.8.2.jar:../../../.././libs//log4j-1.2.14.jar:../../../.././libs//logkit-1.0.1.jar:../../../.././libs//maven-artifact-2.0.jar:../../../.././libs//maven-plugin-api-2.0.jar:../../../.././libs//oro-2.0.8.jar:../../../.././libs//plexus-utils-1.0.4.jar:../../../.././libs//ReportGenerator-0.2-SNAPSHOT.jar:../../../.././libs//ReportModel-0.2-SNAPSHOT.jar:../../../.././libs//Resolvers-0.2-SNAPSHOT.jar:../../../.././libs//servlet-api-2.3.jar:../../../.././libs//spring-2.0.5.jar:../../../.././libs//TestRunners-0.2-SNAPSHOT.jar:../../../.././libs//Transformers-0.2-SNAPSHOT.jar" />
-		<carmatest classesDir="target/classes/" testClassesDir="target/test-classes/" dependencyClassPathUrls=""/>
+		<taskdef name="carmatest" classname="com.retroduction.carma.ant.AntCarmaTest"/>
+		<carmatest classesDir="target/classes/" testClassesDir="target/test-classes/" reportFile="target/report.xml" dependencyClassPathUrls=""/>
+	</target>
+	
+	<target name="carmareport" description="Use the Task" >
+		<taskdef name="carmareport" classname="com.retroduction.carma.ant.AntCarmaReport"/>
+		<carmareport sourceDir="src/main/java" reportFile="target/report.xml" outputDirectory="target/carmareport/" />
 	</target>
 </project>
