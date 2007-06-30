@@ -24,7 +24,7 @@
 			<url>scp:192.168.1.5:222/Carma/ReportModel</url>
 		</site>
 	</distributionManagement>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>com.sun.xml.bind</groupId>
@@ -41,6 +41,34 @@
 				<configuration>
 					<source>1.5</source>
 					<target>1.5</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>
+								com.retroduction.carma.xmlreport.utilities.ReportSummary
+							</mainClass>
+							<addClasspath>true</addClasspath>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<!-- NOTE: We don't need a groupId specification because the group is
+					org.apache.maven.plugins ...which is assumed by default.
+				-->
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>
+							jar-with-dependencies
+						</descriptorRef>
+					</descriptorRefs>
 				</configuration>
 			</plugin>
 		</plugins>
