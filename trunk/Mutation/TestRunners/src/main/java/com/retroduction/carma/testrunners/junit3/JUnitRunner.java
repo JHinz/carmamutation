@@ -11,9 +11,6 @@ import java.util.TreeSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import junit.framework.Test;
-import junit.framework.TestResult;
-
 import com.retroduction.carma.core.api.eventlisteners.IEventListener;
 import com.retroduction.carma.core.api.eventlisteners.om.TestsExecuted;
 import com.retroduction.carma.core.api.testrunners.ITestRunner;
@@ -37,60 +34,23 @@ public class JUnitRunner implements ITestRunner {
 
 	private boolean stopOnFirstFailedTest = true;
 
+	private IMutantJUnitRunner runner;
+
 	/**
 	 * 
 	 * @return sum of failures and errors
 	 */
 	private int runTest(String testCase, Mutant mutant) {
-
 		URL[] urls = calculateCombinedClassPath();
-
-		MutantJUnitRunner runner = new MutantJUnitRunner(urls, mutant);
-		try {
-			Test suite = runner.getTest(testCase);
-			TestResult result = runner.doRun(suite, false);
-
-			runner.restoreReplacedClassLoader();
-
-			int errors = result.errorCount();
-			int failures = result.failureCount();
-			return errors + failures;
-		} catch (RuntimeException e) {
-			runner.restoreReplacedClassLoader();
-			throw e;
-		}
-
+		return runner.perform(testCase, urls, mutant);
 	}
 
 	URL[] calculateCombinedClassPath() {
 		URL[] urls = new URL[classesLocations.length + testClassesLocations.length + libraries.length];
-
 		System.arraycopy(classesLocations, 0, urls, 0, classesLocations.length);
 		System.arraycopy(testClassesLocations, 0, urls, classesLocations.length, testClassesLocations.length);
 		System.arraycopy(libraries, 0, urls, classesLocations.length + testClassesLocations.length, libraries.length);
 		return urls;
-	}
-
-	public void setTestClassesLocations(URL[] testClassesLocation) {
-		this.testClassesLocations = testClassesLocation;
-	}
-
-	public void setTestClassesLocationsAsFiles(List<File> testClassesLocPaths) throws MalformedURLException {
-		URL[] urls = new URL[testClassesLocPaths.size()];
-		for (int i = 0; i < testClassesLocPaths.size(); i++) {
-			urls[i] = testClassesLocPaths.get(i).toURL();
-		}
-
-		this.testClassesLocations = urls;
-	}
-
-	public void setClassesLocationsAsFiles(List<File> classesLocPaths) throws MalformedURLException {
-		URL[] urls = new URL[classesLocPaths.size()];
-		for (int i = 0; i < classesLocPaths.size(); i++) {
-			urls[i] = classesLocPaths.get(i).toURL();
-		}
-
-		this.classesLocations = urls;
 	}
 
 	public void execute(Mutant mutant, Set<String> origTestNames, IEventListener eventListener) {
@@ -147,6 +107,32 @@ public class JUnitRunner implements ITestRunner {
 
 	public void setClassesLocations(URL[] classesLocations) {
 		this.classesLocations = classesLocations;
+	}
+
+	public void setTestClassesLocations(URL[] testClassesLocation) {
+		this.testClassesLocations = testClassesLocation;
+	}
+
+	public void setTestClassesLocationsAsFiles(List<File> testClassesLocPaths) throws MalformedURLException {
+		URL[] urls = new URL[testClassesLocPaths.size()];
+		for (int i = 0; i < testClassesLocPaths.size(); i++) {
+			urls[i] = testClassesLocPaths.get(i).toURL();
+		}
+
+		this.testClassesLocations = urls;
+	}
+
+	public void setClassesLocationsAsFiles(List<File> classesLocPaths) throws MalformedURLException {
+		URL[] urls = new URL[classesLocPaths.size()];
+		for (int i = 0; i < classesLocPaths.size(); i++) {
+			urls[i] = classesLocPaths.get(i).toURL();
+		}
+
+		this.classesLocations = urls;
+	}
+
+	public void setRunner(MutantJUnitRunner runner) {
+		this.runner = runner;
 	}
 
 }
