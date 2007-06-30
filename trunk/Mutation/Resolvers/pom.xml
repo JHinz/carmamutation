@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.retroduction.carma</groupId>
 		<artifactId>MetaDefinition</artifactId>
-		<version>0.1-SNAPSHOT</version>
+		<version>0.1</version>
 		<relativePath>../MetaDefinition</relativePath>
 	</parent>
 
@@ -14,7 +14,6 @@
 	<groupId>com.retroduction.carma</groupId>
 	<artifactId>Resolvers</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1-SNAPSHOT</version>
 	<name>Retroduction Carma Resolvers</name>
 
 	<url>http://godhunter.homelinux.com:10080/Carma/Resolvers</url>
@@ -30,12 +29,12 @@
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>Core</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>Annotations</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>0.1</version>
 		</dependency>
 
 	</dependencies>

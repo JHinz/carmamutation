@@ -6,7 +6,6 @@
 	<groupId>com.mutation.sampleapp</groupId>
 	<artifactId>SampleProjectUnderTest</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0-SNAPSHOT</version>
 	<name>Mutation Sample Under-Mutation Project</name>
 
 	<dependencies>

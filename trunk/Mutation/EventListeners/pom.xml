@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.retroduction.carma</groupId>
 		<artifactId>MetaDefinition</artifactId>
-		<version>0.1-SNAPSHOT</version>
+		<version>0.1</version>
 		<relativePath>../MetaDefinition</relativePath>
 	</parent>
 
@@ -14,7 +14,6 @@
 	<groupId>com.retroduction.carma</groupId>
 	<artifactId>EventListeners</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1-SNAPSHOT</version>
 	<name>Retroduction Carma EventListeners</name>
 	<description>
 		Retroduction Carma EventListener project which handles fired events during the mutation process.
@@ -33,7 +32,7 @@
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>Core</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>0.1</version>
 		</dependency>
 	</dependencies>
  
