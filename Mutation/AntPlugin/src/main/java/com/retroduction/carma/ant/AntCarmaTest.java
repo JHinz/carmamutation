@@ -14,7 +14,7 @@ import org.apache.tools.ant.types.Path;
 import com.retroduction.carma.application.MavenTestExecuter;
 import com.retroduction.carma.eventlisteners.SummaryCreatorEventListener.Summary;
 
-public class AntCarma extends Task {
+public class AntCarmaTest extends Task {
 
 	private Path dependencyClassPathUrls;
 
