@@ -14,6 +14,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 
+import com.retroduction.carma.application.MavenTestExecuter;
 import com.retroduction.carma.eventlisteners.SummaryCreatorEventListener.Summary;
 
 /**
