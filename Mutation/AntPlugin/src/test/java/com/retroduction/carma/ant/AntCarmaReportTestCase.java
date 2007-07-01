@@ -7,7 +7,6 @@ import java.security.Permission;
 import junit.framework.TestCase;
 
 import org.apache.tools.ant.Main;
-import org.apache.tools.ant.launch.Launcher;
 
 public class AntCarmaReportTestCase extends TestCase {
 
@@ -16,7 +15,7 @@ public class AntCarmaReportTestCase extends TestCase {
 	public void setUp() {
 
 		originalSecManager = System.getSecurityManager();
-		// System.setSecurityManager(new NoSystemExitSecurityManager());
+		System.setSecurityManager(new NoSystemExitSecurityManager());
 	}
 
 	public void tearDown() {
