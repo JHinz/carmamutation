@@ -22,27 +22,27 @@ public class AntCarmaReport extends org.apache.tools.ant.Task {
 	/**
 	 * The location of the generated class files
 	 */
-	private File sourceDir;
+	private String sourceDir;
 
 	/**
 	 * The location for the mutation report
 	 */
-	private File reportFile;
+	private String reportFile;
 
 	/**
 	 * The target location for the mutation site report
 	 */
-	private File outputDirectory;
+	private String outputDirectory;
 
-	public void setSourceDir(File sourceDir) {
+	public void setSourceDir(String sourceDir) {
 		this.sourceDir = sourceDir;
 	}
 
-	public void setReportFile(File reportFile) {
+	public void setReportFile(String reportFile) {
 		this.reportFile = reportFile;
 	}
 
-	public void setOutputDirectory(File outputDirectory) {
+	public void setOutputDirectory(String outputDirectory) {
 		this.outputDirectory = outputDirectory;
 	}
 
@@ -51,7 +51,7 @@ public class AntCarmaReport extends org.apache.tools.ant.Task {
 		ReportModelLoader loader = new ReportModelLoader();
 		MutationRun mutationRun;
 		try {
-			mutationRun = loader.loadReportModel(this.reportFile);
+			mutationRun = loader.loadReportModel(new File(reportFile));
 		} catch (FileNotFoundException e) {
 			log(e, 2);
 			throw new BuildException("Report File not found");
@@ -62,8 +62,8 @@ public class AntCarmaReport extends org.apache.tools.ant.Task {
 		SingleReportGenerator reportGenerator = new SingleReportGenerator();
 
 		List<File> sourceDirectories = new ArrayList<File>();
-		sourceDirectories.add(this.sourceDir);
-		reportGenerator.perform(mutationRun, outputDirectory, sourceDirectories);
+		sourceDirectories.add(new File(sourceDir));
+		reportGenerator.perform(mutationRun, new File(outputDirectory), sourceDirectories);
 
 		log("# --------------------------------------------------------------------------------");
 		log("# Mutation Site report generated. Output directory: " + outputDirectory);

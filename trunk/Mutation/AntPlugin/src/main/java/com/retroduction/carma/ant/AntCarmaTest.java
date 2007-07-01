@@ -18,31 +18,31 @@ public class AntCarmaTest extends Task {
 
 	private Path dependencyClassPathUrls;
 
-	private File classesDir;
+	private String classesDir;
 
-	private File testClassesDir;
+	private String testClassesDir;
 
-	private File reportFile = new File("report.xml");
+	private String reportFile = "report.xml";
 
-	private File configFile = new File("carma.properties");
+	private String configFile = "carma.properties";
 
 	public void setDependencyClassPathUrls(Path dependencyClassPathUrls) {
 		this.dependencyClassPathUrls = dependencyClassPathUrls;
 	}
 
-	public void setClassesdir(File classesDir) {
+	public void setClassesdir(String classesDir) {
 		this.classesDir = classesDir;
 	}
 
-	public void setTestClassesDir(File testClassesDir) {
+	public void setTestClassesDir(String testClassesDir) {
 		this.testClassesDir = testClassesDir;
 	}
 
-	public void setReportFile(File reportFile) {
+	public void setReportFile(String reportFile) {
 		this.reportFile = reportFile;
 	}
 
-	public void setConfigFile(File configFile) {
+	public void setConfigFile(String configFile) {
 		this.configFile = configFile;
 	}
 
@@ -53,8 +53,8 @@ public class AntCarmaTest extends Task {
 
 		MavenTestExecuter mavenCarma = new MavenTestExecuter();
 
-		mavenCarma.setClassesDir(classesDir);
-		mavenCarma.setConfigFile(configFile);
+		mavenCarma.setClassesDir(new File(classesDir));
+		mavenCarma.setConfigFile(new File(configFile));
 
 		String[] paths = dependencyClassPathUrls.list();
 
@@ -67,8 +67,8 @@ public class AntCarmaTest extends Task {
 			}
 
 		mavenCarma.setDependencyClassPathUrls(urls);
-		mavenCarma.setReportFile(reportFile);
-		mavenCarma.setTestClassesDir(testClassesDir);
+		mavenCarma.setReportFile(new File(reportFile));
+		mavenCarma.setTestClassesDir(new File(testClassesDir));
 
 		try {
 			mavenCarma.executeTests();
