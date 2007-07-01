@@ -28,13 +28,14 @@
 
 		<dependency>
 			<groupId>${groupId}</groupId>
-			<artifactId>JavaApplication</artifactId>
+			<artifactId>Integration</artifactId>
 			<version>${version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.ant</groupId>
 			<artifactId>ant</artifactId>
 			<version>1.7.0</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	
