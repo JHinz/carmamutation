@@ -14,6 +14,7 @@ import junit.framework.TestCase;
 
 import com.retroduction.carma.core.api.eventlisteners.IEvent;
 import com.retroduction.carma.core.api.eventlisteners.IEventListener;
+import com.retroduction.carma.core.api.eventlisteners.om.ClassesUnderTestResolved;
 import com.retroduction.carma.core.api.eventlisteners.om.MutantsGenerated;
 import com.retroduction.carma.core.api.eventlisteners.om.MutationProcessFinished;
 import com.retroduction.carma.core.api.eventlisteners.om.MutationProcessStarted;
@@ -21,7 +22,9 @@ import com.retroduction.carma.core.api.eventlisteners.om.ProcessingClassUnderTes
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingClassUnderTestFinished;
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingMutant;
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingMutationOperator;
+import com.retroduction.carma.core.api.eventlisteners.om.TestSetDetermined;
 import com.retroduction.carma.core.api.eventlisteners.om.TestSetNotSane;
+import com.retroduction.carma.core.api.eventlisteners.om.TestsExecuted;
 import com.retroduction.carma.core.api.resolvers.IResolver;
 import com.retroduction.carma.core.api.testrunners.ITestRunner;
 import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
@@ -37,7 +40,7 @@ public class CoreTestCase extends TestCase {
 
 	private class MockTransition implements ITransition {
 
-		public List<Mutant> applyTransitions(byte[] byteCode, IEventListener eventListener) {
+		public List<Mutant> applyTransitions(byte[] byteCode) {
 			List<Mutant> result = new ArrayList<Mutant>();
 			Mutant mutant = new Mutant();
 			result.add(mutant);
@@ -88,7 +91,7 @@ public class CoreTestCase extends TestCase {
 	private class MockMutantGenerator implements IMutationGenerator {
 
 		public List<Mutant> generateMutants(String classUnderTest, byte[] originalClassByteCode,
-				Set<ITransitionGroup> transitionGroups, IEventListener listener) {
+				Set<ITransitionGroup> transitionGroups) {
 			List<Mutant> result = new ArrayList<Mutant>();
 			Mutant pseudoMutant = new Mutant();
 			pseudoMutant.setName("PseudoMutant");
@@ -118,6 +121,14 @@ public class CoreTestCase extends TestCase {
 			return result;
 		}
 
+		public Set<ClassDescription> removeSuperfluousClassNames(Set<ClassDescription> classesUnderTest) {
+			return classesUnderTest;
+		}
+
+		public Set<ClassDescription> removeSuperfluousTestClasses(Set<ClassDescription> remainingClassDescriptions) {
+			return remainingClassDescriptions;
+		}
+
 	}
 
 	private class MockTestRunner implements ITestRunner {
@@ -129,7 +140,7 @@ public class CoreTestCase extends TestCase {
 			this.shoudFailOnValidation = shoudFailOnValidation;
 		}
 
-		public void execute(Mutant mutant, Set<String> testNames, IEventListener eventListener) {
+		public void execute(Mutant mutant, Set<String> testNames) {
 		}
 
 		public Set<String> execute(Set<String> testNames) {
@@ -204,7 +215,7 @@ public class CoreTestCase extends TestCase {
 
 		core.execute();
 
-		assertEquals("Wrong number of events fired", 7, eventListener.getEvents().size());
+		assertEquals("Wrong number of events fired", 10, eventListener.getEvents().size());
 
 		Iterator<IEvent> eventIterator = eventListener.getEvents().iterator();
 
@@ -214,6 +225,14 @@ public class CoreTestCase extends TestCase {
 		assertTrue(event instanceof MutationProcessStarted);
 		assertEquals(1, ((MutationProcessStarted) event).getTransitionGroups().size());
 		assertTrue(((MutationProcessStarted) event).getTransitionGroups().contains(transitionGroup));
+
+		event = eventIterator.next();
+		assertTrue(event instanceof ClassesUnderTestResolved);
+		// TODO: check event content
+
+		event = eventIterator.next();
+		assertTrue(event instanceof TestSetDetermined);
+		// TODO: check event content
 
 		event = eventIterator.next();
 		assertTrue(event instanceof ProcessingClassUnderTest);
@@ -236,6 +255,9 @@ public class CoreTestCase extends TestCase {
 		event = eventIterator.next();
 		assertTrue(event instanceof ProcessingMutant);
 		assertEquals("PseudoMutant", ((ProcessingMutant) event).getMutant().getName());
+
+		event = eventIterator.next();
+		assertTrue(event instanceof TestsExecuted);
 
 		event = eventIterator.next();
 		assertTrue(event instanceof ProcessingClassUnderTestFinished);
@@ -270,7 +292,7 @@ public class CoreTestCase extends TestCase {
 
 		core.execute();
 
-		assertEquals("Wrong number of events fired", 5, eventListener.getEvents().size());
+		assertEquals("Wrong number of events fired", 7, eventListener.getEvents().size());
 
 		Iterator<IEvent> eventIterator = eventListener.getEvents().iterator();
 
@@ -278,6 +300,14 @@ public class CoreTestCase extends TestCase {
 
 		event = eventIterator.next();
 		assertTrue(event instanceof MutationProcessStarted);
+
+		event = eventIterator.next();
+		assertTrue(event instanceof ClassesUnderTestResolved);
+		// TODO: check event content
+
+		event = eventIterator.next();
+		assertTrue(event instanceof TestSetDetermined);
+		// TODO: check event content
 
 		event = eventIterator.next();
 		assertTrue(event instanceof ProcessingClassUnderTest);
@@ -318,7 +348,7 @@ public class CoreTestCase extends TestCase {
 
 		core.execute();
 
-		assertEquals("Wrong number of events fired", 4, eventListener.getEvents().size());
+		assertEquals("Wrong number of events fired", 6, eventListener.getEvents().size());
 
 		Iterator<IEvent> eventIterator = eventListener.getEvents().iterator();
 
@@ -326,6 +356,14 @@ public class CoreTestCase extends TestCase {
 
 		event = eventIterator.next();
 		assertTrue(event instanceof MutationProcessStarted);
+
+		event = eventIterator.next();
+		assertTrue(event instanceof ClassesUnderTestResolved);
+		// TODO: check event content
+
+		event = eventIterator.next();
+		assertTrue(event instanceof TestSetDetermined);
+		// TODO: check event content
 
 		event = eventIterator.next();
 		assertTrue(event instanceof ProcessingClassUnderTest);

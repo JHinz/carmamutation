@@ -9,7 +9,6 @@ import javax.xml.datatype.DatatypeConfigurationException;
 
 import junit.framework.TestCase;
 
-import com.retroduction.carma.core.api.eventlisteners.IEventListener;
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingClassUnderTest;
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingClassUnderTestFinished;
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingMutant;
@@ -25,8 +24,7 @@ public class ReportEventListenerTestCase extends TestCase {
 
 	private class MockTransition implements ITransition {
 
-		public List<com.retroduction.carma.core.api.testrunners.om.Mutant> applyTransitions(byte[] byteCode,
-				IEventListener eventListener) {
+		public List<com.retroduction.carma.core.api.testrunners.om.Mutant> applyTransitions(byte[] byteCode) {
 			return null;
 		}
 
@@ -113,7 +111,10 @@ public class ReportEventListenerTestCase extends TestCase {
 			Set<String> killerTestNames = new HashSet<String>();
 			killerTestNames.add("test2");
 
-			TestsExecuted event = new TestsExecuted(mutant, executedTestNames, true, killerTestNames);
+			TestsExecuted event = new TestsExecuted(mutant);
+			mutant.setSurvived(true);
+			mutant.setExecutedTestsNames(executedTestNames);
+			mutant.setKillerTestNames(killerTestNames);
 
 			listener.notifyEvent(event);
 

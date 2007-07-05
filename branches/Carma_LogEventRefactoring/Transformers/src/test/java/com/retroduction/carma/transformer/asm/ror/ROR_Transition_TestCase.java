@@ -7,7 +7,6 @@ import java.util.List;
 import junit.framework.TestCase;
 
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
-import com.retroduction.carma.transformer.test.eventlisteners.EventListenerMock;
 import com.retroduction.carma.utilities.ByteCodeFileReader;
 
 public class ROR_Transition_TestCase extends TestCase {
@@ -19,7 +18,8 @@ public class ROR_Transition_TestCase extends TestCase {
 		}
 	}
 
-	public void test_ApplyTransition_ByteCodeModsAreDistinctBetweenMutants() throws Exception {
+	public void test_ApplyTransition_ByteCodeModsAreDistinctBetweenMutants()
+			throws Exception {
 
 		final String FQ_SAMPLE_CLASS_NAME = "com.retroduction.carma.transformer.asm.ror.Mixed_SampleClass";
 
@@ -27,10 +27,11 @@ public class ROR_Transition_TestCase extends TestCase {
 
 		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "useMultiple_IF_ICMPEQ_And_IF_ICMPNE";
 
-		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+		byte[] testByteCode = new ByteCodeFileReader()
+				.readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
 
-		List<Mutant> mutants = new IF_ICMPNE_2_IF_ICMPEQ_Transition().applyTransitions(testByteCode,
-				new EventListenerMock());
+		List<Mutant> mutants = new IF_ICMPNE_2_IF_ICMPEQ_Transition()
+				.applyTransitions(testByteCode);
 
 		assertEquals(2, mutants.size());
 
@@ -43,16 +44,19 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
-			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+			Object modifiedInputClassInstance = modifiedInputClass
+					.newInstance();
 
-			Method branchMethod = modifiedInputClass
-					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
+			Method branchMethod = modifiedInputClass.getMethod(
+					SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
 
-			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 1 });
+			Object resultObject0 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 1 });
 
 			assertEquals(4, resultObject0);
 
-			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 2 });
+			Object resultObject1 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 2 });
 
 			assertEquals(3, resultObject1);
 		}
@@ -66,16 +70,19 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
-			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+			Object modifiedInputClassInstance = modifiedInputClass
+					.newInstance();
 
-			Method branchMethod = modifiedInputClass
-					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
+			Method branchMethod = modifiedInputClass.getMethod(
+					SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
 
-			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 1 });
+			Object resultObject0 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 1 });
 
 			assertEquals(3, resultObject0);
 
-			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 2 });
+			Object resultObject1 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 2 });
 
 			assertEquals(4, resultObject1);
 		}
@@ -89,10 +96,11 @@ public class ROR_Transition_TestCase extends TestCase {
 
 		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IF_ICMPEQ";
 
-		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+		byte[] testByteCode = new ByteCodeFileReader()
+				.readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
 
-		List<Mutant> mutants = new IF_ICMPEQ_2_IF_ICMPNE_Transition().applyTransitions(testByteCode,
-				new EventListenerMock());
+		List<Mutant> mutants = new IF_ICMPEQ_2_IF_ICMPNE_Transition()
+				.applyTransitions(testByteCode);
 
 		assertEquals(1, mutants.size());
 
@@ -105,16 +113,19 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
-			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+			Object modifiedInputClassInstance = modifiedInputClass
+					.newInstance();
 
-			Method branchMethod = modifiedInputClass
-					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
+			Method branchMethod = modifiedInputClass.getMethod(
+					SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
 
-			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 0 });
+			Object resultObject0 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 0 });
 
 			assertEquals(1, resultObject0);
 
-			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 1 });
+			Object resultObject1 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 1 });
 
 			assertEquals(0, resultObject1);
 		}
@@ -129,10 +140,11 @@ public class ROR_Transition_TestCase extends TestCase {
 
 		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IF_ICMPNE";
 
-		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+		byte[] testByteCode = new ByteCodeFileReader()
+				.readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
 
-		List<Mutant> mutants = new IF_ICMPNE_2_IF_ICMPEQ_Transition().applyTransitions(testByteCode,
-				new EventListenerMock());
+		List<Mutant> mutants = new IF_ICMPNE_2_IF_ICMPEQ_Transition()
+				.applyTransitions(testByteCode);
 
 		assertEquals(1, mutants.size());
 
@@ -145,16 +157,19 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
-			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+			Object modifiedInputClassInstance = modifiedInputClass
+					.newInstance();
 
-			Method branchMethod = modifiedInputClass
-					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
+			Method branchMethod = modifiedInputClass.getMethod(
+					SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
 
-			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 0 });
+			Object resultObject0 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 0 });
 
 			assertEquals(0, resultObject0);
 
-			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 1 });
+			Object resultObject1 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 1 });
 
 			assertEquals(1, resultObject1);
 		}
@@ -169,10 +184,11 @@ public class ROR_Transition_TestCase extends TestCase {
 
 		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IF_ICMPGE";
 
-		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+		byte[] testByteCode = new ByteCodeFileReader()
+				.readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
 
-		List<Mutant> mutants = new IF_ICMPGE_2_IF_ICMPLT_Transition().applyTransitions(testByteCode,
-				new EventListenerMock());
+		List<Mutant> mutants = new IF_ICMPGE_2_IF_ICMPLT_Transition()
+				.applyTransitions(testByteCode);
 
 		assertEquals(1, mutants.size());
 
@@ -185,20 +201,24 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
-			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+			Object modifiedInputClassInstance = modifiedInputClass
+					.newInstance();
 
-			Method branchMethod = modifiedInputClass
-					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
+			Method branchMethod = modifiedInputClass.getMethod(
+					SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
 
-			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 0 });
+			Object resultObject0 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 0 });
 
 			assertEquals(1, resultObject0);
 
-			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 1 });
+			Object resultObject1 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 1 });
 
 			assertEquals(0, resultObject1);
 
-			Object resultObject2 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 2 });
+			Object resultObject2 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 2 });
 
 			assertEquals(0, resultObject2);
 		}
@@ -213,10 +233,11 @@ public class ROR_Transition_TestCase extends TestCase {
 
 		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IF_ICMPLT";
 
-		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+		byte[] testByteCode = new ByteCodeFileReader()
+				.readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
 
-		List<Mutant> mutants = new IF_ICMPLT_2_IF_ICMPGE_Transition().applyTransitions(testByteCode,
-				new EventListenerMock());
+		List<Mutant> mutants = new IF_ICMPLT_2_IF_ICMPGE_Transition()
+				.applyTransitions(testByteCode);
 
 		assertEquals(1, mutants.size());
 
@@ -229,20 +250,24 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
-			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+			Object modifiedInputClassInstance = modifiedInputClass
+					.newInstance();
 
-			Method branchMethod = modifiedInputClass
-					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
+			Method branchMethod = modifiedInputClass.getMethod(
+					SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
 
-			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 0 });
+			Object resultObject0 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 0 });
 
 			assertEquals(0, resultObject0);
 
-			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 1 });
+			Object resultObject1 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 1 });
 
 			assertEquals(1, resultObject1);
 
-			Object resultObject2 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 2 });
+			Object resultObject2 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 2 });
 
 			assertEquals(1, resultObject2);
 		}
@@ -257,10 +282,11 @@ public class ROR_Transition_TestCase extends TestCase {
 
 		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IF_ICMPGT";
 
-		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+		byte[] testByteCode = new ByteCodeFileReader()
+				.readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
 
-		List<Mutant> mutants = new IF_ICMPGT_2_IF_ICMPLE_Transition().applyTransitions(testByteCode,
-				new EventListenerMock());
+		List<Mutant> mutants = new IF_ICMPGT_2_IF_ICMPLE_Transition()
+				.applyTransitions(testByteCode);
 
 		assertEquals(1, mutants.size());
 
@@ -273,20 +299,24 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
-			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+			Object modifiedInputClassInstance = modifiedInputClass
+					.newInstance();
 
-			Method branchMethod = modifiedInputClass
-					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
+			Method branchMethod = modifiedInputClass.getMethod(
+					SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
 
-			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 0 });
+			Object resultObject0 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 0 });
 
 			assertEquals(1, resultObject0);
 
-			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 1 });
+			Object resultObject1 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 1 });
 
 			assertEquals(1, resultObject1);
 
-			Object resultObject2 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 2 });
+			Object resultObject2 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 2 });
 
 			assertEquals(0, resultObject2);
 		}
@@ -301,10 +331,11 @@ public class ROR_Transition_TestCase extends TestCase {
 
 		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IF_ICMPLE";
 
-		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+		byte[] testByteCode = new ByteCodeFileReader()
+				.readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
 
-		List<Mutant> mutants = new IF_ICMPLE_2_IF_ICMPGT_Transition().applyTransitions(testByteCode,
-				new EventListenerMock());
+		List<Mutant> mutants = new IF_ICMPLE_2_IF_ICMPGT_Transition()
+				.applyTransitions(testByteCode);
 
 		assertEquals(1, mutants.size());
 
@@ -317,20 +348,24 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
-			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+			Object modifiedInputClassInstance = modifiedInputClass
+					.newInstance();
 
-			Method branchMethod = modifiedInputClass
-					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
+			Method branchMethod = modifiedInputClass.getMethod(
+					SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
 
-			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 0 });
+			Object resultObject0 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 0 });
 
 			assertEquals(0, resultObject0);
 
-			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 1 });
+			Object resultObject1 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 1 });
 
 			assertEquals(0, resultObject1);
 
-			Object resultObject2 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 2 });
+			Object resultObject2 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 2 });
 
 			assertEquals(1, resultObject2);
 		}
@@ -345,9 +380,11 @@ public class ROR_Transition_TestCase extends TestCase {
 
 		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IFEQ";
 
-		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+		byte[] testByteCode = new ByteCodeFileReader()
+				.readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
 
-		List<Mutant> mutants = new IFEQ_2_IFNE_Transition().applyTransitions(testByteCode, new EventListenerMock());
+		List<Mutant> mutants = new IFEQ_2_IFNE_Transition()
+				.applyTransitions(testByteCode);
 
 		assertEquals(1, mutants.size());
 
@@ -360,16 +397,19 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
-			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+			Object modifiedInputClassInstance = modifiedInputClass
+					.newInstance();
 
-			Method branchMethod = modifiedInputClass
-					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
+			Method branchMethod = modifiedInputClass.getMethod(
+					SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
 
-			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 0 });
+			Object resultObject0 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 0 });
 
 			assertEquals(0, resultObject0);
 
-			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 1 });
+			Object resultObject1 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 1 });
 
 			assertEquals(1, resultObject1);
 		}
@@ -384,9 +424,11 @@ public class ROR_Transition_TestCase extends TestCase {
 
 		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IFNE";
 
-		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+		byte[] testByteCode = new ByteCodeFileReader()
+				.readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
 
-		List<Mutant> mutants = new IFNE_2_IFEQ_Transition().applyTransitions(testByteCode, new EventListenerMock());
+		List<Mutant> mutants = new IFNE_2_IFEQ_Transition()
+				.applyTransitions(testByteCode);
 
 		assertEquals(1, mutants.size());
 
@@ -399,16 +441,19 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
-			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+			Object modifiedInputClassInstance = modifiedInputClass
+					.newInstance();
 
-			Method branchMethod = modifiedInputClass
-					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
+			Method branchMethod = modifiedInputClass.getMethod(
+					SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
 
-			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 0 });
+			Object resultObject0 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 0 });
 
 			assertEquals(1, resultObject0);
 
-			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 1 });
+			Object resultObject1 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 1 });
 
 			assertEquals(0, resultObject1);
 		}
@@ -423,9 +468,11 @@ public class ROR_Transition_TestCase extends TestCase {
 
 		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IFGE";
 
-		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+		byte[] testByteCode = new ByteCodeFileReader()
+				.readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
 
-		List<Mutant> mutants = new IFGE_2_IFLT_Transition().applyTransitions(testByteCode, new EventListenerMock());
+		List<Mutant> mutants = new IFGE_2_IFLT_Transition()
+				.applyTransitions(testByteCode);
 
 		assertEquals(1, mutants.size());
 
@@ -438,20 +485,24 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
-			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+			Object modifiedInputClassInstance = modifiedInputClass
+					.newInstance();
 
-			Method branchMethod = modifiedInputClass
-					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
+			Method branchMethod = modifiedInputClass.getMethod(
+					SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
 
-			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { -1 });
+			Object resultObject0 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { -1 });
 
 			assertEquals(1, resultObject0);
 
-			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 0 });
+			Object resultObject1 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 0 });
 
 			assertEquals(0, resultObject1);
 
-			Object resultObject2 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 1 });
+			Object resultObject2 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 1 });
 
 			assertEquals(0, resultObject2);
 		}
@@ -466,9 +517,11 @@ public class ROR_Transition_TestCase extends TestCase {
 
 		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IFLT";
 
-		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+		byte[] testByteCode = new ByteCodeFileReader()
+				.readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
 
-		List<Mutant> mutants = new IFLT_2_IFGE_Transition().applyTransitions(testByteCode, new EventListenerMock());
+		List<Mutant> mutants = new IFLT_2_IFGE_Transition()
+				.applyTransitions(testByteCode);
 
 		assertEquals(1, mutants.size());
 
@@ -481,20 +534,24 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
-			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+			Object modifiedInputClassInstance = modifiedInputClass
+					.newInstance();
 
-			Method branchMethod = modifiedInputClass
-					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
+			Method branchMethod = modifiedInputClass.getMethod(
+					SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
 
-			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { -1 });
+			Object resultObject0 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { -1 });
 
 			assertEquals(0, resultObject0);
 
-			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 0 });
+			Object resultObject1 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 0 });
 
 			assertEquals(1, resultObject1);
 
-			Object resultObject2 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 1 });
+			Object resultObject2 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 1 });
 
 			assertEquals(1, resultObject2);
 		}
@@ -509,9 +566,11 @@ public class ROR_Transition_TestCase extends TestCase {
 
 		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IFGT";
 
-		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+		byte[] testByteCode = new ByteCodeFileReader()
+				.readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
 
-		List<Mutant> mutants = new IFGT_2_IFLE_Transition().applyTransitions(testByteCode, new EventListenerMock());
+		List<Mutant> mutants = new IFGT_2_IFLE_Transition()
+				.applyTransitions(testByteCode);
 
 		assertEquals(1, mutants.size());
 
@@ -524,20 +583,24 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
-			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+			Object modifiedInputClassInstance = modifiedInputClass
+					.newInstance();
 
-			Method branchMethod = modifiedInputClass
-					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
+			Method branchMethod = modifiedInputClass.getMethod(
+					SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
 
-			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { -1 });
+			Object resultObject0 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { -1 });
 
 			assertEquals(1, resultObject0);
 
-			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 0 });
+			Object resultObject1 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 0 });
 
 			assertEquals(1, resultObject1);
 
-			Object resultObject2 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 1 });
+			Object resultObject2 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 1 });
 
 			assertEquals(0, resultObject2);
 		}
@@ -552,9 +615,11 @@ public class ROR_Transition_TestCase extends TestCase {
 
 		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IFLE";
 
-		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+		byte[] testByteCode = new ByteCodeFileReader()
+				.readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
 
-		List<Mutant> mutants = new IFLE_2_IFGT_Transition().applyTransitions(testByteCode, new EventListenerMock());
+		List<Mutant> mutants = new IFLE_2_IFGT_Transition()
+				.applyTransitions(testByteCode);
 
 		assertEquals(1, mutants.size());
 
@@ -567,20 +632,24 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
-			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+			Object modifiedInputClassInstance = modifiedInputClass
+					.newInstance();
 
-			Method branchMethod = modifiedInputClass
-					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
+			Method branchMethod = modifiedInputClass.getMethod(
+					SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
 
-			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { -1 });
+			Object resultObject0 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { -1 });
 
 			assertEquals(0, resultObject0);
 
-			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 0 });
+			Object resultObject1 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 0 });
 
 			assertEquals(0, resultObject1);
 
-			Object resultObject2 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 1 });
+			Object resultObject2 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { 1 });
 
 			assertEquals(1, resultObject2);
 		}
@@ -595,10 +664,11 @@ public class ROR_Transition_TestCase extends TestCase {
 
 		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IF_ACMPEQ";
 
-		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+		byte[] testByteCode = new ByteCodeFileReader()
+				.readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
 
-		List<Mutant> mutants = new IF_ACMPEQ_2_IF_ACMPNE_Transition().applyTransitions(testByteCode,
-				new EventListenerMock());
+		List<Mutant> mutants = new IF_ACMPEQ_2_IF_ACMPNE_Transition()
+				.applyTransitions(testByteCode);
 
 		assertEquals(1, mutants.size());
 
@@ -611,21 +681,25 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
-			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+			Object modifiedInputClassInstance = modifiedInputClass
+					.newInstance();
 
-			Method branchMethod = modifiedInputClass.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] {
-					Object.class, Object.class });
+			Method branchMethod = modifiedInputClass.getMethod(
+					SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { Object.class,
+							Object.class });
 
 			Object a1 = new Object();
 			Object b1 = a1;
 
-			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { a1, b1 });
+			Object resultObject0 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { a1, b1 });
 
 			assertEquals(0, resultObject0);
 
 			b1 = new Object();
 
-			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { a1, b1 });
+			Object resultObject1 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { a1, b1 });
 
 			assertEquals(1, resultObject1);
 		}
@@ -640,10 +714,11 @@ public class ROR_Transition_TestCase extends TestCase {
 
 		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IF_ACMPNE";
 
-		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+		byte[] testByteCode = new ByteCodeFileReader()
+				.readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
 
-		List<Mutant> mutants = new IF_ACMPNE_2_IF_ACMPEQ_Transition().applyTransitions(testByteCode,
-				new EventListenerMock());
+		List<Mutant> mutants = new IF_ACMPNE_2_IF_ACMPEQ_Transition()
+				.applyTransitions(testByteCode);
 
 		assertEquals(1, mutants.size());
 
@@ -656,21 +731,25 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
-			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+			Object modifiedInputClassInstance = modifiedInputClass
+					.newInstance();
 
-			Method branchMethod = modifiedInputClass.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] {
-					Object.class, Object.class });
+			Method branchMethod = modifiedInputClass.getMethod(
+					SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { Object.class,
+							Object.class });
 
 			Object a1 = new Object();
 			Object b1 = a1;
 
-			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { a1, b1 });
+			Object resultObject0 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { a1, b1 });
 
 			assertEquals(1, resultObject0);
 
 			b1 = new Object();
 
-			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { a1, b1 });
+			Object resultObject1 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { a1, b1 });
 
 			assertEquals(0, resultObject1);
 		}
@@ -685,10 +764,11 @@ public class ROR_Transition_TestCase extends TestCase {
 
 		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IFNULL";
 
-		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+		byte[] testByteCode = new ByteCodeFileReader()
+				.readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
 
-		List<Mutant> mutants = new IFNULL_2_IFNONNULL_Transition().applyTransitions(testByteCode,
-				new EventListenerMock());
+		List<Mutant> mutants = new IFNULL_2_IFNONNULL_Transition()
+				.applyTransitions(testByteCode);
 
 		assertEquals(1, mutants.size());
 
@@ -701,20 +781,24 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
-			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+			Object modifiedInputClassInstance = modifiedInputClass
+					.newInstance();
 
-			Method branchMethod = modifiedInputClass.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS,
-					new Class[] { Object.class });
+			Method branchMethod = modifiedInputClass
+					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS,
+							new Class[] { Object.class });
 
 			Object a1 = null;
 
-			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { a1 });
+			Object resultObject0 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { a1 });
 
 			assertEquals(0, resultObject0);
 
 			a1 = new Object();
 
-			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { a1 });
+			Object resultObject1 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { a1 });
 
 			assertEquals(1, resultObject1);
 		}
@@ -729,10 +813,11 @@ public class ROR_Transition_TestCase extends TestCase {
 
 		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "methodWith_IFNONNULL";
 
-		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+		byte[] testByteCode = new ByteCodeFileReader()
+				.readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
 
-		List<Mutant> mutants = new IFNONNULL_2_IFNULL_Transition().applyTransitions(testByteCode,
-				new EventListenerMock());
+		List<Mutant> mutants = new IFNONNULL_2_IFNULL_Transition()
+				.applyTransitions(testByteCode);
 
 		assertEquals(1, mutants.size());
 
@@ -745,20 +830,24 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
-			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+			Object modifiedInputClassInstance = modifiedInputClass
+					.newInstance();
 
-			Method branchMethod = modifiedInputClass.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS,
-					new Class[] { Object.class });
+			Method branchMethod = modifiedInputClass
+					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS,
+							new Class[] { Object.class });
 
 			Object a1 = null;
 
-			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { a1 });
+			Object resultObject0 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { a1 });
 
 			assertEquals(1, resultObject0);
 
 			a1 = new Object();
 
-			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { a1 });
+			Object resultObject1 = branchMethod.invoke(
+					modifiedInputClassInstance, new Object[] { a1 });
 
 			assertEquals(0, resultObject1);
 		}

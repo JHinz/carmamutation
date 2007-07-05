@@ -46,7 +46,6 @@
 		<property name="instantiationVerifier"
 			ref="testCaseInstantiationVerifier" />
 		<property name="nestedResolver" ref="${resolver.name}" />
-		<property name="eventListener" ref="eventListener" />
 	</bean>
 
 	<bean id="resolver.configbased"

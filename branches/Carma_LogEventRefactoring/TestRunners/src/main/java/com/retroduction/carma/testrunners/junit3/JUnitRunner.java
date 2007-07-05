@@ -11,8 +11,6 @@ import java.util.TreeSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.retroduction.carma.core.api.eventlisteners.IEventListener;
-import com.retroduction.carma.core.api.eventlisteners.om.TestsExecuted;
 import com.retroduction.carma.core.api.testrunners.ITestRunner;
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
 
@@ -37,18 +35,22 @@ public class JUnitRunner implements ITestRunner {
 	private IMutantJUnitRunner runner;
 
 	URL[] calculateCombinedClassPath() {
-		URL[] urls = new URL[classesLocations.length + testClassesLocations.length + libraries.length];
+		URL[] urls = new URL[classesLocations.length
+				+ testClassesLocations.length + libraries.length];
 		System.arraycopy(classesLocations, 0, urls, 0, classesLocations.length);
-		System.arraycopy(testClassesLocations, 0, urls, classesLocations.length, testClassesLocations.length);
-		System.arraycopy(libraries, 0, urls, classesLocations.length + testClassesLocations.length, libraries.length);
+		System.arraycopy(testClassesLocations, 0, urls,
+				classesLocations.length, testClassesLocations.length);
+		System.arraycopy(libraries, 0, urls, classesLocations.length
+				+ testClassesLocations.length, libraries.length);
 		return urls;
 	}
 
-	public void execute(Mutant mutant, Set<String> origTestNames, IEventListener eventListener) {
-		boolean survived = true;
+	public void execute(Mutant mutant, Set<String> origTestNames) {
+
+		mutant.setSurvived(true);
 
 		URL[] urls = calculateCombinedClassPath();
-				
+
 		Set<String> executedTestsNames = new HashSet<String>();
 		Set<String> killerTestNames = new TreeSet<String>();
 		for (String testCase : origTestNames) {
@@ -56,9 +58,6 @@ public class JUnitRunner implements ITestRunner {
 				int failures = runner.perform(testCase, urls, mutant);
 				executedTestsNames.add(testCase);
 				if (failures > 0) {
-					survived = false;
-					// TODO IMHO it would be better to have the survived flag
-					// separated
 					mutant.setSurvived(false);
 					killerTestNames.add(testCase);
 					if (stopOnFirstFailedTest) {
@@ -70,17 +69,20 @@ public class JUnitRunner implements ITestRunner {
 				log.warn(e.getMessage());
 			}
 		}
-		eventListener.notifyEvent(new TestsExecuted(mutant, executedTestsNames, survived, killerTestNames));
+
+		mutant.setExecutedTestsNames(executedTestsNames);
+		mutant.setKillerTestNames(killerTestNames);
+
 	}
 
 	public Set<String> execute(Set<String> origTestNames) {
 
 		URL[] urls = calculateCombinedClassPath();
-		
+
 		Set<String> brokenTestNames = new TreeSet<String>();
 		for (String testCase : origTestNames) {
 			try {
-				
+
 				if (runner.perform(testCase, urls, null) > 0) {
 					brokenTestNames.add(testCase);
 				}
@@ -108,7 +110,8 @@ public class JUnitRunner implements ITestRunner {
 		this.testClassesLocations = testClassesLocation;
 	}
 
-	public void setTestClassesLocationsAsFiles(List<File> testClassesLocPaths) throws MalformedURLException {
+	public void setTestClassesLocationsAsFiles(List<File> testClassesLocPaths)
+			throws MalformedURLException {
 		URL[] urls = new URL[testClassesLocPaths.size()];
 		for (int i = 0; i < testClassesLocPaths.size(); i++) {
 			urls[i] = testClassesLocPaths.get(i).toURL();
@@ -117,7 +120,8 @@ public class JUnitRunner implements ITestRunner {
 		this.testClassesLocations = urls;
 	}
 
-	public void setClassesLocationsAsFiles(List<File> classesLocPaths) throws MalformedURLException {
+	public void setClassesLocationsAsFiles(List<File> classesLocPaths)
+			throws MalformedURLException {
 		URL[] urls = new URL[classesLocPaths.size()];
 		for (int i = 0; i < classesLocPaths.size(); i++) {
 			urls[i] = classesLocPaths.get(i).toURL();

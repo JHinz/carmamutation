@@ -2,6 +2,7 @@ package com.retroduction.carma.core;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -9,6 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.retroduction.carma.core.api.eventlisteners.IEventListener;
+import com.retroduction.carma.core.api.eventlisteners.om.ClassesUnderTestResolved;
 import com.retroduction.carma.core.api.eventlisteners.om.MutantsGenerated;
 import com.retroduction.carma.core.api.eventlisteners.om.MutationProcessFinished;
 import com.retroduction.carma.core.api.eventlisteners.om.MutationProcessStarted;
@@ -16,7 +18,9 @@ import com.retroduction.carma.core.api.eventlisteners.om.ProcessingClassUnderTes
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingClassUnderTestFinished;
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingMutant;
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingMutationOperator;
+import com.retroduction.carma.core.api.eventlisteners.om.TestSetDetermined;
 import com.retroduction.carma.core.api.eventlisteners.om.TestSetNotSane;
+import com.retroduction.carma.core.api.eventlisteners.om.TestsExecuted;
 import com.retroduction.carma.core.api.resolvers.IResolver;
 import com.retroduction.carma.core.api.testrunners.ITestRunner;
 import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
@@ -56,9 +60,24 @@ public class Core {
 
 		eventListener.notifyEvent(new MutationProcessStarted(transitionGroupConfig.getTransitionGroups()));
 
-		Set<ClassDescription> classesUnderTest = resolver.resolve();
+		Set<ClassDescription> resolvedClassesUnderTest = resolver.resolve();
 
-		performMutations(transitionGroupConfig.getTransitionGroups(), classesUnderTest);
+		Set<ClassDescription> remainingClassUnderTest = resolver.removeSuperfluousClassNames(resolvedClassesUnderTest);
+
+		eventListener.notifyEvent(new ClassesUnderTestResolved(new ArrayList<ClassDescription>(
+				remainingClassUnderTest)));
+		
+		Set<ClassDescription> remainingClassesUnderTestWithWorkingTestClasses = resolver
+				.removeSuperfluousTestClasses(remainingClassUnderTest);
+
+		for (ClassDescription clazz : remainingClassesUnderTestWithWorkingTestClasses) {
+			eventListener.notifyEvent(new TestSetDetermined(clazz.getQualifiedClassName(), clazz
+					.getAssociatedTestNames()));
+		}
+
+
+
+		performMutations(transitionGroupConfig.getTransitionGroups(), remainingClassesUnderTestWithWorkingTestClasses);
 
 		eventListener.notifyEvent(new MutationProcessFinished());
 
@@ -118,8 +137,7 @@ public class Core {
 
 				eventListener.notifyEvent(new ProcessingMutationOperator(transitionGroup.getName()));
 
-				List<Mutant> mutants = mutantGenerator.generateMutants(fqClassName, byteCode, transitionGroups,
-						eventListener);
+				List<Mutant> mutants = mutantGenerator.generateMutants(fqClassName, byteCode, transitionGroups);
 
 				log.info("Number of created mutants for current class: " + mutants.size());
 
@@ -131,7 +149,10 @@ public class Core {
 
 					eventListener.notifyEvent(new ProcessingMutant(mutant));
 
-					testRunner.execute(mutant, classUnderTestDescription.getAssociatedTestNames(), eventListener);
+					testRunner.execute(mutant, classUnderTestDescription.getAssociatedTestNames());
+
+					eventListener.notifyEvent(new TestsExecuted(mutant));
+
 				}
 			}
 

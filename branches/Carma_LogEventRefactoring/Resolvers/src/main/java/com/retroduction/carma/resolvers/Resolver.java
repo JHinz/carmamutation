@@ -1,12 +1,9 @@
 package com.retroduction.carma.resolvers;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.retroduction.carma.core.api.eventlisteners.IEventListener;
-import com.retroduction.carma.core.api.eventlisteners.om.ClassesUnderTestResolved;
-import com.retroduction.carma.core.api.eventlisteners.om.TestSetDetermined;
+import com.retroduction.carma.core.api.resolvers.INestedResolver;
 import com.retroduction.carma.core.api.resolvers.IResolver;
 import com.retroduction.carma.core.api.testrunners.ITestCaseInstantiationVerifier;
 import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
@@ -20,13 +17,7 @@ public class Resolver implements IResolver {
 
 	private ITestCaseInstantiationVerifier instantiationVerifier;
 
-	private IResolver nestedResolver;
-
-	private IEventListener eventListener;
-
-	public void setEventListener(IEventListener eventListener) {
-		this.eventListener = eventListener;
-	}
+	private INestedResolver nestedResolver;
 
 	public void setClassFilterVerifier(FilterVerifier filterVerifier) {
 		this.classFilterVerifier = filterVerifier;
@@ -36,27 +27,17 @@ public class Resolver implements IResolver {
 		this.instantiationVerifier = instantiationVerifier;
 	}
 
-	public void setNestedResolver(IResolver nestedResolver) {
+	public void setNestedResolver(INestedResolver nestedResolver) {
 		this.nestedResolver = nestedResolver;
 	}
 
 	public Set<ClassDescription> resolve() {
 
-		// TODO: remove uneccessary conversions between list -> set -> list !
-		Set<ClassDescription> classDescriptions = new HashSet<ClassDescription>(nestedResolver.resolve());
-
-		Set<ClassDescription> remainingClassUnderTest = removeSuperfluousClassNames(classDescriptions);
-
-		eventListener
-				.notifyEvent(new ClassesUnderTestResolved(new ArrayList<ClassDescription>(remainingClassUnderTest)));
-
-		Set<ClassDescription> remainingClassesUnderTestWithWorkingTestClasses = removeSuperfluousTestClasses(remainingClassUnderTest);
-
-		return remainingClassesUnderTestWithWorkingTestClasses;
+		return nestedResolver.resolve();
 
 	}
 
-	Set<ClassDescription> removeSuperfluousClassNames(Set<ClassDescription> classesUnderTest) {
+	public Set<ClassDescription> removeSuperfluousClassNames(Set<ClassDescription> classesUnderTest) {
 
 		HashSet<String> resolvedClassNames = new HashSet<String>();
 
@@ -77,7 +58,7 @@ public class Resolver implements IResolver {
 		return remainingClassDescriptions;
 	}
 
-	Set<ClassDescription> removeSuperfluousTestClasses(Set<ClassDescription> remainingClassDescriptions) {
+	public Set<ClassDescription> removeSuperfluousTestClasses(Set<ClassDescription> remainingClassDescriptions) {
 
 		for (ClassDescription classUnderTestDescription : remainingClassDescriptions) {
 
@@ -88,9 +69,6 @@ public class Resolver implements IResolver {
 			remainingTestNames = instantiationVerifier.removeNonInstantiatableClasses(remainingTestNames);
 
 			classUnderTestDescription.setAssociatedTestNames(remainingTestNames);
-
-			eventListener.notifyEvent(new TestSetDetermined(classUnderTestDescription.getQualifiedClassName(),
-					remainingTestNames));
 
 		}
 

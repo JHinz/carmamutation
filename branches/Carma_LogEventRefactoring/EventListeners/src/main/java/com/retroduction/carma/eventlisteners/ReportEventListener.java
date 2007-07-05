@@ -132,12 +132,12 @@ public class ReportEventListener implements IEventListener {
 		if (event instanceof TestsExecuted) {
 
 			TestsExecuted eventObj = (TestsExecuted) event;
-			currentMutantReport.setSurvived(eventObj.isMutantSurvived());
-			currentMutantReport.getKillerTests().addAll(eventObj.getKillerTestNames());
+			currentMutantReport.setSurvived(eventObj.getMutant().isSurvived());
+			currentMutantReport.getKillerTests().addAll(eventObj.getMutant().getKillerTestNames());
 			// TODO not very beautiful here - is executed for each mutant for
 			// relevant for whole class
 			currentClassUnderTestSubReport.getExecutedTests().clear();
-			currentClassUnderTestSubReport.getExecutedTests().addAll(eventObj.getExecutedTests());
+			currentClassUnderTestSubReport.getExecutedTests().addAll(eventObj.getMutant().getExecutedTestsNames());
 
 			return;
 
