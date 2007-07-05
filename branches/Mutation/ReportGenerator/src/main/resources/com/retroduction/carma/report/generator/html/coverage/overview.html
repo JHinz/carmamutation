@@ -1,0 +1,209 @@
+<html>
+<head>
+
+<STYLE TYPE='text/css'>
+
+/* CSS generated at csscreator.com */
+BODY{background-color:#EEEEEE;  color:#003399;  font-family:sans-serif;  font-size:small; }
+#title {
+  padding: 3px 10px 3px 10px;
+  font-size: small;
+  border: 0px;
+  text-align: center;
+}
+#menu {
+  padding: 2px 10px 2px 10px;
+  font-size: xx-small;
+  border: 0px;
+  background-color:#FFFFFF;
+  border-width: 2px;
+}
+
+#menu td {
+  padding: 2px 10px 2px 10px;
+  font-size: xx-small;
+  border: 0px;
+  background-color:#FFFFFF;
+  text-align: left;
+  width: 10px;
+}
+
+#overview {
+  font-size: xx-small;
+  border: 0px;
+  text-align: left;
+}
+
+#overview td {
+  padding: 2px 10px 2px 10px;
+}
+
+#mutationclasses {
+  
+}
+
+#mutationclasses th{
+  text-align: center;
+  background-color:#CCCCCC;
+}
+
+#mutationclasses td {
+  padding: 5px 10px 5px 10px;
+}
+
+td {
+  font-size: x-small;
+}
+tr {
+  padding: 2px 10px 2px 10px;
+}
+
+.tests {
+}
+.tests_none {
+  color:red; 
+  font-weight:bold;
+}
+
+.tested_yes {
+  color:green; 
+  font-weight:bold;
+}
+.tested_no {
+  color:red; 
+  font-weight:bold;
+}
+
+.worst {
+  background-color:#FF2222;
+  color:black; 
+  font-weight:bold;
+  text-align:right
+}
+
+
+.worst {
+  background-color:#FF2222;
+  color:black; 
+  font-weight:bold;
+  text-align:right
+}
+.bad {
+  background-color:#FFAAAA;
+  color:black; 
+  font-weight:bold;
+  text-align:right
+}
+.ok {
+  color:black; 
+  text-align:right
+}
+.best {
+  background-color:#AAFFAA;
+  color:black; 
+  font-weight:bold;
+  text-align:right
+}
+
+
+
+    </STYLE>
+    
+</head>
+<body>
+<div id="title"><h1>Project Mutation DashBoard</h1></div>
+
+<div id="menu">
+<table>
+<tr>
+<td><a href="index.html">DashBoard</a></td>
+<td><a href="details.html">Details</a></td>
+</tr>
+</table>
+</div>
+
+<div id="overview">
+<table><tr><td>
+<table>
+	<tr>
+		<td>Created:</td><td>$report.processingInfo.start</td>
+	</tr>
+	<tr>
+		<td>Duration (ms):</td><td>$report.processingInfo.duration</td>
+	</tr>
+	<tr>
+		<td>Finished:</td><td>$report.processingInfo.end</td>
+	</tr>
+</table></td><td>
+
+<table>
+	<tr>
+		<td>No. of Classes:</td><td>$report.ClassUnderTest.size()</td>
+	</tr>
+	<tr>
+		<td>No. created mutations:</td><td>$report.mutationRatio.mutationCount</td>
+	</tr>
+	<tr>
+		<td>No. survived mutations:</td><td>$report.mutationRatio.survivorCount</td>
+	</tr>
+</table></td></tr>
+</table>
+
+</div>
+<p>
+<img src="coverageChart.png" width="${chartWidth}" height="${chartHeight}" align="center" />
+</p>
+<table id="mutationclasses" >
+<th>Mutated Class</th>
+<th>Mutations</th>
+<th>MCoverage</th>
+<th>Tested</th>
+<th>Tests</th>
+
+#foreach( $class in $classInfos )
+<tr>
+    <td><a href="${class.FqClassName}.html">${class.FqClassName}</a></td>
+    <td>${class.NumMutants}</td>
+    
+    #set( $ratio = ${class.MCoverageRatio} * 100 )
+    #set( $ratio = $numberFormat.format($ratio) )
+
+
+    #if ( 0.0 == ${class.SurviverRatio}  )
+	    <td class="best">$ratio %</td>
+    #elseif  ( 1.0 == ${class.SurviverRatio}  )
+	    <td class="worst">$ratio %</td>
+    #elseif  ( 0.3 < ${class.SurviverRatio}  )
+	    <td class="bad">$ratio %</td>
+    #else  
+	    <td class="ok">$ratio %</td>
+    #end
+    
+	#if ( $class.Tests.size() > 0 )    
+    <td class="tested_yes">Y</td>
+    <td class="tests">
+    	#set ( $first = true )
+    	#foreach( $test in $class.Tests )
+    		$test
+    		#if ( $first )
+    			#set ( $first = false )
+    		#else
+    			<br/>
+    		#end
+        #end
+    </td>
+	#else
+    <td class="tested_no">N</td>
+    <td class="tests_none">
+		No Tests
+    </td>
+	#end
+
+
+</tr>
+#end
+
+
+</table>
+</body>
+</html>

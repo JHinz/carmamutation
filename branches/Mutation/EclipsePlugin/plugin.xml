@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+	<extension point="org.eclipse.ui.views">
+		<category name="MutationTool" id="MutationEclipsePlugin">
+		</category>
+		<view name="Mutated Survivor Overview" icon="icons/sample.gif"
+			category="MutationEclipsePlugin"
+			class="mutationeclipseplugin.views.SampleView"
+			id="mutationeclipseplugin.views.SampleView">
+		</view>
+	</extension>
+	
+	<extension point="org.eclipse.ui.perspectiveExtensions">
+		<perspectiveExtension
+			targetID="org.eclipse.ui.resourcePerspective">
+			<view ratio="0.5" relative="org.eclipse.ui.views.TaskList"
+				relationship="right" id="mutationeclipseplugin.views.SampleView">
+			</view>
+		</perspectiveExtension>
+	</extension>
+
+	<extension point="org.eclipse.ui.preferencePages">
+		<page id="com.mutation.eclipse.preferences.PreferencePage"
+			class="com.mutation.eclipse.preferences.PreferencePage"
+			name="Mutation Test">
+		</page>
+	</extension>
+
+	<extension point="org.eclipse.ui.propertyPages">
+		<page objectClass="org.eclipse.core.resources.IProject"
+			adaptable="true" name="MutationPropertyPage"
+			class="com.mutation.eclipse.preferences.ProjectPropertyPage"
+			id="com.mutation.eclipse.preferences.ProjectPropertyPage">
+		</page>
+	</extension>
+
+	<extension
+		point="org.eclipse.debug.core.launchConfigurationTypes">
+		<launchConfigurationType
+			delegate="com.mutation.eclipse.launch.Launcher"
+			id="com.mutation.eclipse.LaunchConfigurationType" modes="run,debug"
+			name="Mutation Runner" public="true" />
+	</extension>
+
+	<extension
+		point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+		<launchConfigurationTabGroup
+			class="com.mutation.eclipse.launch.LaunchConfigurationTabGroup"
+			description="Create a new mutation run"
+			id="com.mutation.eclipse.launch.LaunchConfigurationTabGroup"
+			type="com.mutation.eclipse.LaunchConfigurationType" />
+	</extension>
+
+</plugin>

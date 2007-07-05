@@ -1,0 +1,26 @@
+<project name="SampleProjectUnderTest" default="all" basedir=".">
+
+	<target name="all" depends="carmatest,carmareport" />
+
+	<target name="carmatest">
+
+		<taskdef name="carmatest"
+			classname="com.retroduction.carma.ant.AntCarmaTest" />
+
+		<carmatest classesDir="src/test/it/it0001/target/classes/"
+			testClassesDir="src/test/it/it0001/target/test-classes/" reportFile="target/report.xml"
+			dependencyClassPathUrls="" configFile="src/test/it/it0001/carma.properties"/>
+			
+	</target>
+
+	<target name="carmareport">
+	
+		<taskdef name="carmareport"
+			classname="com.retroduction.carma.ant.AntCarmaReport" />
+			
+		<carmareport sourceDir="src/test/it/it0001/src/main/java"
+			reportFile="target/report.xml" outputDirectory="target/carmareport/" />
+			
+	</target>
+	
+</project>

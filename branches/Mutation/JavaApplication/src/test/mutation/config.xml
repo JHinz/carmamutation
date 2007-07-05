@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+	<bean id="usedResolver" parent="configurationBasedResolver"></bean>
+
+	<bean id="classesDir" class="java.io.File">
+		<constructor-arg value="./target/classes/" />
+	</bean>
+
+	<bean id="testClassesDir" class="java.io.File">
+		<constructor-arg value="./target/test-classes/" />
+	</bean>
+
+	<bean id="sourceDir" class="java.io.File">
+		<constructor-arg value="./src/main/java" />
+	</bean>
+
+	<bean id="assignmentFile" class="java.io.File">
+		<constructor-arg value="./src/test/mutation/assignment.txt" />
+	</bean>
+
+	<bean id="testCaseSuffix" class="java.lang.String">
+		<constructor-arg value="Test" />
+	</bean>
+
+	<bean id="report.filename" class="java.lang.String">
+		<constructor-arg value="target/report.xml" />
+	</bean>
+
+	<bean id="report.reportSurvivorsOnly" class="java.lang.Boolean">
+		<constructor-arg value="true" />
+	</bean>
+
+	<util:list id="libraries">
+		<value>file:./dependency/activation-1.1.jar</value>
+		<value>file:./dependency/asm-3.0.jar</value>
+		<value>file:./dependency/asm-analysis-3.0.jar</value>
+		<value>file:./dependency/asm-commons-3.0.jar</value>
+		<value>file:./dependency/asm-tree-3.0.jar</value>
+		<value>file:./dependency/asm-util-3.0.jar</value>
+		<value>file:./dependency/avalon-framework-4.1.3.jar</value>
+		<value>file:./dependency/bcel-5.2.jar</value>
+		<value>file:./dependency/Carma-Annotations-0.1-SNAPSHOT.jar</value>
+		<value>file:./dependency/Carma-Core-0.1-SNAPSHOT.jar</value>
+		<value>file:./dependency/Carma-Utilities-0.1-SNAPSHOT.jar</value>
+		<value>file:./dependency/commons-cli-1.0.jar</value>
+		<value>file:./dependency/commons-lang-1.0.jar</value>
+		<value>file:./dependency/commons-logging-1.1.jar</value>
+		<value>file:./dependency/jakarta-regexp-1.4.jar</value>
+		<value>file:./dependency/jaxb-api-2.0.jar</value>
+		<value>file:./dependency/jaxb-impl-2.0.3.jar</value>
+		<value>file:./dependency/jsr173_api-1.0.jar</value>
+		<value>file:./dependency/junit-3.8.1.jar</value>
+		<value>file:./dependency/log4j-1.2.14.jar</value>
+		<value>file:./dependency/logkit-1.0.1.jar</value>
+		<value>file:./dependency/ReportModel-0.1-SNAPSHOT.jar</value>
+		<value>file:./dependency/servlet-api-2.3.jar</value>
+		<value>file:./dependency/spring-2.0.5.jar</value>
+	</util:list>
+
+</beans>

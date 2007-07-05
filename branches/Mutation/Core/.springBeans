@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<configExtensions>
+		<configExtension>xml</configExtension>
+	</configExtensions>
+	<configs>
+		<config>src/main/resources/carma-eventlistener.xml</config>
+		<config>src/main/resources/carma-transitions.xml</config>
+		<config>src/main/resources/carma-runner.xml</config>
+	</configs>
+	<configSets>
+		<configSet>
+			<name>EventListener</name>
+			<allowBeanDefinitionOverriding>false</allowBeanDefinitionOverriding>
+			<incomplete>false</incomplete>
+			<configs>
+				<config>src/main/resources/carma-eventlistener.xml</config>
+			</configs>
+		</configSet>
+		<configSet>
+			<name>Core</name>
+			<allowBeanDefinitionOverriding>false</allowBeanDefinitionOverriding>
+			<incomplete>false</incomplete>
+			<configs>
+				<config>src/main/resources/carma-eventlistener.xml</config>
+				<config>src/main/resources/carma-runner.xml</config>
+				<config>src/main/resources/carma-transitions.xml</config>
+			</configs>
+		</configSet>
+		<configSet>
+			<name>Runner</name>
+			<allowBeanDefinitionOverriding>false</allowBeanDefinitionOverriding>
+			<incomplete>false</incomplete>
+			<configs>
+				<config>src/main/resources/carma-runner.xml</config>
+			</configs>
+		</configSet>
+		<configSet>
+			<name>Transitions</name>
+			<allowBeanDefinitionOverriding>false</allowBeanDefinitionOverriding>
+			<incomplete>false</incomplete>
+			<configs>
+				<config>src/main/resources/carma-transitions.xml</config>
+			</configs>
+		</configSet>
+	</configSets>
+</beansProjectDescription>

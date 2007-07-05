@@ -1,0 +1,3 @@
+com.retroduction.carma.mavenplugin.MavenTestExecuter=com.retroduction.carma.mavenplugin.MavenTestExecuterTestCase
+com.retroduction.carma.mavenplugin.MutationTestMojo=
+com.retroduction.carma.mavenplugin.ReportMojo=

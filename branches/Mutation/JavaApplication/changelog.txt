@@ -1,0 +1,26 @@
+---------------------------------------------------------------------------
+Change History (newest on top)
+---------------------------------------------------------------------------
+20070516 (alex):
+- added abstract class and interface check on resolves testcase names
+- implemented annotation based resolver
+- Enhanced all resolvers by configurable exclude filter
+
+20070515 (mike):
+- tests list to set
+
+20070515 (alex)
+- Refactored resolver interface
+- Added BruteForceResolver
+- renamed old resolver to LegacyResolver
+
+20070512 (alex)
+- Moved junit test runner into dedicated package
+- moved resolvers to native project as they are irrelevant for the mutation runner itself
+- extracted class ClassDescription into own java source file
+- Replaced Set with List everywhere due to testability
+- Moved loop over multiple classes under test into MutationRunner and added
+  association between classUnderTest and the classes tests for that.
+
+20070505 (mike): 
+- fixed spring configuration

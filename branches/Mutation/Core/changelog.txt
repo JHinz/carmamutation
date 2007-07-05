@@ -1,0 +1,19 @@
+---------------------------------------------------------------------------
+Change History (newest on top)
+---------------------------------------------------------------------------
+20070515 (alex)
+- Refactored resolver interface
+- moved junit3 runner into dedicated package
+
+20070512 (alex)
+- Moved junit test runner into dedicated package
+- moved resolvers to native project as they are irrelevant for the mutation runner itself
+- extracted class ClassDescription into own java source file
+- removed unnecessary mutant generator interface
+- Replaced Set with List everywhere due to testability
+- Moved loop over multiple classes under test into MutationRunner and added
+  association between classUnderTest and the classes tests for that.
+- Implemented all senseful transitions based on ROR
+
+20070505: (mike) 
+- Added SummaryCreatorEventListener
