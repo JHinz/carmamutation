@@ -180,10 +180,6 @@
 		class="com.retroduction.carma.eventlisteners.CompositeEventListener">
 		<property name="listeners">
 			<list>
-				<bean
-					class="com.retroduction.carma.eventlisteners.ConsoleEventListener">
-					<property name="showSummaryOnly" value="false" />
-				</bean>
 				<ref bean="report.eventListener" />
 			</list>
 		</property>

@@ -11,8 +11,11 @@ import java.util.TreeSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.retroduction.carma.core.Core;
 import com.retroduction.carma.core.api.testrunners.ITestRunner;
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
+import com.retroduction.carma.utilities.Logger;
+import com.retroduction.carma.utilities.LoggerFactory;
 
 /**
  * Executes mutation tests using junit tests
@@ -22,7 +25,7 @@ import com.retroduction.carma.core.api.testrunners.om.Mutant;
  */
 public class JUnitRunner implements ITestRunner {
 
-	private Log log = LogFactory.getLog(JUnitRunner.class);
+	private Logger logger = LoggerFactory.getLogger(JUnitRunner.class);
 
 	private URL[] classesLocations = new URL[0];
 
@@ -35,13 +38,10 @@ public class JUnitRunner implements ITestRunner {
 	private IMutantJUnitRunner runner;
 
 	URL[] calculateCombinedClassPath() {
-		URL[] urls = new URL[classesLocations.length
-				+ testClassesLocations.length + libraries.length];
+		URL[] urls = new URL[classesLocations.length + testClassesLocations.length + libraries.length];
 		System.arraycopy(classesLocations, 0, urls, 0, classesLocations.length);
-		System.arraycopy(testClassesLocations, 0, urls,
-				classesLocations.length, testClassesLocations.length);
-		System.arraycopy(libraries, 0, urls, classesLocations.length
-				+ testClassesLocations.length, libraries.length);
+		System.arraycopy(testClassesLocations, 0, urls, classesLocations.length, testClassesLocations.length);
+		System.arraycopy(libraries, 0, urls, classesLocations.length + testClassesLocations.length, libraries.length);
 		return urls;
 	}
 
@@ -61,12 +61,13 @@ public class JUnitRunner implements ITestRunner {
 					mutant.setSurvived(false);
 					killerTestNames.add(testCase);
 					if (stopOnFirstFailedTest) {
+						logger.debug("Stopping on first failed test.");
 						break;
 					}
 				}
 
 			} catch (Exception e) {
-				log.warn(e.getMessage());
+				logger.warn(e.getMessage());
 			}
 		}
 
@@ -88,6 +89,7 @@ public class JUnitRunner implements ITestRunner {
 				}
 
 			} catch (Exception e) {
+				logger.debug("Found broken test: " + testCase, e);
 				brokenTestNames.add(testCase);
 			}
 		}
@@ -110,8 +112,7 @@ public class JUnitRunner implements ITestRunner {
 		this.testClassesLocations = testClassesLocation;
 	}
 
-	public void setTestClassesLocationsAsFiles(List<File> testClassesLocPaths)
-			throws MalformedURLException {
+	public void setTestClassesLocationsAsFiles(List<File> testClassesLocPaths) throws MalformedURLException {
 		URL[] urls = new URL[testClassesLocPaths.size()];
 		for (int i = 0; i < testClassesLocPaths.size(); i++) {
 			urls[i] = testClassesLocPaths.get(i).toURL();
@@ -120,8 +121,7 @@ public class JUnitRunner implements ITestRunner {
 		this.testClassesLocations = urls;
 	}
 
-	public void setClassesLocationsAsFiles(List<File> classesLocPaths)
-			throws MalformedURLException {
+	public void setClassesLocationsAsFiles(List<File> classesLocPaths) throws MalformedURLException {
 		URL[] urls = new URL[classesLocPaths.size()];
 		for (int i = 0; i < classesLocPaths.size(); i++) {
 			urls[i] = classesLocPaths.get(i).toURL();

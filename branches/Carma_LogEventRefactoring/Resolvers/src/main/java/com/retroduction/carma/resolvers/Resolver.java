@@ -8,8 +8,12 @@ import com.retroduction.carma.core.api.resolvers.IResolver;
 import com.retroduction.carma.core.api.testrunners.ITestCaseInstantiationVerifier;
 import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
 import com.retroduction.carma.resolvers.util.FilterVerifier;
+import com.retroduction.carma.utilities.Logger;
+import com.retroduction.carma.utilities.LoggerFactory;
 
 public class Resolver implements IResolver {
+
+	private Logger logger = LoggerFactory.getLogger(Resolver.class);
 
 	private FilterVerifier classFilterVerifier;
 
@@ -33,6 +37,7 @@ public class Resolver implements IResolver {
 
 	public Set<ClassDescription> resolve() {
 
+		logger.info("Resolving target classes and test classes using resolver: " + nestedResolver.getClass().getName());
 		return nestedResolver.resolve();
 
 	}

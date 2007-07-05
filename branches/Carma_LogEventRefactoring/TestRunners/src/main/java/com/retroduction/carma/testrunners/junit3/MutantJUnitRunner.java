@@ -7,8 +7,11 @@ import junit.framework.TestResult;
 import junit.runner.BaseTestRunner;
 import junit.runner.TestSuiteLoader;
 
+import com.retroduction.carma.core.Core;
 import com.retroduction.carma.core.MutationClassLoader;
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
+import com.retroduction.carma.utilities.Logger;
+import com.retroduction.carma.utilities.LoggerFactory;
 
 /**
  * JUnit Runner for mutation tests. Uses specific class loeader to load thze
@@ -19,6 +22,8 @@ import com.retroduction.carma.core.api.testrunners.om.Mutant;
  */
 public class MutantJUnitRunner extends BaseTestRunner implements IMutantJUnitRunner {
 	
+	private Logger logger = LoggerFactory.getLogger(MutantJUnitRunner.class);
+
 	MyTestSuiteLoader loader;
 
 	@Override
@@ -31,6 +36,9 @@ public class MutantJUnitRunner extends BaseTestRunner implements IMutantJUnitRun
 	private ClassLoader replacedClassLoader;
 
 	private void overrideClassLoader(URL[] testClassesLocation, Mutant mutant) {
+		
+		logger.debug("Injecting carma classloader");
+		
 		if (mutant != null) {
 			mutantLoader = new MutationClassLoader(testClassesLocation, mutant.getClassName(), mutant.getByteCode(),
 					Thread.currentThread().getContextClassLoader());
@@ -44,6 +52,7 @@ public class MutantJUnitRunner extends BaseTestRunner implements IMutantJUnitRun
 	}
 
 	private void restoreReplacedClassLoader() {
+		logger.debug("Restoring original classloader");
 		Thread.currentThread().setContextClassLoader(replacedClassLoader);
 	}
 
