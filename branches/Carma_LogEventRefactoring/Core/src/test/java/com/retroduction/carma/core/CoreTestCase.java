@@ -292,7 +292,7 @@ public class CoreTestCase extends TestCase {
 
 		core.execute();
 
-		assertEquals("Wrong number of events fired", 7, eventListener.getEvents().size());
+		 assertEquals("Wrong number of events fired", 11, eventListener.getEvents().size());
 
 		Iterator<IEvent> eventIterator = eventListener.getEvents().iterator();
 
@@ -306,6 +306,10 @@ public class CoreTestCase extends TestCase {
 		// TODO: check event content
 
 		event = eventIterator.next();
+		assertTrue(event instanceof TestSetNotSane);
+		// TODO: check event content
+
+		event = eventIterator.next();
 		assertTrue(event instanceof TestSetDetermined);
 		// TODO: check event content
 
@@ -313,7 +317,16 @@ public class CoreTestCase extends TestCase {
 		assertTrue(event instanceof ProcessingClassUnderTest);
 
 		event = eventIterator.next();
-		assertTrue(event instanceof TestSetNotSane);
+		assertTrue(event instanceof ProcessingMutationOperator);
+
+		event = eventIterator.next();
+		assertTrue(event instanceof MutantsGenerated);
+
+		event = eventIterator.next();
+		assertTrue(event instanceof ProcessingMutant);
+
+		event = eventIterator.next();
+		assertTrue(event instanceof TestsExecuted);
 
 		event = eventIterator.next();
 		assertTrue(event instanceof ProcessingClassUnderTestFinished);

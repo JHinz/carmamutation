@@ -144,12 +144,9 @@ public class ReportEventListener implements IEventListener {
 		}
 
 		if (event instanceof TestSetNotSane) {
-
 			TestSetNotSane eventObj = (TestSetNotSane) event;
-
-			currentClassUnderTestSubReport.getBrokenTests().addAll(eventObj.getTestCaseName());
+			run.getBrokenTests().addAll(eventObj.getTestCaseName());
 			return;
-
 		}
 
 	}
