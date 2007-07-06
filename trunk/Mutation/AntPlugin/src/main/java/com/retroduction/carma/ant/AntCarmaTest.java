@@ -57,7 +57,7 @@ public class AntCarmaTest extends Task {
 	public void execute() throws BuildException {
 
 		super.execute();
-
+		
 		CommandlineJava line = new CommandlineJava();
 		line.addSysproperties(sysProperties);
 		line.getSystemProperties().setSystem();

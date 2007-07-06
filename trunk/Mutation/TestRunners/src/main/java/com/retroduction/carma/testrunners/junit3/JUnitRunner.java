@@ -11,10 +11,11 @@ import java.util.TreeSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.retroduction.carma.core.api.eventlisteners.IEventListener;
-import com.retroduction.carma.core.api.eventlisteners.om.TestsExecuted;
+import com.retroduction.carma.core.Core;
 import com.retroduction.carma.core.api.testrunners.ITestRunner;
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
+import com.retroduction.carma.utilities.Logger;
+import com.retroduction.carma.utilities.LoggerFactory;
 
 /**
  * Executes mutation tests using junit tests
@@ -24,7 +25,7 @@ import com.retroduction.carma.core.api.testrunners.om.Mutant;
  */
 public class JUnitRunner implements ITestRunner {
 
-	private Log log = LogFactory.getLog(JUnitRunner.class);
+	private Logger logger = LoggerFactory.getLogger(JUnitRunner.class);
 
 	private URL[] classesLocations = new URL[0];
 
@@ -44,11 +45,12 @@ public class JUnitRunner implements ITestRunner {
 		return urls;
 	}
 
-	public void execute(Mutant mutant, Set<String> origTestNames, IEventListener eventListener) {
-		boolean survived = true;
+	public void execute(Mutant mutant, Set<String> origTestNames) {
+
+		mutant.setSurvived(true);
 
 		URL[] urls = calculateCombinedClassPath();
-				
+
 		Set<String> executedTestsNames = new HashSet<String>();
 		Set<String> killerTestNames = new TreeSet<String>();
 		for (String testCase : origTestNames) {
@@ -56,36 +58,38 @@ public class JUnitRunner implements ITestRunner {
 				int failures = runner.perform(testCase, urls, mutant);
 				executedTestsNames.add(testCase);
 				if (failures > 0) {
-					survived = false;
-					// TODO IMHO it would be better to have the survived flag
-					// separated
 					mutant.setSurvived(false);
 					killerTestNames.add(testCase);
 					if (stopOnFirstFailedTest) {
+						logger.debug("Stopping on first failed test.");
 						break;
 					}
 				}
 
 			} catch (Exception e) {
-				log.warn(e.getMessage());
+				logger.warn(e.getMessage());
 			}
 		}
-		eventListener.notifyEvent(new TestsExecuted(mutant, executedTestsNames, survived, killerTestNames));
+
+		mutant.setExecutedTestsNames(executedTestsNames);
+		mutant.setKillerTestNames(killerTestNames);
+
 	}
 
 	public Set<String> execute(Set<String> origTestNames) {
 
 		URL[] urls = calculateCombinedClassPath();
-		
+
 		Set<String> brokenTestNames = new TreeSet<String>();
 		for (String testCase : origTestNames) {
 			try {
-				
+
 				if (runner.perform(testCase, urls, null) > 0) {
 					brokenTestNames.add(testCase);
 				}
 
 			} catch (Exception e) {
+				logger.debug("Found broken test: " + testCase, e);
 				brokenTestNames.add(testCase);
 			}
 		}

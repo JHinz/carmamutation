@@ -5,10 +5,10 @@ import java.net.MalformedURLException;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.retroduction.carma.core.api.resolvers.IResolver;
+import com.retroduction.carma.core.api.resolvers.INestedResolver;
 import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
 
-public class BruteForceResolver implements IResolver {
+public class BruteForceResolver implements INestedResolver {
 	
 	private File[] classesPath;
 

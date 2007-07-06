@@ -52,8 +52,8 @@ public class AntCarmaReport extends org.apache.tools.ant.Task {
 
 		Thread.currentThread().setContextClassLoader(thisClassLoader);
 		try {
-
 			ReportModelLoader loader = new ReportModelLoader();
+
 			MutationRun mutationRun;
 			try {
 				mutationRun = loader.loadReportModel(new File(reportFile));

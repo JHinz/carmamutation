@@ -1,5 +1,7 @@
 package com.retroduction.carma.core.api.testrunners.om;
 
+import java.util.Set;
+
 import com.retroduction.carma.core.api.transitions.ITransition;
 import com.retroduction.carma.core.api.transitions.ITransitionGroup;
 
@@ -38,10 +40,30 @@ public class Mutant {
 	private SourceCodeMapping sourceMapping;
 
 	private ITransitionGroup transitionGroup;
-	
+
 	private ITransition transition;
 
 	private boolean survived;
+
+	private Set<String> executedTestsNames;
+
+	private Set<String> killerTestNames;
+
+	public Set<String> getKillerTestNames() {
+		return killerTestNames;
+	}
+
+	public void setKillerTestNames(Set<String> killerTestNames) {
+		this.killerTestNames = killerTestNames;
+	}
+
+	public Set<String> getExecutedTestsNames() {
+		return executedTestsNames;
+	}
+
+	public void setExecutedTestsNames(Set<String> executedTestsNames) {
+		this.executedTestsNames = executedTestsNames;
+	}
 
 	public boolean isSurvived() {
 		return survived;

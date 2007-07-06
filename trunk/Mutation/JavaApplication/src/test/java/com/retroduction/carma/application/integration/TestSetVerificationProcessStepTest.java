@@ -1,6 +1,5 @@
 package com.retroduction.carma.application.integration;
 
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
@@ -26,7 +25,7 @@ public class TestSetVerificationProcessStepTest extends TestCase {
 		}
 	}
 
-	public void test_TestSet_Broken() throws MalformedURLException, FileNotFoundException, ParseException,
+	public void test_TestSet_Broken_TestNotGreen() throws MalformedURLException, FileNotFoundException, ParseException,
 			JAXBException, InterruptedException {
 
 		ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
@@ -43,11 +42,11 @@ public class TestSetVerificationProcessStepTest extends TestCase {
 		assertNotNull(run.getProcessingInfo().getDuration());
 		assertNotNull(run.getProcessingInfo().getEnd());
 
-		assertEquals("Wrong mutation count", 0, run.getMutationRatio().getMutationCount());
-		assertEquals("Wrong survivor count", 0, run.getMutationRatio().getSurvivorCount());
-		
-		List<String> brokenTests = run.getClassUnderTest().iterator().next().getBrokenTests();
-		
+		assertEquals("Wrong mutation count", 1, run.getMutationRatio().getMutationCount());
+		assertEquals("Wrong survivor count", 1, run.getMutationRatio().getSurvivorCount());
+
+		List<String> brokenTests = run.getBrokenTests();
+
 		assertEquals("Broken test has not been reported", 1, brokenTests.size());
 		assertEquals("Broken test has not been reported", "AnotherSampleClassUsingAnnotation", brokenTests.get(0));
 
@@ -56,7 +55,7 @@ public class TestSetVerificationProcessStepTest extends TestCase {
 
 	}
 
-	public void test_TestSet_Sane() throws MalformedURLException, FileNotFoundException, ParseException, JAXBException,
+	public void test_TestSetSane_SingleFolder() throws MalformedURLException, FileNotFoundException, ParseException, JAXBException,
 			InterruptedException {
 
 		ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
@@ -73,21 +72,20 @@ public class TestSetVerificationProcessStepTest extends TestCase {
 		assertNotNull(run.getProcessingInfo().getDuration());
 		assertNotNull(run.getProcessingInfo().getEnd());
 
-		assertTrue("Wrong mutation count", run.getMutationRatio().getMutationCount() > 0);
-		assertTrue("Wrong survivor count", run.getMutationRatio().getSurvivorCount() > 0);
+		assertEquals("Wrong mutation count", 1, run.getMutationRatio().getMutationCount());
+		assertEquals("Wrong survivor count", 1, run.getMutationRatio().getSurvivorCount());
 
 		assertSame("Mutation ClassLoader probably still in use (legacy artifact of previous testcase?)",
 				originalClassLoader, Thread.currentThread().getContextClassLoader());
 
 	}
 
-	public void test_TestSet_Broken2() throws MalformedURLException, FileNotFoundException, ParseException,
+	public void test_TestSetSane_MultipleFolders() throws MalformedURLException, FileNotFoundException, ParseException,
 			JAXBException, InterruptedException {
 
 		ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
 
-		//TODO mike: is it right or shoud it be 007?
-		Carma.main(new String[] { "-uc", "src/test/it/it0005/carma.properties" });
+		Carma.main(new String[] { "-uc", "src/test/it/it0007/carma.properties" });
 
 		File report = new File("target/report.xml");
 
@@ -99,13 +97,12 @@ public class TestSetVerificationProcessStepTest extends TestCase {
 		assertNotNull(run.getProcessingInfo().getDuration());
 		assertNotNull(run.getProcessingInfo().getEnd());
 
-		assertEquals("Wrong mutation count", 0, run.getMutationRatio().getMutationCount());
-		assertEquals("Wrong survivor count", 0, run.getMutationRatio().getSurvivorCount());
+		assertEquals("Wrong mutation count", 2, run.getMutationRatio().getMutationCount());
+		assertEquals("Wrong survivor count", 2, run.getMutationRatio().getSurvivorCount());
 
-		List<String> brokenTests = run.getClassUnderTest().iterator().next().getBrokenTests();
-		
-		assertEquals("Broken test has not been reported", 1, brokenTests.size());
-		assertEquals("Broken test has not been reported", "AnotherSampleClassUsingAnnotation", brokenTests.get(0));
+		List<String> brokenTests = run.getBrokenTests();
+
+		assertEquals("Broken test has not been reported", 0, brokenTests.size());
 
 		assertSame("Mutation ClassLoader probably still in use (legacy artifact of previous testcase?)",
 				originalClassLoader, Thread.currentThread().getContextClassLoader());

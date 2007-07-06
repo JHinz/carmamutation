@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
-
 import junit.framework.TestCase;
+
+import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
 
 public class ClassMatchResolverTestCase extends TestCase {
 
