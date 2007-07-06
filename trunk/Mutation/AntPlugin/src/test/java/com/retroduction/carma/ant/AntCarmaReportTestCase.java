@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.security.Permission;
 
 import junit.framework.TestCase;
+import junitx.framework.Assert;
+import junitx.framework.FileAssert;
 
 import org.apache.tools.ant.Main;
 
@@ -38,6 +40,8 @@ public class AntCarmaReportTestCase extends TestCase {
 		}
 
 	}
+	
+
 
 	public void test_ProjectUnderTestWithNoDependencies_CarmaTestAndReportAntRun() throws IOException {
 
@@ -54,6 +58,9 @@ public class AntCarmaReportTestCase extends TestCase {
 		}
 
 		assertTrue(file.getCanonicalPath() + " file has not been written", file.exists());
+
+		FileAssert.assertEquals("Report.xml content unexpected", new File("src/test/it/it0001/target/report.xml"),
+				new File("target/report.xml"));
 	}
 
 }
