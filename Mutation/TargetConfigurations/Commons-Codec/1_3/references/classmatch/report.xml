@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mutationRun>
+    <processingInfo>
+        <start>2007-07-07T00:33:03.645+02:00</start>
+        <duration>19013</duration>
+        <end>2007-07-07T00:33:22.658+02:00</end>
+    </processingInfo>
     <mutationRatio>
         <mutationCount>468</mutationCount>
         <survivorCount>97</survivorCount>
@@ -7,6 +12,11 @@
     <classUnderTest>
         <className>BinaryCodec</className>
         <packageName>org.apache.commons.codec.binary</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:04.493+02:00</start>
+            <duration>458</duration>
+            <end>2007-07-07T00:33:04.951+02:00</end>
+        </processingInfo>
         <mutationRatio>
             <mutationCount>26</mutationCount>
             <survivorCount>0</survivorCount>
@@ -197,8 +207,27 @@
         <executedTests>org.apache.commons.codec.binary.BinaryCodecTest</executedTests>
     </classUnderTest>
     <classUnderTest>
+        <className>BinaryDecoder</className>
+        <packageName>org.apache.commons.codec</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:04.958+02:00</start>
+            <duration>2</duration>
+            <end>2007-07-07T00:33:04.960+02:00</end>
+        </processingInfo>
+        <mutationRatio>
+            <mutationCount>0</mutationCount>
+            <survivorCount>0</survivorCount>
+        </mutationRatio>
+        <baseClassFile>/Volumes/DevelopmentDisk/Mutation/CODEC_1_3/target/classes/org/apache/commons/codec/BinaryDecoder.class</baseClassFile>
+    </classUnderTest>
+    <classUnderTest>
         <className>Base64</className>
         <packageName>org.apache.commons.codec.binary</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:04.966+02:00</start>
+            <duration>913</duration>
+            <end>2007-07-07T00:33:05.879+02:00</end>
+        </processingInfo>
         <mutationRatio>
             <mutationCount>41</mutationCount>
             <survivorCount>0</survivorCount>
@@ -494,17 +523,27 @@
         <executedTests>org.apache.commons.codec.binary.Base64Test</executedTests>
     </classUnderTest>
     <classUnderTest>
-        <className>BinaryDecoder</className>
-        <packageName>org.apache.commons.codec</packageName>
+        <className>DigestUtils</className>
+        <packageName>org.apache.commons.codec.digest</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:05.884+02:00</start>
+            <duration>4</duration>
+            <end>2007-07-07T00:33:05.888+02:00</end>
+        </processingInfo>
         <mutationRatio>
             <mutationCount>0</mutationCount>
             <survivorCount>0</survivorCount>
         </mutationRatio>
-        <baseClassFile>/Volumes/DevelopmentDisk/Mutation/CODEC_1_3/target/classes/org/apache/commons/codec/BinaryDecoder.class</baseClassFile>
+        <baseClassFile>/Volumes/DevelopmentDisk/Mutation/CODEC_1_3/target/classes/org/apache/commons/codec/digest/DigestUtils.class</baseClassFile>
     </classUnderTest>
     <classUnderTest>
         <className>QuotedPrintableCodec</className>
         <packageName>org.apache.commons.codec.net</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:05.893+02:00</start>
+            <duration>409</duration>
+            <end>2007-07-07T00:33:06.302+02:00</end>
+        </processingInfo>
         <mutationRatio>
             <mutationCount>22</mutationCount>
             <survivorCount>0</survivorCount>
@@ -667,17 +706,13 @@
         <executedTests>org.apache.commons.codec.net.QuotedPrintableCodecTest</executedTests>
     </classUnderTest>
     <classUnderTest>
-        <className>DigestUtils</className>
-        <packageName>org.apache.commons.codec.digest</packageName>
-        <mutationRatio>
-            <mutationCount>0</mutationCount>
-            <survivorCount>0</survivorCount>
-        </mutationRatio>
-        <baseClassFile>/Volumes/DevelopmentDisk/Mutation/CODEC_1_3/target/classes/org/apache/commons/codec/digest/DigestUtils.class</baseClassFile>
-    </classUnderTest>
-    <classUnderTest>
         <className>StringDecoder</className>
         <packageName>org.apache.commons.codec</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:06.305+02:00</start>
+            <duration>1</duration>
+            <end>2007-07-07T00:33:06.306+02:00</end>
+        </processingInfo>
         <mutationRatio>
             <mutationCount>0</mutationCount>
             <survivorCount>0</survivorCount>
@@ -687,6 +722,11 @@
     <classUnderTest>
         <className>EncoderException</className>
         <packageName>org.apache.commons.codec</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:06.372+02:00</start>
+            <duration>1</duration>
+            <end>2007-07-07T00:33:06.373+02:00</end>
+        </processingInfo>
         <mutationRatio>
             <mutationCount>0</mutationCount>
             <survivorCount>0</survivorCount>
@@ -696,6 +736,11 @@
     <classUnderTest>
         <className>Metaphone</className>
         <packageName>org.apache.commons.codec.language</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:06.376+02:00</start>
+            <duration>3093</duration>
+            <end>2007-07-07T00:33:09.469+02:00</end>
+        </processingInfo>
         <mutationRatio>
             <mutationCount>69</mutationCount>
             <survivorCount>0</survivorCount>
@@ -1189,6 +1234,11 @@
     <classUnderTest>
         <className>BCodec</className>
         <packageName>org.apache.commons.codec.net</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:09.473+02:00</start>
+            <duration>106</duration>
+            <end>2007-07-07T00:33:09.579+02:00</end>
+        </processingInfo>
         <mutationRatio>
             <mutationCount>9</mutationCount>
             <survivorCount>0</survivorCount>
@@ -1262,6 +1312,11 @@
     <classUnderTest>
         <className>RefinedSoundex</className>
         <packageName>org.apache.commons.codec.language</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:09.585+02:00</start>
+            <duration>38</duration>
+            <end>2007-07-07T00:33:09.623+02:00</end>
+        </processingInfo>
         <mutationRatio>
             <mutationCount>7</mutationCount>
             <survivorCount>0</survivorCount>
@@ -1319,202 +1374,13 @@
         <executedTests>org.apache.commons.codec.language.RefinedSoundexTest</executedTests>
     </classUnderTest>
     <classUnderTest>
-        <className>URLCodec</className>
-        <packageName>org.apache.commons.codec.net</packageName>
-        <mutationRatio>
-            <mutationCount>25</mutationCount>
-            <survivorCount>0</survivorCount>
-        </mutationRatio>
-        <baseClassFile>/Volumes/DevelopmentDisk/Mutation/CODEC_1_3/target/classes/org/apache/commons/codec/net/URLCodec.class</baseClassFile>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IF_ICMPEQ_to_IF_ICMPNE</transition>
-            <baseSourceLine>169</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IF_ICMPNE_to_IF_ICMPEQ</transition>
-            <baseSourceLine>127</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IF_ICMPNE_to_IF_ICMPEQ</transition>
-            <baseSourceLine>163</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IF_ICMPNE_to_IF_ICMPEQ</transition>
-            <baseSourceLine>165</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IF_ICMPNE_to_IF_ICMPEQ</transition>
-            <baseSourceLine>169</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IF_ICMPGE_to_IF_ICMPLT</transition>
-            <baseSourceLine>121</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IF_ICMPGE_to_IF_ICMPLT</transition>
-            <baseSourceLine>161</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IF_ICMPGT_to_IF_ICMPLE</transition>
-            <baseSourceLine>66</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IF_ICMPGT_to_IF_ICMPLE</transition>
-            <baseSourceLine>69</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IF_ICMPGT_to_IF_ICMPLE</transition>
-            <baseSourceLine>73</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IFEQ_to_IFNE</transition>
-            <baseSourceLine>126</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IFEQ_to_IFNE</transition>
-            <baseSourceLine>309</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IFEQ_to_IFNE</transition>
-            <baseSourceLine>311</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IFEQ_to_IFNE</transition>
-            <baseSourceLine>333</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IFEQ_to_IFNE</transition>
-            <baseSourceLine>335</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IFGE_to_IFLT</transition>
-            <baseSourceLine>123</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IFNONNULL_to_IFNULL</transition>
-            <baseSourceLine>113</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IFNONNULL_to_IFNULL</transition>
-            <baseSourceLine>116</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IFNONNULL_to_IFNULL</transition>
-            <baseSourceLine>157</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IFNONNULL_to_IFNULL</transition>
-            <baseSourceLine>223</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IFNONNULL_to_IFNULL</transition>
-            <baseSourceLine>241</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IFNONNULL_to_IFNULL</transition>
-            <baseSourceLine>267</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IFNONNULL_to_IFNULL</transition>
-            <baseSourceLine>286</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IFNONNULL_to_IFNULL</transition>
-            <baseSourceLine>307</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <mutant>
-            <survived>false</survived>
-            <transitionGroup>ROR</transitionGroup>
-            <transition>IFNONNULL_to_IFNULL</transition>
-            <baseSourceLine>331</baseSourceLine>
-            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
-        </mutant>
-        <executedTests>org.apache.commons.codec.net.URLCodecTest</executedTests>
-    </classUnderTest>
-    <classUnderTest>
-        <className>StringEncodings</className>
-        <packageName>org.apache.commons.codec.net</packageName>
-        <mutationRatio>
-            <mutationCount>0</mutationCount>
-            <survivorCount>0</survivorCount>
-        </mutationRatio>
-        <baseClassFile>/Volumes/DevelopmentDisk/Mutation/CODEC_1_3/target/classes/org/apache/commons/codec/net/StringEncodings.class</baseClassFile>
-    </classUnderTest>
-    <classUnderTest>
         <className>DoubleMetaphone</className>
         <packageName>org.apache.commons.codec.language</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:09.627+02:00</start>
+            <duration>12073</duration>
+            <end>2007-07-07T00:33:21.700+02:00</end>
+        </processingInfo>
         <mutationRatio>
             <mutationCount>207</mutationCount>
             <survivorCount>82</survivorCount>
@@ -2890,8 +2756,217 @@
         <executedTests>org.apache.commons.codec.language.DoubleMetaphoneTest</executedTests>
     </classUnderTest>
     <classUnderTest>
+        <className>StringEncodings</className>
+        <packageName>org.apache.commons.codec.net</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:21.704+02:00</start>
+            <duration>1</duration>
+            <end>2007-07-07T00:33:21.705+02:00</end>
+        </processingInfo>
+        <mutationRatio>
+            <mutationCount>0</mutationCount>
+            <survivorCount>0</survivorCount>
+        </mutationRatio>
+        <baseClassFile>/Volumes/DevelopmentDisk/Mutation/CODEC_1_3/target/classes/org/apache/commons/codec/net/StringEncodings.class</baseClassFile>
+    </classUnderTest>
+    <classUnderTest>
+        <className>URLCodec</className>
+        <packageName>org.apache.commons.codec.net</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:21.708+02:00</start>
+            <duration>457</duration>
+            <end>2007-07-07T00:33:22.165+02:00</end>
+        </processingInfo>
+        <mutationRatio>
+            <mutationCount>25</mutationCount>
+            <survivorCount>0</survivorCount>
+        </mutationRatio>
+        <baseClassFile>/Volumes/DevelopmentDisk/Mutation/CODEC_1_3/target/classes/org/apache/commons/codec/net/URLCodec.class</baseClassFile>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IF_ICMPEQ_to_IF_ICMPNE</transition>
+            <baseSourceLine>169</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IF_ICMPNE_to_IF_ICMPEQ</transition>
+            <baseSourceLine>127</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IF_ICMPNE_to_IF_ICMPEQ</transition>
+            <baseSourceLine>163</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IF_ICMPNE_to_IF_ICMPEQ</transition>
+            <baseSourceLine>165</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IF_ICMPNE_to_IF_ICMPEQ</transition>
+            <baseSourceLine>169</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IF_ICMPGE_to_IF_ICMPLT</transition>
+            <baseSourceLine>121</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IF_ICMPGE_to_IF_ICMPLT</transition>
+            <baseSourceLine>161</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IF_ICMPGT_to_IF_ICMPLE</transition>
+            <baseSourceLine>66</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IF_ICMPGT_to_IF_ICMPLE</transition>
+            <baseSourceLine>69</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IF_ICMPGT_to_IF_ICMPLE</transition>
+            <baseSourceLine>73</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IFEQ_to_IFNE</transition>
+            <baseSourceLine>126</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IFEQ_to_IFNE</transition>
+            <baseSourceLine>309</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IFEQ_to_IFNE</transition>
+            <baseSourceLine>311</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IFEQ_to_IFNE</transition>
+            <baseSourceLine>333</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IFEQ_to_IFNE</transition>
+            <baseSourceLine>335</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IFGE_to_IFLT</transition>
+            <baseSourceLine>123</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IFNONNULL_to_IFNULL</transition>
+            <baseSourceLine>113</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IFNONNULL_to_IFNULL</transition>
+            <baseSourceLine>116</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IFNONNULL_to_IFNULL</transition>
+            <baseSourceLine>157</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IFNONNULL_to_IFNULL</transition>
+            <baseSourceLine>223</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IFNONNULL_to_IFNULL</transition>
+            <baseSourceLine>241</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IFNONNULL_to_IFNULL</transition>
+            <baseSourceLine>267</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IFNONNULL_to_IFNULL</transition>
+            <baseSourceLine>286</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IFNONNULL_to_IFNULL</transition>
+            <baseSourceLine>307</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IFNONNULL_to_IFNULL</transition>
+            <baseSourceLine>331</baseSourceLine>
+            <killerTests>org.apache.commons.codec.net.URLCodecTest</killerTests>
+        </mutant>
+        <executedTests>org.apache.commons.codec.net.URLCodecTest</executedTests>
+    </classUnderTest>
+    <classUnderTest>
         <className>DecoderException</className>
         <packageName>org.apache.commons.codec</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:22.169+02:00</start>
+            <duration>0</duration>
+            <end>2007-07-07T00:33:22.169+02:00</end>
+        </processingInfo>
         <mutationRatio>
             <mutationCount>0</mutationCount>
             <survivorCount>0</survivorCount>
@@ -2901,6 +2976,11 @@
     <classUnderTest>
         <className>BinaryEncoder</className>
         <packageName>org.apache.commons.codec</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:22.172+02:00</start>
+            <duration>1</duration>
+            <end>2007-07-07T00:33:22.173+02:00</end>
+        </processingInfo>
         <mutationRatio>
             <mutationCount>0</mutationCount>
             <survivorCount>0</survivorCount>
@@ -2910,6 +2990,11 @@
     <classUnderTest>
         <className>RFC1522Codec</className>
         <packageName>org.apache.commons.codec.net</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:22.176+02:00</start>
+            <duration>25</duration>
+            <end>2007-07-07T00:33:22.201+02:00</end>
+        </processingInfo>
         <mutationRatio>
             <mutationCount>10</mutationCount>
             <survivorCount>5</survivorCount>
@@ -2985,6 +3070,11 @@
     <classUnderTest>
         <className>QCodec</className>
         <packageName>org.apache.commons.codec.net</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:22.205+02:00</start>
+            <duration>257</duration>
+            <end>2007-07-07T00:33:22.462+02:00</end>
+        </processingInfo>
         <mutationRatio>
             <mutationCount>20</mutationCount>
             <survivorCount>1</survivorCount>
@@ -3134,6 +3224,11 @@
     <classUnderTest>
         <className>StringEncoder</className>
         <packageName>org.apache.commons.codec</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:22.466+02:00</start>
+            <duration>1</duration>
+            <end>2007-07-07T00:33:22.467+02:00</end>
+        </processingInfo>
         <mutationRatio>
             <mutationCount>0</mutationCount>
             <survivorCount>0</survivorCount>
@@ -3143,6 +3238,11 @@
     <classUnderTest>
         <className>Soundex</className>
         <packageName>org.apache.commons.codec.language</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:22.470+02:00</start>
+            <duration>119</duration>
+            <end>2007-07-07T00:33:22.589+02:00</end>
+        </processingInfo>
         <mutationRatio>
             <mutationCount>17</mutationCount>
             <survivorCount>0</survivorCount>
@@ -3272,6 +3372,11 @@
     <classUnderTest>
         <className>SoundexUtils</className>
         <packageName>org.apache.commons.codec.language</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:22.592+02:00</start>
+            <duration>4</duration>
+            <end>2007-07-07T00:33:22.596+02:00</end>
+        </processingInfo>
         <mutationRatio>
             <mutationCount>9</mutationCount>
             <survivorCount>9</survivorCount>
@@ -3335,6 +3440,11 @@
     <classUnderTest>
         <className>Encoder</className>
         <packageName>org.apache.commons.codec</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:22.599+02:00</start>
+            <duration>0</duration>
+            <end>2007-07-07T00:33:22.599+02:00</end>
+        </processingInfo>
         <mutationRatio>
             <mutationCount>0</mutationCount>
             <survivorCount>0</survivorCount>
@@ -3344,6 +3454,11 @@
     <classUnderTest>
         <className>Decoder</className>
         <packageName>org.apache.commons.codec</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:22.603+02:00</start>
+            <duration>1</duration>
+            <end>2007-07-07T00:33:22.604+02:00</end>
+        </processingInfo>
         <mutationRatio>
             <mutationCount>0</mutationCount>
             <survivorCount>0</survivorCount>
@@ -3353,6 +3468,11 @@
     <classUnderTest>
         <className>StringEncoderComparator</className>
         <packageName>org.apache.commons.codec</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:22.607+02:00</start>
+            <duration>2</duration>
+            <end>2007-07-07T00:33:22.609+02:00</end>
+        </processingInfo>
         <mutationRatio>
             <mutationCount>0</mutationCount>
             <survivorCount>0</survivorCount>
@@ -3362,6 +3482,11 @@
     <classUnderTest>
         <className>Hex</className>
         <packageName>org.apache.commons.codec.binary</packageName>
+        <processingInfo>
+            <start>2007-07-07T00:33:22.613+02:00</start>
+            <duration>39</duration>
+            <end>2007-07-07T00:33:22.652+02:00</end>
+        </processingInfo>
         <mutationRatio>
             <mutationCount>6</mutationCount>
             <survivorCount>0</survivorCount>
