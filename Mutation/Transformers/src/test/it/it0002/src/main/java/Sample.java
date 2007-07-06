@@ -1,19 +1,12 @@
-
 public class Sample {
 
-	public int decide(boolean a, boolean b) {
+	public int decide2(boolean a, boolean b) {
 
-		if (a && b) {
-			return 1;
-		}
+		boolean x = a && (b ||(100 < 1000));
+		
+		boolean y = (a || b);
 
-		if (a || b) {
-			return 2;
-		}
-
-		if (!a) {
-			return 3;
-		}
+		boolean z = !a;
 
 		return 4;
 	}
