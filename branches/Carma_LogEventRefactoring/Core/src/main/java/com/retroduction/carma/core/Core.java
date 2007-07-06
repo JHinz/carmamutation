@@ -64,35 +64,35 @@ public class Core {
 
 		logger.debug("Resolving valid classes under test.");
 
-		Set<ClassDescription> resolvedClassesUnderTest = resolver.resolve();
+		Set<ClassDescription> foundClassesUnderTest = resolver.resolve();
 
-		Set<ClassDescription> remainingClassUnderTest = resolver.removeSuperfluousClassNames(resolvedClassesUnderTest);
+		Set<ClassDescription> filteredClassesUnderTest = resolver.removeSuperfluousClassNames(foundClassesUnderTest);
 
-		logger.info("Resolved " + remainingClassUnderTest.size() + " valid classes under test.");
+		logger.info("Resolved " + filteredClassesUnderTest.size() + " valid classes under test.");
 
 		eventListener
-				.notifyEvent(new ClassesUnderTestResolved(new ArrayList<ClassDescription>(remainingClassUnderTest)));
+				.notifyEvent(new ClassesUnderTestResolved(new ArrayList<ClassDescription>(filteredClassesUnderTest)));
 
 		logger.debug("Removing invalid or broken (unsuccessful) tests from test set");
 
-		Set<ClassDescription> validTestClasses = resolver.removeSuperfluousTestClasses(remainingClassUnderTest);
+		Set<ClassDescription> runnableTestClasses = resolver.removeSuperfluousTestClasses(filteredClassesUnderTest);
 
 		logger.info("Performing verification run for test set sanity");
 
 		Set<String> fullTestClassSet = new HashSet<String>();
 
-		for (ClassDescription clazz : validTestClasses)
+		for (ClassDescription clazz : runnableTestClasses)
 			fullTestClassSet.addAll(clazz.getAssociatedTestNames());
 
 		Set<String> brokenTestNames = testRunner.execute(fullTestClassSet);
 
-		checkForBrokenTests(validTestClasses, brokenTestNames);
+		checkForBrokenTests(runnableTestClasses, brokenTestNames);
 
-		int nonDistinctTestClassCount = countTestCases(validTestClasses);
+		int nonDistinctTestClassCount = countTestCases(runnableTestClasses);
 
 		logger.info("Resolved " + nonDistinctTestClassCount + " non distinct valid testclasses.");
 
-		performMutations(transitionGroupConfig.getTransitionGroups(), validTestClasses);
+		performMutations(transitionGroupConfig.getTransitionGroups(), runnableTestClasses);
 
 		eventListener.notifyEvent(new MutationProcessFinished());
 
@@ -153,6 +153,8 @@ public class Core {
 			eventListener.notifyEvent(new ProcessingClassUnderTest(classUnderTestDescription));
 
 			String fqClassName = classUnderTestDescription.getQualifiedClassName();
+			
+			logger.debug("Loading genuine class byte code for mutation process...");
 
 			byte[] byteCode = null;
 			try {
@@ -182,6 +184,8 @@ public class Core {
 					mutant.getSourceMapping().setClassName(fqClassName);
 
 					eventListener.notifyEvent(new ProcessingMutant(mutant));
+					
+					logger.debug("Executing sane tests for created mutant...");
 
 					testRunner.execute(mutant, classUnderTestDescription.getAssociatedTestNames());
 

@@ -50,6 +50,11 @@ public class AntCarmaTest extends Task {
 	public void execute() throws BuildException {
 
 		super.execute();
+		
+		ClassLoader threadClassLoader = Thread.currentThread().getContextClassLoader();
+		ClassLoader thisClassLoader = this.getClass().getClassLoader();
+
+		Thread.currentThread().setContextClassLoader(thisClassLoader);
 
 		MavenTestExecuter mavenCarma = new MavenTestExecuter();
 
@@ -89,6 +94,8 @@ public class AntCarmaTest extends Task {
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new BuildException("Failure running Carma. ", e);
+		} finally {
+			Thread.currentThread().setContextClassLoader(threadClassLoader);
 		}
 	}
 }

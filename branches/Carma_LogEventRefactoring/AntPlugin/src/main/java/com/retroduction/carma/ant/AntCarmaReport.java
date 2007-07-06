@@ -47,27 +47,34 @@ public class AntCarmaReport extends org.apache.tools.ant.Task {
 	}
 
 	public void execute() {
+		ClassLoader threadClassLoader = Thread.currentThread().getContextClassLoader();
+		ClassLoader thisClassLoader = this.getClass().getClassLoader();
 
-		ReportModelLoader loader = new ReportModelLoader();
-		MutationRun mutationRun;
+		Thread.currentThread().setContextClassLoader(thisClassLoader);
 		try {
-			mutationRun = loader.loadReportModel(new File(reportFile));
-		} catch (FileNotFoundException e) {
-			log(e, 2);
-			throw new BuildException("Report File not found");
-		} catch (JAXBException e) {
-			log(e, 2);
-			throw new BuildException("Invalid Report File");
+			ReportModelLoader loader = new ReportModelLoader();
+
+			MutationRun mutationRun;
+			try {
+				mutationRun = loader.loadReportModel(new File(reportFile));
+			} catch (FileNotFoundException e) {
+				log(e, 2);
+				throw new BuildException("Report File not found");
+			} catch (JAXBException e) {
+				log(e, 2);
+				throw new BuildException("Invalid Report File");
+			}
+			SingleReportGenerator reportGenerator = new SingleReportGenerator();
+
+			List<File> sourceDirectories = new ArrayList<File>();
+			sourceDirectories.add(new File(sourceDir));
+			reportGenerator.perform(mutationRun, new File(outputDirectory), sourceDirectories);
+
+			log("# --------------------------------------------------------------------------------");
+			log("# Mutation Site report generated. Output directory: " + outputDirectory);
+			log("# --------------------------------------------------------------------------------");
+		} finally {
+			Thread.currentThread().setContextClassLoader(threadClassLoader);
 		}
-		SingleReportGenerator reportGenerator = new SingleReportGenerator();
-
-		List<File> sourceDirectories = new ArrayList<File>();
-		sourceDirectories.add(new File(sourceDir));
-		reportGenerator.perform(mutationRun, new File(outputDirectory), sourceDirectories);
-
-		log("# --------------------------------------------------------------------------------");
-		log("# Mutation Site report generated. Output directory: " + outputDirectory);
-		log("# --------------------------------------------------------------------------------");
-
 	}
 }
