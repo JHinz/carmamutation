@@ -66,8 +66,6 @@ public class Resolver implements IResolver {
 
 		Set<String> remainingClassesNames = classFilterVerifier.removeExcludedClasses(resolvedClassNames);
 
-		remainingClassesNames = instantiationVerifier.removeNonInstantiatableClasses(remainingClassesNames);
-
 		Set<ClassDescription> remainingClassDescriptions = new HashSet<ClassDescription>();
 
 		for (ClassDescription classDescription : classesUnderTest) {
