@@ -173,8 +173,10 @@
 		class="com.retroduction.carma.eventlisteners.ReportEventListener">
 		<constructor-arg>
 			<value>${report.filename}</value>
-
 		</constructor-arg>
+		<constructor-arg>
+			<value>${report.addTimingInfo}</value>
+		</constructor-arg>	
 	</bean>
 
 	<bean id="eventListener"

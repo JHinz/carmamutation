@@ -47,6 +47,9 @@ public class ReportEventListener implements IEventListener {
 
 	private long runProcessingEnd;
 
+	private boolean writeTimingInfo;
+
+	
 	public ReportEventListener(String fileName) throws JAXBException {
 
 		log.info("Initializing XML report: " + fileName);
@@ -59,6 +62,11 @@ public class ReportEventListener implements IEventListener {
 
 	}
 
+	public ReportEventListener(String fileName, boolean writeTimingInfo) throws JAXBException {
+		this(fileName);
+		this.writeTimingInfo = writeTimingInfo;
+	}
+
 	public void destroy() {
 
 		log.info("Finishing XML report");
@@ -68,8 +76,10 @@ public class ReportEventListener implements IEventListener {
 		new StatisticalReportAnalyzer().enhanceReport(run);
 
 		try {
-			ProcessingInfo info = createTimingInformation(runProcessingStart, runProcessingEnd);
-			run.setProcessingInfo(info);
+			if (writeTimingInfo) {
+				ProcessingInfo info = createTimingInformation(runProcessingStart, runProcessingEnd);
+				run.setProcessingInfo(info);
+			}
 		} catch (DatatypeConfigurationException e) {
 			e.printStackTrace();
 		}
@@ -102,8 +112,10 @@ public class ReportEventListener implements IEventListener {
 
 		if (event instanceof ProcessingClassUnderTestFinished) {
 			try {
-				ProcessingInfo info = createTimingInformation(classProcessingStart, System.currentTimeMillis());
-				currentClassUnderTestSubReport.setProcessingInfo(info);
+				if (writeTimingInfo) {
+					ProcessingInfo info = createTimingInformation(classProcessingStart, System.currentTimeMillis());
+					currentClassUnderTestSubReport.setProcessingInfo(info);
+				}
 			} catch (DatatypeConfigurationException e) {
 				e.printStackTrace();
 			}
@@ -164,5 +176,14 @@ public class ReportEventListener implements IEventListener {
 		info.setEnd(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
 		return info;
 	}
+	
+	public boolean isWriteTimingInfo() {
+		return writeTimingInfo;
+	}
+
+	public void setWriteTimingInfo(boolean writeTimingInfo) {
+		this.writeTimingInfo = writeTimingInfo;
+	}
+
 
 }
