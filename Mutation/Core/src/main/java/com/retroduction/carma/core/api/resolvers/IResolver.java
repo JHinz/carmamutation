@@ -6,6 +6,9 @@ import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
 
 public interface IResolver {
 
-	Set<ClassDescription> resolve();
+	public Set<ClassDescription> resolve();
 
+	public Set<ClassDescription> removeSuperfluousClassNames(Set<ClassDescription> classesUnderTest);
+
+	public Set<ClassDescription> removeSuperfluousTestClasses(Set<ClassDescription> remainingClassDescriptions);
 }

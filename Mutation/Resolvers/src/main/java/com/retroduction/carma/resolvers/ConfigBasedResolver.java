@@ -14,12 +14,12 @@ import java.util.StringTokenizer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.retroduction.carma.core.api.resolvers.IResolver;
+import com.retroduction.carma.core.api.resolvers.INestedResolver;
 import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
 import com.retroduction.carma.utilities.ClassNameAnalyzer;
 import com.retroduction.carma.utilities.ClassNameAnalyzer.ClassNameInfo;
 
-public class ConfigBasedResolver implements IResolver {
+public class ConfigBasedResolver implements INestedResolver {
 
 	private Log log = LogFactory.getLog(ConfigBasedResolver.class);
 

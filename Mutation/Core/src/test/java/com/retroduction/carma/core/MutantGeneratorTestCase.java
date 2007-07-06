@@ -5,19 +5,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import junit.framework.TestCase;
+
 import com.retroduction.carma.core.api.eventlisteners.IEvent;
 import com.retroduction.carma.core.api.eventlisteners.IEventListener;
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
 import com.retroduction.carma.core.api.transitions.ITransition;
 import com.retroduction.carma.core.api.transitions.ITransitionGroup;
 
-import junit.framework.TestCase;
-
 public class MutantGeneratorTestCase extends TestCase {
 
 	private class MockTransition implements ITransition {
 
-		public List<Mutant> applyTransitions(byte[] byteCode, IEventListener eventListener) {
+		public List<Mutant> applyTransitions(byte[] byteCode) {
 			List<Mutant> result = new ArrayList<Mutant>();
 			Mutant mutant = new Mutant();
 			result.add(mutant);
@@ -70,8 +70,7 @@ public class MutantGeneratorTestCase extends TestCase {
 		group.setTransitions(new ITransition[] { new MockTransition() });
 
 		transitionGroups.add(group);
-		List<Mutant> result = generator.generateMutants(classUnderTest, originalClassByteCode, transitionGroups,
-				new MockEventListener());
+		List<Mutant> result = generator.generateMutants(classUnderTest, originalClassByteCode, transitionGroups);
 
 		assertEquals(1, result.size());
 

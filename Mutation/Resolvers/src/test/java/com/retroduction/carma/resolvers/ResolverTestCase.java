@@ -1,15 +1,12 @@
 package com.retroduction.carma.resolvers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 import junit.framework.TestCase;
 
-import com.retroduction.carma.core.api.eventlisteners.IEvent;
-import com.retroduction.carma.core.api.eventlisteners.IEventListener;
-import com.retroduction.carma.core.api.resolvers.IResolver;
+import com.retroduction.carma.core.api.resolvers.INestedResolver;
 import com.retroduction.carma.core.api.testrunners.ITestCaseInstantiationVerifier;
 import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
 import com.retroduction.carma.resolvers.util.ExcludeFilter;
@@ -18,7 +15,7 @@ import com.retroduction.carma.resolvers.util.FilterVerifier;
 
 public class ResolverTestCase extends TestCase {
 
-	private class MockResolver implements IResolver {
+	private class MockResolver implements INestedResolver {
 
 		private Set<ClassDescription> resolvedClasses;
 
@@ -36,23 +33,6 @@ public class ResolverTestCase extends TestCase {
 
 		public HashSet<String> removeNonInstantiatableClasses(Set<String> fqClassNames) {
 			return new HashSet<String>(fqClassNames);
-		}
-
-	}
-
-	private class MockEventListener implements IEventListener {
-
-		private ArrayList<IEvent> occuredEvents = new ArrayList<IEvent>();
-
-		public void destroy() {
-		}
-
-		public void notifyEvent(IEvent event) {
-			occuredEvents.add(event);
-		}
-
-		public ArrayList<IEvent> getOccuredEvents() {
-			return occuredEvents;
 		}
 
 	}
@@ -95,7 +75,8 @@ public class ResolverTestCase extends TestCase {
 
 	}
 
-	public void test_FilterVerifiersAreusedIndependently_TestsFiltered() {
+	// TODO buggy !
+	public void test_TestFilterVerifierAffectsTestClassSet() {
 
 		FilterConfiguration classfilterConfig = new FilterConfiguration();
 		FilterConfiguration testClassfilterConfig = new FilterConfiguration();
@@ -104,12 +85,15 @@ public class ResolverTestCase extends TestCase {
 
 		Resolver resolver = prepareResolverInstance(classfilterConfig, testClassfilterConfig);
 
-		Set<ClassDescription> result = resolver.resolve();
+		Set<ClassDescription> preliminaryResult = resolver.resolve();
 
-		assertEquals(2, result.size());
+		Set<ClassDescription> filteredClassesResult = resolver.removeSuperfluousClassNames(preliminaryResult);
+		Set<ClassDescription> filteredTestClassesResult = resolver.removeSuperfluousTestClasses(preliminaryResult);
+
+		assertEquals(2, filteredTestClassesResult.size());
 
 		HashMap<String, ClassDescription> sortedClasses = new HashMap<String, ClassDescription>();
-		for (ClassDescription description : result)
+		for (ClassDescription description : filteredTestClassesResult)
 			sortedClasses.put(description.getQualifiedClassName(), description);
 
 		{
@@ -135,7 +119,8 @@ public class ResolverTestCase extends TestCase {
 
 	}
 
-	public void test_FilterVerifiersAreusedIndependently_ClassFiltered() {
+	// TODO buggy !
+	public void test_ClassFilterVerifierAffectsClassSet() {
 
 		FilterConfiguration classfilterConfig = new FilterConfiguration();
 		FilterConfiguration testClassfilterConfig = new FilterConfiguration();
@@ -144,12 +129,15 @@ public class ResolverTestCase extends TestCase {
 
 		Resolver resolver = prepareResolverInstance(classfilterConfig, testClassfilterConfig);
 
-		Set<ClassDescription> result = resolver.resolve();
+		Set<ClassDescription> preliminaryResult = resolver.resolve();
 
-		assertEquals(1, result.size());
+		Set<ClassDescription> filteredClassesResult = resolver.removeSuperfluousClassNames(preliminaryResult);
+		Set<ClassDescription> filteredTestClassesResult = resolver.removeSuperfluousTestClasses(preliminaryResult);
+
+		assertEquals(1, filteredClassesResult.size());
 
 		HashMap<String, ClassDescription> sortedClasses = new HashMap<String, ClassDescription>();
-		for (ClassDescription description : result)
+		for (ClassDescription description : filteredClassesResult)
 			sortedClasses.put(description.getQualifiedClassName(), description);
 
 		{
@@ -199,14 +187,12 @@ public class ResolverTestCase extends TestCase {
 		testClassFilterVerifier.setFilterConfiguration(testClassfilterConfig);
 
 		MockInstantiationVerifier instantiationVerifier = new MockInstantiationVerifier();
-		MockEventListener eventListener = new MockEventListener();
 
 		Resolver resolver = new Resolver();
 		resolver.setNestedResolver(nestedResolver);
 		resolver.setClassFilterVerifier(classFilterVerifier);
 		resolver.setTestClassFilterVerifier(testClassFilterVerifier);
 		resolver.setInstantiationVerifier(instantiationVerifier);
-		resolver.setEventListener(eventListener);
 		return resolver;
 	}
 

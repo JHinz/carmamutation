@@ -2,15 +2,11 @@ package com.retroduction.carma.testrunners.junit3;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 import junit.framework.TestCase;
 
-import com.retroduction.carma.core.api.eventlisteners.IEvent;
-import com.retroduction.carma.core.api.eventlisteners.IEventListener;
-import com.retroduction.carma.core.api.eventlisteners.om.TestsExecuted;
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
 
 public class JUnitRunnerTestCase extends TestCase {
@@ -35,23 +31,6 @@ public class JUnitRunnerTestCase extends TestCase {
 					return 1;
 			else
 				return 0;
-		}
-
-	}
-
-	private class MockEventListener implements IEventListener {
-
-		private ArrayList<IEvent> events = new ArrayList<IEvent>();
-
-		public ArrayList<IEvent> getEvents() {
-			return events;
-		}
-
-		public void destroy() {
-		}
-
-		public void notifyEvent(IEvent event) {
-			events.add(event);
 		}
 
 	}
@@ -146,8 +125,6 @@ public class JUnitRunnerTestCase extends TestCase {
 
 	public void test_execute_ExecutionStep_TestSetSane() {
 
-		MockEventListener listener = new MockEventListener();
-
 		JUnitRunner runner = new JUnitRunner();
 
 		runner.setRunner(new MockMutationRunner(false, false));
@@ -159,10 +136,11 @@ public class JUnitRunnerTestCase extends TestCase {
 
 		Mutant mutant = new Mutant();
 
-		runner.execute(mutant, testsToRun, listener);
+		runner.execute(mutant, testsToRun);
 
-		assertEquals(1, listener.getEvents().size());
-		assertTrue(listener.getEvents().get(0) instanceof TestsExecuted);
+		assertEquals(2, mutant.getExecutedTestsNames().size());
+		assertTrue(mutant.getExecutedTestsNames().contains("someTest1"));
+		assertTrue(mutant.getExecutedTestsNames().contains("someTest2"));
 
 	}
 
@@ -170,8 +148,6 @@ public class JUnitRunnerTestCase extends TestCase {
 
 		// Testcase Not possible in real code as testset is validated previously
 		// in the code
-
-		MockEventListener listener = new MockEventListener();
 
 		JUnitRunner runner = new JUnitRunner();
 
@@ -184,18 +160,13 @@ public class JUnitRunnerTestCase extends TestCase {
 
 		Mutant mutant = new Mutant();
 
-		runner.execute(mutant, testsToRun, listener);
+		runner.execute(mutant, testsToRun);
 
-		assertEquals(1, listener.getEvents().size());
-		assertTrue(listener.getEvents().get(0) instanceof TestsExecuted);
-
-		assertEquals(0, ((TestsExecuted) listener.getEvents().get(0)).getExecutedTests().size());
+		assertEquals(0, mutant.getExecutedTestsNames().size());
 
 	}
 
 	public void test_execute_ExecutionStep_TestSetCausesFailures_StopOnFirstFailedTest() {
-
-		MockEventListener listener = new MockEventListener();
 
 		JUnitRunner runner = new JUnitRunner();
 
@@ -208,21 +179,19 @@ public class JUnitRunnerTestCase extends TestCase {
 
 		Mutant mutant = new Mutant();
 
-		runner.execute(mutant, testsToRun, listener);
+		runner.execute(mutant, testsToRun);
 
-		assertEquals(1, listener.getEvents().size());
-		assertTrue(listener.getEvents().get(0) instanceof TestsExecuted);
-
-		assertEquals(1, ((TestsExecuted) listener.getEvents().get(0)).getExecutedTests().size());
-
+		assertEquals(1, mutant.getExecutedTestsNames().size());
+		
+		// Don't check which test was the first failing test. It's
+		// not defined therefore it's sufficient to make sure
+		// that only 1 test has been returned.
 	}
-	
+
 	public void test_execute_ExecutionStep_TestSetCausesFailures_DoNotStopOnFirstFailedTest() {
 
-		MockEventListener listener = new MockEventListener();
-
 		JUnitRunner runner = new JUnitRunner();
-		
+
 		runner.setStopOnFirstFailedTest(false);
 
 		runner.setRunner(new MockMutationRunner(true, false));
@@ -234,12 +203,11 @@ public class JUnitRunnerTestCase extends TestCase {
 
 		Mutant mutant = new Mutant();
 
-		runner.execute(mutant, testsToRun, listener);
+		runner.execute(mutant, testsToRun);
 
-		assertEquals(1, listener.getEvents().size());
-		assertTrue(listener.getEvents().get(0) instanceof TestsExecuted);
-
-		assertEquals(2, ((TestsExecuted) listener.getEvents().get(0)).getExecutedTests().size());
+		assertEquals(2, mutant.getExecutedTestsNames().size());
+		assertTrue(mutant.getExecutedTestsNames().contains("someTest1"));
+		assertTrue(mutant.getExecutedTestsNames().contains("someTest2"));
 
 	}
 }
