@@ -9,6 +9,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 
 import junit.framework.TestCase;
 
+import com.retroduction.carma.annotations.TestClassToClassMapping;
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingClassUnderTest;
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingClassUnderTestFinished;
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingMutant;
@@ -20,10 +21,11 @@ import com.retroduction.carma.core.api.transitions.ITransition;
 import com.retroduction.carma.core.api.transitions.ITransitionGroup;
 import com.retroduction.carma.xmlreport.om.ProcessingInfo;
 
+@TestClassToClassMapping(classNames = { "com.retroduction.carma.eventlisteners.ReportEventListener" })
 public class ReportEventListenerTestCase extends TestCase {
 
 	private class MockTransition implements ITransition {
-
+		
 		public List<com.retroduction.carma.core.api.testrunners.om.Mutant> applyTransitions(byte[] byteCode) {
 			return null;
 		}
@@ -37,6 +39,7 @@ public class ReportEventListenerTestCase extends TestCase {
 	private class MockTransitionGroup implements ITransitionGroup {
 
 		public String getName() {
+			
 			return "MockTransitionGroup";
 		}
 
