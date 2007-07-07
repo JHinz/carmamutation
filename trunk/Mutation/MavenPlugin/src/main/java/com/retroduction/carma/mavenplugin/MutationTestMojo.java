@@ -16,6 +16,8 @@ import org.apache.maven.plugin.logging.Log;
 
 import com.retroduction.carma.application.MavenTestExecuter;
 import com.retroduction.carma.eventlisteners.SummaryCreatorEventListener.Summary;
+import com.retroduction.carma.utilities.Logger;
+import com.retroduction.carma.utilities.LoggerFactory;
 
 /**
  * Goal which executes mutationtests.
@@ -27,6 +29,8 @@ import com.retroduction.carma.eventlisteners.SummaryCreatorEventListener.Summary
 
 public class MutationTestMojo extends AbstractMojo {
 
+	private Logger logger = LoggerFactory.getLogger(MutationTestMojo.class);
+	
 	/**
 	 * The location of the generated class files
 	 * 
@@ -90,7 +94,7 @@ public class MutationTestMojo extends AbstractMojo {
 			format.setMaximumFractionDigits(2);
 			format.setMinimumFractionDigits(2);
 			log.info("# --------------------------------------------------------------------------------");
-			log.info("# TEST RESULTS SUMMARY ");
+			log.info("# CARMA TEST RESULTS SUMMARY ");
 			log.info("#   Total time                : " + format.format(sum.timeSeconds) + " sec.");
 			log.info("#   Classes/Tests             : " + sum.numClassesUnderTest + "/" + sum.numTests);
 			log.info("#   Tests Per Class           : " + format.format(sum.testsPerClass));
@@ -98,7 +102,6 @@ public class MutationTestMojo extends AbstractMojo {
 			log.info("#   Mutants/Survivors         : " + sum.numMutants + "/" + sum.numSurvivors);
 			log.info("#   MutationCoverageRatio     : " + format.format(sum.coverageRatioPercentage) + " %");
 			log.info("# --------------------------------------------------------------------------------");
-			// TODO still needed ? factory.destroySingletons();
 
 		} catch (MalformedURLException e) {
 			throw new MojoExecutionException("Could not handle dependency URLs", e);
@@ -109,15 +112,11 @@ public class MutationTestMojo extends AbstractMojo {
 	private List<URL> getDependencyClassPathUrls() throws MalformedURLException {
 
 		List<URL> urls = new ArrayList<URL>();
-		// that line causes the classcastexception
-		// urls.add(new URL("file:/C:/Dokumente und
-		// Einstellungen/mike/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar"));
-		// return urls;
-		System.out.println("!!!!!! dependencies: " + dependencies);
+		logger.debug("Setting dependencies from maven project dependencies");
 		if (dependencies != null && !dependencies.isEmpty()) {
 			for (Iterator it = dependencies.iterator(); it.hasNext();) {
 				Artifact dep = (Artifact) it.next();
-				System.out.println("### Dependency: " + dep.getFile().toURL());
+				logger.debug("Adding dependency: " + dep.getFile().toURL());
 				urls.add(dep.getFile().toURL());
 			}
 		}
