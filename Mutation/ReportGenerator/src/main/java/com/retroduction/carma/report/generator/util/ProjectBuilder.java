@@ -1,4 +1,4 @@
-package com.retroduction.carma.report.generator;
+package com.retroduction.carma.report.generator.util;
 
 import java.io.BufferedReader;
 import java.io.File;

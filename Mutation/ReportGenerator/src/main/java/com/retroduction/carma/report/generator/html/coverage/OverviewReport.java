@@ -1,14 +1,13 @@
-package com.retroduction.carma.report.generator.html;
+package com.retroduction.carma.report.generator.html.coverage;
 
-import java.io.File;
-import java.io.IOException;
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.velocity.VelocityContext;
-
+import com.retroduction.carma.report.generator.IRenderer;
 import com.retroduction.carma.report.generator.chart.CoverageBarChartCreator;
-import com.retroduction.carma.report.generator.html.coverage.ICoverageReport;
+import com.retroduction.carma.report.generator.html.RenderException;
 import com.retroduction.carma.report.generator.reportobjects.ClassInfo;
 import com.retroduction.carma.report.generator.reportobjects.ClassInfoCreator;
 import com.retroduction.carma.report.om.Project;
@@ -21,26 +20,27 @@ import com.retroduction.carma.xmlreport.om.MutationRun;
  */
 public class OverviewReport implements ICoverageReport {
 	public static final String HTMLFILE = "overview.html";
-	private String templateName = TEMPLATEPATH +HTMLFILE;
+	private String templateName = HTMLFILE;
+	
+	private CoverageBarChartCreator chartCreator;
+	
 	
 	/* (non-Javadoc)
 	 * @see com.mutation.report.html.IHTMLReport#generateReport(com.mutation.report.om.MutationRun, com.mutation.report.source.om.Project, java.io.File, com.mutation.report.html.VelocityRenderer)
 	 */
-	public void generateReport(MutationRun report, Project project, File outputDirectory, IRenderer renderer)
-			throws IOException, RenderException {
+	public void generateReport(MutationRun report, Project project,  IRenderer renderer)
+			throws RenderException {
 		
 		
 		
-		File coverageChartFile = new File(outputDirectory, "coverageChart.png");
+		String coverageChartFile =  "coverageChart.png";
 
 		ClassInfoCreator infoCreator = new ClassInfoCreator(report.getClassUnderTest());
 		List<ClassInfo> infos = infoCreator.createClassInfos();
 
-		CoverageBarChartCreator chartCreator = new CoverageBarChartCreator();
-
 		chartCreator.createChart(infos, coverageChartFile, "Project Coverage Ratio");
 		
-		VelocityContext vcontext = new VelocityContext();
+		Map<String, Object> vcontext = new HashMap<String, Object>();
 		NumberFormat numberFormat = NumberFormat.getInstance();
 		numberFormat.setMaximumFractionDigits(2);
 		numberFormat.setMinimumFractionDigits(2);
@@ -51,11 +51,11 @@ public class OverviewReport implements ICoverageReport {
 		vcontext.put("project", project);
 		vcontext.put("classInfos", infoCreator.createClassInfos());
 		
-		File outputFile = new File(outputDirectory, HTMLFILE);
-		renderer.render(templateName, vcontext, outputFile);
+		renderer.render(templateName, vcontext, HTMLFILE);
 	}
 
-	public String getTitle() {
-		return "Overview";
+
+	public void setChartCreator(CoverageBarChartCreator chartCreator) {
+		this.chartCreator = chartCreator;
 	}
 }

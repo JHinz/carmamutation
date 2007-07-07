@@ -26,7 +26,8 @@ import com.retroduction.carma.report.generator.reportobjects.ClassInfo;
  *
  */
 public class CoverageBarChartCreator {
-
+	private File baseDir;
+	
 	/**
 	 * the class ranges
 	 */
@@ -47,7 +48,7 @@ public class CoverageBarChartCreator {
 		ranges.add(new ClassRange("< 1", 0.75, 1.0));
 		ranges.add(new ClassRange("1", 1.0, Double.MAX_VALUE));
 	}
-	public void createChart(List<ClassInfo> values, File pngFile, String title) throws ChartException{
+	public void createChart(List<ClassInfo> values, String pngFileName, String title) throws ChartException{
 		MCoverageClassCreator classCreator = new MCoverageClassCreator(ranges);
 		final List<DataClass> classes = classCreator.classifyMCoverage(values);
 		CategoryDataset categoryDataset = createDataset(classes);
@@ -72,6 +73,7 @@ public class CoverageBarChartCreator {
 		plot.getRenderer().setToolTipGenerator(tooltipGenerator);
 
 		try {
+			File pngFile = new File(getBaseDir(), pngFileName);
 			chartToFile(chart, pngFile);
 		} catch (IOException e) {
 			throw new ChartException(e);
@@ -163,5 +165,11 @@ public class CoverageBarChartCreator {
 	}
 	public String getYLabel() {
 		return yLabel;
+	}
+	public File getBaseDir() {
+		return baseDir;
+	}
+	public void setBaseDir(File baseDir) {
+		this.baseDir = baseDir;
 	}
 }

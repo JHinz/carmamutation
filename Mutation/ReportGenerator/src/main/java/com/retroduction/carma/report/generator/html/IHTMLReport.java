@@ -3,6 +3,7 @@ package com.retroduction.carma.report.generator.html;
 import java.io.File;
 import java.io.IOException;
 
+import com.retroduction.carma.report.generator.IRenderer;
 import com.retroduction.carma.report.om.Project;
 import com.retroduction.carma.xmlreport.om.MutationRun;
 

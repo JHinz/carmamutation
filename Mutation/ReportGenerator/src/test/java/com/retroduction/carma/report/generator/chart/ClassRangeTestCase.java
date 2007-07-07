@@ -1,9 +1,10 @@
 package com.retroduction.carma.report.generator.chart;
 
-import com.retroduction.carma.report.generator.chart.ClassRange;
-
 import junit.framework.TestCase;
 
+import com.retroduction.carma.annotations.TestClassToClassMapping;
+
+@TestClassToClassMapping(classNames = { "com.retroduction.carma.report.generator.chart.ClassRange" })
 public class ClassRangeTestCase extends TestCase {
 
 	public void testIsWithin(){

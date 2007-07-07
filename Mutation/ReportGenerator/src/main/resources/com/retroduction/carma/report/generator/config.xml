@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans default-lazy-init="true"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+
+
+	<bean id="coverageReport"
+		class="com.retroduction.carma.report.generator.html.coverage.CoverageReport">
+		<property name="reports">
+			<list>
+				<ref bean="cov.indexReport"></ref>
+				<ref bean="cov.packagesReport"></ref>
+				<ref bean="cov.packageSummaryReport"></ref>
+				<ref bean="cov.classListReport"></ref>
+				<ref bean="cov.classReport"></ref>
+<!-- 			<ref bean="cov.overviewReport"></ref>
+ -->	
+ 			</list>
+		</property>
+	</bean>
+
+	<bean id="cov.classReport"
+		class="com.retroduction.carma.report.generator.html.coverage.ClassReport"  
+		p:reportCreator-ref="cov.singleClassReportCreator" />
+
+	<bean id="cov.overviewReport"
+		class="com.retroduction.carma.report.generator.html.coverage.OverviewReport" 
+		p:chartCreator-ref="barChartCreator" />
+
+	<bean id="cov.indexReport"
+		class="com.retroduction.carma.report.generator.html.coverage.IndexReport" />
+
+	<bean id="cov.packagesReport"
+		class="com.retroduction.carma.report.generator.html.coverage.PackagesReport" />
+
+	<bean id="cov.packageSummaryReport"
+		class="com.retroduction.carma.report.generator.html.coverage.PackageSummaryReport" />
+
+
+	<bean id="cov.classListReport"
+		class="com.retroduction.carma.report.generator.html.coverage.ClassListReport"
+		p:classInfoCreator-ref="classInfoCreator" />
+
+
+	<bean id="cov.singleClassReportCreator"
+		class="com.retroduction.carma.report.generator.html.coverage.SingleClassReportCreator" 
+		p:coverageInfoCreator-ref="classInfoCreator"
+		/>
+
+	<bean id="classInfoCreator"
+		class="com.retroduction.carma.report.generator.reportobjects.ClassCoverageInfoCreator" />
+
+	<bean id="barChartCreator"
+		class="com.retroduction.carma.report.generator.chart.CoverageBarChartCreator" />
+
+
+</beans>
