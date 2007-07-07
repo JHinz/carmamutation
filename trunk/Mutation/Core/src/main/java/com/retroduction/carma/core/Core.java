@@ -160,7 +160,7 @@ public class Core {
 			try {
 				byteCode = byteCodeFileReader.readByteCodeFromMultipleFolders(fqClassName, getClassesUnderTestPath());
 			} catch (IOException e) {
-				logger.warn("ByteCode for class could not be read from disk. Skipping class...");
+				logger.warn("ByteCode for class could not be read from disk. Skipping class " +fqClassName, e);
 				eventListener.notifyEvent(new ProcessingClassUnderTestFinished());
 				continue;
 			}
