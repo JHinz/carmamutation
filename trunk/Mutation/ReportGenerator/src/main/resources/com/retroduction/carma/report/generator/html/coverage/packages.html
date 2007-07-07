@@ -17,13 +17,13 @@
 				<td nowrap="nowrap"><a target="mcov_summary" href="summary.html">All</a></td>
 			</tr>
 
-		#foreach( $packageName in $packageInfo.PackageNames )
-    		#set( $packageReportFileName ="summary-${packageName}.html" )
+		<#list packageInfo.packageNames as packageName >
+    		<#assign packageReportFileName ="summary-" +packageName +".html" >
 			<tr>
-				<td nowrap="nowrap"><a target="mcov_summary" href="$packageReportFileName">$packageName</a></td>
+				<td nowrap="nowrap"><a target="mcov_summary" href="${packageReportFileName}">${packageName}</a></td>
 			</tr>
 			
-		#end
+		</#list>
 
 			</tbody>
 		</table>

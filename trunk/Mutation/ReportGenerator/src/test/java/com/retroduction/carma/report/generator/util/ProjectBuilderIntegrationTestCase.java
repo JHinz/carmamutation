@@ -1,15 +1,18 @@
-package com.retroduction.carma.report.generator;
+package com.retroduction.carma.report.generator.util;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.TestCase;
 
-import com.retroduction.carma.report.generator.ProjectBuilder;
+import com.retroduction.carma.annotations.TestClassToClassMapping;
+import com.retroduction.carma.report.generator.util.ProjectBuilder;
 import com.retroduction.carma.report.om.Project;
 import com.retroduction.carma.report.om.SourceFile;
 
-public class ProjectBuilderIntegrationTest extends TestCase {
+@TestClassToClassMapping(classNames = { "com.retroduction.carma.report.generator.util.ProjectBuilder" })
+
+public class ProjectBuilderIntegrationTestCase extends TestCase {
 
 	public void testBuildProject_MultipleFilesInDifferentFolders() throws Exception {
 

@@ -8,20 +8,20 @@ import com.retroduction.carma.xmlreport.om.MutationRatio;
 /**
  * aggregates information for a set of classes
  */
-public class Aggregator {
-	public AggregatedClassInfo aggregate(Set<ClassUnderTest> classes){
+public class CoverageInfoAggregator {
+
+	public CoverageInfo aggregate(String name, String shortName, Set<ClassUnderTest> classes){
 		
-		long sumMutants = 0;
-		long sumSurvivors = 0;
-		int numClasses = classes.size();
+		int sumMutants = 0;
+		int sumSurvivors = 0;
 		
 		for(ClassUnderTest c : classes){
 			MutationRatio ratio = c.getMutationRatio();
 			sumMutants += ratio.getMutationCount();
 			sumSurvivors += ratio.getSurvivorCount();
 		}
+		CoverageInfo info = new CoverageInfo(name, shortName, classes.size(), sumMutants, sumSurvivors);
 		
-		AggregatedClassInfo info = new AggregatedClassInfo(sumMutants, sumSurvivors, numClasses);
 		return info;
 	}
 }

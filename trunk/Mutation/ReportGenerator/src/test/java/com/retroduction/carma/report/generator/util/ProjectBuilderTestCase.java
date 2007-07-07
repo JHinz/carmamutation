@@ -1,13 +1,16 @@
-package com.retroduction.carma.report.generator;
+package com.retroduction.carma.report.generator.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
 
-import com.retroduction.carma.report.generator.ProjectBuilder;
+import com.retroduction.carma.annotations.TestClassToClassMapping;
+import com.retroduction.carma.report.generator.util.ProjectBuilder;
 
 import junit.framework.TestCase;
+
+@TestClassToClassMapping(classNames = { "com.retroduction.carma.report.generator.util.ProjectBuilder" })
 
 public class ProjectBuilderTestCase extends TestCase {
 

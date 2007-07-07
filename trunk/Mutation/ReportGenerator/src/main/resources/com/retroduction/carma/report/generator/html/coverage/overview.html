@@ -124,27 +124,16 @@ tr {
 
 <div id="overview">
 <table><tr><td>
-<table>
-	<tr>
-		<td>Created:</td><td>$report.processingInfo.start</td>
-	</tr>
-	<tr>
-		<td>Duration (ms):</td><td>$report.processingInfo.duration</td>
-	</tr>
-	<tr>
-		<td>Finished:</td><td>$report.processingInfo.end</td>
-	</tr>
-</table></td><td>
 
 <table>
 	<tr>
-		<td>No. of Classes:</td><td>$report.ClassUnderTest.size()</td>
+		<td>No. of Classes:</td><td>${report.classUnderTest.size}</td>
 	</tr>
 	<tr>
-		<td>No. created mutations:</td><td>$report.mutationRatio.mutationCount</td>
+		<td>No. created mutations:</td><td>${report.mutationRatio.mutationCount}</td>
 	</tr>
 	<tr>
-		<td>No. survived mutations:</td><td>$report.mutationRatio.survivorCount</td>
+		<td>No. survived mutations:</td><td>${report.mutationRatio.survivorCount}</td>
 	</tr>
 </table></td></tr>
 </table>
@@ -160,48 +149,47 @@ tr {
 <th>Tested</th>
 <th>Tests</th>
 
-#foreach( $class in $classInfos )
+<#list classInfos as class>
 <tr>
-    <td><a href="${class.FqClassName}.html">${class.FqClassName}</a></td>
-    <td>${class.NumMutants}</td>
+    <td><a href="${class.fqClassName}.html">${class.fqClassName}</a></td>
+    <td>${class.numMutants}</td>
     
-    #set( $ratio = ${class.MCoverageRatio} * 100 )
-    #set( $ratio = $numberFormat.format($ratio) )
+    <#assign ratio = class.mCoverageRatio * 100 >
 
 
-    #if ( 0.0 == ${class.SurviverRatio}  )
-	    <td class="best">$ratio %</td>
-    #elseif  ( 1.0 == ${class.SurviverRatio}  )
+    <#if  (0.0  =  class.surviverRatio) >
+	    <td class="best">${ratio} %</td>
+    <#elseif  (1.0 = class.surviverRatio) >
 	    <td class="worst">$ratio %</td>
-    #elseif  ( 0.3 < ${class.SurviverRatio}  )
+    <#elseif  (0.3 < class.surviverRatio) >
 	    <td class="bad">$ratio %</td>
-    #else  
+    <#else>  
 	    <td class="ok">$ratio %</td>
-    #end
+    </#if>
     
-	#if ( $class.Tests.size() > 0 )    
+	<#if ( class.tests.size() > 0 ) >    
     <td class="tested_yes">Y</td>
     <td class="tests">
-    	#set ( $first = true )
-    	#foreach( $test in $class.Tests )
-    		$test
-    		#if ( $first )
-    			#set ( $first = false )
-    		#else
+    	<#assign first = true >
+    	<#list class.tests as test >
+    		${test}
+    		<#if first >
+    			<#assign first = false >
+    		<#else>
     			<br/>
-    		#end
-        #end
+    		</#if>
+        </#list>
     </td>
-	#else
+	<#else>
     <td class="tested_no">N</td>
     <td class="tests_none">
 		No Tests
     </td>
-	#end
+	</#if>
 
 
 </tr>
-#end
+</#list>
 
 
 </table>

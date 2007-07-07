@@ -15,21 +15,17 @@
 		<table width="100%">
 			<tbody>
 
-		#foreach( $class in $classes )
-    		#set( $classDetailFileName ="${class.packageName}.${class.className}.html" )
+		<#list classes as class>
+    		<#assign classDetailFileName =class.fqName +".html" >
 			<tr>
-				<td nowrap="nowrap"><a target="mcov_summary" href="${classDetailFileName}">$class.className</a>
-
-					#if($class.MutationRatio.SurvivorCount > 0)
-						#set( $coveragePercentage = 100 - 100 * $class.MutationRatio.SurvivorCount / $class.MutationRatio.MutationCount )
-						 <i>(${coveragePercentage}% /$class.MutationRatio.MutationCount)</i>
-					#else
-						 <i>(-)</i>
-					#end
+				<td nowrap="nowrap"><a target="mcov_summary" href="${classDetailFileName}">${class.shortName}</a>
+						<#assign coveragePercentage =  100 * class.coverage >
+						
+						 <i>(${coveragePercentage}% /${class.numMutants})</i>
 				 </td>
 			</tr>
 			
-		#end
+		</#list>
 
 			</tbody>
 		</table>

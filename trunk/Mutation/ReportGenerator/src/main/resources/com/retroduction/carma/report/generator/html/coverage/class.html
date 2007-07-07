@@ -3,21 +3,17 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-		<title>Mutation Class Report - ${class.PackageName}.${class.ClassName}</title>
+		<title>Mutation Class Report - ${coverage.fqName}</title>
 		<link title="Style" type="text/css" rel="stylesheet" href="css/main.css"/>
 	</head>
 	<body>
-		<h5>Mutation Class Report - ${class.PackageName}.${class.ClassName}</h5>
+		<h5>Mutation Class Report - ${coverage.fqName}</h5>
 		<div class="separator">&nbsp;</div>
-		
-		#if($class.MutationRatio.SurvivorCount > 0)
-			#set( $percSurv = 100 * $class.MutationRatio.SurvivorCount / $class.MutationRatio.MutationCount )
-		#else
-			#set( $percSurv = 0)
-		#end
-		
-		#set( $percKilled = 100 - $percSurv )
-		
+
+		<#assign percKilled = 100 * coverage.coverage >		
+		<#assign percSurv = 100 - percKilled >		
+
+
 		<table class="report">
 			<thead>
 				<tr>
@@ -27,16 +23,16 @@
 			</thead>
 
 			<tr>
-				<td class="text"><a href="">${class.ClassName}</a></td>
+				<td class="text"><a href="">${coverage.fqName}</a></td>
 				<td class="value">
 					<table cellpadding="0" cellspacing="0" align="right">
 						<tr>
-							<td>$percKilled%&nbsp;</td>
+							<td>${percKilled}%&nbsp;</td>
 							<td>
 								<table class="percentGraph" cellpadding="0" cellspacing="0" width="100">
 									<tr>
-										<td class="covered" width="$percKilled"></td>
-										<td class="uncovered" width="$percSurv"></td>
+										<td class="covered" width="${percKilled}"></td>
+										<td class="uncovered" width="${percSurv}"></td>
 									</tr>
 								</table>
 							</td>
@@ -51,19 +47,19 @@
 
 		<table>
 			<tr>
-				<td>Mutants:</td><td>$class.MutationRatio.MutationCount</td>
-				<td>Survivors:</td><td>$class.MutationRatio.SurvivorCount</td>
-				<td>Coverage:</td><td>$percKilled%</td>
+				<td>Mutants:</td><td>${coverage.numMutants}</td>
+				<td>Survivors:</td><td>${coverage.numSurvivors}</td>
+				<td>Coverage:</td><td>${percKilled}%</td>
 			</tr>
 		</table>
 		
 		<table>
 			<th>Test Names</th>
-			#foreach( $test in $class.ExecutedTests )
+			<#list clazz.executedTests as test >
 			<tr>
-				<td class="text">$test</td>
+				<td class="text">${test}</td>
 			</tr>
-			#end
+			</#list>
 		</table>
 		<table>
 			<th>Mutant</th>
@@ -71,15 +67,19 @@
 			<th>Killed</th>
 			<th>Killer Tests</th>
 			
-			#foreach( $mutant in $class.getMutant() )
-				#set( $killed = ! $mutant.isSurvived() )
+			<#list clazz.getMutant() as mutant >
+				<#assign killed = (! mutant.isSurvived() ) >
 			<tr>
-				<td class="text">$mutant.Name $mutant.Transition $mutant.TransitionGroup</td>
-				<td class="text">$mutant.BaseSourceLine</td>
-				<td class="text">$killed</td>
-				<td class="text">$mutant.KillerTests</td>
+				<td class="text">${mutant.name!"NoName"} ${mutant.transition} ${mutant.transitionGroup}</td>
+				<td class="text">${mutant.baseSourceLine}</td>
+				<td class="text"><#if killed>Y<#else>N</#if></td>
+				<td class="text">
+				<#list mutant.killerTests as test>
+					${test}<br/>
+				</#list>
+				</td>
 			</tr>
-			#end
+			</#list>
 		</table>
 	</p>
 
@@ -89,33 +89,34 @@
 
 		<div class="separator">&nbsp;</div>
 		<table cellspacing="0" cellpadding="0" class="src">
-		#foreach( $sourceLine in $sourceInfo )
-			#set( $line = $sourceLine.Text.replaceAll(" ","&#160;") )
-			#set( $line = $line.replaceAll("\t","&#160;&#160;") )
-			#if( $sourceLine.MutantInfo )
+		<#list sourceInfo as sourceLine>
+
+			<#assign line =  sourceLine.text?replace(" ","&#160;") >
+			<#assign line = line?replace("\t","&#160;&#160;") >
+			<#if sourceLine.mutantInfo??  >
 		
 			
-				#foreach( $mutant in $sourceLine.MutantInfo )
-					#if ( $mutant.isSurvived() )
+				<#list sourceLine.mutantInfo as mutant >
+					<#if mutant.isSurvived() >
 					<tr>
-			  			<td class="numLineSurvived">&nbsp;$sourceLine.LineNo</td>
-			  			<td class="src"><pre class="src"><span class="srcUncovered"><a title="$mutant.Name: $mutant.Transition $transitionsDescription.getString($mutant.Transition)">&nbsp;$line</a></span></pre></td>
+			  			<td class="numLineSurvived">&nbsp;${sourceLine.lineNo}</td>
+			  			<td class="src"><pre class="src"><span class="srcUncovered"><a title="${mutant.name!"NoName"}: ${mutant.transition} ${transitionsDescription.getString(mutant.transition)}">&nbsp;${line}</a></span></pre></td>
 					</tr>
-					#else
+					<#else>
 					<tr>
-			  			<td class="numLineCover">&nbsp;$sourceLine.LineNo</td>
-			  			<td class="src"><pre class="src"><span class="srcCovered"><a title="$mutant.Name: $mutant.Transition $transitionsDescription.getString($mutant.Transition) KillerTests: $mutant.KillerTests ">&nbsp;$line</a></span></pre></td>
+			  			<td class="numLineCover">&nbsp;${sourceLine.lineNo}</td>
+			  			<td class="src"><pre class="src"><span class="srcCovered"><a title="${mutant.name!"NoName"}: ${mutant.transition} ${transitionsDescription.getString(mutant.transition)} KillerTests: <#list mutant.killerTests as test>${test} </#list> ">&nbsp;${line}</a></span></pre></td>
 					</tr>
 						
-					#end
-				#end
-			#else
+					</#if>
+				</#list>
+			<#else>
 			<tr>
-			  <td class="numLine">&nbsp;$sourceLine.LineNo</td>
-			  <td class="src"><pre class="src">&nbsp;$line</pre></td>
+			  <td class="numLine">&nbsp;${sourceLine.lineNo}</td>
+			  <td class="src"><pre class="src">&nbsp;${line}</pre></td>
 			</tr>
-			#end
-		#end
+			</#if>
+		</#list>
 
 		</table>
 		<div class="footer">

@@ -5,23 +5,26 @@ import java.util.Set;
 
 import junit.framework.TestCase;
 
-import com.retroduction.carma.report.generator.reportobjects.AggregatedClassInfo;
-import com.retroduction.carma.report.generator.reportobjects.Aggregator;
+import com.retroduction.carma.annotations.TestClassToClassMapping;
 import com.retroduction.carma.xmlreport.om.ClassUnderTest;
 import com.retroduction.carma.xmlreport.om.MutationRatio;
+
+@TestClassToClassMapping(classNames = { "com.retroduction.carma.report.generator.reportobjects.CoverageInfoAggregator" })
 
 public class AggregatorTestCase extends TestCase {
 
 	public void testAggregate() {
-		Aggregator cut = new Aggregator();
+		CoverageInfoAggregator cut = new CoverageInfoAggregator();
 
 		{
-			AggregatedClassInfo info = cut.aggregate(new HashSet<ClassUnderTest>());
+			CoverageInfo info = cut.aggregate("name.a", "x", new HashSet<ClassUnderTest>());
 
 			assertEquals(0, info.getNumClasses());
-			assertEquals(0, info.getSumMutants());
-			assertEquals(0, info.getSumSurvivors());
-			assertEquals(1.0, info.getMutationCoverageMean());
+			assertEquals(0, info.getNumMutants());
+			assertEquals(0, info.getNumSurvivors());
+			assertEquals(1.0, info.getCoverage());
+			assertEquals("name.a", info.getFqName());
+			assertEquals("x", info.getShortName());
 		}
 
 		{
@@ -44,12 +47,12 @@ public class AggregatorTestCase extends TestCase {
 				classes.add(ct);
 			}
 
-			AggregatedClassInfo info = cut.aggregate(classes);
+			CoverageInfo info = cut.aggregate("some","x", classes);
 
 			assertEquals(2, info.getNumClasses());
-			assertEquals(9, info.getSumMutants());
-			assertEquals(4, info.getSumSurvivors());
-			assertEquals( (9.0 - 4.0)/9.0  , info.getMutationCoverageMean());
+			assertEquals(9, info.getNumMutants());
+			assertEquals(4, info.getNumSurvivors());
+			assertEquals( (9.0 - 4.0)/9.0  , info.getCoverage());
 		}
 	
 	}

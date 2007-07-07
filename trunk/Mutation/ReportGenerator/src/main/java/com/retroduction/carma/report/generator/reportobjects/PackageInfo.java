@@ -1,5 +1,6 @@
 package com.retroduction.carma.report.generator.reportobjects;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -15,7 +16,7 @@ import com.retroduction.carma.xmlreport.om.ClassUnderTest;
 public class PackageInfo {
 	private Map<String, Set<ClassUnderTest>> classesByPackage;
 
-	public PackageInfo(Set<ClassUnderTest> classes){
+	public PackageInfo(Collection<ClassUnderTest> classes){
 		classesByPackage = new HashMap<String, Set<ClassUnderTest>>();
 		for(ClassUnderTest c : classes){
 			String packageName = c.getPackageName();

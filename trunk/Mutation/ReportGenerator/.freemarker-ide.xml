@@ -1,0 +1,9 @@
+<config>
+	<context-values>
+		<resource path="src/main/resources/com/retroduction/carma/report/generator/html/coverage/class.html">
+			<value key="coverage" object-class="com.retroduction.carma.report.generator.reportobjects.CoverageInfo"/>
+		</resource>
+	</context-values>
+	<macro-library>
+	</macro-library>
+</config>
