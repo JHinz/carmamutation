@@ -4,9 +4,12 @@ import java.util.Iterator;
 
 import junit.framework.TestCase;
 
+import com.retroduction.carma.annotations.TestClassToClassMapping;
 import com.retroduction.carma.xmlreport.om.ClassUnderTest;
 import com.retroduction.carma.xmlreport.om.Mutant;
 import com.retroduction.carma.xmlreport.om.MutationRun;
+
+@TestClassToClassMapping(classNames = { "com.retroduction.carma.eventlisteners.util.StatisticalReportAnalyzer" })
 
 public class StatisticalReportAnalyzerTestCase extends TestCase {
 
