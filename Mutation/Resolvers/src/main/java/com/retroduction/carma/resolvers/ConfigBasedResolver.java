@@ -22,17 +22,10 @@ public class ConfigBasedResolver implements ITestClassResolver {
 
 	private File configurationFile;
 
-	private File[] testClassesPath;
-
-	public File[] getTestClassesPath() {
-		return this.testClassesPath;
-	}
-
 	public void setTestClassesPath(File[] testClassesPath) throws MalformedURLException {
-		this.testClassesPath = testClassesPath;
 	}
 
-	public File getConfigurationFile() {
+	private File getConfigurationFile() {
 		return this.configurationFile;
 	}
 

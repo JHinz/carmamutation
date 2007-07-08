@@ -54,17 +54,4 @@ public class PersistentClassInfo extends ClassInfo {
 		this.sourceFile = sourceFile;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		return super.equals(obj);
-	}
-
-	@Override
-	public int hashCode() {
-		return super.hashCode();
-	}
-
-	public int compareTo(PersistentClassInfo o) {
-		return super.compareTo(o);
-	}
 }
