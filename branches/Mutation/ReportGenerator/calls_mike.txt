@@ -1,0 +1,3 @@
+F:\workspaces\mutationTesting\codec\target\site\mutationtest\mutationTestReport.xml target src/main/resources ..\..\mutationTesting\codec\src\java
+
+..\SampleProjectUnderTest\target\site\mutationtest\mutationTestReport.xml target src/main/resources ..\SampleProjectUnderTest\src\main\java

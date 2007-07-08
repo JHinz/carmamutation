@@ -1,0 +1,151 @@
+<html>
+<head>
+
+<STYLE TYPE='text/css'>
+
+/* CSS generated at csscreator.com */
+BODY{
+	background-color:#FFFFFF;  
+	color:#003399;  
+	font-family:sans-serif;  
+	font-size:small; 
+	}
+	
+	
+th { 
+	text-align: left;
+	color:#003399;  
+	font-weight:bold;
+	font-family:sans-serif;  
+	font-size:small; 
+  }
+
+td { 
+	text-align: left;
+	color:grey; 
+	font-family:monospace; 
+	font-size:medium;  
+}
+.text {
+  font-family:sans-serif;  
+  color:black; 
+}
+
+.mut_survived {
+  background-color:#FFAAAA;
+  color:red; 
+  font-weight:bold;
+}
+.mut_killed {
+  background-color:#AAFFAA;
+  color:green; 
+  font-weight:bold;
+}
+
+.bar_survived {
+  background-color:#FF3333;
+  color:red; 
+  font-weight:bold;
+}
+.bar_killed {
+  background-color:#33FF33;
+  color:green; 
+  font-weight:bold;
+}
+
+</STYLE>
+    
+</head>
+<body><p>version: 0.13</p>
+
+<p>
+	<h2>Report for ${class.PackageName}.${class.ClassName}</h2>
+	<p>
+		#if($class.MutationRatio.SurvivorCount > 0)
+			#set( $percSurv = 100 * $class.MutationRatio.SurvivorCount / $class.MutationRatio.MutationCount )
+		#else
+			#set( $percSurv = 0)
+		#end
+		
+		#set( $percKilled = 100 - $percSurv )
+		<table>
+			<tr>
+				<td>Mutants:</td><td>$class.MutationRatio.MutationCount</td>
+				<td>Survivors:</td><td>$class.MutationRatio.SurvivorCount</td>
+				<td>Coverage:</td><td>$percKilled%</td>
+			</tr>
+		</table>
+	
+		<table>
+			<tr>
+				<td class="bar_killed" width="$percKilled"></td>
+				<td class="bar_survived" width="$percSurv"></td>
+			</tr>
+		</table>
+	</p>
+	<table>
+		<th>Test Names</th>
+		#foreach( $test in $class.ExecutedTests )
+		<tr>
+			<td class="text">$test</td>
+		</tr>
+		#end
+	</table>
+	<table>
+		<th>Mutant</th>
+		<th>Line No</th>
+		<th>Killed</th>
+		<th>Killer Tests</th>
+		
+		#foreach( $mutant in $class.getMutant() )
+			#set( $killed = $mutant.isSurvived() )
+		<tr>
+			<td class="text">$mutant.Name $mutant.Transition $mutant.TransitionGroup</td>
+			<td class="text">$mutant.BaseSourceLine</td>
+			<td class="text">$killed</td>
+			<td class="text">$mutant.KillerTests</td>
+		</tr>
+		#end
+	</table>
+</p>
+<table>
+<th>No</th>
+<th>Source Code</th>
+<th>Killer Tests</th>
+#foreach( $sourceLine in $sourceInfo )
+
+	#set( $line = $sourceLine.Text.replaceAll(" ","&#160;") )
+	#set( $line = $line.replaceAll("\t","&#160;&#160;") )
+	#if( $sourceLine.MutantInfo )
+
+		#foreach( $mutant in $sourceLine.MutantInfo )
+		<tr>
+			<td>$sourceLine.LineNo</td>
+		
+			#if ( $mutant.isSurvived() )
+				<td class="mut_survived"><a title="$mutant.Name: $mutant.Transition $transitionsDescription.getString($mutant.Transition)">$line</a></td>
+				<td>&#160;</td>
+			#else
+				<td class="mut_killed"><a title="$mutant.Name: $mutant.Transition $transitionsDescription.getString($mutant.Transition)">$line</a></td>
+				<td class="mut_killed">
+				#foreach( $test in $mutant.KillerTests )
+					$test<br/>
+				#end
+				</td>
+				
+			#end
+		<tr>
+		#end
+	#else
+		<tr>
+			<td>$sourceLine.LineNo</td>
+			<td>$line</td>
+			<td>&#160;</td>
+		</tr>
+	#end
+#end
+
+</table>
+</ul>
+</body>
+</html>

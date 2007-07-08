@@ -1,0 +1,4 @@
+com.retroduction.carma.utilities.ClassNameAnalyzer=com.retroduction.carma.utilities.ClassNameAnalyzerTestCase
+com.retroduction.carma.utilities.ByteCodeFileReader=
+com.retroduction.carma.utilities.ClassLoaderInfo=
+com.retroduction.carma.utilities.ToStringUtils=
