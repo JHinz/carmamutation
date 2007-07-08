@@ -6,75 +6,47 @@ import java.util.Set;
 
 import junit.framework.TestCase;
 
-import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
-
 public class ClassMatchResolverTestCase extends TestCase {
 
-	public void test() {
+	public void test_CustomTestCaseSuffix() {
 
 		ClassMatchResolver resolver = new ClassMatchResolver();
 
-		Set<ClassDescription> input = new HashSet<ClassDescription>();
+		Set<String> input = new HashSet<String>();
 
-		ClassDescription class1 = new ClassDescription();
-		class1.setQualifiedClassName("com.retroduction.carma.test.Class1");
-		input.add(class1);
-
-		ClassDescription class2 = new ClassDescription();
-		class2.setQualifiedClassName("com.retroduction.carma.test.Class2");
-		input.add(class2);
+		input.add("com.retroduction.carma.test.Class1");
+		input.add("com.retroduction.carma.test.Class2");
 
 		resolver.setTestNameSuffix("PussyCat");
-		resolver.assignTestNames(input);
 
-		assertEquals(2, input.size());
+		HashMap<String, Set<String>> result = resolver.resolve(input);
 
-		HashMap<String, ClassDescription> classMap = new HashMap<String, ClassDescription>();
+		assertEquals(2, result.size());
 
-		for (ClassDescription classDescription : input)
-			classMap.put(classDescription.getQualifiedClassName(), classDescription);
+		assertTrue(result.get("com.retroduction.carma.test.Class1").contains(
+				"com.retroduction.carma.test.Class1PussyCat"));
 
-		{
-			ClassDescription result = classMap.get("com.retroduction.carma.test.Class1");
+		assertTrue(result.get("com.retroduction.carma.test.Class2").contains(
+				"com.retroduction.carma.test.Class2PussyCat"));
 
-			assertEquals(1, result.getAssociatedTestNames().size());
-			assertTrue(result.getAssociatedTestNames().contains("com.retroduction.carma.test.Class1PussyCat"));
-		}
-
-		{
-			ClassDescription result = classMap.get("com.retroduction.carma.test.Class2");
-
-			assertEquals(1, result.getAssociatedTestNames().size());
-			assertTrue(result.getAssociatedTestNames().contains("com.retroduction.carma.test.Class2PussyCat"));
-		}
 	}
 
 	public void test_DefaultTestCaseSuffix() {
 
 		ClassMatchResolver resolver = new ClassMatchResolver();
 
-		Set<ClassDescription> input = new HashSet<ClassDescription>();
+		Set<String> input = new HashSet<String>();
 
-		ClassDescription class1 = new ClassDescription();
-		class1.setQualifiedClassName("com.retroduction.carma.test.Class1");
-		input.add(class1);
+		input.add("com.retroduction.carma.test.Class1");
+		input.add("com.retroduction.carma.test.Class2");
 
-		resolver.assignTestNames(input);
+		HashMap<String, Set<String>> result = resolver.resolve(input);
 
-		assertEquals(1, input.size());
+		assertEquals(2, result.size());
 
-		HashMap<String, ClassDescription> classMap = new HashMap<String, ClassDescription>();
+		assertTrue(result.get("com.retroduction.carma.test.Class1").contains("com.retroduction.carma.test.Class1Test"));
 
-		for (ClassDescription classDescription : input)
-			classMap.put(classDescription.getQualifiedClassName(), classDescription);
-
-		{
-			ClassDescription result = classMap.get("com.retroduction.carma.test.Class1");
-
-			assertEquals(1, result.getAssociatedTestNames().size());
-			assertTrue(result.getAssociatedTestNames().contains("com.retroduction.carma.test.Class1Test"));
-		}
-
+		assertTrue(result.get("com.retroduction.carma.test.Class2").contains("com.retroduction.carma.test.Class2Test"));
 	}
 
 }

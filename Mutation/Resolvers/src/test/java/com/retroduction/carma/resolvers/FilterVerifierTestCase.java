@@ -25,7 +25,7 @@ public class FilterVerifierTestCase extends TestCase {
 
 		potentialClasses = new HashSet<String>();
 
-		result = verifier.removeExcludedClasses(potentialClasses);
+		result = verifier.determineExcludedClassNames(potentialClasses);
 
 		assertEquals(0, result.size());
 
@@ -34,21 +34,17 @@ public class FilterVerifierTestCase extends TestCase {
 		potentialClasses.add("package.Class$InnerClass");
 		potentialClasses.add("");
 
-		result = verifier.removeExcludedClasses(potentialClasses);
+		result = verifier.determineExcludedClassNames(potentialClasses);
 
 		assertEquals(2, result.size());
-		assertTrue(result.contains("package.Class"));
+		assertTrue(result.contains("package.Class$InnerClass"));
 		assertTrue(result.contains(""));
 
 		potentialClasses = new HashSet<String>();
 		potentialClasses.add(null);
 
-		try {
-			result = verifier.removeExcludedClasses(potentialClasses);
-			assertTrue(false);
-		} catch (NullPointerException e) {
-		}
-
+		result = verifier.determineExcludedClassNames(potentialClasses);
+		assertTrue(result.contains(null));
 	}
 
 	public void test_OnlyIncludeFilterUsed() {
@@ -65,7 +61,7 @@ public class FilterVerifierTestCase extends TestCase {
 
 		potentialClasses = new HashSet<String>();
 
-		result = verifier.removeExcludedClasses(potentialClasses);
+		result = verifier.determineExcludedClassNames(potentialClasses);
 
 		assertEquals(0, result.size());
 
@@ -76,12 +72,12 @@ public class FilterVerifierTestCase extends TestCase {
 		potentialClasses.add("SomeReallySpecialClass");
 		potentialClasses.add("AnotherspecialClass");
 
-		result = verifier.removeExcludedClasses(potentialClasses);
+		result = verifier.determineExcludedClassNames(potentialClasses);
 
-		assertEquals(2, result.size());
-		assertTrue(result.contains("package.SomeSpecialClass"));
-		assertTrue(result.contains("SomeReallySpecialClass"));
-
+		assertEquals(3, result.size());
+		assertTrue(result.contains("package.Class"));
+		assertTrue(result.contains(""));
+		assertTrue(result.contains("AnotherspecialClass"));
 	}
 
 	public void test_OnlyExcludeFilterUsed() {
@@ -98,7 +94,7 @@ public class FilterVerifierTestCase extends TestCase {
 
 		potentialClasses = new HashSet<String>();
 
-		result = verifier.removeExcludedClasses(potentialClasses);
+		result = verifier.determineExcludedClassNames(potentialClasses);
 
 		assertEquals(0, result.size());
 
@@ -109,12 +105,12 @@ public class FilterVerifierTestCase extends TestCase {
 		potentialClasses.add("SomeReallySpecialClass");
 		potentialClasses.add("AnotherspecialClass");
 
-		result = verifier.removeExcludedClasses(potentialClasses);
+		result = verifier.determineExcludedClassNames(potentialClasses);
 
 		assertEquals(3, result.size());
-		assertTrue(result.contains("package.Class"));
+		assertTrue(result.contains("package.SomeSpecialClass"));
+		assertTrue(result.contains("SomeReallySpecialClass"));
 		assertTrue(result.contains(""));
-		assertTrue(result.contains("AnotherspecialClass"));
 
 	}
 
@@ -133,7 +129,7 @@ public class FilterVerifierTestCase extends TestCase {
 
 		potentialClasses = new HashSet<String>();
 
-		result = verifier.removeExcludedClasses(potentialClasses);
+		result = verifier.determineExcludedClassNames(potentialClasses);
 
 		assertEquals(0, result.size());
 
@@ -143,10 +139,12 @@ public class FilterVerifierTestCase extends TestCase {
 		potentialClasses.add("packageC.CustomClass");
 		potentialClasses.add("packageD.Class");
 
-		result = verifier.removeExcludedClasses(potentialClasses);
+		result = verifier.determineExcludedClassNames(potentialClasses);
 
-		assertEquals(1, result.size());
-		assertTrue(result.contains("packageC.CustomClass"));
+		assertEquals(3, result.size());
+		assertTrue(result.contains("packageA.SomeSpecialClass"));
+		assertTrue(result.contains("packageB.CustomSpecialClass"));
+		assertTrue(result.contains("packageD.Class"));
 
 	}
 }

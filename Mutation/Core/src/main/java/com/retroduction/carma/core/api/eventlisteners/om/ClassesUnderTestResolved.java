@@ -1,20 +1,20 @@
 package com.retroduction.carma.core.api.eventlisteners.om;
 
-import java.util.List;
+import java.util.Set;
 
 import com.retroduction.carma.core.api.eventlisteners.IEvent;
-import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
+import com.retroduction.carma.core.om.TestedClassInfo;
 import com.retroduction.carma.utilities.ToStringUtils;
 
 public class ClassesUnderTestResolved implements IEvent {
 
-	private List<ClassDescription> classUnderTestNames;
+	private Set<TestedClassInfo> classUnderTestNames;
 
-	public List<ClassDescription> getClassUnderTestNames() {
+	public Set<TestedClassInfo> getClassUnderTestNames() {
 		return classUnderTestNames;
 	}
 
-	public ClassesUnderTestResolved(List<ClassDescription> classUnderTestNames) {
+	public ClassesUnderTestResolved(Set<TestedClassInfo> classUnderTestNames) {
 		super();
 		this.classUnderTestNames = classUnderTestNames;
 	}

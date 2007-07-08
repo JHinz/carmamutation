@@ -15,17 +15,18 @@ import com.retroduction.carma.core.api.eventlisteners.om.ProcessingClassUnderTes
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingMutant;
 import com.retroduction.carma.core.api.eventlisteners.om.TestSetNotSane;
 import com.retroduction.carma.core.api.eventlisteners.om.TestsExecuted;
-import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
 import com.retroduction.carma.core.api.testrunners.om.SourceCodeMapping;
 import com.retroduction.carma.core.api.transitions.ITransition;
 import com.retroduction.carma.core.api.transitions.ITransitionGroup;
+import com.retroduction.carma.core.om.PersistentClassInfo;
+import com.retroduction.carma.core.om.TestedClassInfo;
 import com.retroduction.carma.xmlreport.om.ProcessingInfo;
 
 @TestClassToClassMapping(classNames = { "com.retroduction.carma.eventlisteners.ReportEventListener" })
 public class ReportEventListenerTestCase extends TestCase {
 
 	private class MockTransition implements ITransition {
-		
+
 		public List<com.retroduction.carma.core.api.testrunners.om.Mutant> applyTransitions(byte[] byteCode) {
 			return null;
 		}
@@ -39,7 +40,7 @@ public class ReportEventListenerTestCase extends TestCase {
 	private class MockTransitionGroup implements ITransitionGroup {
 
 		public String getName() {
-			
+
 			return "MockTransitionGroup";
 		}
 
@@ -70,13 +71,12 @@ public class ReportEventListenerTestCase extends TestCase {
 		ReportEventListener listener = new ReportEventListener(null);
 
 		{
-			ClassDescription clazz = new ClassDescription();
+			PersistentClassInfo pClassInfo = new PersistentClassInfo("packageName.className");
+			pClassInfo.setClassFile("classFile");
+			pClassInfo.setSourceFile("sourceFile");
 
-			clazz.setClassFile("classFile");
-			clazz.setSourceFile("sourceFile");
-			clazz.setClassName("className");
-			clazz.setQualifiedClassName("qualifiedName");
-			clazz.setPackageName("packageName");
+			TestedClassInfo clazz = new TestedClassInfo(pClassInfo);
+			clazz.getAssociatedTestNames().add(new PersistentClassInfo("someTest"));
 
 			ProcessingClassUnderTest event = new ProcessingClassUnderTest(clazz);
 
@@ -135,7 +135,7 @@ public class ReportEventListenerTestCase extends TestCase {
 		assertEquals("className", listener.run.getClassUnderTest().get(0).getClassName());
 		assertEquals("packageName", listener.run.getClassUnderTest().get(0).getPackageName());
 		assertEquals(0, listener.run.getBrokenTests().size());
-		
+
 		HashSet<String> executedTestNames = new HashSet<String>();
 		for (String testName : listener.run.getClassUnderTest().get(0).getExecutedTests())
 			executedTestNames.add(testName);
@@ -143,8 +143,6 @@ public class ReportEventListenerTestCase extends TestCase {
 		assertEquals(2, executedTestNames.size());
 		assertTrue(executedTestNames.contains("test1"));
 		assertTrue(executedTestNames.contains("test2"));
-
-	
 
 		assertEquals(1, listener.run.getClassUnderTest().get(0).getMutant().size());
 		assertEquals(42, listener.run.getClassUnderTest().get(0).getMutant().get(0).getBaseSourceLine());
@@ -161,7 +159,7 @@ public class ReportEventListenerTestCase extends TestCase {
 		ReportEventListener listener = new ReportEventListener(null);
 
 		{
-			ClassDescription clazz = new ClassDescription();
+			TestedClassInfo clazz = new TestedClassInfo(new PersistentClassInfo("qualifiedClass"));
 
 			ProcessingClassUnderTest event = new ProcessingClassUnderTest(clazz);
 

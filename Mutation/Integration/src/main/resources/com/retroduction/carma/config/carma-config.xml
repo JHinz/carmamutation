@@ -45,12 +45,17 @@
 		<property name="testClassFilterVerifier" ref="testClassFilterVerifier" />
 		<property name="instantiationVerifier"
 			ref="testCaseInstantiationVerifier" />
-		<property name="nestedResolver" ref="${resolver.name}" />
+		<property name="classResolver" ref="classResolver" />
+		<property name="testClassResolver" ref="${resolver.name}" />
+	</bean>
+	
+	<bean id="classResolver"
+		class="com.retroduction.carma.resolvers.FileClassResolver">
+		<property name="classesPath" ref="${project.classesdir.source}" />
 	</bean>
 
 	<bean id="resolver.configbased"
 		class="com.retroduction.carma.resolvers.ConfigBasedResolver">
-		<property name="classesPath" ref="${project.classesdir.source}" />
 		<property name="testClassesPath" ref="${project.testclassesdir.source}" />
 		<property name="configurationFile"
 			value="${resolver.configbased.assignmentfile}" />
@@ -58,20 +63,17 @@
 
 	<bean id="resolver.classmatch"
 		class="com.retroduction.carma.resolvers.ClassMatchResolver">
-		<property name="classesPath" ref="${project.classesdir.source}" />
 		<property name="testNameSuffix"
 			value="${resolver.classmatch.testNameSuffix}" />
 	</bean>
 
 	<bean id="resolver.bruteforce"
 		class="com.retroduction.carma.resolvers.BruteForceResolver">
-		<property name="classesPath" ref="${project.classesdir.source}" />
 		<property name="testClassesPath" ref="${project.testclassesdir.source}" />
 	</bean>
 
 	<bean id="resolver.annotationbased"
 		class="com.retroduction.carma.resolvers.AnnotationResolver">
-		<property name="classesPath" ref="${project.classesdir.source}" />
 		<property name="testClassesPath" ref="${project.testclassesdir.source}" />
 	</bean>
 
