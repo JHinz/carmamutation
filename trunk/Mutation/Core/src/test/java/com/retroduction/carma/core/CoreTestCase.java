@@ -22,18 +22,18 @@ import com.retroduction.carma.core.api.eventlisteners.om.ProcessingClassUnderTes
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingClassUnderTestFinished;
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingMutant;
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingMutationOperator;
-import com.retroduction.carma.core.api.eventlisteners.om.TestSetDetermined;
 import com.retroduction.carma.core.api.eventlisteners.om.TestSetNotSane;
 import com.retroduction.carma.core.api.eventlisteners.om.TestsExecuted;
 import com.retroduction.carma.core.api.resolvers.IResolver;
 import com.retroduction.carma.core.api.testrunners.ITestRunner;
-import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
 import com.retroduction.carma.core.api.testrunners.om.SourceCodeMapping;
 import com.retroduction.carma.core.api.transitions.IMutationGenerator;
 import com.retroduction.carma.core.api.transitions.ITransition;
 import com.retroduction.carma.core.api.transitions.ITransitionGroup;
 import com.retroduction.carma.core.api.transitions.om.TransitionGroupConfig;
+import com.retroduction.carma.core.om.PersistentClassInfo;
+import com.retroduction.carma.core.om.TestedClassInfo;
 import com.retroduction.carma.utilities.IByteCodeFileReader;
 
 public class CoreTestCase extends TestCase {
@@ -106,26 +106,24 @@ public class CoreTestCase extends TestCase {
 
 	private class MockResolver implements IResolver {
 
-		public Set<ClassDescription> resolve() {
-			Set<ClassDescription> result = new HashSet<ClassDescription>();
+		public Set<TestedClassInfo> resolve() {
+			Set<TestedClassInfo> result = new HashSet<TestedClassInfo>();
 
-			ClassDescription desc = new ClassDescription();
-			desc.setClassName("ClassUnderTest");
-			desc.setPackageName("com.retroduction.carma");
-			Set<String> testNames = new HashSet<String>();
-			testNames.add("com.retroduction.carma.SomeTestCase");
-			desc.setAssociatedTestNames(testNames);
+			PersistentClassInfo classInfo = new PersistentClassInfo("com.retroduction.carma.ClassUnderTest");
+
+			TestedClassInfo desc = new TestedClassInfo(classInfo);
+			desc.getAssociatedTestNames().add(new PersistentClassInfo("com.retroduction.carma.SomeTestCase"));
 
 			result.add(desc);
 
 			return result;
 		}
 
-		public Set<ClassDescription> removeSuperfluousClassNames(Set<ClassDescription> classesUnderTest) {
+		public Set<TestedClassInfo> removeSuperfluousClassNames(Set<TestedClassInfo> classesUnderTest) {
 			return classesUnderTest;
 		}
 
-		public Set<ClassDescription> removeSuperfluousTestClasses(Set<ClassDescription> remainingClassDescriptions) {
+		public Set<TestedClassInfo> removeSuperfluousTestClasses(Set<TestedClassInfo> remainingClassDescriptions) {
 			return remainingClassDescriptions;
 		}
 
@@ -215,8 +213,6 @@ public class CoreTestCase extends TestCase {
 
 		core.execute();
 
-		assertEquals("Wrong number of events fired", 10, eventListener.getEvents().size());
-
 		Iterator<IEvent> eventIterator = eventListener.getEvents().iterator();
 
 		IEvent event;
@@ -231,16 +227,12 @@ public class CoreTestCase extends TestCase {
 		// TODO: check event content
 
 		event = eventIterator.next();
-		assertTrue(event instanceof TestSetDetermined);
-		// TODO: check event content
-
-		event = eventIterator.next();
 		assertTrue(event instanceof ProcessingClassUnderTest);
 		assertEquals("com.retroduction.carma.ClassUnderTest", ((ProcessingClassUnderTest) event).getClassUnderTest()
-				.getQualifiedClassName());
+				.getFullyQualifiedClassName());
 		assertEquals(1, ((ProcessingClassUnderTest) event).getClassUnderTest().getAssociatedTestNames().size());
 		assertTrue(((ProcessingClassUnderTest) event).getClassUnderTest().getAssociatedTestNames().contains(
-				"com.retroduction.carma.SomeTestCase"));
+				new PersistentClassInfo("com.retroduction.carma.SomeTestCase")));
 
 		event = eventIterator.next();
 		assertTrue(event instanceof ProcessingMutationOperator);
@@ -264,6 +256,8 @@ public class CoreTestCase extends TestCase {
 
 		event = eventIterator.next();
 		assertTrue(event instanceof MutationProcessFinished);
+
+		assertTrue(!eventIterator.hasNext());
 
 	}
 
@@ -292,8 +286,6 @@ public class CoreTestCase extends TestCase {
 
 		core.execute();
 
-		 assertEquals("Wrong number of events fired", 11, eventListener.getEvents().size());
-
 		Iterator<IEvent> eventIterator = eventListener.getEvents().iterator();
 
 		IEvent event;
@@ -307,10 +299,6 @@ public class CoreTestCase extends TestCase {
 
 		event = eventIterator.next();
 		assertTrue(event instanceof TestSetNotSane);
-		// TODO: check event content
-
-		event = eventIterator.next();
-		assertTrue(event instanceof TestSetDetermined);
 		// TODO: check event content
 
 		event = eventIterator.next();
@@ -333,6 +321,8 @@ public class CoreTestCase extends TestCase {
 
 		event = eventIterator.next();
 		assertTrue(event instanceof MutationProcessFinished);
+
+		assertTrue(!eventIterator.hasNext());
 
 	}
 
@@ -361,8 +351,6 @@ public class CoreTestCase extends TestCase {
 
 		core.execute();
 
-		assertEquals("Wrong number of events fired", 6, eventListener.getEvents().size());
-
 		Iterator<IEvent> eventIterator = eventListener.getEvents().iterator();
 
 		IEvent event;
@@ -375,10 +363,6 @@ public class CoreTestCase extends TestCase {
 		// TODO: check event content
 
 		event = eventIterator.next();
-		assertTrue(event instanceof TestSetDetermined);
-		// TODO: check event content
-
-		event = eventIterator.next();
 		assertTrue(event instanceof ProcessingClassUnderTest);
 
 		event = eventIterator.next();
@@ -387,5 +371,6 @@ public class CoreTestCase extends TestCase {
 		event = eventIterator.next();
 		assertTrue(event instanceof MutationProcessFinished);
 
+		assertTrue(!eventIterator.hasNext());
 	}
 }

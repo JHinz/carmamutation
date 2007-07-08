@@ -2,25 +2,16 @@ package com.retroduction.carma.resolvers;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.retroduction.carma.core.api.resolvers.INestedResolver;
-import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
+import com.retroduction.carma.core.api.resolvers.ITestClassResolver;
+import com.retroduction.carma.core.om.PersistentClassInfo;
 
-public class BruteForceResolver implements INestedResolver {
-	
-	private File[] classesPath;
+public class BruteForceResolver implements ITestClassResolver {
 
 	private File[] testClassesPath;
-
-	public File[] getClassesPath() {
-		return classesPath;
-	}
-
-	public void setClassesPath(File[] classesPath) throws MalformedURLException {
-		this.classesPath = classesPath;
-	}
 
 	public File[] getTestClassesPath() {
 		return testClassesPath;
@@ -30,32 +21,28 @@ public class BruteForceResolver implements INestedResolver {
 		this.testClassesPath = testClassesPath;
 	}
 
-	public Set<ClassDescription> resolve() {
+	public HashMap<String, Set<String>> resolve(Set<String> classNames) {
 
-		DirectoryBasedResolver directoryResolver = new DirectoryBasedResolver();
-		directoryResolver.setClassesBaseDir(getClassesPath());
-
-		Set<ClassDescription> classDescriptions = directoryResolver.determineClassNames();
+		FileClassResolver directoryResolver = new FileClassResolver();
 
 		directoryResolver.setClassesBaseDir(getTestClassesPath());
 
-		Set<ClassDescription> existingTestClasses = directoryResolver.determineClassNames();
+		Set<PersistentClassInfo> existingTestClasses = directoryResolver.determineClassNames();
 
-		assignAllClassesAllTestClasses(existingTestClasses, classDescriptions);
+		HashMap<String, Set<String>> result = new HashMap<String, Set<String>>();
 
-		return classDescriptions;
-	}
+		for (String clazz : classNames) {
 
-	private void assignAllClassesAllTestClasses(Set<ClassDescription> usefulTestClasses,
-			Set<ClassDescription> usefulClasses) {
-		for (ClassDescription clazz : usefulClasses) {
+			Set<String> testNamesForClass = result.get(clazz);
 
-			clazz.setAssociatedTestNames(new HashSet<String>());
+			if (testNamesForClass == null)
+				testNamesForClass = new HashSet<String>();
 
-			for (ClassDescription testClassDescription : usefulTestClasses) {
-				clazz.getAssociatedTestNames().add(testClassDescription.getQualifiedClassName());
-			}
+			for (PersistentClassInfo testClassName : existingTestClasses)
+				testNamesForClass.add(testClassName.getFullyQualifiedClassName());
+
+			result.put(clazz, testNamesForClass);
 		}
+		return result;
 	}
-
 }

@@ -1,45 +1,69 @@
 package com.retroduction.carma.resolvers.util;
 
-import java.util.LinkedHashSet;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.retroduction.carma.core.api.testrunners.IFilterVerifier;
+import com.retroduction.carma.core.om.PersistentClassInfo;
 
-
-public class FilterVerifier implements IFilterVerifier {
+public class FilterVerifier {
 
 	private Log log = LogFactory.getLog(FilterVerifier.class);
 
 	private FilterConfiguration filterConfiguration;
 
-	public Set<String> removeExcludedClasses(Set<String> classNames) {
+	public Set<String> determineExcludedClassNames(Set<String> classNames) {
 
-		LinkedHashSet<String> removedClassNames = new LinkedHashSet<String>();
+		Set<String> excludedClasses = new HashSet<String>();
 
 		for (String classDescription : classNames) {
 
+			if (classDescription == null || classDescription.trim().equals("")) {
+				excludedClasses.add(classDescription);
+				continue;
+			}
+
 			if (!getFilterConfiguration().getIncludeFilter().shouldBeIncluded(classDescription)) {
-				removedClassNames.add(classDescription);
-				log.debug("Removing class <" + classDescription + "> due to negative match of include filter");
+				excludedClasses.add(classDescription);
+				log.debug(classDescription + "> should be excluded due to include filter");
 				continue;
 			}
 
 			if (getFilterConfiguration().getExcludeFilter().shouldBeExcluded(classDescription)) {
-				removedClassNames.add(classDescription);
-				log.debug("Removing class <" + classDescription + "> due to positive match of exclude filter");
+				excludedClasses.add(classDescription);
+				log.debug(classDescription + "> should be excluded due to exclude filter");
 				continue;
 			}
 
 		}
 
-		for (String removedClassName : removedClassNames) {
-			classNames.remove(removedClassName);
+		return excludedClasses;
+	}
+
+	public Set<PersistentClassInfo> determineExcludedClasses(Set<PersistentClassInfo> classes) {
+
+		Set<String> classNames = new HashSet<String>();
+		for (PersistentClassInfo clazz : classes)
+			classNames.add(clazz.getFullyQualifiedClassName());
+
+		Set<String> needlessClassNames = determineExcludedClassNames(classNames);
+
+		Set<PersistentClassInfo> needlessClasses = new HashSet<PersistentClassInfo>();
+
+		Iterator<PersistentClassInfo> classIterator = classes.iterator();
+
+		while (classIterator.hasNext()) {
+			PersistentClassInfo clazz = classIterator.next();
+
+			if (needlessClassNames.contains(clazz.getFullyQualifiedClassName()))
+				needlessClasses.add(clazz);
 		}
 
-		return classNames;
+		return needlessClasses;
+
 	}
 
 	private FilterConfiguration getFilterConfiguration() {

@@ -1,16 +1,29 @@
 package com.retroduction.carma.resolvers;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.retroduction.carma.core.api.resolvers.INestedResolver;
 import com.retroduction.carma.core.api.resolvers.IResolver;
+import com.retroduction.carma.core.api.resolvers.ITestClassResolver;
 import com.retroduction.carma.core.api.testrunners.ITestCaseInstantiationVerifier;
-import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
+import com.retroduction.carma.core.om.PersistentClassInfo;
+import com.retroduction.carma.core.om.TestedClassInfo;
 import com.retroduction.carma.resolvers.util.FilterVerifier;
 import com.retroduction.carma.utilities.Logger;
 import com.retroduction.carma.utilities.LoggerFactory;
 
+/**
+ * This resolver performs common tasks like applying class and test class
+ * filters, checking whether test classes are usable (can be instantiated) and
+ * creates a full object model with relations between classes and associated
+ * tests. Furthermore this class adds file system information (class file
+ * location, source file location,...) to the resulting objects.
+ * 
+ * 
+ * @author arau
+ * 
+ */
 public class Resolver implements IResolver {
 
 	private Logger logger = LoggerFactory.getLogger(Resolver.class);
@@ -21,7 +34,9 @@ public class Resolver implements IResolver {
 
 	private ITestCaseInstantiationVerifier instantiationVerifier;
 
-	private INestedResolver nestedResolver;
+	private ITestClassResolver testClassResolver;
+
+	private IClassResolver classResolver;
 
 	public void setClassFilterVerifier(FilterVerifier filterVerifier) {
 		this.classFilterVerifier = filterVerifier;
@@ -31,55 +46,63 @@ public class Resolver implements IResolver {
 		this.instantiationVerifier = instantiationVerifier;
 	}
 
-	public void setNestedResolver(INestedResolver nestedResolver) {
-		this.nestedResolver = nestedResolver;
+	public void setTestClassResolver(ITestClassResolver testClassResolver) {
+		this.testClassResolver = testClassResolver;
 	}
 
-	public Set<ClassDescription> resolve() {
+	public Set<TestedClassInfo> resolve() {
 
-		logger.info("Resolving target classes and test classes using resolver: " + nestedResolver.getClass().getName());
-		return nestedResolver.resolve();
+		logger.debug("Resolving classes from configured classes directory/directories");
 
-	}
+		Set<PersistentClassInfo> classDescriptions = classResolver.determineClassNames();
 
-	public Set<ClassDescription> removeSuperfluousClassNames(Set<ClassDescription> classesUnderTest) {
+		Set<PersistentClassInfo> needlessClasses = classFilterVerifier.determineExcludedClasses(classDescriptions);
 
-		HashSet<String> resolvedClassNames = new HashSet<String>();
+		classDescriptions.removeAll(needlessClasses);
 
-		for (ClassDescription classDescription : classesUnderTest) {
-			resolvedClassNames.add(classDescription.getQualifiedClassName());
+		logger.info("Resolving test classes using resolver: " + testClassResolver.getClass().getName());
+
+		Set<String> allClassNames = new HashSet<String>();
+		for (PersistentClassInfo clazz : classDescriptions) {
+			allClassNames.add(clazz.getFullyQualifiedClassName());
 		}
 
-		Set<String> remainingClassesNames = classFilterVerifier.removeExcludedClasses(resolvedClassNames);
+		HashMap<String, Set<String>> classAndTestMap = testClassResolver.resolve(allClassNames);
 
-		Set<ClassDescription> remainingClassDescriptions = new HashSet<ClassDescription>();
+		Set<TestedClassInfo> result = new HashSet<TestedClassInfo>();
 
-		for (ClassDescription classDescription : classesUnderTest) {
-			if (remainingClassesNames.contains(classDescription.getQualifiedClassName()))
-				remainingClassDescriptions.add(classDescription);
+		for (PersistentClassInfo clazz : classDescriptions) {
+
+			Set<String> testNames = classAndTestMap.get(clazz.getFullyQualifiedClassName());
+
+			Set<String> needlessTestClasses = testClassFilterVerifier.determineExcludedClassNames(testNames);
+
+			testNames.removeAll(needlessTestClasses);
+
+			Set<String> unloadableTestClasses = instantiationVerifier.determineUnloadableTestClassNames(testNames);
+
+			testNames.removeAll(unloadableTestClasses);
+
+			Set<PersistentClassInfo> associatedTests = new HashSet<PersistentClassInfo>();
+			for (String testName : testNames) {
+				associatedTests.add(new PersistentClassInfo(testName));
+			}
+			TestedClassInfo classInfo = new TestedClassInfo(clazz);
+			classInfo.getAssociatedTestNames().addAll(associatedTests);
+			result.add(classInfo);
+
 		}
-		return remainingClassDescriptions;
-	}
 
-	public Set<ClassDescription> removeSuperfluousTestClasses(Set<ClassDescription> remainingClassDescriptions) {
+		return result;
 
-		for (ClassDescription classUnderTestDescription : remainingClassDescriptions) {
-
-			Set<String> associatedTestNames = classUnderTestDescription.getAssociatedTestNames();
-
-			Set<String> remainingTestNames = testClassFilterVerifier.removeExcludedClasses(associatedTestNames);
-
-			remainingTestNames = instantiationVerifier.removeNonInstantiatableClasses(remainingTestNames);
-
-			classUnderTestDescription.setAssociatedTestNames(remainingTestNames);
-
-		}
-
-		return remainingClassDescriptions;
 	}
 
 	public void setTestClassFilterVerifier(FilterVerifier testClassFilterVerifier) {
 		this.testClassFilterVerifier = testClassFilterVerifier;
+	}
+
+	public void setClassResolver(IClassResolver classResolver) {
+		this.classResolver = classResolver;
 	}
 
 }

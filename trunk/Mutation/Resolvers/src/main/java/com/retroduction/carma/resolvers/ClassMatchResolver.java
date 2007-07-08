@@ -1,49 +1,32 @@
 package com.retroduction.carma.resolvers;
 
-import java.io.File;
-import java.net.MalformedURLException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.retroduction.carma.core.api.resolvers.INestedResolver;
-import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
+import com.retroduction.carma.core.api.resolvers.ITestClassResolver;
 
-public class ClassMatchResolver implements INestedResolver {
+public class ClassMatchResolver implements ITestClassResolver {
 
 	private String testNameSuffix = "Test";
 
-	private File[] classesPath;
+	public HashMap<String, Set<String>> resolve(Set<String> classNames) {
 
-	public void setClassesPath(File[] classesPath) throws MalformedURLException {
-		this.classesPath = classesPath;
-	}
+		HashMap<String, Set<String>> result = new HashMap<String, Set<String>>();
 
-	public Set<ClassDescription> resolve() {
+		for (String clazz : classNames) {
 
-		DirectoryBasedResolver directoryResolver = new DirectoryBasedResolver();
-		directoryResolver.setClassesBaseDir(classesPath);
+			String testName = clazz + testNameSuffix;
 
-		Set<ClassDescription> classDescriptions = directoryResolver.determineClassNames();
+			HashSet<String> tests = new HashSet<String>();
 
-		assignTestNames(classDescriptions);
+			tests.add(testName);
 
-		return classDescriptions;
-	}
-
-	void assignTestNames(Set<ClassDescription> classDescriptions) {
-		for (ClassDescription classDescription : classDescriptions) {
-
-			String testName = classDescription.getQualifiedClassName() + getTestNameSuffix();
-
-			classDescription.setAssociatedTestNames(new HashSet<String>());
-
-			classDescription.getAssociatedTestNames().add(testName);
+			result.put(clazz, tests);
 
 		}
-	}
 
-	public String getTestNameSuffix() {
-		return testNameSuffix;
+		return result;
 	}
 
 	public void setTestNameSuffix(String testNameSuffix) {

@@ -2,13 +2,11 @@ package com.retroduction.carma.resolvers;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.util.Iterator;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import junit.framework.TestCase;
-
-import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
 
 public class BruteForceResolverTestCase extends TestCase {
 
@@ -17,30 +15,27 @@ public class BruteForceResolverTestCase extends TestCase {
 		File testClassPath = new File("src/test/it/it0001/testclasses/");
 
 		BruteForceResolver resolver = new BruteForceResolver();
-		resolver.setClassesPath(new File[] { testClassPath });
 		resolver.setTestClassesPath(new File[] { testClassPath });
 
-		SortedSet<ClassDescription> classes = new TreeSet<ClassDescription>(resolver.resolve());
+		Set<String> classes = new HashSet<String>();
 
-		assertEquals(2, classes.size());
+		classes.add("package1.class1");
+		classes.add("package2.class2");
 
-		Iterator<ClassDescription> resultIterator = classes.iterator();
+		HashMap<String, Set<String>> result = resolver.resolve(classes);
 
-		ClassDescription resultClass;
+		assertEquals(2, result.size());
 
-		resultClass = resultIterator.next();
+		assertTrue(result.containsKey("package1.class1"));
+		assertTrue(result.containsKey("package2.class2"));
 
-		assertEquals(2, resultClass.getAssociatedTestNames().size());
+		assertEquals(2, result.get("package1.class1").size());
+		assertEquals(2, result.get("package2.class2").size());
 
-		assertTrue(resultClass.getAssociatedTestNames().contains("TestClass1"));
-		assertTrue(resultClass.getAssociatedTestNames().contains("sub1.sub2.TestClass2"));
-
-		resultClass = resultIterator.next();
-
-		assertEquals(2, resultClass.getAssociatedTestNames().size());
-
-		assertTrue(resultClass.getAssociatedTestNames().contains("TestClass1"));
-		assertTrue(resultClass.getAssociatedTestNames().contains("sub1.sub2.TestClass2"));
+		assertTrue(result.get("package1.class1").contains("TestClass1"));
+		assertTrue(result.get("package2.class2").contains("TestClass1"));
+		assertTrue(result.get("package1.class1").contains("sub1.sub2.TestClass2"));
+		assertTrue(result.get("package2.class2").contains("sub1.sub2.TestClass2"));
 
 	}
 }

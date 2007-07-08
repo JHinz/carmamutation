@@ -82,30 +82,31 @@ public class TestCaseInstantiationVerifier implements ITestCaseInstantiationVeri
 		reinitPrivateClassLoader();
 	}
 
-	public HashSet<String> removeNonInstantiatableClasses(Set<String> fqClassNames) {
+	public HashSet<String> determineUnloadableTestClassNames(Set<String> fqTestClassNames) {
 
-		HashSet<String> usableTestClassDescriptions = new HashSet<String>();
+		HashSet<String> unloadableClasses = new HashSet<String>();
 
-		for (String testClassDescription : fqClassNames) {
+		for (String testClassName : fqTestClassNames) {
 
 			try {
 
-				Class testClass = getLoader().loadClass(testClassDescription);
+				Class testClass = getLoader().loadClass(testClassName);
 
 				if (Modifier.isAbstract(testClass.getModifiers()) || Modifier.isInterface(testClass.getModifiers())) {
-					log.info("Skipping abstract class or interface in test set:" + testClassDescription);
+					log.info("Skipping abstract class or interface in test set:" + testClassName);
+					unloadableClasses.add(testClassName);
 					continue;
 				}
 
 			} catch (Exception e) {
-				log.warn("Skipping class in test set due to class loading problem:" + testClassDescription);
+				log.warn("Skipping class in test set due to class loading problem:" + testClassName);
+				unloadableClasses.add(testClassName);
 				continue;
 			}
 
-			usableTestClassDescriptions.add(testClassDescription);
 		}
 
-		return usableTestClassDescriptions;
+		return unloadableClasses;
 	}
 
 }

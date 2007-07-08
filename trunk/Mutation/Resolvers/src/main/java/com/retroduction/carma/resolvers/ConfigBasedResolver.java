@@ -7,35 +7,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import com.retroduction.carma.core.api.resolvers.ITestClassResolver;
+import com.retroduction.carma.utilities.Logger;
+import com.retroduction.carma.utilities.LoggerFactory;
 
-import com.retroduction.carma.core.api.resolvers.INestedResolver;
-import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
-import com.retroduction.carma.utilities.ClassNameAnalyzer;
-import com.retroduction.carma.utilities.ClassNameAnalyzer.ClassNameInfo;
+public class ConfigBasedResolver implements ITestClassResolver {
 
-public class ConfigBasedResolver implements INestedResolver {
-
-	private Log log = LogFactory.getLog(ConfigBasedResolver.class);
+	private Logger log = LoggerFactory.getLogger(ConfigBasedResolver.class);
 
 	private File configurationFile;
-	
-	private File[] classesPath;
 
 	private File[] testClassesPath;
-
-	public File[] getClassesPath() {
-		return classesPath;
-	}
-
-	public void setClassesPath(File[] classesPath) throws MalformedURLException {
-		this.classesPath = classesPath;
-	}
 
 	public File[] getTestClassesPath() {
 		return testClassesPath;
@@ -53,9 +40,9 @@ public class ConfigBasedResolver implements INestedResolver {
 		this.configurationFile = configurationFile;
 	}
 
-	protected String readInputConfiguration(InputStream steram) throws IOException {
+	protected String readInputConfiguration(InputStream stream) throws IOException {
 
-		BufferedReader reader = new BufferedReader(new InputStreamReader(steram));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 
 		StringBuffer resultBuffer = new StringBuffer();
 
@@ -67,9 +54,12 @@ public class ConfigBasedResolver implements INestedResolver {
 		return resultBuffer.toString();
 	}
 
-	public Set<ClassDescription> parseInputConfiguration(String inputConfig) {
+	public HashMap<String, Set<String>> parseInputConfiguration(String inputConfig, Set<String> classDescriptions) {
 
-		HashSet<ClassDescription> result = new HashSet<ClassDescription>();
+		HashMap<String, Set<String>> result = new HashMap<String, Set<String>>();
+
+		for (String classDescription : classDescriptions)
+			result.put(classDescription, new HashSet<String>());
 
 		StringTokenizer lineTokenzier = new StringTokenizer(inputConfig, "\n");
 
@@ -93,14 +83,14 @@ public class ConfigBasedResolver implements INestedResolver {
 			if (splitIndex <= 0)
 				continue;
 
-			ClassNameAnalyzer analyzer = new ClassNameAnalyzer();
-
 			String fqClassName = line.substring(0, splitIndex);
-			ClassNameInfo info = analyzer.extractClassNameInfo(fqClassName);
 
-			ClassDescription clazz = new ClassDescription();
-			clazz.setClassName(info.getClassName());
-			clazz.setPackageName(info.getPackageName());
+			Set<String> tests = result.get(fqClassName);
+
+			if (tests == null) {
+				log.info("Class" + fqClassName + " defined in assignment map but could not be found on disk");
+				continue;
+			}
 
 			line = line.substring(splitIndex + 1, line.length());
 
@@ -111,33 +101,27 @@ public class ConfigBasedResolver implements INestedResolver {
 
 			StringTokenizer elementTokenizer = new StringTokenizer(line, ",");
 
-			clazz.setAssociatedTestNames(new HashSet<String>());
+			while (elementTokenizer.hasMoreTokens())
+				tests.add(elementTokenizer.nextToken());
 
-			while (elementTokenizer.hasMoreTokens()) {
-				clazz.getAssociatedTestNames().add(elementTokenizer.nextToken());
-
-			}
-
-			result.add(clazz);
-
+			result.put(fqClassName, tests);
 		}
 
 		return result;
 
 	}
 
-	public Set<ClassDescription> resolve() {
+	public HashMap<String, Set<String>> resolve(Set<String> classNames) {
 
 		String inputConfiguration;
 		try {
 			FileInputStream reader = new FileInputStream(getConfigurationFile());
 			inputConfiguration = readInputConfiguration(reader);
 		} catch (IOException e1) {
-			e1.printStackTrace();
-			return new HashSet<ClassDescription>();
+			log.error("Error during reading assignment mapping", e1);
+			return new HashMap<String, Set<String>>();
 		}
 
-		return parseInputConfiguration(inputConfiguration);
+		return parseInputConfiguration(inputConfiguration, classNames);
 	}
-
 }

@@ -2,7 +2,6 @@ package com.retroduction.carma.core;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,16 +15,16 @@ import com.retroduction.carma.core.api.eventlisteners.om.ProcessingClassUnderTes
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingClassUnderTestFinished;
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingMutant;
 import com.retroduction.carma.core.api.eventlisteners.om.ProcessingMutationOperator;
-import com.retroduction.carma.core.api.eventlisteners.om.TestSetDetermined;
 import com.retroduction.carma.core.api.eventlisteners.om.TestSetNotSane;
 import com.retroduction.carma.core.api.eventlisteners.om.TestsExecuted;
 import com.retroduction.carma.core.api.resolvers.IResolver;
 import com.retroduction.carma.core.api.testrunners.ITestRunner;
-import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
 import com.retroduction.carma.core.api.transitions.IMutationGenerator;
 import com.retroduction.carma.core.api.transitions.ITransitionGroup;
 import com.retroduction.carma.core.api.transitions.om.TransitionGroupConfig;
+import com.retroduction.carma.core.om.PersistentClassInfo;
+import com.retroduction.carma.core.om.TestedClassInfo;
 import com.retroduction.carma.utilities.IByteCodeFileReader;
 import com.retroduction.carma.utilities.Logger;
 import com.retroduction.carma.utilities.LoggerFactory;
@@ -62,37 +61,27 @@ public class Core {
 
 		eventListener.notifyEvent(new MutationProcessStarted(transitionGroupConfig.getTransitionGroups()));
 
-		logger.debug("Resolving valid classes under test.");
+		logger.debug("Resolving valid classes under test and associated test classes.");
 
-		Set<ClassDescription> foundClassesUnderTest = resolver.resolve();
+		Set<TestedClassInfo> foundClassesUnderTest = resolver.resolve();
 
-		Set<ClassDescription> filteredClassesUnderTest = resolver.removeSuperfluousClassNames(foundClassesUnderTest);
-
-		logger.info("Resolved " + filteredClassesUnderTest.size() + " valid classes under test.");
-
-		eventListener
-				.notifyEvent(new ClassesUnderTestResolved(new ArrayList<ClassDescription>(filteredClassesUnderTest)));
-
-		logger.debug("Removing invalid or broken (unsuccessful) tests from test set");
-
-		Set<ClassDescription> runnableTestClasses = resolver.removeSuperfluousTestClasses(filteredClassesUnderTest);
+		eventListener.notifyEvent(new ClassesUnderTestResolved(foundClassesUnderTest));
 
 		logger.info("Performing verification run for test set sanity");
 
 		Set<String> fullTestClassSet = new HashSet<String>();
 
-		for (ClassDescription clazz : runnableTestClasses)
-			fullTestClassSet.addAll(clazz.getAssociatedTestNames());
+		for (TestedClassInfo clazz : foundClassesUnderTest)
+			for (PersistentClassInfo testInfo : clazz.getAssociatedTestNames())
+				fullTestClassSet.add(testInfo.getFullyQualifiedClassName());
 
 		Set<String> brokenTestNames = testRunner.execute(fullTestClassSet);
 
-		checkForBrokenTests(runnableTestClasses, brokenTestNames);
+		checkForBrokenTests(foundClassesUnderTest, brokenTestNames);
 
-		int nonDistinctTestClassCount = countTestCases(runnableTestClasses);
+		logger.info("Resolved " + fullTestClassSet.size() + " non distinct valid testclasses.");
 
-		logger.info("Resolved " + nonDistinctTestClassCount + " non distinct valid testclasses.");
-
-		performMutations(transitionGroupConfig.getTransitionGroups(), runnableTestClasses);
+		performMutations(transitionGroupConfig.getTransitionGroups(), foundClassesUnderTest);
 
 		eventListener.notifyEvent(new MutationProcessFinished());
 
@@ -100,7 +89,7 @@ public class Core {
 
 	}
 
-	private void checkForBrokenTests(Set<ClassDescription> classDescriptions, Set<String> brokenTestNames) {
+	private void checkForBrokenTests(Set<TestedClassInfo> testedClassInfos, Set<String> brokenTestNames) {
 		if (brokenTestNames.size() > 0) {
 			logger.warn("Testset not sane. There are already test failures without mutation");
 			eventListener.notifyEvent(new TestSetNotSane(brokenTestNames));
@@ -113,23 +102,15 @@ public class Core {
 					+ brokenTestString);
 		}
 
-		for (ClassDescription clazz : classDescriptions) {
+		for (TestedClassInfo clazz : testedClassInfos) {
 			for (String brokenTest : brokenTestNames) {
-				if (clazz.getAssociatedTestNames().contains(brokenTest))
-					clazz.getAssociatedTestNames().remove(brokenTest);
+				PersistentClassInfo testInfo = new PersistentClassInfo(brokenTest);
+				if (clazz.getAssociatedTestNames().contains(testInfo))
+					clazz.getAssociatedTestNames().remove(testInfo);
+
 			}
 		}
 
-	}
-
-	private int countTestCases(Set<ClassDescription> validTestClasses) {
-		int nonDistinctTestClassCount = 0;
-		for (ClassDescription clazz : validTestClasses) {
-			eventListener.notifyEvent(new TestSetDetermined(clazz.getQualifiedClassName(), clazz
-					.getAssociatedTestNames()));
-			nonDistinctTestClassCount += clazz.getAssociatedTestNames().size();
-		}
-		return nonDistinctTestClassCount;
 	}
 
 	/**
@@ -142,25 +123,25 @@ public class Core {
 	 * @param testNames
 	 * @throws IOException
 	 */
-	void performMutations(Set<ITransitionGroup> transitionGroups, Set<ClassDescription> classUnderTestDescriptions) {
+	void performMutations(Set<ITransitionGroup> transitionGroups, Set<TestedClassInfo> classUnderTestDescriptions) {
 
 		logger.info("Performing mutation ...");
 
-		for (ClassDescription classUnderTestDescription : classUnderTestDescriptions) {
+		for (TestedClassInfo classUnderTestDescription : classUnderTestDescriptions) {
 
-			logger.info("Performing mutation on class: " + classUnderTestDescription.getQualifiedClassName());
+			logger.info("Performing mutation on class: " + classUnderTestDescription.getFullyQualifiedClassName());
 
 			eventListener.notifyEvent(new ProcessingClassUnderTest(classUnderTestDescription));
 
-			String fqClassName = classUnderTestDescription.getQualifiedClassName();
-			
+			String fqClassName = classUnderTestDescription.getFullyQualifiedClassName();
+
 			logger.debug("Loading genuine class byte code for mutation process...");
 
 			byte[] byteCode = null;
 			try {
 				byteCode = byteCodeFileReader.readByteCodeFromMultipleFolders(fqClassName, getClassesUnderTestPath());
 			} catch (IOException e) {
-				logger.warn("ByteCode for class could not be read from disk. Skipping class " +fqClassName, e);
+				logger.warn("ByteCode for class could not be read from disk. Skipping class " + fqClassName, e);
 				eventListener.notifyEvent(new ProcessingClassUnderTestFinished());
 				continue;
 			}
@@ -184,10 +165,15 @@ public class Core {
 					mutant.getSourceMapping().setClassName(fqClassName);
 
 					eventListener.notifyEvent(new ProcessingMutant(mutant));
-					
+
 					logger.debug("Executing sane tests for created mutant...");
 
-					testRunner.execute(mutant, classUnderTestDescription.getAssociatedTestNames());
+					Set<String> associatedTestNames = new HashSet<String>();
+
+					for (PersistentClassInfo testInfo : classUnderTestDescription.getAssociatedTestNames())
+						associatedTestNames.add(testInfo.getFullyQualifiedClassName());
+
+					testRunner.execute(mutant, associatedTestNames);
 
 					eventListener.notifyEvent(new TestsExecuted(mutant));
 

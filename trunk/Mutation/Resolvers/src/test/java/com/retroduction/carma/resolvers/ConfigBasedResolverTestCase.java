@@ -3,13 +3,11 @@ package com.retroduction.carma.resolvers;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.Iterator;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import junit.framework.TestCase;
-
-import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
 
 public class ConfigBasedResolverTestCase extends TestCase {
 
@@ -21,33 +19,22 @@ public class ConfigBasedResolverTestCase extends TestCase {
 		inputConfig.append("com.b.Class2=com.b.TestClass2\n");
 
 		ConfigBasedResolver resolver = new ConfigBasedResolver();
-		resolver.setClassesPath(null);
 		resolver.setTestClassesPath(null);
 
-		SortedSet<ClassDescription> result = new TreeSet<ClassDescription>(resolver.parseInputConfiguration(inputConfig
-				.toString()));
+		Set<String> classes = new HashSet<String>();
+
+		classes.add("com.a.Class1");
+		classes.add("com.c.Class3");
+
+		HashMap<String, Set<String>> result = resolver.parseInputConfiguration(inputConfig.toString(), classes);
 
 		assertEquals(2, result.size());
 
-		Iterator<ClassDescription> resultIterator = result.iterator();
+		assertEquals(2, result.get("com.a.Class1").size());
+		assertTrue(result.get("com.a.Class1").contains("com.b.TestClass1"));
+		assertTrue(result.get("com.a.Class1").contains("org.AnotherTestClass2"));
 
-		ClassDescription resultClass;
-
-		resultClass = resultIterator.next();
-
-		assertEquals("com.a.Class1", resultClass.getQualifiedClassName());
-
-		assertEquals(2, resultClass.getAssociatedTestNames().size());
-		assertTrue(resultClass.getAssociatedTestNames().contains("org.AnotherTestClass2"));
-		assertTrue(resultClass.getAssociatedTestNames().contains("com.b.TestClass1"));
-
-		resultClass = resultIterator.next();
-
-		assertEquals("com.b.Class2", resultClass.getQualifiedClassName());
-
-		assertEquals(1, resultClass.getAssociatedTestNames().size());
-		assertTrue(resultClass.getAssociatedTestNames().contains("com.b.TestClass2"));
-
+		assertEquals(0, result.get("com.c.Class3").size());
 	}
 
 	public void test_ReadConfig_EmptyClassNameTest() throws MalformedURLException {
@@ -58,22 +45,21 @@ public class ConfigBasedResolverTestCase extends TestCase {
 		inputConfig.append("com.b.Class2=com.b.TestClass2\n");
 
 		ConfigBasedResolver resolver = new ConfigBasedResolver();
+		resolver.setTestClassesPath(null);
 
-		SortedSet<ClassDescription> result = new TreeSet<ClassDescription>(resolver.parseInputConfiguration(inputConfig
-				.toString()));
+		Set<String> classes = new HashSet<String>();
 
-		assertEquals(1, result.size());
+		classes.add("com.a.Class1");
+		classes.add("com.b.Class2");
 
-		Iterator<ClassDescription> resultIterator = result.iterator();
+		HashMap<String, Set<String>> result = resolver.parseInputConfiguration(inputConfig.toString(), classes);
 
-		ClassDescription resultClass;
+		assertEquals(2, result.size());
 
-		resultClass = resultIterator.next();
-
-		assertEquals("com.b.Class2", resultClass.getQualifiedClassName());
-
-		assertEquals(1, resultClass.getAssociatedTestNames().size());
-		assertTrue(resultClass.getAssociatedTestNames().contains("com.b.TestClass2"));
+		assertEquals(0, result.get("com.a.Class1").size());
+		
+		assertEquals(1, result.get("com.b.Class2").size());
+		assertTrue(result.get("com.b.Class2").contains("com.b.TestClass2"));
 
 	}
 
@@ -81,27 +67,25 @@ public class ConfigBasedResolverTestCase extends TestCase {
 
 		StringBuffer inputConfig = new StringBuffer();
 
-		inputConfig.append("com.b.TestClass1org.AnotherTestClass2\n");
+		inputConfig.append("com.a.Class1com.b.TestClass1,org.AnotherTestClass2\n");
 		inputConfig.append("com.b.Class2=com.b.TestClass2\n");
 
 		ConfigBasedResolver resolver = new ConfigBasedResolver();
+		resolver.setTestClassesPath(null);
 
-		SortedSet<ClassDescription> result = new TreeSet<ClassDescription>(resolver.parseInputConfiguration(inputConfig
-				.toString()));
+		Set<String> classes = new HashSet<String>();
 
-		assertEquals(1, result.size());
+		classes.add("com.a.Class1");
+		classes.add("com.b.Class2");
 
-		Iterator<ClassDescription> resultIterator = result.iterator();
+		HashMap<String, Set<String>> result = resolver.parseInputConfiguration(inputConfig.toString(), classes);
 
-		ClassDescription resultClass;
+		assertEquals(2, result.size());
 
-		resultClass = resultIterator.next();
-
-		assertEquals("com.b.Class2", resultClass.getQualifiedClassName());
-
-		assertEquals(1, resultClass.getAssociatedTestNames().size());
-		assertTrue(resultClass.getAssociatedTestNames().contains("com.b.TestClass2"));
-
+		assertEquals(0, result.get("com.a.Class1").size());
+		
+		assertEquals(1, result.get("com.b.Class2").size());
+		assertTrue(result.get("com.b.Class2").contains("com.b.TestClass2"));
 	}
 
 	public void test_ReadConfig_DuplicateEqualSeperatorTest() throws MalformedURLException {
@@ -112,23 +96,21 @@ public class ConfigBasedResolverTestCase extends TestCase {
 		inputConfig.append("com.b.Class2=com.b.TestClass2\n");
 
 		ConfigBasedResolver resolver = new ConfigBasedResolver();
+		resolver.setTestClassesPath(null);
 
-		SortedSet<ClassDescription> result = new TreeSet<ClassDescription>(resolver.parseInputConfiguration(inputConfig
-				.toString()));
+		Set<String> classes = new HashSet<String>();
 
-		assertEquals(1, result.size());
+		classes.add("com.a.Class1");
+		classes.add("com.b.Class2");
 
-		Iterator<ClassDescription> resultIterator = result.iterator();
+		HashMap<String, Set<String>> result = resolver.parseInputConfiguration(inputConfig.toString(), classes);
 
-		ClassDescription resultClass;
+		assertEquals(2, result.size());
 
-		resultClass = resultIterator.next();
+		assertEquals(0, result.get("com.a.Class1").size());
 
-		assertEquals("com.b.Class2", resultClass.getQualifiedClassName());
-
-		assertEquals(1, resultClass.getAssociatedTestNames().size());
-		assertTrue(resultClass.getAssociatedTestNames().contains("com.b.TestClass2"));
-
+		assertEquals(1, result.get("com.b.Class2").size());
+		assertTrue(result.get("com.b.Class2").contains("com.b.TestClass2"));
 	}
 
 	public void test_ReadConfig_SkipComments_CompleteCommentLine() throws MalformedURLException {
@@ -139,56 +121,47 @@ public class ConfigBasedResolverTestCase extends TestCase {
 		inputConfig.append("com.b.Class2=com.b.TestClass2\n");
 
 		ConfigBasedResolver resolver = new ConfigBasedResolver();
+		resolver.setTestClassesPath(null);
 
-		SortedSet<ClassDescription> result = new TreeSet<ClassDescription>(resolver.parseInputConfiguration(inputConfig
-				.toString()));
+		Set<String> classes = new HashSet<String>();
 
-		assertEquals(1, result.size());
+		classes.add("com.a.Class1");
+		classes.add("com.b.Class2");
 
-		Iterator<ClassDescription> resultIterator = result.iterator();
+		HashMap<String, Set<String>> result = resolver.parseInputConfiguration(inputConfig.toString(), classes);
 
-		ClassDescription resultClass;
+		assertEquals(2, result.size());
 
-		resultClass = resultIterator.next();
+		assertEquals(0, result.get("com.a.Class1").size());
 
-		assertEquals("com.b.Class2", resultClass.getQualifiedClassName());
-
-		assertEquals(1, resultClass.getAssociatedTestNames().size());
-		assertTrue(resultClass.getAssociatedTestNames().contains("com.b.TestClass2"));
-
+		assertEquals(1, result.get("com.b.Class2").size());
+		assertTrue(result.get("com.b.Class2").contains("com.b.TestClass2"));
 	}
 
 	public void test_ReadConfig_SkipComments_PartialCommentLine() throws MalformedURLException {
 
 		StringBuffer inputConfig = new StringBuffer();
 
-		inputConfig.append("com.b.TestClass1=org.AnotherTestClass2#Comment\n");
+		inputConfig.append("com.a.Class1=com.b.TestClass1#,org.AnotherTestClass2\n");
 		inputConfig.append("com.b.Class2=com.b.TestClass2\n");
 
 		ConfigBasedResolver resolver = new ConfigBasedResolver();
+		resolver.setTestClassesPath(null);
 
-		SortedSet<ClassDescription> result = new TreeSet<ClassDescription>(resolver.parseInputConfiguration(inputConfig
-				.toString()));
+		Set<String> classes = new HashSet<String>();
+
+		classes.add("com.a.Class1");
+		classes.add("com.b.Class2");
+
+		HashMap<String, Set<String>> result = resolver.parseInputConfiguration(inputConfig.toString(), classes);
 
 		assertEquals(2, result.size());
 
-		Iterator<ClassDescription> resultIterator = result.iterator();
-
-		ClassDescription resultClass;
-
-		resultClass = resultIterator.next();
-
-		assertEquals("com.b.Class2", resultClass.getQualifiedClassName());
-		assertEquals(1, resultClass.getAssociatedTestNames().size());
-		assertTrue(resultClass.getAssociatedTestNames().contains("com.b.TestClass2"));
-
-		resultClass = resultIterator.next();
-
-		assertEquals("com.b.TestClass1", resultClass.getQualifiedClassName());
-
-		assertEquals(1, resultClass.getAssociatedTestNames().size());
-		assertTrue(resultClass.getAssociatedTestNames().contains("org.AnotherTestClass2"));
-
+		assertEquals(1, result.get("com.a.Class1").size());
+		assertTrue(result.get("com.a.Class1").contains("com.b.TestClass1"));
+		
+		assertEquals(1, result.get("com.b.Class2").size());
+		assertTrue(result.get("com.b.Class2").contains("com.b.TestClass2"));
 	}
 
 	public void test_ReadInputStream() throws IOException {

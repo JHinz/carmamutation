@@ -1,18 +1,18 @@
 package com.retroduction.carma.core.api.eventlisteners.om;
 
 import com.retroduction.carma.core.api.eventlisteners.IEvent;
-import com.retroduction.carma.core.api.testrunners.om.ClassDescription;
+import com.retroduction.carma.core.om.TestedClassInfo;
 import com.retroduction.carma.utilities.ToStringUtils;
 
 public class ProcessingClassUnderTest implements IEvent {
 
-	private ClassDescription classUnderTest;
+	private TestedClassInfo classUnderTest;
 
-	public ClassDescription getClassUnderTest() {
+	public TestedClassInfo getClassUnderTest() {
 		return classUnderTest;
 	}
 
-	public ProcessingClassUnderTest(ClassDescription classUnderTest) {
+	public ProcessingClassUnderTest(TestedClassInfo classUnderTest) {
 		super();
 		this.classUnderTest = classUnderTest;
 	}

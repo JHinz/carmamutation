@@ -59,11 +59,12 @@ public class TestCaseInstantiationVerifierTestCase extends TestCase {
 		classes.add("InstantiationVerifierTestInterface");
 		classes.add("nonExistantClass");
 
-		HashSet<String> result = verifier.removeNonInstantiatableClasses(classes);
+		HashSet<String> result = verifier.determineUnloadableTestClassNames(classes);
 
-		assertEquals(2, result.size());
-		assertTrue(result.contains("InstantiationVerifierTestClass"));
-		assertTrue(result.contains("another.InstantiationVerifierTestClass"));
+		assertEquals(3, result.size());
+		assertTrue(result.contains("InstantiationVerifierAbstractTestClass"));
+		assertTrue(result.contains("InstantiationVerifierTestInterface"));
+		assertTrue(result.contains("nonExistantClass"));
 	}
 
 	public void test_InvalidClassPath() {
@@ -78,9 +79,10 @@ public class TestCaseInstantiationVerifierTestCase extends TestCase {
 
 		classes.add("InstantiationVerifierTestClass");
 
-		HashSet<String> result = verifier.removeNonInstantiatableClasses(classes);
+		HashSet<String> result = verifier.determineUnloadableTestClassNames(classes);
 
-		assertEquals(0, result.size());
+		assertEquals(1, result.size());
+		assertTrue(result.contains("InstantiationVerifierTestClass"));
 	}
 
 }
