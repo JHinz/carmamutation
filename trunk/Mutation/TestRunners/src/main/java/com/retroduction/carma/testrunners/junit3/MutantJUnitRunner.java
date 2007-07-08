@@ -58,7 +58,7 @@ public class MutantJUnitRunner extends BaseTestRunner implements IMutantJUnitRun
 	private int runTest(String testCase) {
 		try {
 			Test suite = this.getTest(testCase);
-			TestResult result = this.doRun(suite, false);
+			TestResult result = this.doRun(suite);
 
 			int errors = result.errorCount();
 			int failures = result.failureCount();
@@ -87,7 +87,7 @@ public class MutantJUnitRunner extends BaseTestRunner implements IMutantJUnitRun
 		}
 	}
 
-	private TestResult doRun(Test suite, boolean wait) {
+	private TestResult doRun(Test suite) {
 		TestResult result = this.createTestResult();
 		suite.run(result);
 		return result;

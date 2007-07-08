@@ -32,17 +32,4 @@ public class TestedClassInfo extends PersistentClassInfo {
 		return this.associatedTestNames;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		return super.equals(obj);
-	}
-
-	@Override
-	public int hashCode() {
-		return super.hashCode();
-	}
-
-	public int compareTo(TestedClassInfo o) {
-		return super.compareTo(o);
-	}
 }
