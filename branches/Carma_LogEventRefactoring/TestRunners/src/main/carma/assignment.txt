@@ -1,2 +1,0 @@
-com.retroduction.carma.testrunners.junit3.JUnitRunner=
-com.retroduction.carma.testrunners.junit3.MutantJUnitRunner=
