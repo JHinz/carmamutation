@@ -26,11 +26,11 @@ public class AnnotationResolver implements ITestClassResolver {
 	private File[] testClassesPath;
 
 	public File[] getTestClassesPath() {
-		return testClassesPath;
+		return this.testClassesPath;
 	}
 
 	private URLClassLoader getLoader() {
-		return loader;
+		return this.loader;
 	}
 
 	private void setLoader(URLClassLoader loader) {
@@ -39,26 +39,26 @@ public class AnnotationResolver implements ITestClassResolver {
 
 	public void setTestClassesPath(File[] testClassesPath) throws MalformedURLException {
 		this.testClassesPath = testClassesPath;
-		reinitPrivateClassLoader();
+		this.reinitPrivateClassLoader();
 	}
 
 	private void reinitPrivateClassLoader() {
 
 		List<URL> urlList = new ArrayList<URL>();
 
-		if (getTestClassesPath() != null) {
-			for (File file : getTestClassesPath()) {
+		if (this.getTestClassesPath() != null) {
+			for (File file : this.getTestClassesPath()) {
 				if (file != null) {
 					try {
 						urlList.add(file.toURL());
 					} catch (MalformedURLException e) {
-						log.warn("Invalid class path entry: " + file.toString());
+						this.log.warn("Invalid class path entry: " + file.toString());
 					}
 				}
 			}
 		}
 
-		setLoader(new URLClassLoader((URL[]) urlList.toArray(new URL[0]), this.getClass().getClassLoader()));
+		this.setLoader(new URLClassLoader(urlList.toArray(new URL[0]), this.getClass().getClassLoader()));
 	}
 
 	public HashMap<String, Set<String>> resolve(Set<String> classNames) {
@@ -69,7 +69,7 @@ public class AnnotationResolver implements ITestClassResolver {
 			result.put(className, new HashSet<String>());
 
 		FileClassResolver directoryResolver = new FileClassResolver();
-		directoryResolver.setClassesBaseDir(getTestClassesPath());
+		directoryResolver.setClassesBaseDir(this.getTestClassesPath());
 
 		Set<PersistentClassInfo> testClassNames = directoryResolver.determineClassNames();
 
@@ -78,16 +78,16 @@ public class AnnotationResolver implements ITestClassResolver {
 			Class testClass = null;
 
 			try {
-				testClass = getLoader().loadClass(testClassName.getFullyQualifiedClassName());
+				testClass = this.getLoader().loadClass(testClassName.getFullyQualifiedClassName());
 			} catch (Throwable e) {
-				log.warn("TestClass could not be loaded: " + testClassName);
+				this.log.warn("TestClass could not be loaded: " + testClassName);
 				continue;
 			}
 
 			Annotation annotation = testClass.getAnnotation(TestClassToClassMapping.class);
 
 			if (annotation == null) {
-				log.warn("TestClass has no annotation: " + testClassName);
+				this.log.warn("TestClass has no annotation: " + testClassName);
 				continue;
 			}
 

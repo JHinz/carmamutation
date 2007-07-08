@@ -21,8 +21,8 @@ public class MockRenderer implements IRenderer {
 		this.templateName = templateName;
 		this.context = (Map<String, Object>) context;
 		this.outputFile = outputFile;
-		if(null != exceptionToThrow){
-			throw exceptionToThrow;
+		if(null != this.exceptionToThrow){
+			throw this.exceptionToThrow;
 		}
 		
 	}

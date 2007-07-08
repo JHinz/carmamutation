@@ -27,16 +27,16 @@ public class CarmaDriverSetup {
 	}
 
 	public void addBeanDefinitionResource(String resourceLocation) {
-		beanDefinitionResources.add(resourceLocation);
+		this.beanDefinitionResources.add(resourceLocation);
 	}
 
 	public CarmaDriverSetup() throws CarmaException {
 		// add base configuration from classpath
-		beanDefinitionResources.add("classpath:com/retroduction/carma/config/carma-config.xml");
+		this.beanDefinitionResources.add("classpath:com/retroduction/carma/config/carma-config.xml");
 
 		try {
 			// default settings
-			configurationParameters = getDefaultConfiguration();
+			this.configurationParameters = this.getDefaultConfiguration();
 
 		} catch (IOException e) {
 			throw new CarmaException("failed to read default config", e);
@@ -49,20 +49,20 @@ public class CarmaDriverSetup {
 	 * @param customProps
 	 */
 	public void addCustomConfiguration(Properties customProps) {
-		configurationParameters.putAll(customProps);
+		this.configurationParameters.putAll(customProps);
 
 	}
 
 	public void init() {
-		GenericApplicationContext newAppContext = new GenericApplicationContext(parentContext);
+		GenericApplicationContext newAppContext = new GenericApplicationContext(this.parentContext);
 		XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(newAppContext);
 
-		for (String res : beanDefinitionResources) {
+		for (String res : this.beanDefinitionResources) {
 			xmlReader.loadBeanDefinitions(res);
 		}
 
 		PropertyPlaceholderConfigurer customerPropsProcessor = new PropertyPlaceholderConfigurer();
-		customerPropsProcessor.setProperties(configurationParameters);
+		customerPropsProcessor.setProperties(this.configurationParameters);
 		newAppContext.addBeanFactoryPostProcessor(customerPropsProcessor);
 
 		newAppContext.refresh();
@@ -72,13 +72,13 @@ public class CarmaDriverSetup {
 
 	public ApplicationContext getApplicationContext() {
 		if (null == this.appContext) {
-			init();
+			this.init();
 		}
 		return this.appContext;
 	}
 
 	public Core getDriver() {
-		Core driver = (Core) getApplicationContext().getBean(ICarmaConfigConsts.CORE_BEAN);
+		Core driver = (Core) this.getApplicationContext().getBean(ICarmaConfigConsts.CORE_BEAN);
 		return driver;
 	}
 

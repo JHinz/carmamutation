@@ -27,13 +27,13 @@ public class CoverageReport  {
 		cssProvider.provideStyleSheet("source-viewer.css");
 		
 		Configuration cfg = new Configuration();
-		cfg.setClassForTemplateLoading(getClass(), templatePath);
+		cfg.setClassForTemplateLoading(this.getClass(), this.templatePath);
 		cfg.setObjectWrapper(new DefaultObjectWrapper());
 		FreeMarkerRenderer frenderer = new FreeMarkerRenderer();
 		frenderer.setConfig(cfg);
 		frenderer.setOutputBaseDir(outputDirectory);
 
-		for(ICoverageReport r : reports){
+		for(ICoverageReport r : this.reports){
 			r.generateReport(report, project, frenderer);
 		}
 		

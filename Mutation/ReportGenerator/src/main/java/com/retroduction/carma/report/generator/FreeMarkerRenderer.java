@@ -13,18 +13,18 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 public class FreeMarkerRenderer implements IRenderer {
-	private Logger logger = LoggerFactory.getLogger(getClass());
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	Configuration config;
 
 	File outputBaseDir;
 
 	public void render(String templateName, Object context, String outputFileName) throws RendererException {
-		logger.info("Rendering template: " +templateName);
+		this.logger.info("Rendering template: " +templateName);
 		try {
-			Template templ = config.getTemplate(templateName);
+			Template templ = this.config.getTemplate(templateName);
 
-			File outputFile = new File(outputBaseDir, outputFileName);
+			File outputFile = new File(this.outputBaseDir, outputFileName);
 			Writer writer = new FileWriter(outputFile);
 			try {
 				templ.process(context, writer);
@@ -39,7 +39,7 @@ public class FreeMarkerRenderer implements IRenderer {
 	}
 
 	public Configuration getConfig() {
-		return config;
+		return this.config;
 	}
 
 	public void setConfig(Configuration config) {
@@ -47,7 +47,7 @@ public class FreeMarkerRenderer implements IRenderer {
 	}
 
 	public File getOutputBaseDir() {
-		return outputBaseDir;
+		return this.outputBaseDir;
 	}
 
 	public void setOutputBaseDir(File outputBaseDir) {

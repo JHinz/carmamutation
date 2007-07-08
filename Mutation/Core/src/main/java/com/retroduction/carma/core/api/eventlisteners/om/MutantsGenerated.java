@@ -16,15 +16,15 @@ public class MutantsGenerated implements IEvent {
 	private ITransitionGroup transitionGroup;
 
 	public String getClassUnderTest() {
-		return classUnderTest;
+		return this.classUnderTest;
 	}
 
 	public List<Mutant> getGeneratedMutants() {
-		return generatedMutants;
+		return this.generatedMutants;
 	}
 
 	public ITransitionGroup getTransitionGroup() {
-		return transitionGroup;
+		return this.transitionGroup;
 	}
 
 	public MutantsGenerated(List<Mutant> generateMutants, String classUnderTest, ITransitionGroup transitionGroup) {

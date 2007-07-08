@@ -18,21 +18,21 @@ public class ClassInfo {
 		this.surviverRatio = numMutants == 0 ? 0.0 : (double) numSurvivors / (double) numMutants;
 	}
 	public String getFqClassName() {
-		return fqClassName;
+		return this.fqClassName;
 	}
 	public int getNumMutants() {
-		return numMutants;
+		return this.numMutants;
 	}
 	public int getNumSurvivors() {
-		return numSurvivors;
+		return this.numSurvivors;
 	}
 	public double getSurviverRatio() {
-		return surviverRatio;
+		return this.surviverRatio;
 	}
 	public double getMCoverageRatio() {
-		return 1.0 -surviverRatio;
+		return 1.0 -this.surviverRatio;
 	}
 	public List<String> getTests() {
-		return tests;
+		return this.tests;
 	}
 }

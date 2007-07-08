@@ -5,10 +5,9 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
 
-import com.retroduction.carma.annotations.TestClassToClassMapping;
-import com.retroduction.carma.report.generator.util.ProjectBuilder;
-
 import junit.framework.TestCase;
+
+import com.retroduction.carma.annotations.TestClassToClassMapping;
 
 @TestClassToClassMapping(classNames = { "com.retroduction.carma.report.generator.util.ProjectBuilder" })
 

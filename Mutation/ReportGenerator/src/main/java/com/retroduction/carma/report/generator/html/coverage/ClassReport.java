@@ -16,7 +16,7 @@ import com.retroduction.carma.xmlreport.om.MutationRun;
  * 
  */
 public class ClassReport implements ICoverageReport {
-	private Logger logger = LoggerFactory.getLogger(getClass());
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private SingleClassReportCreator reportCreator;
 
 	private String templateName = "class.html"; 
@@ -37,13 +37,13 @@ public class ClassReport implements ICoverageReport {
 			SourceFile sourceFile = project.getSourceFile(clazz.getPackageName(), clazz.getClassName());
 
 			if (sourceFile == null) {
-				logger.warn("Source Not Found for: " + clazz.getPackageName() + "." + clazz.getClassName() 
+				this.logger.warn("Source Not Found for: " + clazz.getPackageName() + "." + clazz.getClassName() 
 						+ " classFile: " + clazz.getBaseClassFile() + " sourceFile: " + clazz.getBaseSourceFile()); 
 				continue;
 			}
 
 			String reportFile = calcHtmlFileName(clazz.getPackageName(), clazz.getClassName()); 
-			reportCreator.createClassReport(clazz, sourceFile, reportFile, templateName, renderer);
+			this.reportCreator.createClassReport(clazz, sourceFile, reportFile, this.templateName, renderer);
 
 		}
 	}

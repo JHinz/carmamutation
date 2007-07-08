@@ -8,10 +8,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.retroduction.carma.core.Core;
 import com.retroduction.carma.core.api.testrunners.ITestRunner;
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
 import com.retroduction.carma.utilities.Logger;
@@ -38,10 +34,10 @@ public class JUnitRunner implements ITestRunner {
 	private IMutantJUnitRunner runner;
 
 	URL[] calculateCombinedClassPath() {
-		URL[] urls = new URL[classesLocations.length + testClassesLocations.length + libraries.length];
-		System.arraycopy(classesLocations, 0, urls, 0, classesLocations.length);
-		System.arraycopy(testClassesLocations, 0, urls, classesLocations.length, testClassesLocations.length);
-		System.arraycopy(libraries, 0, urls, classesLocations.length + testClassesLocations.length, libraries.length);
+		URL[] urls = new URL[this.classesLocations.length + this.testClassesLocations.length + this.libraries.length];
+		System.arraycopy(this.classesLocations, 0, urls, 0, this.classesLocations.length);
+		System.arraycopy(this.testClassesLocations, 0, urls, this.classesLocations.length, this.testClassesLocations.length);
+		System.arraycopy(this.libraries, 0, urls, this.classesLocations.length + this.testClassesLocations.length, this.libraries.length);
 		return urls;
 	}
 
@@ -49,25 +45,25 @@ public class JUnitRunner implements ITestRunner {
 
 		mutant.setSurvived(true);
 
-		URL[] urls = calculateCombinedClassPath();
+		URL[] urls = this.calculateCombinedClassPath();
 
 		Set<String> executedTestsNames = new HashSet<String>();
 		Set<String> killerTestNames = new TreeSet<String>();
 		for (String testCase : origTestNames) {
 			try {
-				int failures = runner.perform(testCase, urls, mutant);
+				int failures = this.runner.perform(testCase, urls, mutant);
 				executedTestsNames.add(testCase);
 				if (failures > 0) {
 					mutant.setSurvived(false);
 					killerTestNames.add(testCase);
-					if (stopOnFirstFailedTest) {
-						logger.debug("Stopping on first failed test.");
+					if (this.stopOnFirstFailedTest) {
+						this.logger.debug("Stopping on first failed test.");
 						break;
 					}
 				}
 
 			} catch (Exception e) {
-				logger.warn(e.getMessage());
+				this.logger.warn(e.getMessage());
 			}
 		}
 
@@ -78,18 +74,18 @@ public class JUnitRunner implements ITestRunner {
 
 	public Set<String> execute(Set<String> origTestNames) {
 
-		URL[] urls = calculateCombinedClassPath();
+		URL[] urls = this.calculateCombinedClassPath();
 
 		Set<String> brokenTestNames = new TreeSet<String>();
 		for (String testCase : origTestNames) {
 			try {
 
-				if (runner.perform(testCase, urls, null) > 0) {
+				if (this.runner.perform(testCase, urls, null) > 0) {
 					brokenTestNames.add(testCase);
 				}
 
 			} catch (Exception e) {
-				logger.debug("Found broken test: " + testCase, e);
+				this.logger.debug("Found broken test: " + testCase, e);
 				brokenTestNames.add(testCase);
 			}
 		}

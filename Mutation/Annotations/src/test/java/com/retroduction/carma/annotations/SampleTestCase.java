@@ -2,8 +2,6 @@ package com.retroduction.carma.annotations;
 
 import junit.framework.TestCase;
 
-import com.retroduction.carma.annotations.TestClassToClassMapping;
-
 @TestClassToClassMapping(classNames = { "sample.Sample" })
 public class SampleTestCase extends TestCase {
 

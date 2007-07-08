@@ -19,12 +19,12 @@ public class CLIValidator {
 	public static final String ASSIGNMENT_CONFIG_OPTION_SHORT = "ac";
 
 	public CLIValidator() {
-		initOptions();
+		this.initOptions();
 	}
 
 	public CommandLine readCLI(String[] args) throws ParseException {
 
-		return new GnuParser().parse(initOptions(), args);
+		return new GnuParser().parse(this.initOptions(), args);
 
 	}
 
@@ -49,7 +49,7 @@ public class CLIValidator {
 
 	public void help() {
 		HelpFormatter formatter = new HelpFormatter();
-		formatter.printHelp("BasicDriver", initOptions());
+		formatter.printHelp("BasicDriver", this.initOptions());
 	}
 
 }

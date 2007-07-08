@@ -11,7 +11,7 @@ public class MutationProcessStarted implements IEvent {
 	private Set<ITransitionGroup> transitionGroups;
 
 	public Set<ITransitionGroup> getTransitionGroups() {
-		return transitionGroups;
+		return this.transitionGroups;
 	}
 
 	public MutationProcessStarted(Set<ITransitionGroup> transitionGroups) {

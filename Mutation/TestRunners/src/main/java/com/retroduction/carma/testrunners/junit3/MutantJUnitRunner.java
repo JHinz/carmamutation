@@ -7,7 +7,6 @@ import junit.framework.TestResult;
 import junit.runner.BaseTestRunner;
 import junit.runner.TestSuiteLoader;
 
-import com.retroduction.carma.core.Core;
 import com.retroduction.carma.core.MutationClassLoader;
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
 import com.retroduction.carma.utilities.Logger;
@@ -28,7 +27,7 @@ public class MutantJUnitRunner extends BaseTestRunner implements IMutantJUnitRun
 
 	@Override
 	public TestSuiteLoader getLoader() {
-		return loader;
+		return this.loader;
 	}
 
 	private ClassLoader mutantLoader;
@@ -37,50 +36,50 @@ public class MutantJUnitRunner extends BaseTestRunner implements IMutantJUnitRun
 
 	private void overrideClassLoader(URL[] testClassesLocation, Mutant mutant) {
 		
-		logger.debug("Injecting carma classloader");
+		this.logger.debug("Injecting carma classloader");
 		
 		if (mutant != null) {
-			mutantLoader = new MutationClassLoader(testClassesLocation, mutant.getClassName(), mutant.getByteCode(),
+			this.mutantLoader = new MutationClassLoader(testClassesLocation, mutant.getClassName(), mutant.getByteCode(),
 					Thread.currentThread().getContextClassLoader());
 		} else {
-			mutantLoader = new MutationClassLoader(testClassesLocation, null, null, Thread.currentThread()
+			this.mutantLoader = new MutationClassLoader(testClassesLocation, null, null, Thread.currentThread()
 					.getContextClassLoader());
 		}
-		loader = new MyTestSuiteLoader();
-		replacedClassLoader = Thread.currentThread().getContextClassLoader();
-		Thread.currentThread().setContextClassLoader(mutantLoader);
+		this.loader = new MyTestSuiteLoader();
+		this.replacedClassLoader = Thread.currentThread().getContextClassLoader();
+		Thread.currentThread().setContextClassLoader(this.mutantLoader);
 	}
 
 	private void restoreReplacedClassLoader() {
-		logger.debug("Restoring original classloader");
-		Thread.currentThread().setContextClassLoader(replacedClassLoader);
+		this.logger.debug("Restoring original classloader");
+		Thread.currentThread().setContextClassLoader(this.replacedClassLoader);
 	}
 
 	private int runTest(String testCase) {
 		try {
-			Test suite = getTest(testCase);
-			TestResult result = doRun(suite, false);
+			Test suite = this.getTest(testCase);
+			TestResult result = this.doRun(suite, false);
 
 			int errors = result.errorCount();
 			int failures = result.failureCount();
 			return errors + failures;
 		} catch (RuntimeException e) {
-			restoreReplacedClassLoader();
+			this.restoreReplacedClassLoader();
 			throw e;
 		}
 	}
 
 	public int perform(String testCase, URL[] testClassesLocation, Mutant mutant) {
-		overrideClassLoader(testClassesLocation, mutant);
-		int errorCount = runTest(testCase);
-		restoreReplacedClassLoader();
+		this.overrideClassLoader(testClassesLocation, mutant);
+		int errorCount = this.runTest(testCase);
+		this.restoreReplacedClassLoader();
 		return errorCount;
 
 	}
 
 	private class MyTestSuiteLoader implements TestSuiteLoader {
 		public Class load(String suiteClassName) throws ClassNotFoundException {
-			return mutantLoader.loadClass(suiteClassName);
+			return MutantJUnitRunner.this.mutantLoader.loadClass(suiteClassName);
 		}
 
 		public Class reload(Class aClass) throws ClassNotFoundException {
@@ -89,7 +88,7 @@ public class MutantJUnitRunner extends BaseTestRunner implements IMutantJUnitRun
 	}
 
 	private TestResult doRun(Test suite, boolean wait) {
-		TestResult result = createTestResult();
+		TestResult result = this.createTestResult();
 		suite.run(result);
 		return result;
 	}

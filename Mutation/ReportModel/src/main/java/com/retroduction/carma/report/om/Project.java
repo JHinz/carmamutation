@@ -9,7 +9,7 @@ public class Project {
 	private TreeMap<String, SourceFile> sourceFiles = new TreeMap<String, SourceFile>();
 
 	public List<SourceFile> getSourceFiles() {
-		return new ArrayList<SourceFile>(sourceFiles.values());
+		return new ArrayList<SourceFile>(this.sourceFiles.values());
 	}
 
 	public void setSourceFiles(List<SourceFile> sourceFiles) {

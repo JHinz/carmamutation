@@ -27,7 +27,7 @@ public class ResolverTestCase extends TestCase {
 		}
 
 		public HashMap<String, Set<String>> resolve(Set<String> classNames) {
-			return mapping;
+			return this.mapping;
 		}
 	}
 
@@ -43,7 +43,7 @@ public class ResolverTestCase extends TestCase {
 
 			Set<PersistentClassInfo> result = new HashSet<PersistentClassInfo>();
 
-			for (String clazz : classes)
+			for (String clazz : this.classes)
 				result.add(new PersistentClassInfo(clazz));
 
 			return result;

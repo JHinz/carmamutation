@@ -27,15 +27,15 @@ public class TestCaseInstantiationVerifier implements ITestCaseInstantiationVeri
 
 		Set<File> combinedClassPathSet = new HashSet<File>();
 
-		if (getClassPath() != null)
-			combinedClassPathSet.addAll(getClassPath());
+		if (this.getClassPath() != null)
+			combinedClassPathSet.addAll(this.getClassPath());
 
-		if (getTestClassPath() != null)
-			combinedClassPathSet.addAll(getTestClassPath());
+		if (this.getTestClassPath() != null)
+			combinedClassPathSet.addAll(this.getTestClassPath());
 
-		Set<URL> validURLs = filterInvalidURLs(combinedClassPathSet);
+		Set<URL> validURLs = this.filterInvalidURLs(combinedClassPathSet);
 
-		setLoader(new URLClassLoader((URL[]) validURLs.toArray(new URL[0]), this.getClass().getClassLoader()));
+		this.setLoader(new URLClassLoader(validURLs.toArray(new URL[0]), this.getClass().getClassLoader()));
 	}
 
 	Set<URL> filterInvalidURLs(Set<File> classPathEntries) {
@@ -48,7 +48,7 @@ public class TestCaseInstantiationVerifier implements ITestCaseInstantiationVeri
 					try {
 						result.add(file.toURL());
 					} catch (MalformedURLException e) {
-						log.warn("Invalid class path entry: " + file.toString());
+						this.log.warn("Invalid class path entry: " + file.toString());
 					}
 				}
 			}
@@ -57,7 +57,7 @@ public class TestCaseInstantiationVerifier implements ITestCaseInstantiationVeri
 	}
 
 	private URLClassLoader getLoader() {
-		return loader;
+		return this.loader;
 	}
 
 	private void setLoader(URLClassLoader loader) {
@@ -65,21 +65,21 @@ public class TestCaseInstantiationVerifier implements ITestCaseInstantiationVeri
 	}
 
 	private Set<File> getClassPath() {
-		return classPath;
+		return this.classPath;
 	}
 
 	public void setClassPath(Set<File> classesPath) {
 		this.classPath = classesPath;
-		reinitPrivateClassLoader();
+		this.reinitPrivateClassLoader();
 	}
 
 	private Set<File> getTestClassPath() {
-		return testClassPath;
+		return this.testClassPath;
 	}
 
 	public void setTestClassPath(Set<File> testClassesPath) {
 		this.testClassPath = testClassesPath;
-		reinitPrivateClassLoader();
+		this.reinitPrivateClassLoader();
 	}
 
 	public HashSet<String> determineUnloadableTestClassNames(Set<String> fqTestClassNames) {
@@ -90,16 +90,16 @@ public class TestCaseInstantiationVerifier implements ITestCaseInstantiationVeri
 
 			try {
 
-				Class testClass = getLoader().loadClass(testClassName);
+				Class testClass = this.getLoader().loadClass(testClassName);
 
 				if (Modifier.isAbstract(testClass.getModifiers()) || Modifier.isInterface(testClass.getModifiers())) {
-					log.info("Skipping abstract class or interface in test set:" + testClassName);
+					this.log.info("Skipping abstract class or interface in test set:" + testClassName);
 					unloadableClasses.add(testClassName);
 					continue;
 				}
 
 			} catch (Exception e) {
-				log.warn("Skipping class in test set due to class loading problem:" + testClassName);
+				this.log.warn("Skipping class in test set due to class loading problem:" + testClassName);
 				unloadableClasses.add(testClassName);
 				continue;
 			}

@@ -57,17 +57,17 @@ public class Core {
 
 	public void execute() {
 
-		logger.info("Investigating resources of target project");
+		this.logger.info("Investigating resources of target project");
 
-		eventListener.notifyEvent(new MutationProcessStarted(transitionGroupConfig.getTransitionGroups()));
+		this.eventListener.notifyEvent(new MutationProcessStarted(this.transitionGroupConfig.getTransitionGroups()));
 
-		logger.debug("Resolving valid classes under test and associated test classes.");
+		this.logger.debug("Resolving valid classes under test and associated test classes.");
 
-		Set<TestedClassInfo> foundClassesUnderTest = resolver.resolve();
+		Set<TestedClassInfo> foundClassesUnderTest = this.resolver.resolve();
 
-		eventListener.notifyEvent(new ClassesUnderTestResolved(foundClassesUnderTest));
+		this.eventListener.notifyEvent(new ClassesUnderTestResolved(foundClassesUnderTest));
 
-		logger.info("Performing verification run for test set sanity");
+		this.logger.info("Performing verification run for test set sanity");
 
 		Set<String> fullTestClassSet = new HashSet<String>();
 
@@ -75,30 +75,30 @@ public class Core {
 			for (PersistentClassInfo testInfo : clazz.getAssociatedTestNames())
 				fullTestClassSet.add(testInfo.getFullyQualifiedClassName());
 
-		Set<String> brokenTestNames = testRunner.execute(fullTestClassSet);
+		Set<String> brokenTestNames = this.testRunner.execute(fullTestClassSet);
 
-		checkForBrokenTests(foundClassesUnderTest, brokenTestNames);
+		this.checkForBrokenTests(foundClassesUnderTest, brokenTestNames);
 
-		logger.info("Resolved " + fullTestClassSet.size() + " non distinct valid testclasses.");
+		this.logger.info("Resolved " + fullTestClassSet.size() + " non distinct valid testclasses.");
 
-		performMutations(transitionGroupConfig.getTransitionGroups(), foundClassesUnderTest);
+		this.performMutations(this.transitionGroupConfig.getTransitionGroups(), foundClassesUnderTest);
 
-		eventListener.notifyEvent(new MutationProcessFinished());
+		this.eventListener.notifyEvent(new MutationProcessFinished());
 
-		eventListener.destroy();
+		this.eventListener.destroy();
 
 	}
 
 	private void checkForBrokenTests(Set<TestedClassInfo> testedClassInfos, Set<String> brokenTestNames) {
 		if (brokenTestNames.size() > 0) {
-			logger.warn("Testset not sane. There are already test failures without mutation");
-			eventListener.notifyEvent(new TestSetNotSane(brokenTestNames));
+			this.logger.warn("Testset not sane. There are already test failures without mutation");
+			this.eventListener.notifyEvent(new TestSetNotSane(brokenTestNames));
 
 			StringBuffer brokenTestString = new StringBuffer();
 			for (String brokenTest : brokenTestNames) {
 				brokenTestString.append(brokenTest + " ");
 			}
-			logger.warn("Skipping defective tests. Proceeding with working ones. These are the broken ones: "
+			this.logger.warn("Skipping defective tests. Proceeding with working ones. These are the broken ones: "
 					+ brokenTestString);
 		}
 
@@ -125,62 +125,62 @@ public class Core {
 	 */
 	void performMutations(Set<ITransitionGroup> transitionGroups, Set<TestedClassInfo> classUnderTestDescriptions) {
 
-		logger.info("Performing mutation ...");
+		this.logger.info("Performing mutation ...");
 
 		for (TestedClassInfo classUnderTestDescription : classUnderTestDescriptions) {
 
-			logger.info("Performing mutation on class: " + classUnderTestDescription.getFullyQualifiedClassName());
+			this.logger.info("Performing mutation on class: " + classUnderTestDescription.getFullyQualifiedClassName());
 
-			eventListener.notifyEvent(new ProcessingClassUnderTest(classUnderTestDescription));
+			this.eventListener.notifyEvent(new ProcessingClassUnderTest(classUnderTestDescription));
 
 			String fqClassName = classUnderTestDescription.getFullyQualifiedClassName();
 
-			logger.debug("Loading genuine class byte code for mutation process...");
+			this.logger.debug("Loading genuine class byte code for mutation process...");
 
 			byte[] byteCode = null;
 			try {
-				byteCode = byteCodeFileReader.readByteCodeFromMultipleFolders(fqClassName, getClassesUnderTestPath());
+				byteCode = this.byteCodeFileReader.readByteCodeFromMultipleFolders(fqClassName, this.getClassesUnderTestPath());
 			} catch (IOException e) {
-				logger.warn("ByteCode for class could not be read from disk. Skipping class " + fqClassName, e);
-				eventListener.notifyEvent(new ProcessingClassUnderTestFinished());
+				this.logger.warn("ByteCode for class could not be read from disk. Skipping class " + fqClassName, e);
+				this.eventListener.notifyEvent(new ProcessingClassUnderTestFinished());
 				continue;
 			}
 
 			for (ITransitionGroup transitionGroup : transitionGroups) {
 
-				logger.debug("Using transition group <" + transitionGroup.getName() + "> for mutation process");
+				this.logger.debug("Using transition group <" + transitionGroup.getName() + "> for mutation process");
 
-				eventListener.notifyEvent(new ProcessingMutationOperator(transitionGroup.getName()));
+				this.eventListener.notifyEvent(new ProcessingMutationOperator(transitionGroup.getName()));
 
-				List<Mutant> mutants = mutantGenerator.generateMutants(fqClassName, byteCode, transitionGroups);
+				List<Mutant> mutants = this.mutantGenerator.generateMutants(fqClassName, byteCode, transitionGroups);
 
-				logger.info("Number of created mutants for current class: " + mutants.size());
+				this.logger.info("Number of created mutants for current class: " + mutants.size());
 
-				eventListener.notifyEvent(new MutantsGenerated(mutants, fqClassName, transitionGroup));
+				this.eventListener.notifyEvent(new MutantsGenerated(mutants, fqClassName, transitionGroup));
 
 				for (Mutant mutant : mutants) {
 
-					logger.debug("Processing mutant...");
+					this.logger.debug("Processing mutant...");
 
 					mutant.getSourceMapping().setClassName(fqClassName);
 
-					eventListener.notifyEvent(new ProcessingMutant(mutant));
+					this.eventListener.notifyEvent(new ProcessingMutant(mutant));
 
-					logger.debug("Executing sane tests for created mutant...");
+					this.logger.debug("Executing sane tests for created mutant...");
 
 					Set<String> associatedTestNames = new HashSet<String>();
 
 					for (PersistentClassInfo testInfo : classUnderTestDescription.getAssociatedTestNames())
 						associatedTestNames.add(testInfo.getFullyQualifiedClassName());
 
-					testRunner.execute(mutant, associatedTestNames);
+					this.testRunner.execute(mutant, associatedTestNames);
 
-					eventListener.notifyEvent(new TestsExecuted(mutant));
+					this.eventListener.notifyEvent(new TestsExecuted(mutant));
 
 				}
 			}
 
-			eventListener.notifyEvent(new ProcessingClassUnderTestFinished());
+			this.eventListener.notifyEvent(new ProcessingClassUnderTestFinished());
 
 		}
 
@@ -195,7 +195,7 @@ public class Core {
 	}
 
 	public File[] getClassesUnderTestPath() {
-		return classesUnderTestPath;
+		return this.classesUnderTestPath;
 	}
 
 	public void setClassesUnderTestPath(File[] classesUnderTestPath) {

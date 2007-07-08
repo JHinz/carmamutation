@@ -23,7 +23,7 @@ public class CoverageInfo implements Comparable<CoverageInfo> {
 	private int numClasses;
 
 	public int getNumClasses() {
-		return numClasses;
+		return this.numClasses;
 	}
 
 	public CoverageInfo(String fqName, String shortName, int numClasses, int numMutants, int numSurvivors) {
@@ -41,26 +41,26 @@ public class CoverageInfo implements Comparable<CoverageInfo> {
 	}
 
 	public double getCoverage() {
-		return coverage;
+		return this.coverage;
 	}
 
 	public String getFqName() {
-		return fqName;
+		return this.fqName;
 	}
 
 	public int getNumMutants() {
-		return numMutants;
+		return this.numMutants;
 	}
 
 	public int getNumSurvivors() {
-		return numSurvivors;
+		return this.numSurvivors;
 	}
 
 	public int compareTo(CoverageInfo o) {
-		return fqName.compareTo(o.fqName);
+		return this.fqName.compareTo(o.fqName);
 	}
 
 	public String getShortName() {
-		return shortName;
+		return this.shortName;
 	}
 }

@@ -14,7 +14,7 @@ public class ByteCodeFileReader implements IByteCodeFileReader {
 			String path = classDirectory.getAbsolutePath() + "/" + classUnderTestName.replace('.', '/') + ".class";
 			File originalClassFile = new File(path);
 			if (originalClassFile.exists()) {
-				return readByteCodeFromDisk(originalClassFile);
+				return this.readByteCodeFromDisk(originalClassFile);
 			}
 		}
 		throw new IOException("File not found");
@@ -24,7 +24,7 @@ public class ByteCodeFileReader implements IByteCodeFileReader {
 
 		FileInputStream inputStream = new FileInputStream(originalClassFile);
 
-		return readByteCodeFromStream(inputStream);
+		return this.readByteCodeFromStream(inputStream);
 
 	}
 

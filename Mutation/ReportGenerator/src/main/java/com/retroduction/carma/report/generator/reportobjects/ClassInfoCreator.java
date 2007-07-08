@@ -12,8 +12,8 @@ public class ClassInfoCreator {
 	}
 	
 	public List<ClassInfo> createClassInfos(){
-		List<ClassInfo> infos = new ArrayList<ClassInfo>(classes.size());
-		for(ClassUnderTest clazz : classes){
+		List<ClassInfo> infos = new ArrayList<ClassInfo>(this.classes.size());
+		for(ClassUnderTest clazz : this.classes){
 			String fqName = clazz.getPackageName() +"." +clazz.getClassName();
 			ClassInfo i = new ClassInfo(fqName, (int) clazz.getMutationRatio().getMutationCount(), (int) clazz.getMutationRatio().getSurvivorCount(), clazz.getExecutedTests());
 			infos.add(i);

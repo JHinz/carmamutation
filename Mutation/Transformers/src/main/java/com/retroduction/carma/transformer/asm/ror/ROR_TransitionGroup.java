@@ -9,12 +9,12 @@ public class ROR_TransitionGroup implements ITransitionGroup {
 
 	public ROR_TransitionGroup(boolean useDefaultTransitions) {
 		if (useDefaultTransitions) {
-			initWithDefaultTransitions();
+			this.initWithDefaultTransitions();
 		}
 	}
 
 	public AbstractASMTransition[] getTransitions() {
-		return transitions;
+		return this.transitions;
 	}
 
 	public void setTransitions(ITransition[] transitions) {

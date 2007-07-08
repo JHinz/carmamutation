@@ -11,26 +11,26 @@ public class ExcludeFilter {
 
 	public ExcludeFilter() {
 		super();
-		setExcludePattern(null);
+		this.setExcludePattern(null);
 	}
 
 	public ExcludeFilter(String excludePattern) {
 		super();
-		setExcludePattern(excludePattern);
+		this.setExcludePattern(excludePattern);
 	}
 
 	public void setExcludePattern(String excludePattern) {
 
 		if ((excludePattern == null) || excludePattern.trim().equals("")) {
-			pattern = Pattern.compile(fixedPatternString);
+			this.pattern = Pattern.compile(this.fixedPatternString);
 		} else {
-			pattern = Pattern.compile(excludePattern + "|" + fixedPatternString);
+			this.pattern = Pattern.compile(excludePattern + "|" + this.fixedPatternString);
 		}
 	}
 
 	public boolean shouldBeExcluded(String fqClassName) {
 
-		Matcher matcher = pattern.matcher(fqClassName);
+		Matcher matcher = this.pattern.matcher(fqClassName);
 
 		return matcher.find();
 	}

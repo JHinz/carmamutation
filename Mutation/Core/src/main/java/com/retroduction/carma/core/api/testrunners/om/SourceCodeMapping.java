@@ -10,7 +10,7 @@ public class SourceCodeMapping {
 	
 	@Override
 	public String toString() {
-		return className + " (" + sourceFile + ":" + lineNo + ")";
+		return this.className + " (" + this.sourceFile + ":" + this.lineNo + ")";
 	}
 
 	private int lineNo;
@@ -20,7 +20,7 @@ public class SourceCodeMapping {
 	private String className;
 
 	public int getLineNo() {
-		return lineNo;
+		return this.lineNo;
 	}
 
 	public void setLineNo(int lineNo) {
@@ -28,7 +28,7 @@ public class SourceCodeMapping {
 	}
 
 	public String getClassName() {
-		return className;
+		return this.className;
 	}
 
 	public void setClassName(String className) {
@@ -36,7 +36,7 @@ public class SourceCodeMapping {
 	}
 
 	public String getSourceFile() {
-		return sourceFile;
+		return this.sourceFile;
 	}
 
 	public void setSourceFile(String sourceFile) {

@@ -40,20 +40,20 @@ public class CoverageBarChartCreator {
 	
 	public CoverageBarChartCreator(){
 		//TODO use spring
-		ranges = new ArrayList<ClassRange>();
-		ranges.add(new ClassRange("0", 0.0, 0.00001));
-		ranges.add(new ClassRange("< 0.25", 0.00001, 0.25));
-		ranges.add(new ClassRange("< 0.5", 0.25, 0.5));
-		ranges.add(new ClassRange("< 0.75", 0.5, 0.75));
-		ranges.add(new ClassRange("< 1", 0.75, 1.0));
-		ranges.add(new ClassRange("1", 1.0, Double.MAX_VALUE));
+		this.ranges = new ArrayList<ClassRange>();
+		this.ranges.add(new ClassRange("0", 0.0, 0.00001));
+		this.ranges.add(new ClassRange("< 0.25", 0.00001, 0.25));
+		this.ranges.add(new ClassRange("< 0.5", 0.25, 0.5));
+		this.ranges.add(new ClassRange("< 0.75", 0.5, 0.75));
+		this.ranges.add(new ClassRange("< 1", 0.75, 1.0));
+		this.ranges.add(new ClassRange("1", 1.0, Double.MAX_VALUE));
 	}
 	public void createChart(List<ClassInfo> values, String pngFileName, String title) throws ChartException{
-		MCoverageClassCreator classCreator = new MCoverageClassCreator(ranges);
+		MCoverageClassCreator classCreator = new MCoverageClassCreator(this.ranges);
 		final List<DataClass> classes = classCreator.classifyMCoverage(values);
-		CategoryDataset categoryDataset = createDataset(classes);
+		CategoryDataset categoryDataset = this.createDataset(classes);
 		
-		JFreeChart chart = createBarChart(categoryDataset, title);
+		JFreeChart chart = this.createBarChart(categoryDataset, title);
 		
 		final NumberFormat nf = NumberFormat.getInstance();
 		nf.setMaximumFractionDigits(2);
@@ -73,8 +73,8 @@ public class CoverageBarChartCreator {
 		plot.getRenderer().setToolTipGenerator(tooltipGenerator);
 
 		try {
-			File pngFile = new File(getBaseDir(), pngFileName);
-			chartToFile(chart, pngFile);
+			File pngFile = new File(this.getBaseDir(), pngFileName);
+			this.chartToFile(chart, pngFile);
 		} catch (IOException e) {
 			throw new ChartException(e);
 		}
@@ -85,7 +85,7 @@ public class CoverageBarChartCreator {
 		// save it to an image
 			ChartRenderingInfo info = new ChartRenderingInfo(new StandardEntityCollection());
 
-			ChartUtilities.saveChartAsPNG(pngFile, chart, width, height, info);
+			ChartUtilities.saveChartAsPNG(pngFile, chart, this.width, this.height, info);
 
 			// write an HTML page incorporating the image with an image map
 //			File file2 = new File(pngFile.getPath() + "barchart100.html");
@@ -109,7 +109,7 @@ public class CoverageBarChartCreator {
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		for (DataClass dataClass : classes) {
-			dataset.addValue(dataClass.getNumInstances(), xLabel, dataClass.getRange().getTitle());
+			dataset.addValue(dataClass.getNumInstances(), this.xLabel, dataClass.getRange().getTitle());
 		}
 		return dataset;
 	}
@@ -118,9 +118,8 @@ public class CoverageBarChartCreator {
 
 		// create the chart...
 		JFreeChart chart = ChartFactory.createBarChart(title, // chart
-				// title
-				xLabel, // domain axis label
-				yLabel, // range axis label
+				this.xLabel, // domain axis label
+				this.yLabel, // range axis label
 				dataSet, // data
 				PlotOrientation.VERTICAL, true, // include legend
 				true, // tooltips?
@@ -145,29 +144,29 @@ public class CoverageBarChartCreator {
 	}
 
 	public void setXLabel(String label) {
-		xLabel = label;
+		this.xLabel = label;
 	}
 
 	public void setYLabel(String label) {
-		yLabel = label;
+		this.yLabel = label;
 	}
 	public int getHeight() {
-		return height;
+		return this.height;
 	}
 	public List<ClassRange> getRanges() {
-		return ranges;
+		return this.ranges;
 	}
 	public int getWidth() {
-		return width;
+		return this.width;
 	}
 	public String getXLabel() {
-		return xLabel;
+		return this.xLabel;
 	}
 	public String getYLabel() {
-		return yLabel;
+		return this.yLabel;
 	}
 	public File getBaseDir() {
-		return baseDir;
+		return this.baseDir;
 	}
 	public void setBaseDir(File baseDir) {
 		this.baseDir = baseDir;

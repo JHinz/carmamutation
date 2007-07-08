@@ -14,13 +14,13 @@ public class SourceLineInfo {
 	private List<Mutant> mutantInfo;
 	private String text;
 	public long getLineNo() {
-		return lineNo;
+		return this.lineNo;
 	}
 	public List<Mutant> getMutantInfo() {
-		return mutantInfo;
+		return this.mutantInfo;
 	}
 	public String getText() {
-		return text;
+		return this.text;
 	}
 	public SourceLineInfo(long lineNo, String text, List<Mutant> mutantInfo) {
 		super();

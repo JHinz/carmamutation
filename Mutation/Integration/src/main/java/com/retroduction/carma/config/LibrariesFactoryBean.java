@@ -24,7 +24,7 @@ public class LibrariesFactoryBean implements FactoryBean {
 			files.add( new File(f) );
 			
 		}
-		setDependenciesAsFiles( files );
+		this.setDependenciesAsFiles( files );
 		
 	}
 	
@@ -40,7 +40,7 @@ public class LibrariesFactoryBean implements FactoryBean {
 	}
 	
 	public Object getObject() throws Exception {
-		return libraryUrls;
+		return this.libraryUrls;
 	}
 
 	public Class getObjectType() {

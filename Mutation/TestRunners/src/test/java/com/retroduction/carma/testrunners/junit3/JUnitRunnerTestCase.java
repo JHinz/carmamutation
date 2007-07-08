@@ -24,8 +24,8 @@ public class JUnitRunnerTestCase extends TestCase {
 		}
 
 		public int perform(String testCase, URL[] testClassesLocation, Mutant mutant) {
-			if (simulateTestRunFailures)
-				if (useExceptionForFailures)
+			if (this.simulateTestRunFailures)
+				if (this.useExceptionForFailures)
 					throw new RuntimeException("MockException");
 				else
 					return 1;

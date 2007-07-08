@@ -17,6 +17,7 @@ import com.retroduction.carma.xmlreport.utilities.ReportModelLoader;
 
 public class TestSetVerificationProcessStepTest extends TestCase {
 
+	@Override
 	public void setUp() {
 		File report = new File("target/report.xml");
 

@@ -55,7 +55,7 @@ public class ReportMojo extends AbstractMojo {
 	private File outputDirectory;
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		Log log = getLog();
+		Log log = this.getLog();
 		ReportModelLoader loader = new ReportModelLoader();
 		MutationRun mutationRun;
 		try {
@@ -72,10 +72,10 @@ public class ReportMojo extends AbstractMojo {
 		
 		List<File> sourceDirectories = new ArrayList<File>();
 		sourceDirectories.add(this.sourceDir);
-		reportGenerator.perform(mutationRun, outputDirectory, sourceDirectories);
+		reportGenerator.perform(mutationRun, this.outputDirectory, sourceDirectories);
 		
 		log.info("# --------------------------------------------------------------------------------");
-		log.info("# Mutation Site report generated. Output directory: " +outputDirectory);
+		log.info("# Mutation Site report generated. Output directory: " +this.outputDirectory);
 		log.info("# --------------------------------------------------------------------------------");
 
 	}

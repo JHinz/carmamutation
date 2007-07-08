@@ -18,42 +18,44 @@ import com.retroduction.carma.xmlreport.utilities.ReportModelLoader;
 public class SingleReportGenerator_it0001_TestCase extends TestCase {
 	private File outputDirectory = new File("target/it_results/it0001");
 	private File itBaseDir = new File("src/test/it/it0001");
-	private File refDir = new File(itBaseDir, "reference");
+	private File refDir = new File(this.itBaseDir, "reference");
 
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		deleteDirectory(outputDirectory);
+		deleteDirectory(this.outputDirectory);
 
 	}
 
+	@Override
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}
 
 	public void test() throws FileNotFoundException, JAXBException{
 		SingleReportGenerator generator = new SingleReportGenerator();
-		File reportFile = new File(itBaseDir, "carmareport.xml");
+		File reportFile = new File(this.itBaseDir, "carmareport.xml");
 		MutationRun report = new ReportModelLoader().loadReportModel(reportFile );
 		
 		List<File> sourceFolders = new ArrayList<File>();
-		sourceFolders.add(new File(itBaseDir, "src"));
-		generator.perform(report, outputDirectory, sourceFolders );
+		sourceFolders.add(new File(this.itBaseDir, "src"));
+		generator.perform(report, this.outputDirectory, sourceFolders );
 		
 		
-		assertFileMatch("css/main.css");
-		assertFileMatch("css/source-viewer.css");
-		assertFileMatch("index.html");
-		assertFileMatch("packages.html");
-		assertFileMatch("classlist.html");
-		assertFileMatch("summary.html");
-		assertFileMatch("summary-sample.html");
-		assertFileMatch("summary-sample.other.html");
-		assertFileMatch("summary-sample.sub.html");
-		assertFileMatch("summary-sample.sub.sub2.html");
+		this.assertFileMatch("css/main.css");
+		this.assertFileMatch("css/source-viewer.css");
+		this.assertFileMatch("index.html");
+		this.assertFileMatch("packages.html");
+		this.assertFileMatch("classlist.html");
+		this.assertFileMatch("summary.html");
+		this.assertFileMatch("summary-sample.html");
+		this.assertFileMatch("summary-sample.other.html");
+		this.assertFileMatch("summary-sample.sub.html");
+		this.assertFileMatch("summary-sample.sub.sub2.html");
 	}
 	
 	private void assertFileMatch(String file){
-		assertBinaryEquals(file, new File(refDir, file), new File(outputDirectory, file));
+		assertBinaryEquals(file, new File(this.refDir, file), new File(this.outputDirectory, file));
 	}
 	
 	static public boolean deleteDirectory(File path) {

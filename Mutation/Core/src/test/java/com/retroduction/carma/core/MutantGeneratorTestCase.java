@@ -48,16 +48,6 @@ public class MutantGeneratorTestCase extends TestCase {
 
 	}
 
-	private class MockEventListener implements IEventListener {
-
-		public void destroy() {
-		}
-
-		public void notifyEvent(IEvent event) {
-		}
-
-	}
-
 	public void test() {
 
 		MutantGenerator generator = new MutantGenerator();

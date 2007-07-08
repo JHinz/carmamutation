@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.security.Permission;
 
 import junit.framework.TestCase;
-import junitx.framework.Assert;
 import junitx.framework.FileAssert;
 
 import org.apache.tools.ant.Main;
@@ -14,14 +13,16 @@ public class AntCarmaReportTestCase extends TestCase {
 
 	private SecurityManager originalSecManager;
 
+	@Override
 	public void setUp() {
 
-		originalSecManager = System.getSecurityManager();
+		this.originalSecManager = System.getSecurityManager();
 		System.setSecurityManager(new NoSystemExitSecurityManager());
 	}
 
+	@Override
 	public void tearDown() {
-		System.setSecurityManager(originalSecManager);
+		System.setSecurityManager(this.originalSecManager);
 	}
 
 	class NoSystemExitSecurityManager extends SecurityManager {

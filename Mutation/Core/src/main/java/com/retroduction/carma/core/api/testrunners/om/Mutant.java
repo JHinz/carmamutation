@@ -16,19 +16,19 @@ public class Mutant {
 	@Override
 	public boolean equals(Object other) {
 		if (other instanceof Mutant) {
-			return byteCode.equals(((Mutant) other).byteCode);
+			return this.byteCode.equals(((Mutant) other).byteCode);
 		}
 		return false;
 	}
 
 	@Override
 	public int hashCode() {
-		return byteCode.hashCode();
+		return this.byteCode.hashCode();
 	}
 
 	@Override
 	public String toString() {
-		return name + " " + className + " " + transitionGroup;
+		return this.name + " " + this.className + " " + this.transitionGroup;
 	}
 
 	private String name;
@@ -50,7 +50,7 @@ public class Mutant {
 	private Set<String> killerTestNames;
 
 	public Set<String> getKillerTestNames() {
-		return killerTestNames;
+		return this.killerTestNames;
 	}
 
 	public void setKillerTestNames(Set<String> killerTestNames) {
@@ -58,7 +58,7 @@ public class Mutant {
 	}
 
 	public Set<String> getExecutedTestsNames() {
-		return executedTestsNames;
+		return this.executedTestsNames;
 	}
 
 	public void setExecutedTestsNames(Set<String> executedTestsNames) {
@@ -66,7 +66,7 @@ public class Mutant {
 	}
 
 	public boolean isSurvived() {
-		return survived;
+		return this.survived;
 	}
 
 	public void setSurvived(boolean survived) {
@@ -74,7 +74,7 @@ public class Mutant {
 	}
 
 	public byte[] getByteCode() {
-		return byteCode;
+		return this.byteCode;
 	}
 
 	public void setByteCode(byte[] byteCode) {
@@ -82,7 +82,7 @@ public class Mutant {
 	}
 
 	public SourceCodeMapping getSourceMapping() {
-		return sourceMapping;
+		return this.sourceMapping;
 	}
 
 	public void setSourceMapping(SourceCodeMapping sourceMapping) {
@@ -90,7 +90,7 @@ public class Mutant {
 	}
 
 	public String getClassName() {
-		return className;
+		return this.className;
 	}
 
 	public void setClassName(String className) {
@@ -98,7 +98,7 @@ public class Mutant {
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {
@@ -106,7 +106,7 @@ public class Mutant {
 	}
 
 	public ITransitionGroup getTransitionGroup() {
-		return transitionGroup;
+		return this.transitionGroup;
 	}
 
 	public void setTransitionGroup(ITransitionGroup transitionGroup) {
@@ -114,7 +114,7 @@ public class Mutant {
 	}
 
 	public ITransition getTransition() {
-		return transition;
+		return this.transition;
 	}
 
 	public void setTransition(ITransition transition) {

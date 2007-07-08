@@ -10,6 +10,7 @@ package com.retroduction.carma.xmlreport.om;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -79,7 +80,7 @@ public class ClassUnderTest {
      *     
      */
     public String getClassName() {
-        return className;
+        return this.className;
     }
 
     /**
@@ -103,7 +104,7 @@ public class ClassUnderTest {
      *     
      */
     public String getPackageName() {
-        return packageName;
+        return this.packageName;
     }
 
     /**
@@ -127,7 +128,7 @@ public class ClassUnderTest {
      *     
      */
     public ProcessingInfo getProcessingInfo() {
-        return processingInfo;
+        return this.processingInfo;
     }
 
     /**
@@ -151,7 +152,7 @@ public class ClassUnderTest {
      *     
      */
     public MutationRatio getMutationRatio() {
-        return mutationRatio;
+        return this.mutationRatio;
     }
 
     /**
@@ -175,7 +176,7 @@ public class ClassUnderTest {
      *     
      */
     public String getBaseClassFile() {
-        return baseClassFile;
+        return this.baseClassFile;
     }
 
     /**
@@ -199,7 +200,7 @@ public class ClassUnderTest {
      *     
      */
     public String getBaseSourceFile() {
-        return baseSourceFile;
+        return this.baseSourceFile;
     }
 
     /**
@@ -237,8 +238,8 @@ public class ClassUnderTest {
      * 
      */
     public List<Mutant> getMutant() {
-        if (mutant == null) {
-            mutant = new ArrayList<Mutant>();
+        if (this.mutant == null) {
+            this.mutant = new ArrayList<Mutant>();
         }
         return this.mutant;
     }
@@ -266,8 +267,8 @@ public class ClassUnderTest {
      * 
      */
     public List<String> getExecutedTests() {
-        if (executedTests == null) {
-            executedTests = new ArrayList<String>();
+        if (this.executedTests == null) {
+            this.executedTests = new ArrayList<String>();
         }
         return this.executedTests;
     }

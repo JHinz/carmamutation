@@ -13,11 +13,11 @@ public class StyleSheetProvider {
 	}
 
 	public void provideStyleSheet(String styleSheet) throws IOException {
-		InputStream is = getClass().getResourceAsStream("css/" + styleSheet);
-		if (!cssOutputDir.exists()) {
-			cssOutputDir.mkdirs();
+		InputStream is = this.getClass().getResourceAsStream("css/" + styleSheet);
+		if (!this.cssOutputDir.exists()) {
+			this.cssOutputDir.mkdirs();
 		}
-		File cssFile = new File(cssOutputDir, styleSheet);
+		File cssFile = new File(this.cssOutputDir, styleSheet);
 
 		FileOutputStream fout = new FileOutputStream(cssFile);
 		byte[] buffer = new byte[1024];

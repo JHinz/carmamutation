@@ -7,12 +7,12 @@ public class FilterConfiguration {
 	private ExcludeFilter excludeFilter;
 
 	public FilterConfiguration() {
-		setIncludeFilter(new IncludeFilter());
-		setExcludeFilter(new ExcludeFilter());
+		this.setIncludeFilter(new IncludeFilter());
+		this.setExcludeFilter(new ExcludeFilter());
 	}
 
 	public ExcludeFilter getExcludeFilter() {
-		return excludeFilter;
+		return this.excludeFilter;
 	}
 
 	public void setExcludeFilter(ExcludeFilter classExcludeFilter) {
@@ -20,7 +20,7 @@ public class FilterConfiguration {
 	}
 
 	public IncludeFilter getIncludeFilter() {
-		return includeFilter;
+		return this.includeFilter;
 	}
 
 	public void setIncludeFilter(IncludeFilter classIncludeFilter) {

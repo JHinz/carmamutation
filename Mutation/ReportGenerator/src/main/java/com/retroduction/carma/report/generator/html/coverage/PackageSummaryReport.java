@@ -43,11 +43,11 @@ public class PackageSummaryReport implements ICoverageReport {
 	public void generateReport(MutationRun report, Project project, IRenderer renderer) throws RenderException {
 		Map<String, Object> ctx = new HashMap<String, Object>();
 		PackageInfo packageInfo = new PackageInfo(report.getClassUnderTest());
-		createPackageReport(report, project, packageInfo, "", HTMLFILE, ctx, renderer);
+		this.createPackageReport(report, project, packageInfo, "", HTMLFILE, ctx, renderer);
 
 		for (String packageName : packageInfo.getPackageNames()) {
 			String packageOutputFile = "summary-" + packageName + ".html";
-			createPackageReport(report, project, packageInfo, packageName, packageOutputFile, ctx, renderer);
+			this.createPackageReport(report, project, packageInfo, packageName, packageOutputFile, ctx, renderer);
 		}
 	}
 
@@ -80,8 +80,8 @@ public class PackageSummaryReport implements ICoverageReport {
 		format.setMinimumFractionDigits(2);		
 		ctx.put("numberFormat", format);
 		
-		ctx.put("date", dateFormat.format(new Date()));
-		renderer.render(templateName,  ctx, outputFile);
+		ctx.put("date", this.dateFormat.format(new Date()));
+		renderer.render(this.templateName,  ctx, outputFile);
 		
 	}
 

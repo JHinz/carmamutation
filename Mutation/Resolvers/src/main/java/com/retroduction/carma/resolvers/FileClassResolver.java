@@ -27,8 +27,8 @@ public class FileClassResolver implements IClassResolver {
 
 		HashSet<PersistentClassInfo> result = new HashSet<PersistentClassInfo>();
 
-		for (File classesDirectory : classesPath)
-			iterate(classesDirectory, "", "", result);
+		for (File classesDirectory : this.classesPath)
+			this.iterate(classesDirectory, "", "", result);
 
 		return result;
 	}
@@ -62,7 +62,7 @@ public class FileClassResolver implements IClassResolver {
 			if (file.isDirectory()) {
 				String prefix = packagePrefix.equals("") ? file.getName() : packagePrefix + "." + file.getName();
 				String relSubPath = relPath + "/" + file.getName();
-				iterate(file, prefix, relSubPath, classes);
+				this.iterate(file, prefix, relSubPath, classes);
 			} else {
 				String fileName = file.getName();
 

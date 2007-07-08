@@ -10,6 +10,7 @@ package com.retroduction.carma.xmlreport.om;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -65,7 +66,7 @@ public class MutationRun {
      *     
      */
     public ProcessingInfo getProcessingInfo() {
-        return processingInfo;
+        return this.processingInfo;
     }
 
     /**
@@ -89,7 +90,7 @@ public class MutationRun {
      *     
      */
     public MutationRatio getMutationRatio() {
-        return mutationRatio;
+        return this.mutationRatio;
     }
 
     /**
@@ -127,8 +128,8 @@ public class MutationRun {
      * 
      */
     public List<ClassUnderTest> getClassUnderTest() {
-        if (classUnderTest == null) {
-            classUnderTest = new ArrayList<ClassUnderTest>();
+        if (this.classUnderTest == null) {
+            this.classUnderTest = new ArrayList<ClassUnderTest>();
         }
         return this.classUnderTest;
     }
@@ -156,8 +157,8 @@ public class MutationRun {
      * 
      */
     public List<String> getBrokenTests() {
-        if (brokenTests == null) {
-            brokenTests = new ArrayList<String>();
+        if (this.brokenTests == null) {
+            this.brokenTests = new ArrayList<String>();
         }
         return this.brokenTests;
     }

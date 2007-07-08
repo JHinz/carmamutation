@@ -15,12 +15,12 @@ public class ClassCoverageInfoCreatorMock extends ClassCoverageInfoCreator {
 	@Override
 	public List<CoverageInfo> createCoverageInfo(Collection<ClassUnderTest> cutList) {
 		this.cutList = cutList;
-		return result;
+		return this.result;
 	}
 
 	@Override
 	public CoverageInfo createCoverageInfo(ClassUnderTest cut) {
 		this.cut = cut;
-		return singleResult;
+		return this.singleResult;
 	}
 }

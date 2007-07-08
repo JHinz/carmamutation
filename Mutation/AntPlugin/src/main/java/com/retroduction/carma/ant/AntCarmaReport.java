@@ -46,6 +46,7 @@ public class AntCarmaReport extends org.apache.tools.ant.Task {
 		this.outputDirectory = outputDirectory;
 	}
 
+	@Override
 	public void execute() {
 		ClassLoader threadClassLoader = Thread.currentThread().getContextClassLoader();
 		ClassLoader thisClassLoader = this.getClass().getClassLoader();
@@ -56,23 +57,23 @@ public class AntCarmaReport extends org.apache.tools.ant.Task {
 
 			MutationRun mutationRun;
 			try {
-				mutationRun = loader.loadReportModel(new File(reportFile));
+				mutationRun = loader.loadReportModel(new File(this.reportFile));
 			} catch (FileNotFoundException e) {
-				log(e, 2);
+				this.log(e, 2);
 				throw new BuildException("Report File not found");
 			} catch (JAXBException e) {
-				log(e, 2);
+				this.log(e, 2);
 				throw new BuildException("Invalid Report File");
 			}
 			SingleReportGenerator reportGenerator = new SingleReportGenerator();
 
 			List<File> sourceDirectories = new ArrayList<File>();
-			sourceDirectories.add(new File(sourceDir));
-			reportGenerator.perform(mutationRun, new File(outputDirectory), sourceDirectories);
+			sourceDirectories.add(new File(this.sourceDir));
+			reportGenerator.perform(mutationRun, new File(this.outputDirectory), sourceDirectories);
 
-			log("# --------------------------------------------------------------------------------");
-			log("# Mutation Site report generated. Output directory: " + outputDirectory);
-			log("# --------------------------------------------------------------------------------");
+			this.log("# --------------------------------------------------------------------------------");
+			this.log("# Mutation Site report generated. Output directory: " + this.outputDirectory);
+			this.log("# --------------------------------------------------------------------------------");
 		} finally {
 			Thread.currentThread().setContextClassLoader(threadClassLoader);
 		}

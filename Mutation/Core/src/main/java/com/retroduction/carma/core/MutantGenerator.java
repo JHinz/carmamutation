@@ -22,7 +22,7 @@ public class MutantGenerator implements IMutationGenerator {
 
 		for (ITransitionGroup group : transitionGroups) {
 
-			logger.debug("Processing transition group: "+ group.getName());
+			this.logger.debug("Processing transition group: "+ group.getName());
 			
 			for (ITransition transition : group.getTransitions()) {
 

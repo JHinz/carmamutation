@@ -29,12 +29,12 @@ public class PersistentClassInfo extends ClassInfo {
 
 	public PersistentClassInfo(PersistentClassInfo classInfo) {
 		super(classInfo.getFullyQualifiedClassName());
-		setClassFile(classInfo.getClassFile());
-		setSourceFile(classInfo.getSourceFile());
+		this.setClassFile(classInfo.getClassFile());
+		this.setSourceFile(classInfo.getSourceFile());
 	}
 
 	public String getClassFile() {
-		return classFile;
+		return this.classFile;
 	}
 
 	public void setClassFile(String classFile) {
@@ -47,7 +47,7 @@ public class PersistentClassInfo extends ClassInfo {
 	}
 
 	public String getSourceFile() {
-		return sourceFile;
+		return this.sourceFile;
 	}
 
 	public void setSourceFile(String sourceFile) {

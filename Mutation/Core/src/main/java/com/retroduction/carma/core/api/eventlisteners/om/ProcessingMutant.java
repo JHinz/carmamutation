@@ -9,7 +9,7 @@ public class ProcessingMutant implements IEvent {
 	private Mutant mutant;
 
 	public Mutant getMutant() {
-		return mutant;
+		return this.mutant;
 	}
 
 	public ProcessingMutant(Mutant mutant) {

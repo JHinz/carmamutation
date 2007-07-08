@@ -13,7 +13,7 @@ public class SourceFile {
 	private String fileName;
 
 	public String getClassName() {
-		return className;
+		return this.className;
 	}
 
 	public void setClassName(String className) {
@@ -21,7 +21,7 @@ public class SourceFile {
 	}
 
 	public String getFileName() {
-		return fileName;
+		return this.fileName;
 	}
 
 	public void setFileName(String fileName) {
@@ -29,7 +29,7 @@ public class SourceFile {
 	}
 
 	public String getPackageName() {
-		return packageName;
+		return this.packageName;
 	}
 
 	public void setPackageName(String packageName) {
@@ -37,7 +37,7 @@ public class SourceFile {
 	}
 
 	public List<String> getSourceText() {
-		return sourceText;
+		return this.sourceText;
 	}
 
 	public void setSourceText(List<String> sourceText) {

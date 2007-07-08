@@ -40,41 +40,41 @@ public class SummaryCreatorEventListener implements IEventListener {
 	 */
 	public Summary createSummary() {
 		Summary summary = new Summary();
-		watch.stop();
-		double elapsed = watch.getLastTaskTimeMillis();
-		Set<String> executedTests = new HashSet<String>(testNames);
-		executedTests.removeAll(testsNotExecuted);
-		double mutantsPerClass = (double) totalMutants.size() / (double) numClassesUnderTest;
-		double testsPerClass = (double) executedTests.size() / (double) numClassesUnderTest;
-		double coverageRatio = 1.0 - ((double) suvivors.size() / (double) totalMutants.size());
+		this.watch.stop();
+		double elapsed = this.watch.getLastTaskTimeMillis();
+		Set<String> executedTests = new HashSet<String>(this.testNames);
+		executedTests.removeAll(this.testsNotExecuted);
+		double mutantsPerClass = (double) this.totalMutants.size() / (double) this.numClassesUnderTest;
+		double testsPerClass = (double) executedTests.size() / (double) this.numClassesUnderTest;
+		double coverageRatio = 1.0 - ((double) this.suvivors.size() / (double) this.totalMutants.size());
 		summary.mutantsPerClass = mutantsPerClass;
-		summary.numClassesUnderTest = numClassesUnderTest;
-		summary.numMutants = totalMutants.size();
-		summary.numSurvivors = suvivors.size();
+		summary.numClassesUnderTest = this.numClassesUnderTest;
+		summary.numMutants = this.totalMutants.size();
+		summary.numSurvivors = this.suvivors.size();
 		summary.numTests = executedTests.size();
 		summary.coverageRatioPercentage = coverageRatio * 100.0;
 		summary.testsPerClass = testsPerClass;
-		summary.timeSeconds = (double) elapsed / 1000;
+		summary.timeSeconds = elapsed / 1000;
 		return summary;
 	}
 
 	public void notifyEvent(IEvent event) {
 		if (event instanceof MutationProcessStarted) {
-			watch.start();
+			this.watch.start();
 		} else if (event instanceof TestsExecuted) {
 			TestsExecuted te = (TestsExecuted) event;
 			if (!te.getMutant().isSurvived()) {
-				suvivors.remove(te.getMutant());
+				this.suvivors.remove(te.getMutant());
 			}
 			TestsExecuted e = (TestsExecuted) event;
-			testNames.addAll(e.getMutant().getExecutedTestsNames());
+			this.testNames.addAll(e.getMutant().getExecutedTestsNames());
 		} else if (event instanceof MutantsGenerated) {
 			MutantsGenerated e = (MutantsGenerated) event;
-			totalMutants.addAll(e.getGeneratedMutants());
-			suvivors.addAll(e.getGeneratedMutants());
+			this.totalMutants.addAll(e.getGeneratedMutants());
+			this.suvivors.addAll(e.getGeneratedMutants());
 		} else if (event instanceof ClassesUnderTestResolved) {
 			ClassesUnderTestResolved e = (ClassesUnderTestResolved) event;
-			numClassesUnderTest += e.getClassUnderTestNames().size();
+			this.numClassesUnderTest += e.getClassUnderTestNames().size();
 		}
 	}
 

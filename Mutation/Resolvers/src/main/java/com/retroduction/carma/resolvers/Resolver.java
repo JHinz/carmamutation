@@ -52,22 +52,22 @@ public class Resolver implements IResolver {
 
 	public Set<TestedClassInfo> resolve() {
 
-		logger.debug("Resolving classes from configured classes directory/directories");
+		this.logger.debug("Resolving classes from configured classes directory/directories");
 
-		Set<PersistentClassInfo> classDescriptions = classResolver.determineClassNames();
+		Set<PersistentClassInfo> classDescriptions = this.classResolver.determineClassNames();
 
-		Set<PersistentClassInfo> needlessClasses = classFilterVerifier.determineExcludedClasses(classDescriptions);
+		Set<PersistentClassInfo> needlessClasses = this.classFilterVerifier.determineExcludedClasses(classDescriptions);
 
 		classDescriptions.removeAll(needlessClasses);
 
-		logger.info("Resolving test classes using resolver: " + testClassResolver.getClass().getName());
+		this.logger.info("Resolving test classes using resolver: " + this.testClassResolver.getClass().getName());
 
 		Set<String> allClassNames = new HashSet<String>();
 		for (PersistentClassInfo clazz : classDescriptions) {
 			allClassNames.add(clazz.getFullyQualifiedClassName());
 		}
 
-		HashMap<String, Set<String>> classAndTestMap = testClassResolver.resolve(allClassNames);
+		HashMap<String, Set<String>> classAndTestMap = this.testClassResolver.resolve(allClassNames);
 
 		Set<TestedClassInfo> result = new HashSet<TestedClassInfo>();
 
@@ -75,11 +75,11 @@ public class Resolver implements IResolver {
 
 			Set<String> testNames = classAndTestMap.get(clazz.getFullyQualifiedClassName());
 
-			Set<String> needlessTestClasses = testClassFilterVerifier.determineExcludedClassNames(testNames);
+			Set<String> needlessTestClasses = this.testClassFilterVerifier.determineExcludedClassNames(testNames);
 
 			testNames.removeAll(needlessTestClasses);
 
-			Set<String> unloadableTestClasses = instantiationVerifier.determineUnloadableTestClassNames(testNames);
+			Set<String> unloadableTestClasses = this.instantiationVerifier.determineUnloadableTestClassNames(testNames);
 
 			testNames.removeAll(unloadableTestClasses);
 
