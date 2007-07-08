@@ -13,12 +13,12 @@ public class ClassInfo implements Comparable<ClassInfo> {
 
 	public ClassInfo(String className, String packageName) {
 		super();
-		extractClassNameInfo(className, packageName);
+		this.extractClassNameInfo(className, packageName);
 	}
 
 	public ClassInfo(String fullyQualifiedClassName) {
 		super();
-		extractClassNameInfo(fullyQualifiedClassName);
+		this.extractClassNameInfo(fullyQualifiedClassName);
 	}
 
 	private void extractClassNameInfo(String fullyQualifiedClassName) {
@@ -26,30 +26,30 @@ public class ClassInfo implements Comparable<ClassInfo> {
 		int lastDotIndex = fullyQualifiedClassName.lastIndexOf(".");
 
 		if (lastDotIndex > 0) {
-			setClassName(fullyQualifiedClassName.substring(lastDotIndex + 1, fullyQualifiedClassName.length()));
-			setPackageName(fullyQualifiedClassName.substring(0, lastDotIndex));
+			this.setClassName(fullyQualifiedClassName.substring(lastDotIndex + 1, fullyQualifiedClassName.length()));
+			this.setPackageName(fullyQualifiedClassName.substring(0, lastDotIndex));
 		} else {
-			setClassName(fullyQualifiedClassName);
-			setPackageName("");
+			this.setClassName(fullyQualifiedClassName);
+			this.setPackageName("");
 		}
 
-		setFullyQualifiedClassName(fullyQualifiedClassName);
+		this.setFullyQualifiedClassName(fullyQualifiedClassName);
 	}
 
 	private void extractClassNameInfo(String className, String packageName) {
 
-		setClassName(className);
-		setPackageName(packageName);
+		this.setClassName(className);
+		this.setPackageName(packageName);
 
 		if ("".equals(packageName))
-			setFullyQualifiedClassName(className);
+			this.setFullyQualifiedClassName(className);
 		else
-			setFullyQualifiedClassName(packageName + "." + className);
+			this.setFullyQualifiedClassName(packageName + "." + className);
 
 	}
 
 	public String getFullyQualifiedClassName() {
-		return fullyQualifiedClassName;
+		return this.fullyQualifiedClassName;
 	}
 
 	private void setFullyQualifiedClassName(String fullyQualifiedClassName) {
@@ -57,7 +57,7 @@ public class ClassInfo implements Comparable<ClassInfo> {
 	}
 
 	public String getClassName() {
-		return className;
+		return this.className;
 	}
 
 	private void setClassName(String className) {
@@ -65,7 +65,7 @@ public class ClassInfo implements Comparable<ClassInfo> {
 	}
 
 	public String getPackageName() {
-		return packageName;
+		return this.packageName;
 	}
 
 	private void setPackageName(String packageName) {
@@ -73,16 +73,16 @@ public class ClassInfo implements Comparable<ClassInfo> {
 	}
 
 	public int compareTo(ClassInfo o) {
-		return fullyQualifiedClassName.compareTo(o.getFullyQualifiedClassName());
+		return this.fullyQualifiedClassName.compareTo(o.getFullyQualifiedClassName());
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		return fullyQualifiedClassName.equals(((ClassInfo) obj).getFullyQualifiedClassName());
+		return this.fullyQualifiedClassName.equals(((ClassInfo) obj).getFullyQualifiedClassName());
 	}
 
 	@Override
 	public int hashCode() {
-		return fullyQualifiedClassName.hashCode();
+		return this.fullyQualifiedClassName.hashCode();
 	}
 }

@@ -65,6 +65,7 @@ public abstract class ROR_Transition extends AbstractASMTransition {
 
 	protected int targetInstruction;
 
+	@Override
 	protected void checkNode(ClassNode classNode, List<Mutant> result, int currentInstructionLineNumber,
 			AbstractInsnNode node) {
 

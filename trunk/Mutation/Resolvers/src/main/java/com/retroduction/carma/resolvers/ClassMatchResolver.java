@@ -16,7 +16,7 @@ public class ClassMatchResolver implements ITestClassResolver {
 
 		for (String clazz : classNames) {
 
-			String testName = clazz + testNameSuffix;
+			String testName = clazz + this.testNameSuffix;
 
 			HashSet<String> tests = new HashSet<String>();
 

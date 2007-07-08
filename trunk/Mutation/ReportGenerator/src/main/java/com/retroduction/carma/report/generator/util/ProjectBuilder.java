@@ -25,7 +25,7 @@ public class ProjectBuilder {
 			try {
 				URL sourceFolderUrl = folderName.toURL();
 
-				Set<File> sourceFileNames = getSourceFiles(folderName);
+				Set<File> sourceFileNames = this.getSourceFiles(folderName);
 
 				for (File sourceFileName : sourceFileNames) {
 					try {
@@ -35,12 +35,12 @@ public class ProjectBuilder {
 						SourceFile sourceFile = new SourceFile();
 						
 						sourceFile.setFileName(sourceFileName.getPath());
-						sourceFile.setPackageName(extractPackageName(sourceFolderUrl, sourceFileUrl));
-						sourceFile.setClassName(extractClassName(sourceFileUrl));
+						sourceFile.setPackageName(this.extractPackageName(sourceFolderUrl, sourceFileUrl));
+						sourceFile.setClassName(this.extractClassName(sourceFileUrl));
 
 						BufferedReader reader = new BufferedReader(new FileReader(new File(sourceFileUrl.getPath())));
 
-						sourceFile.setSourceText(extractFileContent(reader));
+						sourceFile.setSourceText(this.extractFileContent(reader));
 						project.addSourceFile(sourceFile);
 					} catch (IOException e) {
 						System.err.println("Source folder " + folderName + " is invalid. Skipping ...");
@@ -187,7 +187,7 @@ public class ProjectBuilder {
 		if (directories != null) {
 			for (int dirCount = 0; dirCount < directories.length; dirCount++) {
 
-				result.addAll(getSourceFiles(directories[dirCount]));
+				result.addAll(this.getSourceFiles(directories[dirCount]));
 			}
 		}
 

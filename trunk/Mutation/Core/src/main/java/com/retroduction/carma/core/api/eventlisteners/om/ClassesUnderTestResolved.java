@@ -11,7 +11,7 @@ public class ClassesUnderTestResolved implements IEvent {
 	private Set<TestedClassInfo> classUnderTestNames;
 
 	public Set<TestedClassInfo> getClassUnderTestNames() {
-		return classUnderTestNames;
+		return this.classUnderTestNames;
 	}
 
 	public ClassesUnderTestResolved(Set<TestedClassInfo> classUnderTestNames) {

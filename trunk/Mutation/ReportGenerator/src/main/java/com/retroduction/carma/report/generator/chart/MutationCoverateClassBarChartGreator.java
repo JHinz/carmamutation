@@ -33,16 +33,16 @@ public class MutationCoverateClassBarChartGreator {
 		double[] limits = new double[numClasses];
 		double step = 1.0 / numClasses;
 		for (int i = 0; i < limits.length - 1; i++) {
-			limits[i] = step * (double) (i + 1);
+			limits[i] = step * (i + 1);
 		}
 		limits[numClasses - 1] = Double.MAX_VALUE;
 		// double[] limits = { 0.01, 0.25, 0.5, 0.75, 0.9, 1.0, Double.MAX_VALUE
 		// };
 		MCoverageClassCreator creator = new MCoverageClassCreator(limits);
 		final List<DataClass> classes = creator.classifyMCoverage(infos);
-		CategoryDataset dataSet = createDataset("Mutation Coverage Class Distribution", classes);
+		CategoryDataset dataSet = this.createDataset("Mutation Coverage Class Distribution", classes);
 
-		JFreeChart chart = createBarChart(dataSet);
+		JFreeChart chart = this.createBarChart(dataSet);
 
 		final NumberFormat nf = NumberFormat.getInstance();
 		nf.setMaximumFractionDigits(2);
@@ -61,7 +61,7 @@ public class MutationCoverateClassBarChartGreator {
 		};
 		plot.getRenderer().setToolTipGenerator(tooltipGenerator);
 
-		chartToFile(chart, pngFile);
+		this.chartToFile(chart, pngFile);
 	}
 
 	public static void main(String[] args) throws FileNotFoundException, JAXBException {
@@ -84,7 +84,7 @@ public class MutationCoverateClassBarChartGreator {
 			ChartRenderingInfo info = new ChartRenderingInfo(new StandardEntityCollection());
 
 			File file1 = pngFile;
-			ChartUtilities.saveChartAsPNG(file1, chart, width, height, info);
+			ChartUtilities.saveChartAsPNG(file1, chart, this.width, this.height, info);
 
 			// write an HTML page incorporating the image with an image map
 //			File file2 = new File(file1.getPath() + "barchart100.html");

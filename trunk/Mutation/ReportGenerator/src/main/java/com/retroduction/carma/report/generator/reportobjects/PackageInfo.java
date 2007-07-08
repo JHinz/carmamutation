@@ -17,19 +17,19 @@ public class PackageInfo {
 	private Map<String, Set<ClassUnderTest>> classesByPackage;
 
 	public PackageInfo(Collection<ClassUnderTest> classes){
-		classesByPackage = new HashMap<String, Set<ClassUnderTest>>();
+		this.classesByPackage = new HashMap<String, Set<ClassUnderTest>>();
 		for(ClassUnderTest c : classes){
 			String packageName = c.getPackageName();
-			if(!classesByPackage.containsKey(packageName)){
-				classesByPackage.put(packageName, new HashSet<ClassUnderTest>());
+			if(!this.classesByPackage.containsKey(packageName)){
+				this.classesByPackage.put(packageName, new HashSet<ClassUnderTest>());
 			}
-			classesByPackage.get(packageName).add(c);
+			this.classesByPackage.get(packageName).add(c);
 		}
 	}
 	// aggregate info on package level
 	public Set<ClassUnderTest> getClassesInPackage(String packageName) {
-		if (classesByPackage.containsKey(packageName)) {
-			return classesByPackage.get(packageName);
+		if (this.classesByPackage.containsKey(packageName)) {
+			return this.classesByPackage.get(packageName);
 		} else {
 			return new HashSet<ClassUnderTest>();
 		}
@@ -48,25 +48,25 @@ public class PackageInfo {
 		if(null == packagePrefix){
 			return result;
 		}
-		for(String pack : classesByPackage.keySet()){
+		for(String pack : this.classesByPackage.keySet()){
 			if(pack.startsWith(packagePrefix)){
-				result.addAll( classesByPackage.get(pack) );
+				result.addAll( this.classesByPackage.get(pack) );
 			}
 		}
 		return result;
 	}
 	
 	public Set<String> getPackageNames(){
-		return new TreeSet<String>(classesByPackage.keySet());
+		return new TreeSet<String>(this.classesByPackage.keySet());
 	}
 
 	public Set<String> getSubPackages(String packagePrefix){
 		if(null == packagePrefix || "".equals(packagePrefix)){
-			return new TreeSet<String>(classesByPackage.keySet());
+			return new TreeSet<String>(this.classesByPackage.keySet());
 		}
 
 		Set<String> packages = new TreeSet<String>();
-		for(String name : classesByPackage.keySet()){
+		for(String name : this.classesByPackage.keySet()){
 			if(name.startsWith(packagePrefix)){
 				packages.add(name);
 			}

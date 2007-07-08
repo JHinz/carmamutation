@@ -40,7 +40,7 @@ import com.retroduction.carma.core.api.transitions.ITransition;
 					continue;
 				}
 
-				checkNode(classNode, result, currentInstructionLineNumber, node);
+				this.checkNode(classNode, result, currentInstructionLineNumber, node);
 
 			}
 

@@ -48,7 +48,7 @@ public class SingleClassReportCreator {
 		Map<String, Object> ctx = new HashMap<String, Object>();
 		
 
-		CoverageInfo info = coverageInfoCreator.createCoverageInfo(clazz);
+		CoverageInfo info = this.coverageInfoCreator.createCoverageInfo(clazz);
 		ctx.put(COVERAGEINFO, info);
 		ctx.put(CLASS, clazz);
 		SourceInfoCreator infoCreator = new SourceInfoCreator(clazz, sourceFile);

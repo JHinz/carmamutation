@@ -4,8 +4,6 @@ import java.lang.annotation.Annotation;
 
 import junit.framework.TestCase;
 
-import com.retroduction.carma.annotations.TestClassToClassMapping;
-
 public class SampleGetAnnotationsTestCase extends TestCase {
 
 	public void testGetAnnotations() {

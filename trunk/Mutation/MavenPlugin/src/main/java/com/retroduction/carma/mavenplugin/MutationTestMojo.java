@@ -77,17 +77,17 @@ public class MutationTestMojo extends AbstractMojo {
 	private java.util.Set dependencies;
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		Log log = getLog();
+		Log log = this.getLog();
 
-		log.info("Creating MutationTest report: " + reportFile);
+		log.info("Creating MutationTest report: " + this.reportFile);
 
 		try {
 			MavenTestExecuter executer = new MavenTestExecuter();
-			executer.setClassesDir(classesDir);
-			executer.setTestClassesDir(testClassesDir);
-			executer.setDependencyClassPathUrls(getDependencyClassPathUrls());
-			executer.setReportFile(reportFile);
-			executer.setConfigFile(carmaConfigFile);
+			executer.setClassesDir(this.classesDir);
+			executer.setTestClassesDir(this.testClassesDir);
+			executer.setDependencyClassPathUrls(this.getDependencyClassPathUrls());
+			executer.setReportFile(this.reportFile);
+			executer.setConfigFile(this.carmaConfigFile);
 
 			Summary sum = executer.executeTests();
 			NumberFormat format = NumberFormat.getInstance();
@@ -112,11 +112,11 @@ public class MutationTestMojo extends AbstractMojo {
 	private List<URL> getDependencyClassPathUrls() throws MalformedURLException {
 
 		List<URL> urls = new ArrayList<URL>();
-		logger.debug("Setting dependencies from maven project dependencies");
-		if (dependencies != null && !dependencies.isEmpty()) {
-			for (Iterator it = dependencies.iterator(); it.hasNext();) {
+		this.logger.debug("Setting dependencies from maven project dependencies");
+		if (this.dependencies != null && !this.dependencies.isEmpty()) {
+			for (Iterator it = this.dependencies.iterator(); it.hasNext();) {
 				Artifact dep = (Artifact) it.next();
-				logger.debug("Adding dependency: " + dep.getFile().toURL());
+				this.logger.debug("Adding dependency: " + dep.getFile().toURL());
 				urls.add(dep.getFile().toURL());
 			}
 		}

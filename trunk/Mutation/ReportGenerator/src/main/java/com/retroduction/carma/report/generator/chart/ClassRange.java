@@ -16,16 +16,16 @@ public class ClassRange {
 		this.upperLimit = upperLimit;
 	}
 	public double getLowerLimit() {
-		return lowerLimit;
+		return this.lowerLimit;
 	}
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 	public double getUpperLimit() {
-		return upperLimit;
+		return this.upperLimit;
 	}
 	
 	boolean isWithIn(double value){
-		return value >= lowerLimit && value < upperLimit;
+		return value >= this.lowerLimit && value < this.upperLimit;
 	}
 }

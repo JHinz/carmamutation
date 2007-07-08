@@ -79,11 +79,11 @@ public class CoreTestCase extends TestCase {
 		}
 
 		public void notifyEvent(IEvent event) {
-			events.add(event);
+			this.events.add(event);
 		}
 
 		public ArrayList<IEvent> getEvents() {
-			return events;
+			return this.events;
 		}
 
 	}
@@ -143,7 +143,7 @@ public class CoreTestCase extends TestCase {
 
 		public Set<String> execute(Set<String> testNames) {
 
-			if (shoudFailOnValidation) {
+			if (this.shoudFailOnValidation) {
 				Set<String> result = new HashSet<String>();
 				result.add("com.retroduction.carma.FailedTestCase");
 				return result;
@@ -165,14 +165,14 @@ public class CoreTestCase extends TestCase {
 		}
 
 		public byte[] readByteCodeFromDisk(File originalClassFile) throws FileNotFoundException, IOException {
-			if (fail)
+			if (this.fail)
 				throw new IOException("Mock doomed to fail");
 			else
 				return new byte[] { 1, 2, 3, 4, 5 };
 		}
 
 		public byte[] readByteCodeFromMultipleFolders(String classUnderTestName, File[] paths) throws IOException {
-			if (fail)
+			if (this.fail)
 				throw new IOException("Mock doomed to fail");
 			else
 				return new byte[] { 1, 2, 3, 4, 5 };
@@ -180,7 +180,7 @@ public class CoreTestCase extends TestCase {
 
 		public byte[] readByteCodeFromStream(InputStream originalClassFileInputStream) throws FileNotFoundException,
 				IOException {
-			if (fail)
+			if (this.fail)
 				throw new IOException("Mock doomed to fail");
 			else
 				return new byte[] { 1, 2, 3, 4, 5 };

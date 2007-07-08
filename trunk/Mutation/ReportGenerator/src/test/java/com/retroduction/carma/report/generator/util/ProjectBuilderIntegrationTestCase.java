@@ -6,7 +6,6 @@ import java.util.List;
 import junit.framework.TestCase;
 
 import com.retroduction.carma.annotations.TestClassToClassMapping;
-import com.retroduction.carma.report.generator.util.ProjectBuilder;
 import com.retroduction.carma.report.om.Project;
 import com.retroduction.carma.report.om.SourceFile;
 

@@ -57,16 +57,16 @@ public class MutationClassLoader extends URLClassLoader {
 			return super.loadClass(name, false);
 		}
 
-		if (name.equals(mutantClassName)) {
+		if (name.equals(this.mutantClassName)) {
 			clazz = super.defineClass(name, this.mutantByteCode, 0, this.mutantByteCode.length);
 		} else {
 			try {
-				clazz = findLoadedClass(name);
+				clazz = this.findLoadedClass(name);
 
 				if (clazz != null)
 					return clazz;
 
-				return findClass(name);
+				return this.findClass(name);
 			} catch (ClassNotFoundException e) {
 
 				// Should never be the case as otherwise classes could be

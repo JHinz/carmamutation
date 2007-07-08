@@ -10,19 +10,19 @@ public class DataClass {
 
 	private List<ClassInfo> instances = new ArrayList<ClassInfo>();
 	public int getNumInstances() {
-		return instances.size();
+		return this.instances.size();
 	}
 
 	public void addInstance(ClassInfo instance) {
-		instances.add(instance);
+		this.instances.add(instance);
 	}
 	public DataClass(ClassRange range) {
 		this.range = range;
 	}
 	public List<ClassInfo> getInstances() {
-		return instances;
+		return this.instances;
 	}
 	public ClassRange getRange() {
-		return range;
+		return this.range;
 	}
 }

@@ -10,26 +10,26 @@ public class MCoverageClassCreator {
 	private List<DataClass> classes;
 
 	public MCoverageClassCreator(double[] upperLimits) {
-		classes = new ArrayList<DataClass>();
+		this.classes = new ArrayList<DataClass>();
 		double lower = Double.MIN_VALUE;
 		for (double l : upperLimits) {
 			ClassRange range = new ClassRange("[" + lower + "," + l + ")", lower, l);
 			lower = l;
-			classes.add(new DataClass(range));
+			this.classes.add(new DataClass(range));
 		}
 	}
 
 	public MCoverageClassCreator(List<ClassRange> ranges) {
-		classes = new ArrayList<DataClass>();
+		this.classes = new ArrayList<DataClass>();
 		for (ClassRange range : ranges) {
-			classes.add(new DataClass(range));
+			this.classes.add(new DataClass(range));
 		}
 	}	
 	
 	public List<DataClass> classifyMCoverage(List<ClassInfo> values) {
 
 		for (ClassInfo ci : values) {
-			for (DataClass c : classes) {
+			for (DataClass c : this.classes) {
 				double value = ci.getMCoverageRatio();
 				if (c.getRange().isWithIn(value)) {
 					c.addInstance(ci);
@@ -37,6 +37,6 @@ public class MCoverageClassCreator {
 				}
 			}
 		}
-		return classes;
+		return this.classes;
 	}
 }

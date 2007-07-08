@@ -9,12 +9,12 @@ public class IncludeFilter {
 
 	public IncludeFilter() {
 		super();
-		setIncludePattern(null);
+		this.setIncludePattern(null);
 	}
 
 	public IncludeFilter(String includePattern) {
 		super();
-		setIncludePattern(includePattern);
+		this.setIncludePattern(includePattern);
 	}
 
 	public void setIncludePattern(String includePattern) {
@@ -23,12 +23,12 @@ public class IncludeFilter {
 			includePattern = "(.*)";
 		}
 
-		pattern = Pattern.compile(includePattern);
+		this.pattern = Pattern.compile(includePattern);
 	}
 
 	public boolean shouldBeIncluded(String fqClassName) {
 
-		Matcher matcher = pattern.matcher(fqClassName);
+		Matcher matcher = this.pattern.matcher(fqClassName);
 
 		return matcher.find();
 	}

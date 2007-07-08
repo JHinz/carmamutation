@@ -52,13 +52,13 @@ public class ReportEventListener implements IEventListener {
 	
 	public ReportEventListener(String fileName) throws JAXBException {
 
-		log.info("Initializing XML report: " + fileName);
+		this.log.info("Initializing XML report: " + fileName);
 
-		run = new MutationRun();
+		this.run = new MutationRun();
 		this.outputFile = fileName;
 
-		calendar = new GregorianCalendar();
-		runProcessingStart = System.currentTimeMillis();
+		this.calendar = new GregorianCalendar();
+		this.runProcessingStart = System.currentTimeMillis();
 
 	}
 
@@ -69,16 +69,16 @@ public class ReportEventListener implements IEventListener {
 
 	public void destroy() {
 
-		log.info("Finishing XML report");
+		this.log.info("Finishing XML report");
 
-		runProcessingEnd = System.currentTimeMillis();
+		this.runProcessingEnd = System.currentTimeMillis();
 
-		new StatisticalReportAnalyzer().enhanceReport(run);
+		new StatisticalReportAnalyzer().enhanceReport(this.run);
 
 		try {
-			if (writeTimingInfo) {
-				ProcessingInfo info = createTimingInformation(runProcessingStart, runProcessingEnd);
-				run.setProcessingInfo(info);
+			if (this.writeTimingInfo) {
+				ProcessingInfo info = this.createTimingInformation(this.runProcessingStart, this.runProcessingEnd);
+				this.run.setProcessingInfo(info);
 			}
 		} catch (DatatypeConfigurationException e) {
 			e.printStackTrace();
@@ -88,7 +88,7 @@ public class ReportEventListener implements IEventListener {
 			JAXBContext context = JAXBContext.newInstance(MutationRun.class);
 			Marshaller marshaller = context.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			marshaller.marshal(run, new FileOutputStream(new File(outputFile)));
+			marshaller.marshal(this.run, new FileOutputStream(new File(this.outputFile)));
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
@@ -100,26 +100,26 @@ public class ReportEventListener implements IEventListener {
 	public void notifyEvent(IEvent event) {
 
 		if (event instanceof ProcessingClassUnderTest) {
-			classProcessingStart = System.currentTimeMillis();
+			this.classProcessingStart = System.currentTimeMillis();
 			ProcessingClassUnderTest eventObj = (ProcessingClassUnderTest) event;
 			ClassUnderTest clazz = new ClassUnderTest();
 			clazz.setClassName(eventObj.getClassUnderTest().getClassName());
 			clazz.setPackageName(eventObj.getClassUnderTest().getPackageName());
 			clazz.setBaseClassFile(eventObj.getClassUnderTest().getClassFile());
-			currentClassUnderTestSubReport = clazz;
+			this.currentClassUnderTestSubReport = clazz;
 			return;
 		}
 
 		if (event instanceof ProcessingClassUnderTestFinished) {
 			try {
-				if (writeTimingInfo) {
-					ProcessingInfo info = createTimingInformation(classProcessingStart, System.currentTimeMillis());
-					currentClassUnderTestSubReport.setProcessingInfo(info);
+				if (this.writeTimingInfo) {
+					ProcessingInfo info = this.createTimingInformation(this.classProcessingStart, System.currentTimeMillis());
+					this.currentClassUnderTestSubReport.setProcessingInfo(info);
 				}
 			} catch (DatatypeConfigurationException e) {
 				e.printStackTrace();
 			}
-			run.getClassUnderTest().add(currentClassUnderTestSubReport);
+			this.run.getClassUnderTest().add(this.currentClassUnderTestSubReport);
 			return;
 		}
 
@@ -134,9 +134,9 @@ public class ReportEventListener implements IEventListener {
 
 			if (mutant.getTransition() != null)
 				mutantInfo.setTransition(mutant.getTransition().getName());
-			currentMutantReport = mutantInfo;
-			currentClassUnderTestSubReport.getMutant().add(currentMutantReport);
-			currentClassUnderTestSubReport.setBaseSourceFile(((ProcessingMutant) event).getMutant().getSourceMapping()
+			this.currentMutantReport = mutantInfo;
+			this.currentClassUnderTestSubReport.getMutant().add(this.currentMutantReport);
+			this.currentClassUnderTestSubReport.setBaseSourceFile(((ProcessingMutant) event).getMutant().getSourceMapping()
 					.getSourceFile());
 			return;
 		}
@@ -144,12 +144,12 @@ public class ReportEventListener implements IEventListener {
 		if (event instanceof TestsExecuted) {
 
 			TestsExecuted eventObj = (TestsExecuted) event;
-			currentMutantReport.setSurvived(eventObj.getMutant().isSurvived());
-			currentMutantReport.getKillerTests().addAll(eventObj.getMutant().getKillerTestNames());
+			this.currentMutantReport.setSurvived(eventObj.getMutant().isSurvived());
+			this.currentMutantReport.getKillerTests().addAll(eventObj.getMutant().getKillerTestNames());
 			// TODO not very beautiful here - is executed for each mutant for
 			// relevant for whole class
-			currentClassUnderTestSubReport.getExecutedTests().clear();
-			currentClassUnderTestSubReport.getExecutedTests().addAll(eventObj.getMutant().getExecutedTestsNames());
+			this.currentClassUnderTestSubReport.getExecutedTests().clear();
+			this.currentClassUnderTestSubReport.getExecutedTests().addAll(eventObj.getMutant().getExecutedTestsNames());
 
 			return;
 
@@ -157,7 +157,7 @@ public class ReportEventListener implements IEventListener {
 
 		if (event instanceof TestSetNotSane) {
 			TestSetNotSane eventObj = (TestSetNotSane) event;
-			run.getBrokenTests().addAll(eventObj.getTestCaseName());
+			this.run.getBrokenTests().addAll(eventObj.getTestCaseName());
 			return;
 		}
 
@@ -167,15 +167,15 @@ public class ReportEventListener implements IEventListener {
 			throws DatatypeConfigurationException {
 		ProcessingInfo info = new ProcessingInfo();
 		info.setDuration(classProcessingEnd - classProcessingStart);
-		calendar.setTimeInMillis(classProcessingStart);
-		info.setStart(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
-		calendar.setTimeInMillis(classProcessingEnd);
-		info.setEnd(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
+		this.calendar.setTimeInMillis(classProcessingStart);
+		info.setStart(DatatypeFactory.newInstance().newXMLGregorianCalendar(this.calendar));
+		this.calendar.setTimeInMillis(classProcessingEnd);
+		info.setEnd(DatatypeFactory.newInstance().newXMLGregorianCalendar(this.calendar));
 		return info;
 	}
 	
 	public boolean isWriteTimingInfo() {
-		return writeTimingInfo;
+		return this.writeTimingInfo;
 	}
 
 	public void setWriteTimingInfo(boolean writeTimingInfo) {

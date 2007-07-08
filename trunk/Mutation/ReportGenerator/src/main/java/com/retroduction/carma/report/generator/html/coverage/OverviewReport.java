@@ -38,20 +38,20 @@ public class OverviewReport implements ICoverageReport {
 		ClassInfoCreator infoCreator = new ClassInfoCreator(report.getClassUnderTest());
 		List<ClassInfo> infos = infoCreator.createClassInfos();
 
-		chartCreator.createChart(infos, coverageChartFile, "Project Coverage Ratio");
+		this.chartCreator.createChart(infos, coverageChartFile, "Project Coverage Ratio");
 		
 		Map<String, Object> vcontext = new HashMap<String, Object>();
 		NumberFormat numberFormat = NumberFormat.getInstance();
 		numberFormat.setMaximumFractionDigits(2);
 		numberFormat.setMinimumFractionDigits(2);
-		vcontext.put("chartWidth", chartCreator.getWidth());
-		vcontext.put("chartHeight", chartCreator.getHeight());
+		vcontext.put("chartWidth", this.chartCreator.getWidth());
+		vcontext.put("chartHeight", this.chartCreator.getHeight());
 		vcontext.put("numberFormat", numberFormat);
 		vcontext.put("report", report);
 		vcontext.put("project", project);
 		vcontext.put("classInfos", infoCreator.createClassInfos());
 		
-		renderer.render(templateName, vcontext, HTMLFILE);
+		renderer.render(this.templateName, vcontext, HTMLFILE);
 	}
 
 

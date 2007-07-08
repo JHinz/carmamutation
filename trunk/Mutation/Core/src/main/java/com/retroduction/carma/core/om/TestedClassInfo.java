@@ -29,7 +29,7 @@ public class TestedClassInfo extends PersistentClassInfo {
 	}
 
 	public Set<PersistentClassInfo> getAssociatedTestNames() {
-		return associatedTestNames;
+		return this.associatedTestNames;
 	}
 
 	@Override

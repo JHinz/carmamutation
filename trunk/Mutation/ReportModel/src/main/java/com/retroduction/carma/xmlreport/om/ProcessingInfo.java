@@ -59,7 +59,7 @@ public class ProcessingInfo {
      *     
      */
     public XMLGregorianCalendar getStart() {
-        return start;
+        return this.start;
     }
 
     /**
@@ -79,7 +79,7 @@ public class ProcessingInfo {
      * 
      */
     public long getDuration() {
-        return duration;
+        return this.duration;
     }
 
     /**
@@ -99,7 +99,7 @@ public class ProcessingInfo {
      *     
      */
     public XMLGregorianCalendar getEnd() {
-        return end;
+        return this.end;
     }
 
     /**

@@ -30,10 +30,10 @@ public class ClassListReport implements ICoverageReport {
 
 		List<ClassUnderTest> cut = report.getClassUnderTest();
 		
-		List<CoverageInfo> classes = classInfoCreator.createCoverageInfo(cut);
+		List<CoverageInfo> classes = this.classInfoCreator.createCoverageInfo(cut);
 
 		ctx.put("classes", classes);
-		renderer.render(templateName, ctx, HTMLFILE);
+		renderer.render(this.templateName, ctx, HTMLFILE);
 	}
 
 	public void setClassInfoCreator(ClassCoverageInfoCreator classInfoCreator) {

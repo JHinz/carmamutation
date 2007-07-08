@@ -11,51 +11,51 @@ public class Logger implements ILog {
 	}
 
 	public void debug(Object message) {
-		log.debug(message);
+		this.log.debug(message);
 	}
 
 	public void debug(Object message, Throwable t) {
-		log.debug(message, t);
+		this.log.debug(message, t);
 	}
 
 	public void error(Object message) {
-		log.equals(message);
+		this.log.equals(message);
 	}
 
 	public void error(Object message, Throwable t) {
-		log.error(message, t);
+		this.log.error(message, t);
 	}
 
 	public void fatal(Object message) {
-		log.fatal(message);
+		this.log.fatal(message);
 	}
 
 	public void fatal(Object message, Throwable t) {
-		log.fatal(message, t);
+		this.log.fatal(message, t);
 	}
 
 	public void info(Object message) {
-		log.info(message);
+		this.log.info(message);
 	}
 
 	public void info(Object message, Throwable t) {
-		log.info(message, t);
+		this.log.info(message, t);
 	}
 
 	public void trace(Object message) {
-		log.trace(message);
+		this.log.trace(message);
 	}
 
 	public void trace(Object message, Throwable t) {
-		log.trace(message, t);
+		this.log.trace(message, t);
 	}
 
 	public void warn(Object message) {
-		log.warn(message);
+		this.log.warn(message);
 	}
 
 	public void warn(Object message, Throwable t) {
-		log.warn(message, t);
+		this.log.warn(message, t);
 	}
 
 }

@@ -16,11 +16,11 @@ public class CompositeEventListener implements IEventListener {
 	private List<IEventListener> listeners;
 
 	public List<IEventListener> getListeners() {
-		return listeners;
+		return this.listeners;
 	}
 
 	public void notifyEvent(IEvent event) {
-		for (IEventListener l : listeners) {
+		for (IEventListener l : this.listeners) {
 			l.notifyEvent(event);
 		}
 
@@ -32,7 +32,7 @@ public class CompositeEventListener implements IEventListener {
 
 	public void destroy() {
 
-		for (IEventListener listener : getListeners()) {
+		for (IEventListener listener : this.getListeners()) {
 			listener.destroy();
 		}
 	}

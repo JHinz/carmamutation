@@ -39,7 +39,7 @@ public class MavenTestExecuter {
 		CarmaDriverSetup setup = new CarmaDriverSetup();
 		Properties customProps = new Properties();
 		try {
-			customProps.load(new FileInputStream(configFile));
+			customProps.load(new FileInputStream(this.configFile));
 
 		} catch (IOException e) {
 			throw new CarmaException("Failed to load configuration", e);
@@ -48,7 +48,7 @@ public class MavenTestExecuter {
 		// merge multiple bean definition sources into application context
 		GenericApplicationContext factory = new GenericApplicationContext();
 
-		customProps.setProperty(ICoreConfigConsts.BEAN_REPORTFILE, reportFile.getPath());
+		customProps.setProperty(ICoreConfigConsts.BEAN_REPORTFILE, this.reportFile.getPath());
 
 		// configure maven specific bean references and add beans to parent
 		// factory
@@ -56,20 +56,20 @@ public class MavenTestExecuter {
 		// by children, otherwise they would have no effect
 
 		customProps.setProperty("project.classesdir.source", BEAN_MAVEN_PROJECT_CLASSES_DIR);
-		factory.getBeanFactory().registerSingleton(BEAN_MAVEN_PROJECT_CLASSES_DIR, classesDir);
+		factory.getBeanFactory().registerSingleton(BEAN_MAVEN_PROJECT_CLASSES_DIR, this.classesDir);
 
 		customProps.setProperty("project.testclassesdir.source", BEAN_MAVEN_PROJECT_TESTCLASSES_DIR);
-		factory.getBeanFactory().registerSingleton(BEAN_MAVEN_PROJECT_TESTCLASSES_DIR, testClassesDir);
+		factory.getBeanFactory().registerSingleton(BEAN_MAVEN_PROJECT_TESTCLASSES_DIR, this.testClassesDir);
 
 		customProps.setProperty("project.libraries.source", BEAN_MAVEN_PROJECT_LIBRARIES);
-		factory.getBeanFactory().registerSingleton(BEAN_MAVEN_PROJECT_LIBRARIES, dependencyClassPathUrls);
+		factory.getBeanFactory().registerSingleton(BEAN_MAVEN_PROJECT_LIBRARIES, this.dependencyClassPathUrls);
 
 		setup.setParentContext(factory);
 		setup.addCustomConfiguration(customProps);
 
 		// add runtime parameters
-		if (reportFile.getParentFile() != null)
-			reportFile.getParentFile().mkdirs();
+		if (this.reportFile.getParentFile() != null)
+			this.reportFile.getParentFile().mkdirs();
 
 		factory.refresh();
 		ApplicationContext ctx = setup.getApplicationContext();
@@ -84,7 +84,7 @@ public class MavenTestExecuter {
 	}
 
 	public List<URL> getDependencyClassPathUrls() {
-		return dependencyClassPathUrls;
+		return this.dependencyClassPathUrls;
 	}
 
 	public void setDependencyClassPathUrls(List<URL> dependencyClassPathUrls) {

@@ -8,7 +8,7 @@ public class ProcessingMutationOperator implements IEvent {
 	private String transitionGroupName;
 
 	public String getTransitionGroupName() {
-		return transitionGroupName;
+		return this.transitionGroupName;
 	}
 
 	public ProcessingMutationOperator(String classUnderTest) {

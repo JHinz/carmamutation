@@ -9,7 +9,7 @@ public class ProcessingClassUnderTest implements IEvent {
 	private TestedClassInfo classUnderTest;
 
 	public TestedClassInfo getClassUnderTest() {
-		return classUnderTest;
+		return this.classUnderTest;
 	}
 
 	public ProcessingClassUnderTest(TestedClassInfo classUnderTest) {

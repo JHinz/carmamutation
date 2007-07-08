@@ -14,7 +14,7 @@ import org.springframework.beans.factory.FactoryBean;
 public class CSVFileListFactoryBean implements FactoryBean {
 	private List<File> files;
 	public Object getObject() throws Exception {
-		return files;
+		return this.files;
 	}
 
 	public Class getObjectType() {

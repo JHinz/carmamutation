@@ -9,7 +9,7 @@ public class TransitionGroupConfig {
 	private Set<ITransitionGroup> transitionGroups;
 
 	public Set<ITransitionGroup> getTransitionGroups() {
-		return transitionGroups;
+		return this.transitionGroups;
 	}
 
 	public void setTransitionGroups(Set<ITransitionGroup> transitionGroups) {

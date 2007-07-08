@@ -10,6 +10,7 @@ package com.retroduction.carma.xmlreport.om;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -74,7 +75,7 @@ public class Mutant {
      * 
      */
     public boolean isSurvived() {
-        return survived;
+        return this.survived;
     }
 
     /**
@@ -94,7 +95,7 @@ public class Mutant {
      *     
      */
     public String getName() {
-        return name;
+        return this.name;
     }
 
     /**
@@ -118,7 +119,7 @@ public class Mutant {
      *     
      */
     public String getTransitionGroup() {
-        return transitionGroup;
+        return this.transitionGroup;
     }
 
     /**
@@ -142,7 +143,7 @@ public class Mutant {
      *     
      */
     public String getTransition() {
-        return transition;
+        return this.transition;
     }
 
     /**
@@ -166,7 +167,7 @@ public class Mutant {
      *     
      */
     public String getSourceInstruction() {
-        return sourceInstruction;
+        return this.sourceInstruction;
     }
 
     /**
@@ -190,7 +191,7 @@ public class Mutant {
      *     
      */
     public String getTargetInstruction() {
-        return targetInstruction;
+        return this.targetInstruction;
     }
 
     /**
@@ -210,7 +211,7 @@ public class Mutant {
      * 
      */
     public long getBaseSourceLine() {
-        return baseSourceLine;
+        return this.baseSourceLine;
     }
 
     /**
@@ -244,8 +245,8 @@ public class Mutant {
      * 
      */
     public List<String> getKillerTests() {
-        if (killerTests == null) {
-            killerTests = new ArrayList<String>();
+        if (this.killerTests == null) {
+            this.killerTests = new ArrayList<String>();
         }
         return this.killerTests;
     }

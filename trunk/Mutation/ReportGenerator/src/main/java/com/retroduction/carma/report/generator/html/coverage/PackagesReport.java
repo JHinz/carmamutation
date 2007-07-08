@@ -36,7 +36,7 @@ public class PackagesReport implements ICoverageReport {
 		ctx.put("packageInfo", packageInfo);
 		ctx.put("package", "");
 
-		renderer.render(templateName, ctx, HTMLFILE);
+		renderer.render(this.templateName, ctx, HTMLFILE);
 
 	}
 }

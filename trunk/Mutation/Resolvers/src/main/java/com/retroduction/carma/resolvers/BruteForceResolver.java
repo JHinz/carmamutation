@@ -14,7 +14,7 @@ public class BruteForceResolver implements ITestClassResolver {
 	private File[] testClassesPath;
 
 	public File[] getTestClassesPath() {
-		return testClassesPath;
+		return this.testClassesPath;
 	}
 
 	public void setTestClassesPath(File[] testClassesPath) throws MalformedURLException {
@@ -25,7 +25,7 @@ public class BruteForceResolver implements ITestClassResolver {
 
 		FileClassResolver directoryResolver = new FileClassResolver();
 
-		directoryResolver.setClassesBaseDir(getTestClassesPath());
+		directoryResolver.setClassesBaseDir(this.getTestClassesPath());
 
 		Set<PersistentClassInfo> existingTestClasses = directoryResolver.determineClassNames();
 

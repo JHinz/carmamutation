@@ -25,7 +25,7 @@ public class ConfigBasedResolver implements ITestClassResolver {
 	private File[] testClassesPath;
 
 	public File[] getTestClassesPath() {
-		return testClassesPath;
+		return this.testClassesPath;
 	}
 
 	public void setTestClassesPath(File[] testClassesPath) throws MalformedURLException {
@@ -33,7 +33,7 @@ public class ConfigBasedResolver implements ITestClassResolver {
 	}
 
 	public File getConfigurationFile() {
-		return configurationFile;
+		return this.configurationFile;
 	}
 
 	public void setConfigurationFile(File configurationFile) {
@@ -88,7 +88,7 @@ public class ConfigBasedResolver implements ITestClassResolver {
 			Set<String> tests = result.get(fqClassName);
 
 			if (tests == null) {
-				log.info("Class" + fqClassName + " defined in assignment map but could not be found on disk");
+				this.log.info("Class" + fqClassName + " defined in assignment map but could not be found on disk");
 				continue;
 			}
 
@@ -115,13 +115,13 @@ public class ConfigBasedResolver implements ITestClassResolver {
 
 		String inputConfiguration;
 		try {
-			FileInputStream reader = new FileInputStream(getConfigurationFile());
-			inputConfiguration = readInputConfiguration(reader);
+			FileInputStream reader = new FileInputStream(this.getConfigurationFile());
+			inputConfiguration = this.readInputConfiguration(reader);
 		} catch (IOException e1) {
-			log.error("Error during reading assignment mapping", e1);
+			this.log.error("Error during reading assignment mapping", e1);
 			return new HashMap<String, Set<String>>();
 		}
 
-		return parseInputConfiguration(inputConfiguration, classNames);
+		return this.parseInputConfiguration(inputConfiguration, classNames);
 	}
 }

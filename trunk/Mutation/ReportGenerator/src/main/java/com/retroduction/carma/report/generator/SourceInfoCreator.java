@@ -18,21 +18,21 @@ public class SourceInfoCreator {
 		List<Mutant> mutants = classUnderTest.getMutant();
 		for(Mutant m : mutants){
 			Long line = m.getBaseSourceLine();
-			if(!lineToMutants.containsKey(line)){
-				lineToMutants.put(line, new ArrayList<Mutant>(1));
+			if(!this.lineToMutants.containsKey(line)){
+				this.lineToMutants.put(line, new ArrayList<Mutant>(1));
 			}
-			lineToMutants.get(line).add(m);
+			this.lineToMutants.get(line).add(m);
 		}
 	}
 	
 	public List<SourceLineInfo> createSourceInfo(){
 		List<SourceLineInfo> list = new ArrayList<SourceLineInfo>();
-		if(null == sourceFile.getSourceText()){
+		if(null == this.sourceFile.getSourceText()){
 			return list;
 		}
 		long lineNo = 1;
-		for(String text : sourceFile.getSourceText()){
-			List<Mutant> mutants = lineToMutants.get(lineNo);
+		for(String text : this.sourceFile.getSourceText()){
+			List<Mutant> mutants = this.lineToMutants.get(lineNo);
 			SourceLineInfo info = new SourceLineInfo(lineNo++, text, mutants);
 			list.add(info);
 		}

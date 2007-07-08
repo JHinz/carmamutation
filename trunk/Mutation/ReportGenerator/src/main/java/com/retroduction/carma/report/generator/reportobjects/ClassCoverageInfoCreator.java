@@ -19,7 +19,7 @@ public class ClassCoverageInfoCreator {
 	public List<CoverageInfo> createCoverageInfo(Collection<ClassUnderTest> cutList) {
 		List<CoverageInfo> classes = new ArrayList<CoverageInfo>(cutList.size());
 		for(ClassUnderTest cut : cutList){
-			CoverageInfo info = createCoverageInfo(cut);
+			CoverageInfo info = this.createCoverageInfo(cut);
 			classes.add(info);
 		}
 		Collections.sort(classes);

@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
-import org.apache.tools.ant.types.Commandline;
 import org.apache.tools.ant.types.CommandlineJava;
 import org.apache.tools.ant.types.Environment;
 import org.apache.tools.ant.types.Path;
@@ -59,7 +58,7 @@ public class AntCarmaTest extends Task {
 		super.execute();
 		
 		CommandlineJava line = new CommandlineJava();
-		line.addSysproperties(sysProperties);
+		line.addSysproperties(this.sysProperties);
 		line.getSystemProperties().setSystem();
 		
 		ClassLoader threadClassLoader = Thread.currentThread().getContextClassLoader();
@@ -69,10 +68,10 @@ public class AntCarmaTest extends Task {
 
 		MavenTestExecuter mavenCarma = new MavenTestExecuter();
 
-		mavenCarma.setClassesDir(new File(classesDir));
-		mavenCarma.setConfigFile(new File(configFile));
+		mavenCarma.setClassesDir(new File(this.classesDir));
+		mavenCarma.setConfigFile(new File(this.configFile));
 
-		String[] paths = dependencyClassPathUrls.list();
+		String[] paths = this.dependencyClassPathUrls.list();
 
 		List<URL> urls = new ArrayList<URL>();
 		for (String path : paths)
@@ -83,8 +82,8 @@ public class AntCarmaTest extends Task {
 			}
 
 		mavenCarma.setDependencyClassPathUrls(urls);
-		mavenCarma.setReportFile(new File(reportFile));
-		mavenCarma.setTestClassesDir(new File(testClassesDir));
+		mavenCarma.setReportFile(new File(this.reportFile));
+		mavenCarma.setTestClassesDir(new File(this.testClassesDir));
 
 		try {
 			mavenCarma.executeTests();
@@ -93,15 +92,15 @@ public class AntCarmaTest extends Task {
 			NumberFormat format = NumberFormat.getInstance();
 			format.setMaximumFractionDigits(2);
 			format.setMinimumFractionDigits(2);
-			log("# --------------------------------------------------------------------------------");
-			log("# TEST RESULTS SUMMARY ");
-			log("#   Total time                : " + format.format(sum.timeSeconds) + " sec.");
-			log("#   Classes/Tests             : " + sum.numClassesUnderTest + "/" + sum.numTests);
-			log("#   Tests Per Class           : " + format.format(sum.testsPerClass));
-			log("#   Mutants/Class             : " + format.format(sum.mutantsPerClass));
-			log("#   Mutants/Survivors         : " + sum.numMutants + "/" + sum.numSurvivors);
-			log("#   MutationCoverageRatio     : " + format.format(sum.coverageRatioPercentage) + " %");
-			log("# --------------------------------------------------------------------------------");
+			this.log("# --------------------------------------------------------------------------------");
+			this.log("# TEST RESULTS SUMMARY ");
+			this.log("#   Total time                : " + format.format(sum.timeSeconds) + " sec.");
+			this.log("#   Classes/Tests             : " + sum.numClassesUnderTest + "/" + sum.numTests);
+			this.log("#   Tests Per Class           : " + format.format(sum.testsPerClass));
+			this.log("#   Mutants/Class             : " + format.format(sum.mutantsPerClass));
+			this.log("#   Mutants/Survivors         : " + sum.numMutants + "/" + sum.numSurvivors);
+			this.log("#   MutationCoverageRatio     : " + format.format(sum.coverageRatioPercentage) + " %");
+			this.log("# --------------------------------------------------------------------------------");
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new BuildException("Failure running Carma. ", e);
@@ -117,7 +116,7 @@ public class AntCarmaTest extends Task {
 	 *            a property to be set in the JVM.
 	 */
 	public void addSysproperty(Environment.Variable sysp) {
-		sysProperties.addVariable(sysp);
+		this.sysProperties.addVariable(sysp);
 	}
 
 	/**
@@ -127,7 +126,7 @@ public class AntCarmaTest extends Task {
 	 *            a set of properties.
 	 */
 	public void addSyspropertyset(PropertySet sysp) {
-		sysProperties.addSyspropertyset(sysp);
+		this.sysProperties.addSyspropertyset(sysp);
 	}
 
 	/**
@@ -138,7 +137,7 @@ public class AntCarmaTest extends Task {
 	 * @since Ant 1.6.3
 	 */
 	public void addSysproperties(SysProperties sysp) {
-		sysProperties.addSysproperties(sysp);
+		this.sysProperties.addSysproperties(sysp);
 	}
 
 }

@@ -26,15 +26,15 @@ public class FilterVerifier {
 				continue;
 			}
 
-			if (!getFilterConfiguration().getIncludeFilter().shouldBeIncluded(classDescription)) {
+			if (!this.getFilterConfiguration().getIncludeFilter().shouldBeIncluded(classDescription)) {
 				excludedClasses.add(classDescription);
-				log.debug(classDescription + "> should be excluded due to include filter");
+				this.log.debug(classDescription + "> should be excluded due to include filter");
 				continue;
 			}
 
-			if (getFilterConfiguration().getExcludeFilter().shouldBeExcluded(classDescription)) {
+			if (this.getFilterConfiguration().getExcludeFilter().shouldBeExcluded(classDescription)) {
 				excludedClasses.add(classDescription);
-				log.debug(classDescription + "> should be excluded due to exclude filter");
+				this.log.debug(classDescription + "> should be excluded due to exclude filter");
 				continue;
 			}
 
@@ -49,7 +49,7 @@ public class FilterVerifier {
 		for (PersistentClassInfo clazz : classes)
 			classNames.add(clazz.getFullyQualifiedClassName());
 
-		Set<String> needlessClassNames = determineExcludedClassNames(classNames);
+		Set<String> needlessClassNames = this.determineExcludedClassNames(classNames);
 
 		Set<PersistentClassInfo> needlessClasses = new HashSet<PersistentClassInfo>();
 
@@ -67,7 +67,7 @@ public class FilterVerifier {
 	}
 
 	private FilterConfiguration getFilterConfiguration() {
-		return filterConfiguration;
+		return this.filterConfiguration;
 	}
 
 	public void setFilterConfiguration(FilterConfiguration filterConfiguration) {

@@ -14,7 +14,7 @@ public class TestsExecuted implements IEvent {
 	}
 
 	public Mutant getMutant() {
-		return mutant;
+		return this.mutant;
 	}
 
 	@Override

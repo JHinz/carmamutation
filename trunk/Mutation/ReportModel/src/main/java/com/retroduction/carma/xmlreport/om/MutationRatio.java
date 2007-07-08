@@ -48,7 +48,7 @@ public class MutationRatio {
      * 
      */
     public long getMutationCount() {
-        return mutationCount;
+        return this.mutationCount;
     }
 
     /**
@@ -64,7 +64,7 @@ public class MutationRatio {
      * 
      */
     public long getSurvivorCount() {
-        return survivorCount;
+        return this.survivorCount;
     }
 
     /**

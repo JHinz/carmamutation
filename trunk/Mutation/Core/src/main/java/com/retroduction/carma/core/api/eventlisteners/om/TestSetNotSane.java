@@ -15,7 +15,7 @@ public class TestSetNotSane implements IEvent {
 	}
 
 	public Set<String> getTestCaseName() {
-		return testCaseName;
+		return this.testCaseName;
 	}
 
 	@Override
