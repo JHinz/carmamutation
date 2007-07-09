@@ -12,31 +12,39 @@ import com.retroduction.carma.xmlreport.om.MutationRun;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 
-public class CoverageReport  {
+public class CoverageReport {
 	private String templatePath = "/com/retroduction/carma/report/generator/html/coverage/";
 
 	private List<ICoverageReport> reports;
-	
-	public CoverageReport(){
+
+	private List<StyleSheetProvider> resourceProviders;
+
+	public void setResourceProviders(List<StyleSheetProvider> resourceProviders) {
+		this.resourceProviders = resourceProviders;
+	}
+
+	public CoverageReport() {
 
 	}
-	public void generateReport(MutationRun report, Project project, File outputDirectory)
-			throws IOException, RenderException {
-		StyleSheetProvider cssProvider = new StyleSheetProvider(new File(outputDirectory, "css"));
-		cssProvider.provideStyleSheet("main.css");
-		cssProvider.provideStyleSheet("source-viewer.css");
-		
+
+	public void generateReport(MutationRun report, Project project, File outputDirectory) throws IOException,
+			RenderException {
+
+		for (StyleSheetProvider p : resourceProviders) {
+			p.provideResources(outputDirectory);
+		}
+
 		Configuration cfg = new Configuration();
-		cfg.setClassForTemplateLoading(this.getClass(), this.templatePath);
+		cfg.setClassForTemplateLoading(getClass(), templatePath);
 		cfg.setObjectWrapper(new DefaultObjectWrapper());
 		FreeMarkerRenderer frenderer = new FreeMarkerRenderer();
 		frenderer.setConfig(cfg);
 		frenderer.setOutputBaseDir(outputDirectory);
 
-		for(ICoverageReport r : this.reports){
+		for (ICoverageReport r : reports) {
 			r.generateReport(report, project, frenderer);
 		}
-		
+
 	}
 
 	public void setReports(List<ICoverageReport> reports) {

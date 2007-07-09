@@ -19,18 +19,71 @@
 				<ref bean="cov.packageSummaryReport"></ref>
 				<ref bean="cov.classListReport"></ref>
 				<ref bean="cov.classReport"></ref>
-<!-- 			<ref bean="cov.overviewReport"></ref>
- -->	
- 			</list>
+				<ref bean="cov.overviewReport"></ref>
+
+			</list>
+		</property>
+		<property name="resourceProviders">
+			<list>
+				<ref bean="stylesheets"></ref>
+				<ref bean="javascript"></ref>
+				<ref bean="MochiKit"></ref>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="stylesheets"
+		class="com.retroduction.carma.report.generator.html.coverage.StyleSheetProvider">
+		<property name="baseDir" value="css"></property>
+		<property name="resources">
+			<list>
+				<value>main.css</value>
+				<value>source-viewer.css</value>
+				<value>sortable_tables.css</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="javascript"
+		class="com.retroduction.carma.report.generator.html.coverage.StyleSheetProvider">
+		<property name="baseDir" value="js"></property>
+		<property name="resources">
+			<list>
+				<value>sortable_tables.js</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="MochiKit"
+		class="com.retroduction.carma.report.generator.html.coverage.StyleSheetProvider">
+		<property name="baseDir" value="js/MochiKit"></property>
+		<property name="resources">
+			<list>
+				<value>Visual.js</value>
+				<value>Test.js</value>
+				<value>Signal.js</value>
+				<value>MockDOM.js</value>
+				<value>MochiKit.js</value>
+				<value>LoggingPane.js</value>
+				<value>Logging.js</value>
+				<value>Iter.js</value>
+				<value>Format.js</value>
+				<value>DOM.js</value>
+				<value>DateTime.js</value>
+				<value>Color.js</value>
+				<value>Base.js</value>
+				<value>Async.js</value>
+				<value>__package__.js</value>
+			</list>
 		</property>
 	</bean>
 
 	<bean id="cov.classReport"
-		class="com.retroduction.carma.report.generator.html.coverage.ClassReport"  
+		class="com.retroduction.carma.report.generator.html.coverage.ClassReport"
 		p:reportCreator-ref="cov.singleClassReportCreator" />
 
 	<bean id="cov.overviewReport"
-		class="com.retroduction.carma.report.generator.html.coverage.OverviewReport" 
+		class="com.retroduction.carma.report.generator.html.coverage.OverviewReport"
 		p:chartCreator-ref="barChartCreator" />
 
 	<bean id="cov.indexReport"
@@ -49,9 +102,8 @@
 
 
 	<bean id="cov.singleClassReportCreator"
-		class="com.retroduction.carma.report.generator.html.coverage.SingleClassReportCreator" 
-		p:coverageInfoCreator-ref="classInfoCreator"
-		/>
+		class="com.retroduction.carma.report.generator.html.coverage.SingleClassReportCreator"
+		p:coverageInfoCreator-ref="classInfoCreator" />
 
 	<bean id="classInfoCreator"
 		class="com.retroduction.carma.report.generator.reportobjects.ClassCoverageInfoCreator" />

@@ -8,9 +8,13 @@ import java.util.Map;
 import com.retroduction.carma.report.generator.IRenderer;
 import com.retroduction.carma.report.generator.chart.CoverageBarChartCreator;
 import com.retroduction.carma.report.generator.html.RenderException;
+import com.retroduction.carma.report.generator.reportobjects.ClassCoverageInfoCreator;
 import com.retroduction.carma.report.generator.reportobjects.ClassInfo;
 import com.retroduction.carma.report.generator.reportobjects.ClassInfoCreator;
+import com.retroduction.carma.report.generator.reportobjects.CoverageInfo;
+import com.retroduction.carma.report.generator.reportobjects.CoverageInfoAggregator;
 import com.retroduction.carma.report.om.Project;
+import com.retroduction.carma.xmlreport.om.ClassUnderTest;
 import com.retroduction.carma.xmlreport.om.MutationRun;
 
 /**
@@ -31,27 +35,36 @@ public class OverviewReport implements ICoverageReport {
 	public void generateReport(MutationRun report, Project project,  IRenderer renderer)
 			throws RenderException {
 		
-		
-		
 		String coverageChartFile =  "coverageChart.png";
 
-		ClassInfoCreator infoCreator = new ClassInfoCreator(report.getClassUnderTest());
+		List<ClassUnderTest> cut = report.getClassUnderTest();
+		ClassInfoCreator infoCreator = new ClassInfoCreator(cut);
 		List<ClassInfo> infos = infoCreator.createClassInfos();
 
-		this.chartCreator.createChart(infos, coverageChartFile, "Project Coverage Ratio");
+		chartCreator.createChart(infos, coverageChartFile, "Project Coverage Ratio");
+		
 		
 		Map<String, Object> vcontext = new HashMap<String, Object>();
 		NumberFormat numberFormat = NumberFormat.getInstance();
 		numberFormat.setMaximumFractionDigits(2);
 		numberFormat.setMinimumFractionDigits(2);
-		vcontext.put("chartWidth", this.chartCreator.getWidth());
-		vcontext.put("chartHeight", this.chartCreator.getHeight());
+
+		CoverageInfoAggregator agg = new CoverageInfoAggregator();
+		CoverageInfo coverage = agg.aggregate("All", "All", cut);
+		vcontext.put("coverage", coverage);
+
+		ClassCoverageInfoCreator classInfoCreator = new ClassCoverageInfoCreator();
+		List<CoverageInfo> classes = classInfoCreator.createCoverageInfo(cut);
+		vcontext.put("classes", classes);
+
+		vcontext.put("chartWidth", chartCreator.getWidth());
+		vcontext.put("chartHeight", chartCreator.getHeight());
 		vcontext.put("numberFormat", numberFormat);
 		vcontext.put("report", report);
 		vcontext.put("project", project);
 		vcontext.put("classInfos", infoCreator.createClassInfos());
 		
-		renderer.render(this.templateName, vcontext, HTMLFILE);
+		renderer.render(templateName, vcontext, HTMLFILE);
 	}
 
 

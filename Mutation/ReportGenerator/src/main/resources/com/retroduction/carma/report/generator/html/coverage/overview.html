@@ -1,78 +1,10 @@
 <html>
 <head>
-
+	<link href="css/sortable_tables.css" rel="stylesheet" type="text/css" /> 
+	<script type="text/javascript" src="js/MochiKit/MochiKit.js"></script> 
+	<script type="text/javascript" src="js/sortable_tables.js"></script> 
 <STYLE TYPE='text/css'>
 
-/* CSS generated at csscreator.com */
-BODY{background-color:#EEEEEE;  color:#003399;  font-family:sans-serif;  font-size:small; }
-#title {
-  padding: 3px 10px 3px 10px;
-  font-size: small;
-  border: 0px;
-  text-align: center;
-}
-#menu {
-  padding: 2px 10px 2px 10px;
-  font-size: xx-small;
-  border: 0px;
-  background-color:#FFFFFF;
-  border-width: 2px;
-}
-
-#menu td {
-  padding: 2px 10px 2px 10px;
-  font-size: xx-small;
-  border: 0px;
-  background-color:#FFFFFF;
-  text-align: left;
-  width: 10px;
-}
-
-#overview {
-  font-size: xx-small;
-  border: 0px;
-  text-align: left;
-}
-
-#overview td {
-  padding: 2px 10px 2px 10px;
-}
-
-#mutationclasses {
-  
-}
-
-#mutationclasses th{
-  text-align: center;
-  background-color:#CCCCCC;
-}
-
-#mutationclasses td {
-  padding: 5px 10px 5px 10px;
-}
-
-td {
-  font-size: x-small;
-}
-tr {
-  padding: 2px 10px 2px 10px;
-}
-
-.tests {
-}
-.tests_none {
-  color:red; 
-  font-weight:bold;
-}
-
-.tested_yes {
-  color:green; 
-  font-weight:bold;
-}
-.tested_no {
-  color:red; 
-  font-weight:bold;
-}
 
 .worst {
   background-color:#FF2222;
@@ -111,13 +43,12 @@ tr {
     
 </head>
 <body>
-<div id="title"><h1>Project Mutation DashBoard</h1></div>
+<div id="title"><h1>Project Mutation Overview</h1></div>
 
 <div id="menu">
 <table>
 <tr>
-<td><a href="index.html">DashBoard</a></td>
-<td><a href="details.html">Details</a></td>
+<td><a href="index.html">ClassBrowser</a></td>
 </tr>
 </table>
 </div>
@@ -127,71 +58,62 @@ tr {
 
 <table>
 	<tr>
-		<td>No. of Classes:</td><td>${report.classUnderTest.size}</td>
+		<td>No. of Classes:</td><td>${coverage.numClasses}</td>
 	</tr>
 	<tr>
-		<td>No. created mutations:</td><td>${report.mutationRatio.mutationCount}</td>
+		<td>No. created mutations:</td><td>${coverage.numMutants}</td>
 	</tr>
 	<tr>
-		<td>No. survived mutations:</td><td>${report.mutationRatio.survivorCount}</td>
+		<td>No. survived mutations:</td><td>${coverage.numSurvivors}</td>
 	</tr>
 </table></td></tr>
 </table>
 
 </div>
+
+<table id="sortable_table" class="datagrid"> 
+	<thead> 
+		<tr> 
+			<th mochi:format="str">Mutated Class</th>
+			<th mochi:format="number">Mutations</th>
+			<th mochi:format="number">Survivors</th>
+			<th mochi:format="number">Coverage</th>
+			<th mochi:format="number">Percent %</th>
+		</tr> 
+	</thead> 
+	<tfoot class="invisible"> 
+		<tr> 
+			<td colspan="0"></td> 
+		</tr> 
+	</tfoot> 
+	<tbody>
+		<#list classes as clazz>
+		<tr>
+		    <td><a href="${clazz.fqName}.html">${clazz.fqName}</a></td>
+		    <td>${clazz.numMutants}</td>
+		    <td>${clazz.numSurvivors}</td>
+		    <td>${clazz.coverage}</td>
+		    
+		    <#assign ratio = clazz.coverage * 100 >
+		
+		
+		    <#if  (1.0  =  clazz.coverage) >
+			    <td class="best">${ratio}</td>
+		    <#elseif  (0.0 = clazz.coverage) >
+			    <td class="worst">${ratio}</td>
+		    <#elseif  (0.7 > clazz.coverage) >
+			    <td class="bad">${ratio}</td>
+		    <#else>  
+			    <td class="ok">${ratio}</td>
+		    </#if>
+		</tr>
+		</#list>
+	</tbody>
+</table>
+
 <p>
 <img src="coverageChart.png" width="${chartWidth}" height="${chartHeight}" align="center" />
 </p>
-<table id="mutationclasses" >
-<th>Mutated Class</th>
-<th>Mutations</th>
-<th>MCoverage</th>
-<th>Tested</th>
-<th>Tests</th>
 
-<#list classInfos as class>
-<tr>
-    <td><a href="${class.fqClassName}.html">${class.fqClassName}</a></td>
-    <td>${class.numMutants}</td>
-    
-    <#assign ratio = class.mCoverageRatio * 100 >
-
-
-    <#if  (0.0  =  class.surviverRatio) >
-	    <td class="best">${ratio} %</td>
-    <#elseif  (1.0 = class.surviverRatio) >
-	    <td class="worst">$ratio %</td>
-    <#elseif  (0.3 < class.surviverRatio) >
-	    <td class="bad">$ratio %</td>
-    <#else>  
-	    <td class="ok">$ratio %</td>
-    </#if>
-    
-	<#if ( class.tests.size() > 0 ) >    
-    <td class="tested_yes">Y</td>
-    <td class="tests">
-    	<#assign first = true >
-    	<#list class.tests as test >
-    		${test}
-    		<#if first >
-    			<#assign first = false >
-    		<#else>
-    			<br/>
-    		</#if>
-        </#list>
-    </td>
-	<#else>
-    <td class="tested_no">N</td>
-    <td class="tests_none">
-		No Tests
-    </td>
-	</#if>
-
-
-</tr>
-</#list>
-
-
-</table>
 </body>
 </html>
