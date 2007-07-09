@@ -1,6 +1,6 @@
 package com.retroduction.carma.report.generator.reportobjects;
 
-import java.util.Set;
+import java.util.Collection;
 
 import com.retroduction.carma.xmlreport.om.ClassUnderTest;
 import com.retroduction.carma.xmlreport.om.MutationRatio;
@@ -10,7 +10,7 @@ import com.retroduction.carma.xmlreport.om.MutationRatio;
  */
 public class CoverageInfoAggregator {
 
-	public CoverageInfo aggregate(String name, String shortName, Set<ClassUnderTest> classes){
+	public CoverageInfo aggregate(String name, String shortName, Collection<ClassUnderTest> classes){
 		
 		int sumMutants = 0;
 		int sumSurvivors = 0;

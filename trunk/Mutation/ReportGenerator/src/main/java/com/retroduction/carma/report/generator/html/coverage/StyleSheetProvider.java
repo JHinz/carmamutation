@@ -4,29 +4,61 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+
+import com.retroduction.carma.utilities.Logger;
+import com.retroduction.carma.utilities.LoggerFactory;
 
 public class StyleSheetProvider {
-	private File cssOutputDir;
+	private Logger logger = LoggerFactory.getLogger(getClass());
 
-	public StyleSheetProvider(File cssOutputDir) {
-		this.cssOutputDir = cssOutputDir;
+	private String baseDir;
+
+	private List<String> resources;
+
+	public void setBaseDir(String baseDir) {
+		this.baseDir = baseDir;
 	}
 
-	public void provideStyleSheet(String styleSheet) throws IOException {
-		InputStream is = this.getClass().getResourceAsStream("css/" + styleSheet);
-		if (!this.cssOutputDir.exists()) {
-			this.cssOutputDir.mkdirs();
+	public void setResources(List<String> resources) {
+		this.resources = resources;
+	}
+
+	public StyleSheetProvider() {
+	}
+
+	public void provideResources(File outputBaseDir) throws IOException {
+		for (String r : resources) {
+			provideStyleSheet(outputBaseDir, r);
 		}
-		File cssFile = new File(this.cssOutputDir, styleSheet);
+	}
+
+	private void provideStyleSheet(File outputBaseDir, String styleSheet) throws IOException {
+
+		InputStream is = getClass().getResourceAsStream(baseDir + "/" + styleSheet);
+		File cssOutputDir = new File(outputBaseDir, baseDir);
+		if (!cssOutputDir.exists()) {
+			cssOutputDir.mkdirs();
+		}
+		File cssFile = new File(cssOutputDir, styleSheet);
 
 		FileOutputStream fout = new FileOutputStream(cssFile);
-		byte[] buffer = new byte[1024];
-		int len;
-		while (-1 != (len = is.read(buffer))) {
-			fout.write(buffer, 0, len);
-		}
-		is.close();
-		fout.close();
-	}
+		try {
+			byte[] buffer = new byte[10];
+			int len;
+			while (-1 != (len = is.read(buffer))) {
+				fout.write(buffer, 0, len);
+			}
+		} catch (IOException e) {
+			logger.error("Failed to provide resource: " +styleSheet, e);
+			throw e;
+		} catch (NullPointerException e) {
+			logger.error("Failed to provide resource: " +styleSheet, e);
+			throw e;
+		} finally {
+			is.close();
+			fout.close();
 
+		}
+	}
 }
