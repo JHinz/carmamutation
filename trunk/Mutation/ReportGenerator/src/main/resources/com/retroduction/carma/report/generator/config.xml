@@ -28,6 +28,7 @@
 				<ref bean="stylesheets"></ref>
 				<ref bean="javascript"></ref>
 				<ref bean="MochiKit"></ref>
+				<ref bean="tooltip"></ref>
 			</list>
 		</property>
 	</bean>
@@ -77,6 +78,17 @@
 			</list>
 		</property>
 	</bean>
+
+	<bean id="tooltip"
+		class="com.retroduction.carma.report.generator.html.coverage.StyleSheetProvider">
+		<property name="baseDir" value="js/tooltip"></property>
+		<property name="resources">
+			<list>
+				<value>wz_tooltip.js</value>
+			</list>
+		</property>
+	</bean>
+
 
 	<bean id="cov.classReport"
 		class="com.retroduction.carma.report.generator.html.coverage.ClassReport"

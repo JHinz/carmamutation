@@ -7,6 +7,7 @@
 		<link title="Style" type="text/css" rel="stylesheet" href="css/main.css"/>
 	</head>
 	<body>
+		<script type="text/javascript" src="js/tooltip/wz_tooltip.js"></script>
 		<h5>Mutation Class Report - ${coverage.fqName}</h5>
 		<div class="separator">&nbsp;</div>
 
@@ -89,23 +90,40 @@
 
 		<div class="separator">&nbsp;</div>
 		<table cellspacing="0" cellpadding="0" class="src">
+			
+		<#assign mutId = 0 >
 		<#list sourceInfo as sourceLine>
-
+			
 			<#assign line =  sourceLine.text?replace(" ","&#160;") >
 			<#assign line = line?replace("\t","&#160;&#160;") >
 			<#if sourceLine.mutantInfo??  >
 		
 			
 				<#list sourceLine.mutantInfo as mutant >
+					<#assign mutId = mutId+1 >
 					<#if mutant.isSurvived() >
 					<tr>
 			  			<td class="numLineSurvived">&nbsp;${sourceLine.lineNo}</td>
-			  			<td class="src"><pre class="src"><span class="srcUncovered"><a title="${mutant.name!"NoName"}: ${mutant.transition} ${transitionsDescription.getString(mutant.transition)}">&nbsp;${line}</a></span></pre></td>
+
+			  			<td class="src"><pre class="src"><span class="srcUncovered"><a <a onmouseover="TagToTip('Tooltip${mutId}', BGCOLOR, '#ffdddd')">&nbsp;${line}</a></span></pre></td>
+						<span id="Tooltip${mutId}">
+							<b>Name:</b> ${mutant.name!"NoName"}:<br/>
+						 	<b>Transition:</b> ${mutant.transition}<br/>
+						 	<b>Description:</b> ${transitionsDescription.getString(mutant.transition)}<br/>
+						 </span>
 					</tr>
 					<#else>
 					<tr>
 			  			<td class="numLineCover">&nbsp;${sourceLine.lineNo}</td>
-			  			<td class="src"><pre class="src"><span class="srcCovered"><a title="${mutant.name!"NoName"}: ${mutant.transition} ${transitionsDescription.getString(mutant.transition)} KillerTests: <#list mutant.killerTests as test>${test} </#list> ">&nbsp;${line}</a></span></pre></td>
+			  			<td class="src"><pre class="src"><span class="srcCovered"><a onmouseover="TagToTip('Tooltip${mutId}', BGCOLOR, '#ddffdd')" >&nbsp;${line}</a></span></pre></td>
+
+						<span id="Tooltip${mutId}">
+							<b>Name:</b> ${mutant.name!"NoName"}:<br/>
+						 	<b>Transition:</b> ${mutant.transition}<br/>
+						 	<b>Description:</b> ${transitionsDescription.getString(mutant.transition)}<br/>
+						 	<b>KillerTests:</b> <#list mutant.killerTests as test>${test}&nbsp;</#list>
+						 </span>
+
 					</tr>
 						
 					</#if>
