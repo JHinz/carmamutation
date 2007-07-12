@@ -2,6 +2,7 @@ package com.retroduction.carma.core;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -125,59 +126,75 @@ public class Core {
 	 */
 	void performMutations(Set<ITransitionGroup> transitionGroups, Set<TestedClassInfo> classUnderTestDescriptions) {
 
+		int numberOfClasses = classUnderTestDescriptions.size();
+
+		int numberOfClassesProcessed = 0;
+
 		this.logger.info("Performing mutation ...");
+
+		this.logger.info("0 % processed ...");
 
 		for (TestedClassInfo classUnderTestDescription : classUnderTestDescriptions) {
 
 			this.logger.info("Performing mutation on class: " + classUnderTestDescription.getFullyQualifiedClassName());
 
-			this.eventListener.notifyEvent(new ProcessingClassUnderTest(classUnderTestDescription));
-
-			String fqClassName = classUnderTestDescription.getFullyQualifiedClassName();
-
-			this.logger.debug("Loading genuine class byte code for mutation process...");
-
-			byte[] byteCode = null;
 			try {
-				byteCode = this.byteCodeFileReader.readByteCodeFromMultipleFolders(fqClassName, this.getClassesUnderTestPath());
-			} catch (IOException e) {
-				this.logger.warn("ByteCode for class could not be read from disk. Skipping class " + fqClassName, e);
-				this.eventListener.notifyEvent(new ProcessingClassUnderTestFinished());
-				continue;
-			}
+				this.eventListener.notifyEvent(new ProcessingClassUnderTest(classUnderTestDescription));
 
-			for (ITransitionGroup transitionGroup : transitionGroups) {
+				String fqClassName = classUnderTestDescription.getFullyQualifiedClassName();
 
-				this.logger.debug("Using transition group <" + transitionGroup.getName() + "> for mutation process");
+				this.logger.debug("Loading genuine class byte code for mutation process...");
 
-				this.eventListener.notifyEvent(new ProcessingMutationOperator(transitionGroup.getName()));
-
-				List<Mutant> mutants = this.mutantGenerator.generateMutants(fqClassName, byteCode, transitionGroups);
-
-				this.logger.info("Number of created mutants for current class: " + mutants.size());
-
-				this.eventListener.notifyEvent(new MutantsGenerated(mutants, fqClassName, transitionGroup));
-
-				for (Mutant mutant : mutants) {
-
-					this.logger.debug("Processing mutant...");
-
-					mutant.getSourceMapping().setClassName(fqClassName);
-
-					this.eventListener.notifyEvent(new ProcessingMutant(mutant));
-
-					this.logger.debug("Executing sane tests for created mutant...");
-
-					Set<String> associatedTestNames = new HashSet<String>();
-
-					for (PersistentClassInfo testInfo : classUnderTestDescription.getAssociatedTestNames())
-						associatedTestNames.add(testInfo.getFullyQualifiedClassName());
-
-					this.testRunner.execute(mutant, associatedTestNames);
-
-					this.eventListener.notifyEvent(new TestsExecuted(mutant));
-
+				byte[] byteCode = null;
+				try {
+					byteCode = this.byteCodeFileReader.readByteCodeFromMultipleFolders(fqClassName, this
+							.getClassesUnderTestPath());
+				} catch (IOException e) {
+					this.logger
+							.warn("ByteCode for class could not be read from disk. Skipping class " + fqClassName, e);
+					this.eventListener.notifyEvent(new ProcessingClassUnderTestFinished());
+					continue;
 				}
+
+				for (ITransitionGroup transitionGroup : transitionGroups) {
+
+					this.logger
+							.debug("Using transition group <" + transitionGroup.getName() + "> for mutation process");
+
+					this.eventListener.notifyEvent(new ProcessingMutationOperator(transitionGroup.getName()));
+
+					List<Mutant> mutants = this.mutantGenerator
+							.generateMutants(fqClassName, byteCode, transitionGroups);
+
+					this.logger.info("Number of created mutants for current class: " + mutants.size());
+
+					this.eventListener.notifyEvent(new MutantsGenerated(mutants, fqClassName, transitionGroup));
+
+					for (Mutant mutant : mutants) {
+
+						this.logger.debug("Processing mutant...");
+
+						mutant.getSourceMapping().setClassName(fqClassName);
+
+						this.eventListener.notifyEvent(new ProcessingMutant(mutant));
+
+						this.logger.debug("Executing sane tests for created mutant...");
+
+						Set<String> associatedTestNames = new HashSet<String>();
+
+						for (PersistentClassInfo testInfo : classUnderTestDescription.getAssociatedTestNames())
+							associatedTestNames.add(testInfo.getFullyQualifiedClassName());
+
+						this.testRunner.execute(mutant, associatedTestNames);
+
+						this.eventListener.notifyEvent(new TestsExecuted(mutant));
+
+					}
+				}
+			} finally {
+				numberOfClassesProcessed++;
+
+				this.logger.info((numberOfClassesProcessed * 100 )/ numberOfClasses  + " % processed ...");
 			}
 
 			this.eventListener.notifyEvent(new ProcessingClassUnderTestFinished());
