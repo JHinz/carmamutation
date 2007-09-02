@@ -35,11 +35,13 @@ public class BruteForceResolver implements ITestClassResolver {
 
 			Set<String> testNamesForClass = result.get(clazz);
 
-			if (testNamesForClass == null)
+			if (testNamesForClass == null) {
 				testNamesForClass = new HashSet<String>();
+			}
 
-			for (PersistentClassInfo testClassName : existingTestClasses)
+			for (PersistentClassInfo testClassName : existingTestClasses) {
 				testNamesForClass.add(testClassName.getFullyQualifiedClassName());
+			}
 
 			result.put(clazz, testNamesForClass);
 		}

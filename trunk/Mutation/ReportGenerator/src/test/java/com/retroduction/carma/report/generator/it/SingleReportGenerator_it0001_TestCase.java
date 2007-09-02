@@ -61,12 +61,12 @@ public class SingleReportGenerator_it0001_TestCase extends TestCase {
 	static public boolean deleteDirectory(File path) {
 	    if( path.exists() ) {
 	      File[] files = path.listFiles();
-	      for(int i=0; i<files.length; i++) {
-	         if(files[i].isDirectory()) {
-	           deleteDirectory(files[i]);
+	      for (File element : files) {
+	         if(element.isDirectory()) {
+	           deleteDirectory(element);
 	         }
 	         else {
-	           files[i].delete();
+	           element.delete();
 	         }
 	      }
 	    }

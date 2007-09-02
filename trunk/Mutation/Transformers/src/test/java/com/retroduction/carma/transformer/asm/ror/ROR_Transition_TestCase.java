@@ -42,7 +42,7 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
 
-			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+			Class<?> modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
 			Object modifiedInputClassInstance = modifiedInputClass
 					.newInstance();
@@ -68,7 +68,7 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(1).getByteCode());
 
-			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+			Class<?> modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
 			Object modifiedInputClassInstance = modifiedInputClass
 					.newInstance();
@@ -111,7 +111,7 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
 
-			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+			Class<?> modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
 			Object modifiedInputClassInstance = modifiedInputClass
 					.newInstance();
@@ -155,7 +155,7 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
 
-			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+			Class<?> modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
 			Object modifiedInputClassInstance = modifiedInputClass
 					.newInstance();
@@ -199,7 +199,7 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
 
-			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+			Class<?> modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
 			Object modifiedInputClassInstance = modifiedInputClass
 					.newInstance();
@@ -248,7 +248,7 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
 
-			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+			Class<?> modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
 			Object modifiedInputClassInstance = modifiedInputClass
 					.newInstance();
@@ -297,7 +297,7 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
 
-			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+			Class<?> modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
 			Object modifiedInputClassInstance = modifiedInputClass
 					.newInstance();
@@ -346,7 +346,7 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
 
-			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+			Class<?> modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
 			Object modifiedInputClassInstance = modifiedInputClass
 					.newInstance();
@@ -395,7 +395,7 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
 
-			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+			Class<?> modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
 			Object modifiedInputClassInstance = modifiedInputClass
 					.newInstance();
@@ -439,7 +439,7 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
 
-			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+			Class<?> modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
 			Object modifiedInputClassInstance = modifiedInputClass
 					.newInstance();
@@ -483,7 +483,7 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
 
-			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+			Class<?> modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
 			Object modifiedInputClassInstance = modifiedInputClass
 					.newInstance();
@@ -532,7 +532,7 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
 
-			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+			Class<?> modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
 			Object modifiedInputClassInstance = modifiedInputClass
 					.newInstance();
@@ -581,7 +581,7 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
 
-			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+			Class<?> modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
 			Object modifiedInputClassInstance = modifiedInputClass
 					.newInstance();
@@ -630,7 +630,7 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
 
-			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+			Class<?> modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
 			Object modifiedInputClassInstance = modifiedInputClass
 					.newInstance();
@@ -679,7 +679,7 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
 
-			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+			Class<?> modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
 			Object modifiedInputClassInstance = modifiedInputClass
 					.newInstance();
@@ -729,7 +729,7 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
 
-			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+			Class<?> modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
 			Object modifiedInputClassInstance = modifiedInputClass
 					.newInstance();
@@ -779,7 +779,7 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
 
-			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+			Class<?> modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
 			Object modifiedInputClassInstance = modifiedInputClass
 					.newInstance();
@@ -828,7 +828,7 @@ public class ROR_Transition_TestCase extends TestCase {
 
 			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
 
-			Class modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+			Class<?> modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
 
 			Object modifiedInputClassInstance = modifiedInputClass
 					.newInstance();

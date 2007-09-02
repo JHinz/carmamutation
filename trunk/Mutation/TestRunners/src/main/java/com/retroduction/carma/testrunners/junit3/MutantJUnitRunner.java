@@ -78,11 +78,11 @@ public class MutantJUnitRunner extends BaseTestRunner implements IMutantJUnitRun
 	}
 
 	private class MyTestSuiteLoader implements TestSuiteLoader {
-		public Class load(String suiteClassName) throws ClassNotFoundException {
+		public Class<?> load(String suiteClassName) throws ClassNotFoundException {
 			return MutantJUnitRunner.this.mutantLoader.loadClass(suiteClassName);
 		}
 
-		public Class reload(Class aClass) throws ClassNotFoundException {
+		public Class<?> reload(Class aClass) throws ClassNotFoundException {
 			throw new UnsupportedOperationException("Not implemented");
 		}
 	}

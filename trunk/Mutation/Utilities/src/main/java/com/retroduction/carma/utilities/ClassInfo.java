@@ -8,9 +8,6 @@ public class ClassInfo implements Comparable<ClassInfo> {
 
 	private String fullyQualifiedClassName;
 
-	private ClassInfo() {
-	}
-
 	public ClassInfo(String className, String packageName) {
 		super();
 		this.extractClassNameInfo(className, packageName);
@@ -41,10 +38,11 @@ public class ClassInfo implements Comparable<ClassInfo> {
 		this.setClassName(className);
 		this.setPackageName(packageName);
 
-		if ("".equals(packageName))
+		if ("".equals(packageName)) {
 			this.setFullyQualifiedClassName(className);
-		else
+		} else {
 			this.setFullyQualifiedClassName(packageName + "." + className);
+		}
 
 	}
 

@@ -12,7 +12,7 @@ public class LoggerFactory {
 		return logger;
 	}
 
-	public static Logger getLogger(Class clazz) {
+	public static Logger getLogger(Class<?> clazz) {
 		Log log = LogFactory.getLog(clazz);
 		Logger logger = new Logger();
 		logger.setLog(log);

@@ -30,8 +30,9 @@ public class AntCarmaReportTestCase extends TestCase {
 		@Override
 		public void checkPermission(Permission perm) {
 
-			if (perm.implies(new RuntimePermission("setSecurityManager")))
+			if (perm.implies(new RuntimePermission("setSecurityManager"))) {
 				return;
+			}
 
 		}
 
@@ -48,8 +49,9 @@ public class AntCarmaReportTestCase extends TestCase {
 
 		File file = new File("target/report.xml");
 
-		if (file.exists())
+		if (file.exists()) {
 			file.delete();
+		}
 
 		assertTrue(file.getCanonicalPath() + " could not be cleanup before execution", !file.exists());
 

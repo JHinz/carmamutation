@@ -129,11 +129,13 @@ public class ReportEventListener implements IEventListener {
 			mutantInfo.setName(mutant.getName());
 			mutantInfo.setBaseSourceLine(mutant.getSourceMapping().getLineNo());
 
-			if (mutant.getTransitionGroup() != null)
+			if (mutant.getTransitionGroup() != null) {
 				mutantInfo.setTransitionGroup(mutant.getTransitionGroup().getName());
+			}
 
-			if (mutant.getTransition() != null)
+			if (mutant.getTransition() != null) {
 				mutantInfo.setTransition(mutant.getTransition().getName());
+			}
 			this.currentMutantReport = mutantInfo;
 			this.currentClassUnderTestSubReport.getMutant().add(this.currentMutantReport);
 			this.currentClassUnderTestSubReport.setBaseSourceFile(((ProcessingMutant) event).getMutant().getSourceMapping()

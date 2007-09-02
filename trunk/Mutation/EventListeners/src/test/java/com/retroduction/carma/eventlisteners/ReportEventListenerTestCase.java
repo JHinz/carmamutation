@@ -137,8 +137,9 @@ public class ReportEventListenerTestCase extends TestCase {
 		assertEquals(0, listener.run.getBrokenTests().size());
 
 		HashSet<String> executedTestNames = new HashSet<String>();
-		for (String testName : listener.run.getClassUnderTest().get(0).getExecutedTests())
+		for (String testName : listener.run.getClassUnderTest().get(0).getExecutedTests()) {
 			executedTestNames.add(testName);
+		}
 
 		assertEquals(2, executedTestNames.size());
 		assertTrue(executedTestNames.contains("test1"));
@@ -189,8 +190,9 @@ public class ReportEventListenerTestCase extends TestCase {
 		assertEquals(2, listener.run.getBrokenTests().size());
 
 		HashSet<String> brokenTestNames = new HashSet<String>();
-		for (String testName : listener.run.getBrokenTests())
+		for (String testName : listener.run.getBrokenTests()) {
 			brokenTestNames.add(testName);
+		}
 
 		assertTrue(brokenTestNames.contains("test1"));
 		assertTrue(brokenTestNames.contains("test2"));

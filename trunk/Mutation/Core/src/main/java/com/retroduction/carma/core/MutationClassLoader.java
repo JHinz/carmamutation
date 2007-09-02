@@ -28,7 +28,7 @@ public class MutationClassLoader extends URLClassLoader {
 	@Override
 	public Class<?> loadClass(String name) throws ClassNotFoundException {
 
-		Class clazz;
+	
 		// TODO is that needed for all mutation dependencies? Find a better
 		// solution (mike)
 
@@ -57,14 +57,17 @@ public class MutationClassLoader extends URLClassLoader {
 			return super.loadClass(name, false);
 		}
 
+		Class<?> clazz;
+		
 		if (name.equals(this.mutantClassName)) {
 			clazz = super.defineClass(name, this.mutantByteCode, 0, this.mutantByteCode.length);
 		} else {
 			try {
 				clazz = this.findLoadedClass(name);
 
-				if (clazz != null)
+				if (clazz != null) {
 					return clazz;
+				}
 
 				return this.findClass(name);
 			} catch (ClassNotFoundException e) {
@@ -72,8 +75,7 @@ public class MutationClassLoader extends URLClassLoader {
 				// Should never be the case as otherwise classes could be
 				// resolved outside
 				// of the "protected mutation" class loader which leads to
-				// intransparent
-				// faults
+				// hidden faults
 				throw e;
 			}
 		}

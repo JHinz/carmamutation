@@ -127,8 +127,9 @@ public class ProjectBuilder {
 
 			fileNameWithoutPath = sourceFileNameWithPath.substring(lastSlashIndex + 1, sourceFileNameWithPath.length());
 
-		} else
+		} else {
 			fileNameWithoutPath = sourceFileNameWithPath;
+		}
 
 		// Strip ".java" before returning result
 		return fileNameWithoutPath.substring(0, fileNameWithoutPath.length() - 5);
@@ -170,9 +171,9 @@ public class ProjectBuilder {
 		});
 
 		if (javaFiles != null) {
-			for (int fileCount = 0; fileCount < javaFiles.length; fileCount++) {
+			for (File element : javaFiles) {
 
-				result.add(javaFiles[fileCount]);
+				result.add(element);
 			}
 		}
 
@@ -185,9 +186,9 @@ public class ProjectBuilder {
 		});
 
 		if (directories != null) {
-			for (int dirCount = 0; dirCount < directories.length; dirCount++) {
+			for (File element : directories) {
 
-				result.addAll(this.getSourceFiles(directories[dirCount]));
+				result.addAll(this.getSourceFiles(element));
 			}
 		}
 

@@ -2,7 +2,6 @@ package com.retroduction.carma.core;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -72,9 +71,11 @@ public class Core {
 
 		Set<String> fullTestClassSet = new HashSet<String>();
 
-		for (TestedClassInfo clazz : foundClassesUnderTest)
-			for (PersistentClassInfo testInfo : clazz.getAssociatedTestNames())
+		for (TestedClassInfo clazz : foundClassesUnderTest) {
+			for (PersistentClassInfo testInfo : clazz.getAssociatedTestNames()) {
 				fullTestClassSet.add(testInfo.getFullyQualifiedClassName());
+			}
+		}
 
 		Set<String> brokenTestNames = this.testRunner.execute(fullTestClassSet);
 
@@ -106,8 +107,9 @@ public class Core {
 		for (TestedClassInfo clazz : testedClassInfos) {
 			for (String brokenTest : brokenTestNames) {
 				PersistentClassInfo testInfo = new PersistentClassInfo(brokenTest);
-				if (clazz.getAssociatedTestNames().contains(testInfo))
+				if (clazz.getAssociatedTestNames().contains(testInfo)) {
 					clazz.getAssociatedTestNames().remove(testInfo);
+				}
 
 			}
 		}
@@ -182,8 +184,9 @@ public class Core {
 
 						Set<String> associatedTestNames = new HashSet<String>();
 
-						for (PersistentClassInfo testInfo : classUnderTestDescription.getAssociatedTestNames())
+						for (PersistentClassInfo testInfo : classUnderTestDescription.getAssociatedTestNames()) {
 							associatedTestNames.add(testInfo.getFullyQualifiedClassName());
+						}
 
 						this.testRunner.execute(mutant, associatedTestNames);
 

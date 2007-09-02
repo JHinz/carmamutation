@@ -74,7 +74,7 @@ public class MutationTestMojo extends AbstractMojo {
 	 * @required
 	 * @readonly
 	 */
-	private java.util.Set dependencies;
+	private java.util.Set<Artifact> dependencies;
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		Log log = this.getLog();
@@ -114,7 +114,7 @@ public class MutationTestMojo extends AbstractMojo {
 		List<URL> urls = new ArrayList<URL>();
 		this.logger.debug("Setting dependencies from maven project dependencies");
 		if (this.dependencies != null && !this.dependencies.isEmpty()) {
-			for (Iterator it = this.dependencies.iterator(); it.hasNext();) {
+			for (Iterator<Artifact> it = this.dependencies.iterator(); it.hasNext();) {
 				Artifact dep = (Artifact) it.next();
 				this.logger.debug("Adding dependency: " + dep.getFile().toURL());
 				urls.add(dep.getFile().toURL());

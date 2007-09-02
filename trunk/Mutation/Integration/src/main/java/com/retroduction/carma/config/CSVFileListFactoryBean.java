@@ -17,7 +17,7 @@ public class CSVFileListFactoryBean implements FactoryBean {
 		return this.files;
 	}
 
-	public Class getObjectType() {
+	public Class<List> getObjectType() {
 		return List.class;
 	}
 

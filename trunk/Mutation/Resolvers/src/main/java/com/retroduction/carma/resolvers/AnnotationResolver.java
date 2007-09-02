@@ -65,8 +65,9 @@ public class AnnotationResolver implements ITestClassResolver {
 
 		HashMap<String, Set<String>> result = new HashMap<String, Set<String>>();
 
-		for (String className : classNames)
+		for (String className : classNames) {
 			result.put(className, new HashSet<String>());
+		}
 
 		FileClassResolver directoryResolver = new FileClassResolver();
 		directoryResolver.setClassesBaseDir(this.getTestClassesPath());
@@ -75,7 +76,7 @@ public class AnnotationResolver implements ITestClassResolver {
 
 		for (PersistentClassInfo testClassName : testClassNames) {
 
-			Class testClass = null;
+			Class<?> testClass = null;
 
 			try {
 				testClass = this.getLoader().loadClass(testClassName.getFullyQualifiedClassName());
@@ -95,8 +96,9 @@ public class AnnotationResolver implements ITestClassResolver {
 
 			for (String fqClassName : fqClassNames) {
 
-				if (result.containsKey(fqClassName))
+				if (result.containsKey(fqClassName)) {
 					result.get(fqClassName).add(testClassName.getFullyQualifiedClassName());
+				}
 
 			}
 		}
