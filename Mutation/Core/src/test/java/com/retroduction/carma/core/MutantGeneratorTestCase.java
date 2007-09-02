@@ -7,8 +7,6 @@ import java.util.Set;
 
 import junit.framework.TestCase;
 
-import com.retroduction.carma.core.api.eventlisteners.IEvent;
-import com.retroduction.carma.core.api.eventlisteners.IEventListener;
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
 import com.retroduction.carma.core.api.transitions.ITransition;
 import com.retroduction.carma.core.api.transitions.ITransitionGroup;

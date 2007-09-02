@@ -43,7 +43,7 @@ public class LibrariesFactoryBean implements FactoryBean {
 		return this.libraryUrls;
 	}
 
-	public Class getObjectType() {
+	public Class<URL[]> getObjectType() {
 		return URL[].class;
 	}
 

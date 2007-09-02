@@ -46,8 +46,9 @@ public class FilterVerifier {
 	public Set<PersistentClassInfo> determineExcludedClasses(Set<PersistentClassInfo> classes) {
 
 		Set<String> classNames = new HashSet<String>();
-		for (PersistentClassInfo clazz : classes)
+		for (PersistentClassInfo clazz : classes) {
 			classNames.add(clazz.getFullyQualifiedClassName());
+		}
 
 		Set<String> needlessClassNames = this.determineExcludedClassNames(classNames);
 
@@ -58,8 +59,9 @@ public class FilterVerifier {
 		while (classIterator.hasNext()) {
 			PersistentClassInfo clazz = classIterator.next();
 
-			if (needlessClassNames.contains(clazz.getFullyQualifiedClassName()))
+			if (needlessClassNames.contains(clazz.getFullyQualifiedClassName())) {
 				needlessClasses.add(clazz);
+			}
 		}
 
 		return needlessClasses;

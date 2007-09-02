@@ -8,7 +8,7 @@ public class ClassLoaderInfo {
 
 	private static Log log = LogFactory.getLog(ClassLoaderInfo.class);
 
-	public static void printLoader(Class clazz) {
+	public static void printLoader(Class<?> clazz) {
 		log.info("Class: " + clazz);
 		ClassLoader cl = clazz.getClassLoader();
 		log.info("Loader: " + cl);

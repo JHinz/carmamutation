@@ -27,8 +27,9 @@ public class FileClassResolver implements IClassResolver {
 
 		HashSet<PersistentClassInfo> result = new HashSet<PersistentClassInfo>();
 
-		for (File classesDirectory : this.classesPath)
+		for (File classesDirectory : this.classesPath) {
 			this.iterate(classesDirectory, "", "", result);
+		}
 
 		return result;
 	}

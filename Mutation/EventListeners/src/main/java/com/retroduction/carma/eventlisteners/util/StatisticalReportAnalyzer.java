@@ -9,8 +9,9 @@ public class StatisticalReportAnalyzer {
 
 	public void enhanceReport(MutationRun run) {
 
-		if (run == null)
+		if (run == null) {
 			return;
+		}
 
 		long mutationCountForRun = 0;
 		long survivorCountForRun = 0;

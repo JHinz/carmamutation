@@ -43,8 +43,9 @@ public class ResolverTestCase extends TestCase {
 
 			Set<PersistentClassInfo> result = new HashSet<PersistentClassInfo>();
 
-			for (String clazz : this.classes)
+			for (String clazz : this.classes) {
 				result.add(new PersistentClassInfo(clazz));
+			}
 
 			return result;
 		}
@@ -103,8 +104,9 @@ public class ResolverTestCase extends TestCase {
 		assertEquals(2, result.size());
 
 		HashMap<String, TestedClassInfo> sortedClasses = new HashMap<String, TestedClassInfo>();
-		for (TestedClassInfo description : result)
+		for (TestedClassInfo description : result) {
 			sortedClasses.put(description.getFullyQualifiedClassName(), description);
+		}
 
 		{
 			TestedClassInfo testedClassInfo = sortedClasses.get("com.retroduction.carma.test.A");
@@ -174,8 +176,9 @@ public class ResolverTestCase extends TestCase {
 		assertEquals(1, result.size());
 
 		HashMap<String, TestedClassInfo> sortedClasses = new HashMap<String, TestedClassInfo>();
-		for (TestedClassInfo description : result)
+		for (TestedClassInfo description : result) {
 			sortedClasses.put(description.getFullyQualifiedClassName(), description);
+		}
 
 		{
 			TestedClassInfo testedClassInfo = sortedClasses.get("com.retroduction.carma.test.B");
@@ -234,8 +237,9 @@ public class ResolverTestCase extends TestCase {
 		assertEquals(2, result.size());
 
 		HashMap<String, TestedClassInfo> sortedClasses = new HashMap<String, TestedClassInfo>();
-		for (TestedClassInfo description : result)
+		for (TestedClassInfo description : result) {
 			sortedClasses.put(description.getFullyQualifiedClassName(), description);
+		}
 
 		{
 			TestedClassInfo testedClassInfo = sortedClasses.get("com.retroduction.carma.test.A");

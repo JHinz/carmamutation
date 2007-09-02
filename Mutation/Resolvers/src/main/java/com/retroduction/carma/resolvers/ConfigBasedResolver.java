@@ -51,8 +51,9 @@ public class ConfigBasedResolver implements ITestClassResolver {
 
 		HashMap<String, Set<String>> result = new HashMap<String, Set<String>>();
 
-		for (String classDescription : classDescriptions)
+		for (String classDescription : classDescriptions) {
 			result.put(classDescription, new HashSet<String>());
+		}
 
 		StringTokenizer lineTokenzier = new StringTokenizer(inputConfig, "\n");
 
@@ -60,21 +61,25 @@ public class ConfigBasedResolver implements ITestClassResolver {
 
 			String line = lineTokenzier.nextToken().replaceAll(" ", "").trim();
 
-			if (line.startsWith("#"))
+			if (line.startsWith("#")) {
 				continue;
+			}
 
 			int commentChar = line.indexOf("#");
 
-			if (commentChar >= 0)
+			if (commentChar >= 0) {
 				line = line.substring(0, commentChar);
+			}
 
-			if (!line.contains("="))
+			if (!line.contains("=")) {
 				continue;
+			}
 
 			int splitIndex = line.indexOf("=");
 
-			if (splitIndex <= 0)
+			if (splitIndex <= 0) {
 				continue;
+			}
 
 			String fqClassName = line.substring(0, splitIndex);
 
@@ -89,13 +94,15 @@ public class ConfigBasedResolver implements ITestClassResolver {
 
 			splitIndex = line.indexOf("=");
 
-			if (splitIndex > 0)
+			if (splitIndex > 0) {
 				continue;
+			}
 
 			StringTokenizer elementTokenizer = new StringTokenizer(line, ",");
 
-			while (elementTokenizer.hasMoreTokens())
+			while (elementTokenizer.hasMoreTokens()) {
 				tests.add(elementTokenizer.nextToken());
+			}
 
 			result.put(fqClassName, tests);
 		}

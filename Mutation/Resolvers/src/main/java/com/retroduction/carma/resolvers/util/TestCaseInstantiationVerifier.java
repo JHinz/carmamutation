@@ -27,11 +27,13 @@ public class TestCaseInstantiationVerifier implements ITestCaseInstantiationVeri
 
 		Set<File> combinedClassPathSet = new HashSet<File>();
 
-		if (this.getClassPath() != null)
+		if (this.getClassPath() != null) {
 			combinedClassPathSet.addAll(this.getClassPath());
+		}
 
-		if (this.getTestClassPath() != null)
+		if (this.getTestClassPath() != null) {
 			combinedClassPathSet.addAll(this.getTestClassPath());
+		}
 
 		Set<URL> validURLs = this.filterInvalidURLs(combinedClassPathSet);
 
@@ -90,7 +92,7 @@ public class TestCaseInstantiationVerifier implements ITestCaseInstantiationVeri
 
 			try {
 
-				Class testClass = this.getLoader().loadClass(testClassName);
+				Class<?> testClass = this.getLoader().loadClass(testClassName);
 
 				if (Modifier.isAbstract(testClass.getModifiers()) || Modifier.isInterface(testClass.getModifiers())) {
 					this.log.info("Skipping abstract class or interface in test set:" + testClassName);
