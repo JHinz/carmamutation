@@ -1,4 +1,4 @@
-package com.retroduction.carma.transformer.asm.ror;
+package com.retroduction.carma.transformer.asm.aor;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import com.retroduction.carma.core.api.testrunners.om.Mutant;
 import com.retroduction.carma.core.api.testrunners.om.SourceCodeMapping;
 import com.retroduction.carma.transformer.asm.AbstractASMTransition;
 
-public abstract class ROR_Transition extends AbstractASMTransition {
+public abstract class AOR_Transition extends AbstractASMTransition {
 	
 	/*
 	 * 2 Integer byte code comparisons implemented:

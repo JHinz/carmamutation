@@ -1,4 +1,4 @@
-package com.retroduction.carma.transformer.asm.ror;
+package com.retroduction.carma.transformer.asm;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -13,7 +13,7 @@ import org.objectweb.asm.tree.MethodNode;
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
 import com.retroduction.carma.core.api.transitions.ITransition;
 
- abstract class AbstractASMTransition implements ITransition {
+public abstract class AbstractASMTransition implements ITransition {
 
 	public List<Mutant> applyTransitions(byte[] byteCode) {
 
