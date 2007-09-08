@@ -16,26 +16,25 @@ public class MutantGenerator implements IMutationGenerator {
 	private Logger logger = LoggerFactory.getLogger(MutantGenerator.class);
 
 	public List<Mutant> generateMutants(String classUnderTest, byte[] originalClassByteCode,
-			Set<ITransitionGroup> transitionGroups) {
+			ITransitionGroup transitionGroup) {
 
 		List<Mutant> result = new ArrayList<Mutant>();
 
-		for (ITransitionGroup group : transitionGroups) {
+		this.logger.debug("Processing transition group: " + transitionGroup.getTransitions());
 
-			this.logger.debug("Processing transition group: "+ group.getName());
-			
-			for (ITransition transition : group.getTransitions()) {
+		for (ITransition transition : transitionGroup.getTransitions()) {
 
-				List<Mutant> mutants = transition.applyTransitions(originalClassByteCode);
+			this.logger.debug("Using transition <" + transition.getName() + " for mutation process...");
 
-				for (Mutant mutant : mutants) {
-					mutant.setClassName(classUnderTest);
-					mutant.setTransitionGroup(group);
-				}
+			List<Mutant> mutants = transition.applyTransitions(originalClassByteCode);
 
-				result.addAll(mutants);
+			this.logger.debug("Number of hits during last mutation process step: " + mutants.size());
+
+			for (Mutant mutant : mutants) {
+				mutant.setClassName(classUnderTest);
 			}
 
+			result.addAll(mutants);
 		}
 
 		return result;

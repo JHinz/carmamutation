@@ -166,9 +166,9 @@ public class Core {
 					this.eventListener.notifyEvent(new ProcessingMutationOperator(transitionGroup.getName()));
 
 					List<Mutant> mutants = this.mutantGenerator
-							.generateMutants(fqClassName, byteCode, transitionGroups);
+							.generateMutants(fqClassName, byteCode, transitionGroup);
 
-					this.logger.info("Number of created mutants for current class: " + mutants.size());
+					this.logger.info("Number of "+transitionGroup.getName()+"created mutants for current class: " + mutants.size());
 
 					this.eventListener.notifyEvent(new MutantsGenerated(mutants, fqClassName, transitionGroup));
 
@@ -177,6 +177,7 @@ public class Core {
 						this.logger.debug("Processing mutant...");
 
 						mutant.getSourceMapping().setClassName(fqClassName);
+						mutant.setTransitionGroup(transitionGroup);
 
 						this.eventListener.notifyEvent(new ProcessingMutant(mutant));
 

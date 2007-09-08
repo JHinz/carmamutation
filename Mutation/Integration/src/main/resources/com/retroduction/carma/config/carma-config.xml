@@ -149,6 +149,12 @@
 						<value>true</value>
 					</constructor-arg>
 				</bean>
+				<bean
+					class="com.retroduction.carma.transformer.asm.aor.AOR_TransitionGroup">
+					<constructor-arg>
+						<value>true</value>
+					</constructor-arg>
+				</bean>
 			</list>
 		</property>
 	</bean>

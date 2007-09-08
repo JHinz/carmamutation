@@ -52,18 +52,15 @@ public class MutantGeneratorTestCase extends TestCase {
 
 		String classUnderTest = "com.test.someClass";
 		byte[] originalClassByteCode = new byte[] { 0, 1, 2, 3, 4, 5 };
-		Set<ITransitionGroup> transitionGroups = new HashSet<ITransitionGroup>();
 
 		ITransitionGroup group = new MockTransitionGroup();
 		group.setTransitions(new ITransition[] { new MockTransition() });
 
-		transitionGroups.add(group);
-		List<Mutant> result = generator.generateMutants(classUnderTest, originalClassByteCode, transitionGroups);
+		List<Mutant> result = generator.generateMutants(classUnderTest, originalClassByteCode, group);
 
 		assertEquals(1, result.size());
 
 		assertEquals(classUnderTest, result.get(0).getClassName());
-		assertEquals(group.getName(), result.get(0).getTransitionGroup().getName());
 
 	}
 }

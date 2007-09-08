@@ -13,6 +13,16 @@ import org.objectweb.asm.tree.MethodNode;
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
 import com.retroduction.carma.core.api.transitions.ITransition;
 
+/**
+ * 
+ * Abstract mutation transformation processing class. Does the common traversing logic
+ * over the byte code.
+ * 
+ * @author arau
+ * 
+ * TODO: arau: should be implemented using delegation instead of inheritance.
+ *
+ */
 public abstract class AbstractASMTransition implements ITransition {
 
 	public List<Mutant> applyTransitions(byte[] byteCode) {
