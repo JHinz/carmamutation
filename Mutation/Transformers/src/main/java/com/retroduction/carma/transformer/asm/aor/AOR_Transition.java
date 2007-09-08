@@ -5,7 +5,8 @@ import java.util.List;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
-import org.objectweb.asm.tree.JumpInsnNode;
+import org.objectweb.asm.tree.InsnNode;
+import org.objectweb.asm.tree.MethodNode;
 
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
 import com.retroduction.carma.core.api.testrunners.om.SourceCodeMapping;
@@ -67,17 +68,19 @@ public abstract class AOR_Transition extends AbstractASMTransition {
 	protected int targetInstruction;
 
 	@Override
-	protected void checkNode(ClassNode classNode, List<Mutant> result, int currentInstructionLineNumber,
+	protected void checkNode(ClassNode classNode, MethodNode methodNode, List<Mutant> result, int currentInstructionLineNumber,
 			AbstractInsnNode node) {
 
-		if (node instanceof JumpInsnNode) {
+		if (node instanceof InsnNode) {
 
-			JumpInsnNode jumpNode = (JumpInsnNode) node;
+			InsnNode sourceNode = (InsnNode) node;
 
-			if (jumpNode.getOpcode() == this.sourceInstruction) {
-
-				jumpNode.setOpcode(this.targetInstruction);
-
+			if (sourceNode.getOpcode() == this.sourceInstruction) {
+				
+				InsnNode targetNode = new InsnNode(this.targetInstruction);
+								
+				methodNode.instructions.set(sourceNode, targetNode);
+				
 				ClassWriter writer = new ClassWriter(0);
 				classNode.accept(writer);
 
@@ -91,7 +94,8 @@ public abstract class AOR_Transition extends AbstractASMTransition {
 				mutant.setTransition(this);
 
 				result.add(mutant);
-				jumpNode.setOpcode(this.sourceInstruction);
+				
+				methodNode.instructions.set(targetNode, sourceNode);
 
 			}
 

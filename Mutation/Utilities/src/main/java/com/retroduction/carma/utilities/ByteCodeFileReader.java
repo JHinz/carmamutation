@@ -3,6 +3,7 @@ package com.retroduction.carma.utilities;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -26,6 +27,18 @@ public class ByteCodeFileReader implements IByteCodeFileReader {
 
 		return this.readByteCodeFromStream(inputStream);
 
+	}
+	
+	public void writeByteCodeToDisk(File targetClassFile, byte[] byteCode) throws FileNotFoundException, IOException {
+
+		if ( targetClassFile.exists()) {
+			targetClassFile.delete();
+		}
+		
+		FileOutputStream outputStream = new FileOutputStream(targetClassFile);
+		
+		outputStream.write(byteCode);
+		
 	}
 
 	public byte[] readByteCodeFromStream(InputStream originalClassFileInputStream) throws FileNotFoundException,

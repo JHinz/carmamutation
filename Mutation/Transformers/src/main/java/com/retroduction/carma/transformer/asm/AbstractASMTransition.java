@@ -27,20 +27,20 @@ public abstract class AbstractASMTransition implements ITransition {
 
 		for (MethodNode methodNode : (List<MethodNode>) classNode.methods) {
 
-			Iterator<AbstractInsnNode> instructionInterator = methodNode.instructions.iterator();
+			Iterator<AbstractInsnNode> instructionIterator = methodNode.instructions.iterator();
 
 			int currentInstructionLineNumber = 0;
 
-			while (instructionInterator.hasNext()) {
+			while (instructionIterator.hasNext()) {
 
-				AbstractInsnNode node = instructionInterator.next();
+				AbstractInsnNode node = instructionIterator.next();
 
 				if (node instanceof LineNumberNode) {
 					currentInstructionLineNumber = ((LineNumberNode) node).line;
 					continue;
 				}
 
-				this.checkNode(classNode, result, currentInstructionLineNumber, node);
+				this.checkNode(classNode, methodNode, result, currentInstructionLineNumber, node);
 
 			}
 
@@ -49,7 +49,7 @@ public abstract class AbstractASMTransition implements ITransition {
 		return result;
 	}
 
-	protected abstract void checkNode(ClassNode classNode, List<Mutant> result, int currentInstructionLineNumber,
+	protected abstract void checkNode(ClassNode classNode, MethodNode methodNode, List<Mutant> result, int currentInstructionLineNumber,
 			AbstractInsnNode node);
 
 }
