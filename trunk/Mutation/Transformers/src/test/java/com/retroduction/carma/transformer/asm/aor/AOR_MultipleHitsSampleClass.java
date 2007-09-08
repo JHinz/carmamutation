@@ -10,15 +10,12 @@ package com.retroduction.carma.transformer.asm.aor;
  * @author arau
  * 
  */
-public class AOR_SampleClass {
+public class AOR_MultipleHitsSampleClass {
 
 	public int calculate(int a) {
 
 		int b = a + 1;
-		b = a - 1;
-		b = a * 2;
-		b = a / 2;
-
+		b = a + 1;
 		return b;
 	}
 
