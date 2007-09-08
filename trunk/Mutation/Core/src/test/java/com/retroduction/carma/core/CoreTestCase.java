@@ -91,7 +91,7 @@ public class CoreTestCase extends TestCase {
 	private class MockMutantGenerator implements IMutationGenerator {
 
 		public List<Mutant> generateMutants(String classUnderTest, byte[] originalClassByteCode,
-				Set<ITransitionGroup> transitionGroups) {
+				ITransitionGroup transitionGroup) {
 			List<Mutant> result = new ArrayList<Mutant>();
 			Mutant pseudoMutant = new Mutant();
 			pseudoMutant.setName("PseudoMutant");
@@ -131,11 +131,11 @@ public class CoreTestCase extends TestCase {
 
 	private class MockTestRunner implements ITestRunner {
 
-		private boolean shoudFailOnValidation;
+		private boolean shouldFailOnValidation;
 
 		public MockTestRunner(boolean shoudFailOnValidation) {
 			super();
-			this.shoudFailOnValidation = shoudFailOnValidation;
+			this.shouldFailOnValidation = shoudFailOnValidation;
 		}
 
 		public void execute(Mutant mutant, Set<String> testNames) {
@@ -143,7 +143,7 @@ public class CoreTestCase extends TestCase {
 
 		public Set<String> execute(Set<String> testNames) {
 
-			if (this.shoudFailOnValidation) {
+			if (this.shouldFailOnValidation) {
 				Set<String> result = new HashSet<String>();
 				result.add("com.retroduction.carma.FailedTestCase");
 				return result;
@@ -250,6 +250,7 @@ public class CoreTestCase extends TestCase {
 		event = eventIterator.next();
 		assertTrue(event instanceof ProcessingMutant);
 		assertEquals("PseudoMutant", ((ProcessingMutant) event).getMutant().getName());
+		assertEquals("MockTransitionGroup", ((ProcessingMutant) event).getMutant().getTransitionGroup().getName());
 
 		event = eventIterator.next();
 		assertTrue(event instanceof TestsExecuted);

@@ -8,6 +8,6 @@ import com.retroduction.carma.core.api.testrunners.om.Mutant;
 public interface IMutationGenerator {
 
 	public List<Mutant> generateMutants(String classUnderTest, byte[] originalClassByteCode,
-			Set<ITransitionGroup> transitionGroups);
+			ITransitionGroup transitionGroup);
 
 }
