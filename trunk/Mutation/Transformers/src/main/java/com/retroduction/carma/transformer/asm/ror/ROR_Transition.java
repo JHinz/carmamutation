@@ -6,59 +6,60 @@ import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.JumpInsnNode;
+import org.objectweb.asm.tree.MethodNode;
 
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
 import com.retroduction.carma.core.api.testrunners.om.SourceCodeMapping;
 import com.retroduction.carma.transformer.asm.AbstractASMTransition;
 
 public abstract class ROR_Transition extends AbstractASMTransition {
-	
+
 	/*
 	 * 2 Integer byte code comparisons implemented:
 	 * 
-	 *      EQ   NE   LT   LE   GT   GE
+	 * EQ NE LT LE GT GE
 	 * 
-	 * EQ   --  impl  --   --   --   --
+	 * EQ -- impl -- -- -- --
 	 * 
-	 * NE   impl --   --   --   --   --
+	 * NE impl -- -- -- -- --
 	 * 
-	 * LT   --   --   --   --   --  impl
+	 * LT -- -- -- -- -- impl
 	 * 
-	 * LE   --   --   --   --   impl --
+	 * LE -- -- -- -- impl --
 	 * 
-	 * GT   --   --   --  impl  --   --
+	 * GT -- -- -- impl -- --
 	 * 
-	 * GE   --   --  impl  --   --   --
+	 * GE -- -- impl -- -- --
 	 * 
 	 */
-	
+
 	/*
 	 * Integer/Const value byte code comparisons implemented:
 	 * 
-	 *      EQ   NE   LT   LE   GT   GE
+	 * EQ NE LT LE GT GE
 	 * 
-	 * EQ   --  impl  --   --   --   --
+	 * EQ -- impl -- -- -- --
 	 * 
-	 * NE   impl --   --   --   --   --
+	 * NE impl -- -- -- -- --
 	 * 
-	 * LT   --   --   --   --   --  impl
+	 * LT -- -- -- -- -- impl
 	 * 
-	 * LE   --   --   --   --   impl --
+	 * LE -- -- -- -- impl --
 	 * 
-	 * GT   --   --   --  impl  --   --
+	 * GT -- -- -- impl -- --
 	 * 
-	 * GE   --   --  impl  --   --   --
+	 * GE -- -- impl -- -- --
 	 * 
 	 */
-	
+
 	/*
 	 * Reference byte code comparisons implemented:
 	 * 
-	 *      EQ   NE   
+	 * EQ NE
 	 * 
-	 * EQ   --  impl   
+	 * EQ -- impl
 	 * 
-	 * NE  impl  --  
+	 * NE impl --
 	 * 
 	 */
 
@@ -67,8 +68,8 @@ public abstract class ROR_Transition extends AbstractASMTransition {
 	protected int targetInstruction;
 
 	@Override
-	protected void checkNode(ClassNode classNode, List<Mutant> result, int currentInstructionLineNumber,
-			AbstractInsnNode node) {
+	protected void checkNode(ClassNode classNode, MethodNode methodNode, List<Mutant> result,
+			int currentInstructionLineNumber, AbstractInsnNode node) {
 
 		if (node instanceof JumpInsnNode) {
 
