@@ -20,11 +20,126 @@ public class AOR_Transition_TestCase extends TestCase {
 		}
 	}
 
-	public void test_ApplyTransition_ByteCodeModsAreDistinctBetweenMutants() throws Exception {
+	public void test_ApplyTransition_IADD_2_ISUB() throws Exception {
 
 		final String SAMPLE_CLASS_FILENAME = "target/test-classes/com/retroduction/carma/transformer/asm/aor/AOR_SampleClass.class";
-		final String MUTANT1_BYTECODE_REFERENCE = "src/test/resources/com/retroduction/carma/transformer/aor/IADD_2_ISUB/mutant1ByteCode_ref.txt";
-		final String MUTANT2_BYTECODE_REFERENCE = "src/test/resources/com/retroduction/carma/transformer/aor/IADD_2_ISUB/mutant2ByteCode_ref.txt";
+		final String MUTANT1_BYTECODE_REFERENCE = "src/test/resources/com/retroduction/carma/transformer/aor/mutant_IADD_2_ISUB_ref.txt";
+
+		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+
+		List<Mutant> mutants = new IADD_2_ISUB_Transition().applyTransitions(testByteCode);
+
+		assertEquals(1, mutants.size());
+
+		ASMTreeTranslator translator = new ASMTreeTranslator();
+
+		String humanReadableMutant1ByteCode = translator.getHumanReadableByteCode(mutants.get(0).getByteCode());
+
+		String mutant1Reference = JUnitTraceAdapter.readReferenceText(new File(MUTANT1_BYTECODE_REFERENCE));
+
+		assertEquals(humanReadableMutant1ByteCode, mutant1Reference);
+
+	}
+	
+	public void test_ApplyTransition_ISUB_2_IADD() throws Exception {
+
+		final String SAMPLE_CLASS_FILENAME = "target/test-classes/com/retroduction/carma/transformer/asm/aor/AOR_SampleClass.class";
+		final String MUTANT_BYTECODE_REFERENCE = "src/test/resources/com/retroduction/carma/transformer/aor/mutant_ISUB_2_IADD_ref.txt";
+
+		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+
+		List<Mutant> mutants = new ISUB_2_IADD_Transition().applyTransitions(testByteCode);
+
+		assertEquals(1, mutants.size());
+
+		ASMTreeTranslator translator = new ASMTreeTranslator();
+
+		String humanReadableMutant1ByteCode = translator.getHumanReadableByteCode(mutants.get(0).getByteCode());
+
+		String mutant1Reference = JUnitTraceAdapter.readReferenceText(new File(MUTANT_BYTECODE_REFERENCE));
+
+		assertEquals(humanReadableMutant1ByteCode, mutant1Reference);
+
+	}
+	
+	public void test_ApplyTransition_IMUL_2_IDIV() throws Exception {
+
+		final String SAMPLE_CLASS_FILENAME = "target/test-classes/com/retroduction/carma/transformer/asm/aor/AOR_SampleClass.class";
+		final String MUTANT_BYTECODE_REFERENCE = "src/test/resources/com/retroduction/carma/transformer/aor/mutant_IMUL_2_IDIV_ref.txt";
+
+		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+
+		List<Mutant> mutants = new IMUL_2_IDIV_Transition().applyTransitions(testByteCode);
+
+		assertEquals(1, mutants.size());
+
+		ASMTreeTranslator translator = new ASMTreeTranslator();
+
+		String humanReadableMutant1ByteCode = translator.getHumanReadableByteCode(mutants.get(0).getByteCode());
+
+		String mutantReference = JUnitTraceAdapter.readReferenceText(new File(MUTANT_BYTECODE_REFERENCE));
+
+		assertEquals(humanReadableMutant1ByteCode, mutantReference);
+
+	}
+	
+	public void test_ApplyTransition_IDIV_2_IMUL() throws Exception {
+
+		final String SAMPLE_CLASS_FILENAME = "target/test-classes/com/retroduction/carma/transformer/asm/aor/AOR_SampleClass.class";
+		final String MUTANT_BYTECODE_REFERENCE = "src/test/resources/com/retroduction/carma/transformer/aor/mutant_IDIV_2_IMUL_ref.txt";
+
+		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+
+		List<Mutant> mutants = new IDIV_2_IMUL_Transition().applyTransitions(testByteCode);
+
+		assertEquals(1, mutants.size());
+
+		ASMTreeTranslator translator = new ASMTreeTranslator();
+
+		String humanReadableMutant1ByteCode = translator.getHumanReadableByteCode(mutants.get(0).getByteCode());
+
+		String mutantReference = JUnitTraceAdapter.readReferenceText(new File(MUTANT_BYTECODE_REFERENCE));
+
+		assertEquals(humanReadableMutant1ByteCode, mutantReference);
+
+	}
+
+	public void test_IADD_2_ISUB_SmokeTest() throws Exception {
+
+		final String FQ_SAMPLE_CLASS_NAME = "com.retroduction.carma.transformer.asm.aor.AOR_SampleClass";
+		final String SAMPLE_CLASS_FILENAME = "target/test-classes/com/retroduction/carma/transformer/asm/aor/AOR_SampleClass.class";
+		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "calculate";
+
+		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
+
+		List<Mutant> mutants = new IADD_2_ISUB_Transition().applyTransitions(testByteCode);
+
+		assertEquals(1, mutants.size());
+
+		{
+			assertEquals(17, mutants.get(0).getSourceMapping().getLineNo());
+
+			TestClassLoader loader = new TestClassLoader();
+
+			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
+
+			Class<?> modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
+
+			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
+
+			Method branchMethod = modifiedInputClass
+					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
+
+			branchMethod.invoke(modifiedInputClassInstance, new Object[] { 0 });
+		}
+
+	}
+	
+	public void test_ApplyTransition_IADD_2_ISUB_MultipleHits() throws Exception {
+
+		final String SAMPLE_CLASS_FILENAME = "target/test-classes/com/retroduction/carma/transformer/asm/aor/AOR_MultipleHitsSampleClass.class";
+		final String MUTANT1_BYTECODE_REFERENCE = "src/test/resources/com/retroduction/carma/transformer/aor/mutant_multiple_ocurrences_hit1_ref.txt";
+		final String MUTANT2_BYTECODE_REFERENCE = "src/test/resources/com/retroduction/carma/transformer/aor/mutant_multiple_ocurrences_hit2_ref.txt";
 
 		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
 
@@ -42,85 +157,6 @@ public class AOR_Transition_TestCase extends TestCase {
 
 		assertEquals(humanReadableMutant1ByteCode, mutant1Reference);
 		assertEquals(humanReadableMutant2ByteCode, mutant2Reference);
-
-	}
-
-	public void test_ApplyTransition_IADD_2_ISUB() throws Exception {
-
-		final String SAMPLE_CLASS_FILENAME = "target/test-classes/com/retroduction/carma/transformer/asm/aor/AOR_SampleClass.class";
-		final String MUTANT1_BYTECODE_REFERENCE = "src/test/resources/com/retroduction/carma/transformer/aor/IADD_2_ISUB/mutant1ByteCode_ref.txt";
-
-		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
-
-		List<Mutant> mutants = new IADD_2_ISUB_Transition().applyTransitions(testByteCode);
-
-		assertEquals(2, mutants.size());
-
-		ASMTreeTranslator translator = new ASMTreeTranslator();
-
-		String humanReadableMutant1ByteCode = translator.getHumanReadableByteCode(mutants.get(0).getByteCode());
-
-		String mutant1Reference = JUnitTraceAdapter.readReferenceText(new File(MUTANT1_BYTECODE_REFERENCE));
-
-		assertEquals(humanReadableMutant1ByteCode, mutant1Reference);
-
-	}
-	
-//	public void test_ApplyTransition_ISUB_2_IADD() throws Exception {
-//
-//		final String SAMPLE_CLASS_FILENAME = "target/test-classes/com/retroduction/carma/transformer/asm/aor/AOR_SampleClass.class";
-//		final String MUTANT_BYTECODE_REFERENCE = "src/test/resources/com/retroduction/carma/transformer/aor/IADD_2_ISUB/mutant_ISUB_2_IADD_ref.txt";
-//
-//		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
-//
-//		List<Mutant> mutants = new IADD_2_ISUB_Transition().applyTransitions(testByteCode);
-//
-//		assertEquals(2, mutants.size());
-//
-//		ASMTreeTranslator translator = new ASMTreeTranslator();
-//
-//		String humanReadableMutant1ByteCode = translator.getHumanReadableByteCode(mutants.get(0).getByteCode());
-//
-//		String mutant1Reference = JUnitTraceAdapter.readReferenceText(new File(MUTANT_BYTECODE_REFERENCE));
-//
-//		assertEquals(humanReadableMutant1ByteCode, mutant1Reference);
-//
-//	}
-
-	public void test_IADD_2_ISUB_SmokeTest() throws Exception {
-
-		final String FQ_SAMPLE_CLASS_NAME = "com.retroduction.carma.transformer.asm.aor.AOR_SampleClass";
-		final String SAMPLE_CLASS_FILENAME = "target/test-classes/com/retroduction/carma/transformer/asm/aor/AOR_SampleClass.class";
-		final String SAMPLE_METHOD_ON_SAMPLE_CLASS = "add3";
-
-		byte[] testByteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
-
-		List<Mutant> mutants = new IADD_2_ISUB_Transition().applyTransitions(testByteCode);
-
-		assertEquals(2, mutants.size());
-
-		{
-			assertEquals(17, mutants.get(0).getSourceMapping().getLineNo());
-
-			TestClassLoader loader = new TestClassLoader();
-
-			loader.override(FQ_SAMPLE_CLASS_NAME, mutants.get(0).getByteCode());
-
-			Class<?> modifiedInputClass = loader.loadClass(FQ_SAMPLE_CLASS_NAME);
-
-			Object modifiedInputClassInstance = modifiedInputClass.newInstance();
-
-			Method branchMethod = modifiedInputClass
-					.getMethod(SAMPLE_METHOD_ON_SAMPLE_CLASS, new Class[] { int.class });
-
-			Object resultObject0 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 0 });
-
-			assertEquals(-3, resultObject0);
-
-			Object resultObject1 = branchMethod.invoke(modifiedInputClassInstance, new Object[] { 1 });
-
-			assertEquals(-2, resultObject1);
-		}
 
 	}
 

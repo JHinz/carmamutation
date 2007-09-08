@@ -6,11 +6,11 @@ public class IDIV_2_IMUL_Transition extends AOR_Transition {
 
 	public IDIV_2_IMUL_Transition() {
 		super();
-		this.sourceInstruction = Opcodes.ISUB;
-		this.targetInstruction = Opcodes.IADD;
+		this.sourceInstruction = Opcodes.IDIV;
+		this.targetInstruction = Opcodes.IMUL;
 	}
 
 	public String getName() {
-		return "ISUB_to_ISUB";
+		return "IDIV_to_IMUL";
 	}
 }
