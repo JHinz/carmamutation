@@ -1,0 +1,20 @@
+How to setup ant with carma
+---------------------------
+
+Ant needs to be enhanced by the carma artifacts and carma's runtime dependencies by:
+
+- Adding all Carma artifacts to ~/.ant/lib (could be setup by using the CLASSPATH
+  variable and project locations as well) 
+- Adding spring 2 and asm artifacts to ~/.ant/lib
+
+Add the following snippet to the build.xml file of the project under test
+
+>>>
+
+	<taskdef name="carma" classpath="/Users/arau/.m2/repository/com/retroduction/carma/AntPlugin/0.2-SNAPSHOT/AntPlugin-0.2-SNAPSHOT.jar:/Users/arau/.m2/repository/com/retroduction/carma/Integration/0.2-SNAPSHOT/Integration-0.2-SNAPSHOT.jar:/Users/arau/.m2/repository/com/retroduction//carma/EventListeners/0.2-SNAPSHOT/EventListeners-0.2-SNAPSHOT.jar:/Users/arau/.m2/repository/com/retroduction//carma/Core/0.2-SNAPSHOT/Core-0.2-SNAPSHOT.jar:/Users/arau/.m2/repository/com/retroduction//carma/ReportModel/0.2-SNAPSHOT/ReportModel-0.2-SNAPSHOT.jar:/Users/arau/.m2/repository/com/retroduction//carma/Utilities/0.2-SNAPSHOT/Utilities-0.2-SNAPSHOT.jar:/Users/arau/.m2/repository/com/retroduction//carma/TestRunners/0.2-SNAPSHOT/TestRunners-0.2-SNAPSHOT.jar:/Users/arau/.m2/repository/com/retroduction//carma/Transformers/0.2-SNAPSHOT/Transformers-0.2-SNAPSHOT.jar:/Users/arau/.m2/repository/com/retroduction//carma/Resolvers/0.2-SNAPSHOT/Resolvers-0.2-SNAPSHOT.jar" classname="com.retroduction.carma.ant.AntCarmaTest" />
+
+	<target name="carma">
+		<carma classesDir="target/classes" testClassesDir="target/tests" dependencyClassPathUrls="target/tests"/>
+	</target>
+	
+<<<
