@@ -14,7 +14,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 
-import com.retroduction.carma.application.MavenTestExecuter;
+import com.retroduction.carma.application.CarmaTestExecuter;
 import com.retroduction.carma.eventlisteners.SummaryCreatorEventListener.Summary;
 import com.retroduction.carma.utilities.Logger;
 import com.retroduction.carma.utilities.LoggerFactory;
@@ -82,7 +82,7 @@ public class MutationTestMojo extends AbstractMojo {
 		log.info("Creating MutationTest report: " + this.reportFile);
 
 		try {
-			MavenTestExecuter executer = new MavenTestExecuter();
+			CarmaTestExecuter executer = new CarmaTestExecuter();
 			executer.setClassesDir(this.classesDir);
 			executer.setTestClassesDir(this.testClassesDir);
 			executer.setDependencyClassPathUrls(this.getDependencyClassPathUrls());

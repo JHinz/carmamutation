@@ -102,6 +102,7 @@ public class TestCaseInstantiationVerifier implements ITestCaseInstantiationVeri
 
 			} catch (Exception e) {
 				this.log.warn("Skipping class in test set due to class loading problem:" + testClassName);
+				this.log.debug(e);
 				unloadableClasses.add(testClassName);
 				continue;
 			}

@@ -9,13 +9,13 @@ import junit.framework.TestCase;
 
 import org.apache.maven.plugin.MojoExecutionException;
 
-import com.retroduction.carma.application.MavenTestExecuter;
+import com.retroduction.carma.application.CarmaTestExecuter;
 import com.retroduction.carma.eventlisteners.SummaryCreatorEventListener.Summary;
 
-public class MavenTestExecuterTestCase extends TestCase {
+public class CarmaTestExecuterTestCase extends TestCase {
 
 	public void testExecuteTests() throws MojoExecutionException, MalformedURLException{
-		MavenTestExecuter executer = new MavenTestExecuter();
+		CarmaTestExecuter executer = new CarmaTestExecuter();
 		
 		File reportFile = new File("target/it/it0001/log/Report.xml");
 		File projectbaseDir = new File("./");

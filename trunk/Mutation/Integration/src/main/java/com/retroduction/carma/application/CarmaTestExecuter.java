@@ -16,7 +16,7 @@ import com.retroduction.carma.eventlisteners.CompositeEventListener;
 import com.retroduction.carma.eventlisteners.SummaryCreatorEventListener;
 import com.retroduction.carma.eventlisteners.SummaryCreatorEventListener.Summary;
 
-public class MavenTestExecuter {
+public class CarmaTestExecuter {
 
 	private static final String BEAN_MAVEN_PROJECT_CLASSES_DIR = "maven.project.classesDir";
 

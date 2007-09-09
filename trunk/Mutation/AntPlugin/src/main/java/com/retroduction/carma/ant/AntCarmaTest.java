@@ -15,7 +15,7 @@ import org.apache.tools.ant.types.Path;
 import org.apache.tools.ant.types.PropertySet;
 import org.apache.tools.ant.types.CommandlineJava.SysProperties;
 
-import com.retroduction.carma.application.MavenTestExecuter;
+import com.retroduction.carma.application.CarmaTestExecuter;
 import com.retroduction.carma.eventlisteners.SummaryCreatorEventListener.Summary;
 
 public class AntCarmaTest extends Task {
@@ -66,7 +66,7 @@ public class AntCarmaTest extends Task {
 
 		Thread.currentThread().setContextClassLoader(thisClassLoader);
 
-		MavenTestExecuter mavenCarma = new MavenTestExecuter();
+		CarmaTestExecuter mavenCarma = new CarmaTestExecuter();
 
 		mavenCarma.setClassesDir(new File(this.classesDir));
 		mavenCarma.setConfigFile(new File(this.configFile));
@@ -86,7 +86,6 @@ public class AntCarmaTest extends Task {
 		mavenCarma.setTestClassesDir(new File(this.testClassesDir));
 
 		try {
-			mavenCarma.executeTests();
 
 			Summary sum = mavenCarma.executeTests();
 			NumberFormat format = NumberFormat.getInstance();
