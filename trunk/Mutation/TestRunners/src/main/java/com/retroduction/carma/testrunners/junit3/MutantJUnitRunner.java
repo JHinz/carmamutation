@@ -20,7 +20,7 @@ import com.retroduction.carma.utilities.LoggerFactory;
  * 
  */
 public class MutantJUnitRunner extends BaseTestRunner implements IMutantJUnitRunner {
-	
+
 	private Logger logger = LoggerFactory.getLogger(MutantJUnitRunner.class);
 
 	MyTestSuiteLoader loader;
@@ -34,13 +34,49 @@ public class MutantJUnitRunner extends BaseTestRunner implements IMutantJUnitRun
 
 	private ClassLoader replacedClassLoader;
 
+	private String testCase;
+
+	private URL[] testClassesLocation;
+
+	private Mutant mutant;
+
+	private int errorCount;
+
+	private boolean finished = false;
+
+	private Object lock;
+
+	public void setMutant(Mutant mutant) {
+		this.mutant = mutant;
+	}
+
+	public void setTestCase(String testCase) {
+		this.testCase = testCase;
+	}
+
+	public void setTestClassesLocation(URL[] testClassesLocation) {
+		this.testClassesLocation = testClassesLocation;
+	}
+
+	public int getErrorCount() {
+		return errorCount;
+	}
+
+	public boolean finished() {
+		return finished;
+	}
+
+	public void setFinishedSynchroLock(Object lock) {
+		this.lock = lock;
+	}
+
 	private void overrideClassLoader(URL[] testClassesLocation, Mutant mutant) {
-		
+
 		this.logger.debug("Injecting carma classloader");
-		
+
 		if (mutant != null) {
-			this.mutantLoader = new MutationClassLoader(testClassesLocation, mutant.getClassName(), mutant.getByteCode(),
-					Thread.currentThread().getContextClassLoader());
+			this.mutantLoader = new MutationClassLoader(testClassesLocation, mutant.getClassName(), mutant
+					.getByteCode(), Thread.currentThread().getContextClassLoader());
 		} else {
 			this.mutantLoader = new MutationClassLoader(testClassesLocation, null, null, Thread.currentThread()
 					.getContextClassLoader());
@@ -69,12 +105,33 @@ public class MutantJUnitRunner extends BaseTestRunner implements IMutantJUnitRun
 		}
 	}
 
+	/**
+	 * Non-threaded execution of runner.
+	 */
 	public int perform(String testCase, URL[] testClassesLocation, Mutant mutant) {
 		this.overrideClassLoader(testClassesLocation, mutant);
 		int errorCount = this.runTest(testCase);
 		this.restoreReplacedClassLoader();
 		return errorCount;
+	}
 
+	/**
+	 * Threaded execution of runner.
+	 * 
+	 */
+	public void run() {
+		synchronized (this.lock) {
+			try {
+				this.lock.wait();
+			} catch (InterruptedException e) {
+				return;
+			}
+		}
+		this.overrideClassLoader(testClassesLocation, mutant);
+		errorCount = this.runTest(testCase);
+		this.restoreReplacedClassLoader();
+		this.finished = true;
+		this.lock.notify();
 	}
 
 	private class MyTestSuiteLoader implements TestSuiteLoader {

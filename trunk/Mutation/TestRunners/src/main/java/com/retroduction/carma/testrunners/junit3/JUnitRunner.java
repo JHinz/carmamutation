@@ -21,6 +21,8 @@ import com.retroduction.carma.utilities.LoggerFactory;
  */
 public class JUnitRunner implements ITestRunner {
 
+	private static final int TIMEOUT = 5000;
+
 	private Logger logger = LoggerFactory.getLogger(JUnitRunner.class);
 
 	private URL[] classesLocations = new URL[0];
@@ -33,15 +35,35 @@ public class JUnitRunner implements ITestRunner {
 
 	private IMutantJUnitRunner runner;
 
+	private boolean threadedModeActive = false;
+
+	public boolean isThreadedModeActive() {
+		return threadedModeActive;
+	}
+
+	public void setThreadedModeActive(boolean threadedModeActive) {
+		this.threadedModeActive = threadedModeActive;
+	}
+
 	URL[] calculateCombinedClassPath() {
 		URL[] urls = new URL[this.classesLocations.length + this.testClassesLocations.length + this.libraries.length];
 		System.arraycopy(this.classesLocations, 0, urls, 0, this.classesLocations.length);
-		System.arraycopy(this.testClassesLocations, 0, urls, this.classesLocations.length, this.testClassesLocations.length);
-		System.arraycopy(this.libraries, 0, urls, this.classesLocations.length + this.testClassesLocations.length, this.libraries.length);
+		System.arraycopy(this.testClassesLocations, 0, urls, this.classesLocations.length,
+				this.testClassesLocations.length);
+		System.arraycopy(this.libraries, 0, urls, this.classesLocations.length + this.testClassesLocations.length,
+				this.libraries.length);
 		return urls;
 	}
 
+	/**
+	 * Run the test suite with mutation.
+	 */
 	public void execute(Mutant mutant, Set<String> origTestNames) {
+
+		if (threadedModeActive) {
+			executeThreaded(mutant, origTestNames);
+			return;
+		}
 
 		mutant.setSurvived(true);
 
@@ -51,7 +73,9 @@ public class JUnitRunner implements ITestRunner {
 		Set<String> killerTestNames = new TreeSet<String>();
 		for (String testCase : origTestNames) {
 			try {
+
 				int failures = this.runner.perform(testCase, urls, mutant);
+
 				executedTestsNames.add(testCase);
 				if (failures > 0) {
 					mutant.setSurvived(false);
@@ -72,6 +96,82 @@ public class JUnitRunner implements ITestRunner {
 
 	}
 
+	/**
+	 * Run the test suite with mutation.
+	 */
+	private void executeThreaded(Mutant mutant, Set<String> origTestNames) {
+
+		mutant.setSurvived(true);
+
+		URL[] urls = this.calculateCombinedClassPath();
+
+		Set<String> executedTestsNames = new HashSet<String>();
+		Set<String> killerTestNames = new TreeSet<String>();
+		for (String testCase : origTestNames) {
+			try {
+
+				this.runner.setMutant(mutant);
+				this.runner.setTestCase(testCase);
+				this.runner.setTestClassesLocation(urls);
+
+				Object finishedSynchroLock = new Object();
+				this.runner.setFinishedSynchroLock(finishedSynchroLock);
+
+				boolean timeoutOccured = false;
+				synchronized (finishedSynchroLock) {
+					try {
+						logger.debug("Starting mutation thread");
+						Thread t = new Thread(this.runner);
+						t.start();
+						logger.debug("Waiting on results (allows to start and finish");
+						finishedSynchroLock.wait(3000);
+						logger.debug("Waiting on mutation thread that it finishes its processing ");
+						timeoutOccured = !this.runner.finished();
+						logger.info("Timeout occured: " + timeoutOccured);
+						t.stop();
+
+					} catch (InterruptedException e) {
+					}
+				}
+
+				logger.debug("Not waiting anymore on finished log of mutation thread.");
+
+				int failures = 0;
+
+				if (timeoutOccured) {
+					failures = 1; // Testcase hang interpreted as killed
+					// testcase
+					logger.debug("Failures 0 due to detected timeout");
+				} else {
+					failures = this.runner.getErrorCount();
+					logger.debug("Failures valid due to not-detected timeout");
+				}
+				executedTestsNames.add(testCase);
+				if (failures > 0) {
+					mutant.setSurvived(false);
+					killerTestNames.add(testCase);
+					if (this.stopOnFirstFailedTest) {
+						this.logger.debug("Stopping on first failed test.");
+						break;
+					}
+				} else {
+					mutant.setSurvived(true);
+				}
+
+			} catch (Exception e) {
+				this.logger.warn(e.getMessage());
+			}
+		}
+
+		mutant.setExecutedTestsNames(executedTestsNames);
+		mutant.setKillerTestNames(killerTestNames);
+
+	}
+
+	/**
+	 * Run the test suite without mutation - just by using the original
+	 * testcases.
+	 */
 	public Set<String> execute(Set<String> origTestNames) {
 
 		URL[] urls = this.calculateCombinedClassPath();
