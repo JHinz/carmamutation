@@ -4,12 +4,16 @@ import java.net.URL;
 
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
 
+/**
+ *
+ * Threaded runner for testcases. Must not throw Exceptions ! Instead signal failure by setting
+ * the error count appropriately !
+ * 
+ * @author arau
+ *
+ */
 public interface IMutantJUnitRunner extends Runnable {
 
-	// Non-Threaded API
-	public int perform(String testCase, URL[] testClassesLocation, Mutant mutant);
-
-	// Threaded API
 	public void setMutant(Mutant mutant);
 
 	public void setTestCase(String testCase);
