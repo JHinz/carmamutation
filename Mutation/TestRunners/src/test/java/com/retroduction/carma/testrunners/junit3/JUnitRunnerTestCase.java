@@ -17,60 +17,6 @@ public class JUnitRunnerTestCase extends TestCase {
 
 	private Logger logger = LoggerFactory.getLogger("JUnitRunnerTestCase");
 
-	private class MockMutationRunner implements IMutantJUnitRunner {
-
-		boolean simulateTestRunFailures;
-
-		boolean useExceptionForFailures;
-
-		public MockMutationRunner(boolean simulateTestRunFailures, boolean useExceptionForFailures) {
-			super();
-			this.simulateTestRunFailures = simulateTestRunFailures;
-			this.useExceptionForFailures = useExceptionForFailures;
-		}
-
-		public int perform(String testCase, URL[] testClassesLocation, Mutant mutant) {
-			if (this.simulateTestRunFailures) {
-				if (this.useExceptionForFailures) {
-					throw new RuntimeException("MockException");
-				} else {
-					return 1;
-				}
-			} else {
-				return 0;
-			}
-		}
-
-		public int getErrorCount() {
-			throw new UnsupportedOperationException("Not implemented by mock");
-		}
-
-		public void setMutant(Mutant mutant) {
-			throw new UnsupportedOperationException("Not implemented by mock");
-		}
-
-		public void setTestCase(String testCase) {
-			throw new UnsupportedOperationException("Not implemented by mock");
-		}
-
-		public void setTestClassesLocation(URL[] testClassesLocation) {
-			throw new UnsupportedOperationException("Not implemented by mock");
-		}
-
-		public void run() {
-			throw new UnsupportedOperationException("Not implemented by mock");
-		}
-
-		public boolean finished() {
-			throw new UnsupportedOperationException("Not implemented by mock");
-		}
-
-		public void setFinishedSynchroLock(Object lock) {
-			throw new UnsupportedOperationException("Not implemented by mock");
-		}
-
-	}
-
 	private class ThreadedMockMutationRunner implements IMutantJUnitRunner {
 
 		private List<Boolean> testCaseIDsWithInfiniteLoop;
@@ -81,18 +27,31 @@ public class JUnitRunnerTestCase extends TestCase {
 
 		private boolean finished;
 
-		public ThreadedMockMutationRunner(List<Boolean> testCaseIDsWithInfiniteLoop) {
+		private boolean simulateTestRunFailuresWithoutInfiniteLoop;
+
+		private boolean useExceptionForSimulationFailuresWithoutInfiniteLoop;
+
+		public ThreadedMockMutationRunner(boolean simulateTestRunFailuresWithoutInfiniteLoop,
+				boolean useExceptionForSimulationFailuresWithoutInfiniteLoop) {
 			super();
+			this.simulateTestRunFailuresWithoutInfiniteLoop = simulateTestRunFailuresWithoutInfiniteLoop;
+			this.useExceptionForSimulationFailuresWithoutInfiniteLoop = useExceptionForSimulationFailuresWithoutInfiniteLoop;
+			this.testCaseIDsWithInfiniteLoop = new ArrayList<Boolean>();
+			this.numberOfTestCasesExecuted = 0;
+		}
+
+		public ThreadedMockMutationRunner(List<Boolean> testCaseIDsWithInfiniteLoop,
+				boolean simulateTestRunFailuresWithoutInfiniteLoop,
+				boolean useExceptionForSimulationFailuresWithoutInfiniteLoop) {
+			super();
+			this.simulateTestRunFailuresWithoutInfiniteLoop = simulateTestRunFailuresWithoutInfiniteLoop;
+			this.useExceptionForSimulationFailuresWithoutInfiniteLoop = useExceptionForSimulationFailuresWithoutInfiniteLoop;
 			this.testCaseIDsWithInfiniteLoop = testCaseIDsWithInfiniteLoop;
 			this.numberOfTestCasesExecuted = 0;
 		}
 
-		public int perform(String testCase, URL[] testClassesLocation, Mutant mutant) {
-			throw new UnsupportedOperationException("Not implemented by mock");
-		}
-
 		public int getErrorCount() {
-			return 0;
+			return this.simulateTestRunFailuresWithoutInfiniteLoop ? 1 : 0;
 		}
 
 		public void setMutant(Mutant mutant) {
@@ -116,7 +75,27 @@ public class JUnitRunnerTestCase extends TestCase {
 
 			logger.debug("Mock: Received permission to start mutation process");
 
-			if (testCaseIDsWithInfiniteLoop.get(numberOfTestCasesExecuted).equals(Boolean.TRUE)) {
+			if (this.simulateTestRunFailuresWithoutInfiniteLoop) {
+				logger.debug("Mock: Simulating test failure.");
+				if (this.useExceptionForSimulationFailuresWithoutInfiniteLoop) {
+					logger.debug("Mock: .... test failure with exception");
+					finished = true;
+					synchronized (lock) {
+						lock.notify();
+					}
+				} else {
+					finished = true;
+					synchronized (lock) {
+						lock.notify();
+					}
+					return;
+				}
+			} else {
+				logger.debug("Simulating test run without any failures");
+			}
+
+			if (testCaseIDsWithInfiniteLoop.size() > numberOfTestCasesExecuted
+					&& testCaseIDsWithInfiniteLoop.get(numberOfTestCasesExecuted).equals(Boolean.TRUE)) {
 
 				numberOfTestCasesExecuted++;
 				while (true) {
@@ -187,7 +166,7 @@ public class JUnitRunnerTestCase extends TestCase {
 
 		JUnitRunner runner = new JUnitRunner();
 
-		runner.setRunner(new MockMutationRunner(true, false));
+		runner.setRunner(new ThreadedMockMutationRunner(true, false));
 
 		Set<String> testsToRun = new HashSet<String>();
 
@@ -205,7 +184,7 @@ public class JUnitRunnerTestCase extends TestCase {
 
 		JUnitRunner runner = new JUnitRunner();
 
-		runner.setRunner(new MockMutationRunner(true, true));
+		runner.setRunner(new ThreadedMockMutationRunner(true, true));
 
 		Set<String> testsToRun = new HashSet<String>();
 
@@ -223,7 +202,7 @@ public class JUnitRunnerTestCase extends TestCase {
 
 		JUnitRunner runner = new JUnitRunner();
 
-		runner.setRunner(new MockMutationRunner(false, false));
+		runner.setRunner(new ThreadedMockMutationRunner(false, false));
 
 		Set<String> testsToRun = new HashSet<String>();
 
@@ -240,7 +219,7 @@ public class JUnitRunnerTestCase extends TestCase {
 
 		JUnitRunner runner = new JUnitRunner();
 
-		runner.setRunner(new MockMutationRunner(false, false));
+		runner.setRunner(new ThreadedMockMutationRunner(false, false));
 
 		Set<String> testsToRun = new HashSet<String>();
 
@@ -255,6 +234,8 @@ public class JUnitRunnerTestCase extends TestCase {
 		assertTrue(mutant.getExecutedTestsNames().contains("someTest1"));
 		assertTrue(mutant.getExecutedTestsNames().contains("someTest2"));
 
+		assertTrue(mutant.isSurvived());
+
 	}
 
 	public void test_execute_ExecutionStep_TestSetCausesExceptions() {
@@ -264,8 +245,8 @@ public class JUnitRunnerTestCase extends TestCase {
 
 		JUnitRunner runner = new JUnitRunner();
 
-		runner.setRunner(new MockMutationRunner(true, true));
-
+		runner.setRunner(new ThreadedMockMutationRunner(true, true));
+		runner.setStopOnFirstFailedTest(false);
 		Set<String> testsToRun = new HashSet<String>();
 
 		testsToRun.add("someTest1");
@@ -275,15 +256,20 @@ public class JUnitRunnerTestCase extends TestCase {
 
 		runner.execute(mutant, testsToRun);
 
-		assertEquals(0, mutant.getExecutedTestsNames().size());
+		assertEquals(2, mutant.getExecutedTestsNames().size());
+		assertTrue(mutant.getExecutedTestsNames().contains("someTest1"));
+		assertTrue(mutant.getExecutedTestsNames().contains("someTest2"));
+
+		assertFalse(mutant.isSurvived());
 
 	}
 
-	public void test_execute_ExecutionStep_TestSetCausesFailures_StopOnFirstFailedTest() {
+	public void test_execute_ExecutionStep_Threaded_TestSetCausesFailures_StopOnFirstFailedTest() {
 
 		JUnitRunner runner = new JUnitRunner();
 
-		runner.setRunner(new MockMutationRunner(true, false));
+		runner.setRunner(new ThreadedMockMutationRunner(true, false));
+		runner.setStopOnFirstFailedTest(true);
 
 		Set<String> testsToRun = new HashSet<String>();
 
@@ -299,15 +285,17 @@ public class JUnitRunnerTestCase extends TestCase {
 		// Don't check which test was the first failing test. It's
 		// not defined therefore it's sufficient to make sure
 		// that only 1 test has been returned.
+
+		assertFalse(mutant.isSurvived());
 	}
 
-	public void test_execute_ExecutionStep_TestSetCausesFailures_DoNotStopOnFirstFailedTest() {
+	public void test_execute_ExecutionStep_Threaded_TestSetCausesFailures_DoNotStopOnFirstFailedTest() {
 
 		JUnitRunner runner = new JUnitRunner();
 
 		runner.setStopOnFirstFailedTest(false);
 
-		runner.setRunner(new MockMutationRunner(true, false));
+		runner.setRunner(new ThreadedMockMutationRunner(true, false));
 
 		Set<String> testsToRun = new HashSet<String>();
 
@@ -322,19 +310,20 @@ public class JUnitRunnerTestCase extends TestCase {
 		assertTrue(mutant.getExecutedTestsNames().contains("someTest1"));
 		assertTrue(mutant.getExecutedTestsNames().contains("someTest2"));
 
+		assertFalse(mutant.isSurvived());
+
 	}
 
-	public void test_execute_ExecutionStep_TestSetSane_InfiniteLoopInFirstTestCaseDueToMutation() {
+	public void test_execute_ExecutionStep_Threaded_TestSetSane_InfiniteLoopInFirstTestCaseDueToMutation() {
 
 		JUnitRunner runner = new JUnitRunner();
 		List<Boolean> testCasesWithInfiniteLoops = new ArrayList<Boolean>();
 		testCasesWithInfiniteLoops.add(new Boolean(true));
 		testCasesWithInfiniteLoops.add(new Boolean(false));
 
-		runner.setRunner(new ThreadedMockMutationRunner(testCasesWithInfiniteLoops));
-
-		runner.setThreadedModeActive(true);
-
+		runner.setRunner(new ThreadedMockMutationRunner(testCasesWithInfiniteLoops, false, false));
+		runner.setTimeout(1000);
+		
 		Set<String> testsToRun = new HashSet<String>();
 
 		testsToRun.add("someTest1");
@@ -346,17 +335,16 @@ public class JUnitRunnerTestCase extends TestCase {
 		assertFalse(mutant.isSurvived());
 	}
 
-	public void test_execute_ExecutionStep_TestSetSane_InfiniteLoopInLastTestCaseDueToMutation() {
+	public void test_execute_ExecutionStep_Threaded_TestSetSane_InfiniteLoopInLastTestCaseDueToMutation() {
 
 		JUnitRunner runner = new JUnitRunner();
 		List<Boolean> testCasesWithInfiniteLoops = new ArrayList<Boolean>();
 		testCasesWithInfiniteLoops.add(new Boolean(false));
 		testCasesWithInfiniteLoops.add(new Boolean(true));
 
-		runner.setRunner(new ThreadedMockMutationRunner(testCasesWithInfiniteLoops));
-
-		runner.setThreadedModeActive(true);
-
+		runner.setRunner(new ThreadedMockMutationRunner(testCasesWithInfiniteLoops, false, false));
+		runner.setTimeout(1000);
+		
 		Set<String> testsToRun = new HashSet<String>();
 
 		testsToRun.add("someTest1");
@@ -369,17 +357,16 @@ public class JUnitRunnerTestCase extends TestCase {
 		assertFalse(mutant.isSurvived());
 	}
 
-	public void test_execute_ExecutionStep_TestSetSane_NoInfiniteLoopInTestCasesDueToMutation() {
+	public void test_execute_ExecutionStep_Threaded_TestSetSane_NoInfiniteLoopInTestCasesDueToMutation() {
 
 		JUnitRunner runner = new JUnitRunner();
 		List<Boolean> testCasesWithInfiniteLoops = new ArrayList<Boolean>();
 		testCasesWithInfiniteLoops.add(new Boolean(false));
 		testCasesWithInfiniteLoops.add(new Boolean(false));
 
-		runner.setRunner(new ThreadedMockMutationRunner(testCasesWithInfiniteLoops));
-
-		runner.setThreadedModeActive(true);
-
+		runner.setRunner(new ThreadedMockMutationRunner(testCasesWithInfiniteLoops, false, false));
+		runner.setTimeout(1000);
+		
 		Set<String> testsToRun = new HashSet<String>();
 
 		testsToRun.add("someTest1");
@@ -393,16 +380,15 @@ public class JUnitRunnerTestCase extends TestCase {
 		assertEquals(2, mutant.getExecutedTestsNames().size());
 	}
 
-	public void test_execute_ExecutionStep_TestSetSane_InfiniteLoopsInAllTestCasesDueToMutation() {
+	public void test_execute_ExecutionStep_Threaded_TestSetSane_InfiniteLoopsInAllTestCasesDueToMutation() {
 
 		JUnitRunner runner = new JUnitRunner();
 		List<Boolean> testCasesWithInfiniteLoops = new ArrayList<Boolean>();
 		testCasesWithInfiniteLoops.add(new Boolean(true));
 		testCasesWithInfiniteLoops.add(new Boolean(true));
 
-		runner.setRunner(new ThreadedMockMutationRunner(testCasesWithInfiniteLoops));
-
-		runner.setThreadedModeActive(true);
+		runner.setRunner(new ThreadedMockMutationRunner(testCasesWithInfiniteLoops, false, false));
+		runner.setTimeout(1000);
 
 		Set<String> testsToRun = new HashSet<String>();
 

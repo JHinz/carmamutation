@@ -109,10 +109,15 @@ public class MutantJUnitRunner extends BaseTestRunner implements IMutantJUnitRun
 	 * Non-threaded execution of runner.
 	 */
 	public int perform(String testCase, URL[] testClassesLocation, Mutant mutant) {
-		this.overrideClassLoader(testClassesLocation, mutant);
-		int errorCount = this.runTest(testCase);
-		this.restoreReplacedClassLoader();
-		return errorCount;
+		try {
+			this.overrideClassLoader(testClassesLocation, mutant);
+			int errorCount = this.runTest(testCase);
+			this.restoreReplacedClassLoader();
+			return errorCount;
+		} catch (RuntimeException e) {
+			// don't throw exceptions when using threaded api - see interface description !
+			return 1;
+		}
 	}
 
 	/**
@@ -121,17 +126,14 @@ public class MutantJUnitRunner extends BaseTestRunner implements IMutantJUnitRun
 	 */
 	public void run() {
 		synchronized (this.lock) {
-			try {
-				this.lock.wait();
-			} catch (InterruptedException e) {
-				return;
-			}
 		}
 		this.overrideClassLoader(testClassesLocation, mutant);
 		errorCount = this.runTest(testCase);
 		this.restoreReplacedClassLoader();
 		this.finished = true;
-		this.lock.notify();
+		synchronized (this.lock) {
+			this.lock.notify();
+		}
 	}
 
 	private class MyTestSuiteLoader implements TestSuiteLoader {

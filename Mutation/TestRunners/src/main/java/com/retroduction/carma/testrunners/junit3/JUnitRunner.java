@@ -21,7 +21,7 @@ import com.retroduction.carma.utilities.LoggerFactory;
  */
 public class JUnitRunner implements ITestRunner {
 
-	private static final int TIMEOUT = 5000;
+	private int timeout = 5000;
 
 	private Logger logger = LoggerFactory.getLogger(JUnitRunner.class);
 
@@ -34,16 +34,6 @@ public class JUnitRunner implements ITestRunner {
 	private boolean stopOnFirstFailedTest = true;
 
 	private IMutantJUnitRunner runner;
-
-	private boolean threadedModeActive = false;
-
-	public boolean isThreadedModeActive() {
-		return threadedModeActive;
-	}
-
-	public void setThreadedModeActive(boolean threadedModeActive) {
-		this.threadedModeActive = threadedModeActive;
-	}
 
 	URL[] calculateCombinedClassPath() {
 		URL[] urls = new URL[this.classesLocations.length + this.testClassesLocations.length + this.libraries.length];
@@ -59,47 +49,6 @@ public class JUnitRunner implements ITestRunner {
 	 * Run the test suite with mutation.
 	 */
 	public void execute(Mutant mutant, Set<String> origTestNames) {
-
-		if (threadedModeActive) {
-			executeThreaded(mutant, origTestNames);
-			return;
-		}
-
-		mutant.setSurvived(true);
-
-		URL[] urls = this.calculateCombinedClassPath();
-
-		Set<String> executedTestsNames = new HashSet<String>();
-		Set<String> killerTestNames = new TreeSet<String>();
-		for (String testCase : origTestNames) {
-			try {
-
-				int failures = this.runner.perform(testCase, urls, mutant);
-
-				executedTestsNames.add(testCase);
-				if (failures > 0) {
-					mutant.setSurvived(false);
-					killerTestNames.add(testCase);
-					if (this.stopOnFirstFailedTest) {
-						this.logger.debug("Stopping on first failed test.");
-						break;
-					}
-				}
-
-			} catch (Exception e) {
-				this.logger.warn(e.getMessage());
-			}
-		}
-
-		mutant.setExecutedTestsNames(executedTestsNames);
-		mutant.setKillerTestNames(killerTestNames);
-
-	}
-
-	/**
-	 * Run the test suite with mutation.
-	 */
-	private void executeThreaded(Mutant mutant, Set<String> origTestNames) {
 
 		mutant.setSurvived(true);
 
@@ -124,7 +73,7 @@ public class JUnitRunner implements ITestRunner {
 						Thread t = new Thread(this.runner);
 						t.start();
 						logger.debug("Waiting on results (allows to start and finish");
-						finishedSynchroLock.wait(3000);
+						finishedSynchroLock.wait(getTimeout());
 						logger.debug("Waiting on mutation thread that it finishes its processing ");
 						timeoutOccured = !this.runner.finished();
 						logger.info("Timeout occured: " + timeoutOccured);
@@ -147,7 +96,9 @@ public class JUnitRunner implements ITestRunner {
 					logger.debug("Failures valid due to not-detected timeout");
 				}
 				executedTestsNames.add(testCase);
+				logger.debug("Failures occured: " + failures);
 				if (failures > 0) {
+
 					mutant.setSurvived(false);
 					killerTestNames.add(testCase);
 					if (this.stopOnFirstFailedTest) {
@@ -180,7 +131,43 @@ public class JUnitRunner implements ITestRunner {
 		for (String testCase : origTestNames) {
 			try {
 
-				if (this.runner.perform(testCase, urls, null) > 0) {
+				Object finishedSynchroLock = new Object();
+				this.runner.setFinishedSynchroLock(finishedSynchroLock);
+				this.runner.setTestCase(testCase);
+				this.runner.setTestClassesLocation(urls);
+
+				boolean timeoutOccured = false;
+				synchronized (finishedSynchroLock) {
+					try {
+						logger.debug("Starting mutation thread");
+						Thread t = new Thread(this.runner);
+						t.setContextClassLoader(Thread.currentThread().getContextClassLoader());
+						t.start();
+						logger.debug("Waiting on results (allows to start and finish");
+						finishedSynchroLock.wait(getTimeout());
+						logger.debug("Waiting on mutation thread that it finishes its processing ");
+						timeoutOccured = !this.runner.finished();
+						logger.info("Timeout occured: " + timeoutOccured);
+						t.stop();
+
+					} catch (InterruptedException e) {
+					}
+				}
+
+				logger.debug("Not waiting anymore on finished log of mutation thread.");
+
+				int failures = 0;
+
+				if (timeoutOccured) {
+					failures = 1; // Testcase hang interpreted as killed
+					// testcase
+					logger.debug("Failures 0 due to detected timeout");
+				} else {
+					failures = this.runner.getErrorCount();
+					logger.debug("Failures valid due to not-detected timeout");
+				}
+
+				if (failures > 0) {
 					brokenTestNames.add(testCase);
 				}
 
@@ -228,6 +215,14 @@ public class JUnitRunner implements ITestRunner {
 
 	public void setRunner(IMutantJUnitRunner runner) {
 		this.runner = runner;
+	}
+
+	public void setTimeout(int timeout) {
+		this.timeout = timeout;
+	}
+
+	private int getTimeout() {
+		return timeout;
 	}
 
 }
