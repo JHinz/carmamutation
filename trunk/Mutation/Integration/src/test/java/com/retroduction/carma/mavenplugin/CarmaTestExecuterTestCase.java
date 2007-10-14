@@ -7,14 +7,12 @@ import java.util.ArrayList;
 
 import junit.framework.TestCase;
 
-import org.apache.maven.plugin.MojoExecutionException;
-
 import com.retroduction.carma.application.CarmaTestExecuter;
 import com.retroduction.carma.eventlisteners.SummaryCreatorEventListener.Summary;
 
 public class CarmaTestExecuterTestCase extends TestCase {
 
-	public void testExecuteTests() throws MojoExecutionException, MalformedURLException{
+	public void testExecuteTests() throws MalformedURLException{
 		CarmaTestExecuter executer = new CarmaTestExecuter();
 		
 		File reportFile = new File("target/it/it0001/log/Report.xml");
