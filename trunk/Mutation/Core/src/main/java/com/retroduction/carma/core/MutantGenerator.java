@@ -2,7 +2,6 @@ package com.retroduction.carma.core;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
 import com.retroduction.carma.core.api.transitions.IMutationGenerator;
