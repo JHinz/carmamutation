@@ -5,10 +5,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.retroduction.carma.core.api.resolvers.ITestClassResolver;
+import com.retroduction.carma.utilities.ClassInfo;
 
 public class ClassMatchResolver implements ITestClassResolver {
 
 	private String testNameSuffix = "Test";
+	private String testNamePrefix = "";
 
 	public HashMap<String, Set<String>> resolve(Set<String> classNames) {
 
@@ -16,7 +18,12 @@ public class ClassMatchResolver implements ITestClassResolver {
 
 		for (String clazz : classNames) {
 
-			String testName = clazz + this.testNameSuffix;
+			ClassInfo info = new ClassInfo(clazz);
+			String packagePrefix = info.getPackageName();
+			if(0 != info.getPackageName().length()){
+				packagePrefix += ".";
+			}
+			String testName = packagePrefix  +this.testNamePrefix +info.getClassName() + this.testNameSuffix;
 
 			HashSet<String> tests = new HashSet<String>();
 
@@ -31,6 +38,10 @@ public class ClassMatchResolver implements ITestClassResolver {
 
 	public void setTestNameSuffix(String testNameSuffix) {
 		this.testNameSuffix = testNameSuffix;
+	}
+
+	public void setTestNamePrefix(String testNamePrefix) {
+		this.testNamePrefix = testNamePrefix;
 	}
 
 }
