@@ -76,7 +76,10 @@ public class JUnitRunner implements ITestRunner {
 						finishedSynchroLock.wait(getTimeout());
 						logger.debug("Waiting on mutation thread that it finishes its processing ");
 						timeoutOccured = !this.runner.finished();
-						logger.info("Timeout occured: " + timeoutOccured);
+						if(timeoutOccured){
+							logger.warn("Timeout occured: " + testCase);
+						}
+						logger.debug("Timeout occured: " + timeoutOccured);
 						t.stop();
 
 					} catch (InterruptedException e) {
@@ -147,7 +150,10 @@ public class JUnitRunner implements ITestRunner {
 						finishedSynchroLock.wait(getTimeout());
 						logger.debug("Waiting on mutation thread that it finishes its processing ");
 						timeoutOccured = !this.runner.finished();
-						logger.info("Timeout occured: " + timeoutOccured);
+						if(timeoutOccured){
+							logger.warn("Timeout occured: " + testCase);
+						}
+						logger.debug("Timeout occured: " + timeoutOccured);
 						t.stop();
 
 					} catch (InterruptedException e) {
