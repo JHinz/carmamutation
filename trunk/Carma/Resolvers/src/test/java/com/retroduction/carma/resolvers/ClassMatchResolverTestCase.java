@@ -48,5 +48,27 @@ public class ClassMatchResolverTestCase extends TestCase {
 
 		assertTrue(result.get("com.retroduction.carma.test.Class2").contains("com.retroduction.carma.test.Class2Test"));
 	}
+	public void test_CustomTestCasePrefix() {
 
+		ClassMatchResolver resolver = new ClassMatchResolver();
+
+		Set<String> input = new HashSet<String>();
+
+		input.add("com.retroduction.carma.test.Class1");
+		input.add("Class2");
+
+		resolver.setTestNameSuffix("");
+		resolver.setTestNamePrefix("PussyCat");
+
+		HashMap<String, Set<String>> result = resolver.resolve(input);
+
+		assertEquals(2, result.size());
+
+		assertTrue(result.get("com.retroduction.carma.test.Class1").contains(
+				"com.retroduction.carma.test.PussyCatClass1"));
+
+		assertTrue(result.get("Class2").contains(
+				"PussyCatClass2"));
+
+	}
 }
