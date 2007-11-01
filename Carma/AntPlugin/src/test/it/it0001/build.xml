@@ -1,5 +1,8 @@
 <project name="SampleProjectUnderTest" default="all" basedir=".">
-
+	<!-- classpath example -->
+	<path id="compile.classpath">
+		       
+	</path>
 	<target name="all" depends="carmatest,carmareport" />
 
 	<target name="carmatest">
@@ -9,7 +12,9 @@
 
 		<carmatest classesDir="src/test/it/it0001/target/classes/"
 			testClassesDir="src/test/it/it0001/target/test-classes/" reportFile="target/report.xml"
-			dependencyClassPathUrls="" configFile="src/test/it/it0001/carma.properties"/>
+			configFile="src/test/it/it0001/carma.properties">
+			<dependencypath refid="compile.classpath"/>
+		</carmatest>	
 			
 	</target>
 

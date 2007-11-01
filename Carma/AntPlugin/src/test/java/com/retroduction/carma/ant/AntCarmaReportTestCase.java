@@ -56,7 +56,7 @@ public class AntCarmaReportTestCase extends TestCase {
 		assertTrue(file.getCanonicalPath() + " could not be cleanup before execution", !file.exists());
 
 		try {
-			Main.main(new String[] { "-f", "src/test/it/it0001/build.xml", "all" });
+			Main.main(new String[] { "-v", "-f", "src/test/it/it0001/build.xml", "all" });
 		} catch (SecurityException e) {
 		}
 

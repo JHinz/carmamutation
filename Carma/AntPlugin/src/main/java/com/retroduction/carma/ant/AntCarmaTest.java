@@ -22,7 +22,7 @@ public class AntCarmaTest extends Task {
 
 	private SysProperties sysProperties = new SysProperties();
 
-	private Path dependencyClassPathUrls;
+	private Path dependencypath;
 
 	private String classesDir;
 
@@ -32,8 +32,49 @@ public class AntCarmaTest extends Task {
 
 	private String configFile = "carma.properties";
 
-	public void setDependencyClassPathUrls(Path dependencyClassPathUrls) {
-		this.dependencyClassPathUrls = dependencyClassPathUrls;
+	/**
+	 * Set the dependencypath to be used for this compilation.
+	 * 
+	 * @param dependencypath
+	 *            an Ant Path object containing the compilation classpath.
+	 */
+	public void setDependencypath(Path classpath) {
+		if (dependencypath == null) {
+			dependencypath = classpath;
+		} else {
+			dependencypath.append(classpath);
+		}
+	}
+
+	/**
+	 * Gets the dependencypath to be used for this compilation.
+	 * 
+	 * @return the class path
+	 */
+	public Path getDependencypath() {
+		return dependencypath;
+	}
+
+	/**
+	 * Adds a path to the dependencypath.
+	 * 
+	 * @return a class path to be configured
+	 */
+	public Path createDependencypath() {
+		if (dependencypath == null) {
+			dependencypath = new Path(getProject());
+		}
+		return dependencypath.createPath();
+	}
+
+	/**
+	 * Adds a reference to a classpath defined elsewhere.
+	 * 
+	 * @param r
+	 *            a reference to a classpath
+	 */
+	public void setDependencypathRef(org.apache.tools.ant.types.Reference r) {
+		createDependencypath().setRefid(r);
 	}
 
 	public void setClassesdir(String classesDir) {
@@ -56,11 +97,11 @@ public class AntCarmaTest extends Task {
 	public void execute() throws BuildException {
 
 		super.execute();
-		
+
 		CommandlineJava line = new CommandlineJava();
 		line.addSysproperties(this.sysProperties);
 		line.getSystemProperties().setSystem();
-		
+
 		ClassLoader threadClassLoader = Thread.currentThread().getContextClassLoader();
 		ClassLoader thisClassLoader = this.getClass().getClassLoader();
 
@@ -71,17 +112,19 @@ public class AntCarmaTest extends Task {
 		mavenCarma.setClassesDir(new File(this.classesDir));
 		mavenCarma.setConfigFile(new File(this.configFile));
 
-		String[] paths = this.dependencyClassPathUrls.list();
-
 		List<URL> urls = new ArrayList<URL>();
-		for (String path : paths)
-			try {
-				urls.add(new URL("file:" + path));
-			} catch (MalformedURLException e1) {
-				e1.printStackTrace();
-			}
+		if (null != getDependencypath()) {
+			String[] paths = getDependencypath().list();
 
+			for (String path : paths)
+				try {
+					urls.add(new URL("file:" + path));
+				} catch (MalformedURLException e1) {
+					e1.printStackTrace();
+				}
+		}
 		mavenCarma.setDependencyClassPathUrls(urls);
+
 		mavenCarma.setReportFile(new File(this.reportFile));
 		mavenCarma.setTestClassesDir(new File(this.testClassesDir));
 
@@ -138,5 +181,7 @@ public class AntCarmaTest extends Task {
 	public void addSysproperties(SysProperties sysp) {
 		this.sysProperties.addSysproperties(sysp);
 	}
+
+	
 
 }
