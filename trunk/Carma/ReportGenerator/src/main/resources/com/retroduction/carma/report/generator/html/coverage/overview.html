@@ -79,6 +79,8 @@
 			<th mochi:format="number">Survivors</th>
 			<th mochi:format="number">Coverage</th>
 			<th mochi:format="number">Percent %</th>
+			<th mochi:format="str">Mutated</th>
+			<th mochi:format="number">Tested</th>
 		</tr> 
 	</thead> 
 	<tfoot class="invisible"> 
@@ -106,6 +108,20 @@
 		    <#else>  
 			    <td class="ok">${ratio}</td>
 		    </#if>
+		    
+		    <#if  (clazz.numMutants > 0) >
+			    <td>Yes</td>
+		    <#else>  
+			    <td>No</td>
+		    </#if>
+		    
+		    <#if  (clazz.numTests > 0) >
+			    <td>Yes</td>
+		    <#else>  
+			    <td>No</td>
+		    </#if>
+		    
+		    
 		</tr>
 		</#list>
 	</tbody>

@@ -51,6 +51,7 @@ public class OverviewReport implements ICoverageReport {
 
 		CoverageInfoAggregator agg = new CoverageInfoAggregator();
 		CoverageInfo coverage = agg.aggregate("All", "All", cut);
+		
 		vcontext.put("coverage", coverage);
 
 		ClassCoverageInfoCreator classInfoCreator = new ClassCoverageInfoCreator();

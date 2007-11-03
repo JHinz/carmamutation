@@ -21,6 +21,8 @@ public class CoverageInfo implements Comparable<CoverageInfo> {
 	private int numSurvivors;
 	
 	private int numClasses;
+	
+	private int numTests;
 
 	public int getNumClasses() {
 		return this.numClasses;
@@ -62,5 +64,32 @@ public class CoverageInfo implements Comparable<CoverageInfo> {
 
 	public String getShortName() {
 		return this.shortName;
+	}
+
+	public int getNumTests() {
+		return numTests;
+	}
+
+	public void setNumTests(int numTests) {
+		this.numTests = numTests;
+	}
+	
+	public String getLevel(){
+		if(0 == getNumMutants()){
+			return "nomutations";
+		}
+		if( 0 == getNumTests() ){
+			return "untested";
+		}
+		
+		if( 0.8 < getCoverage() ){
+			return "good";
+		}
+		
+		if( 0.4 < getCoverage() ){
+			return "medium";
+		}
+		
+		return "bad";
 	}
 }

@@ -26,6 +26,7 @@
 		<property name="resourceProviders">
 			<list>
 				<ref bean="stylesheets"></ref>
+				<ref bean="icons"></ref>
 				<ref bean="javascript"></ref>
 				<ref bean="MochiKit"></ref>
 				<ref bean="tooltip"></ref>
@@ -45,6 +46,19 @@
 		</property>
 	</bean>
 
+	<bean id="icons"
+		class="com.retroduction.carma.report.generator.html.coverage.StyleSheetProvider">
+		<property name="baseDir" value="icons"></property>
+		<property name="resources">
+			<list>
+				<value>nomutations.gif</value>
+				<value>untested.gif</value>
+				<value>bad.gif</value>
+				<value>medium.gif</value>
+				<value>good.gif</value>
+			</list>
+		</property>
+	</bean>
 	<bean id="javascript"
 		class="com.retroduction.carma.report.generator.html.coverage.StyleSheetProvider">
 		<property name="baseDir" value="js"></property>
