@@ -14,6 +14,7 @@ public class ClassCoverageInfoCreator {
 		int numMutants = (int) cut.getMutationRatio().getMutationCount();
 		int numSurvivors = (int) cut.getMutationRatio().getSurvivorCount();
 		CoverageInfo info = new CoverageInfo(className, cut.getClassName(), 1, numMutants, numSurvivors);
+		info.setNumTests(cut.getExecutedTests().size());
 		return info;
 	}
 	public List<CoverageInfo> createCoverageInfo(Collection<ClassUnderTest> cutList) {
