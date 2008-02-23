@@ -35,8 +35,14 @@ public class TestCaseInstantiationVerifierTestCase extends TestCase {
 		validURLs = verifier.filterInvalidURLs(inputURLs);
 
 		assertEquals("Valid url count incorrect", 1, validURLs.size());
-		assertEquals("file:/test.xml", validURLs.iterator().next().toString());
 
+		if (System.getProperty("os.name").contains("Windows")) {
+			assertEquals("file:/D:/test.xml", validURLs.iterator().next()
+					.toString());
+		} else {
+			assertEquals("file:/test.xml", validURLs.iterator().next()
+					.toString());
+		}
 	}
 
 	public void test_InstantiationCheck() {
@@ -44,11 +50,14 @@ public class TestCaseInstantiationVerifierTestCase extends TestCase {
 		TestCaseInstantiationVerifier verifier = new TestCaseInstantiationVerifier();
 
 		Set<File> inputURLsClasses = new HashSet<File>();
-		inputURLsClasses.add(new File("src/test/ut/InstantiationVerifierTestCase_1/target/classes/"));
+		inputURLsClasses.add(new File(
+				"src/test/ut/InstantiationVerifierTestCase_1/target/classes/"));
 		verifier.setClassPath(inputURLsClasses);
 
 		Set<File> inputURLsTestClasses = new HashSet<File>();
-		inputURLsTestClasses.add(new File("src/test/ut/InstantiationVerifierTestCase_1/target/test-classes/"));
+		inputURLsTestClasses
+				.add(new File(
+						"src/test/ut/InstantiationVerifierTestCase_1/target/test-classes/"));
 		verifier.setTestClassPath(inputURLsTestClasses);
 
 		HashSet<String> classes = new HashSet<String>();
@@ -59,7 +68,8 @@ public class TestCaseInstantiationVerifierTestCase extends TestCase {
 		classes.add("InstantiationVerifierTestInterface");
 		classes.add("nonExistantClass");
 
-		HashSet<String> result = verifier.determineUnloadableTestClassNames(classes);
+		HashSet<String> result = verifier
+				.determineUnloadableTestClassNames(classes);
 
 		assertEquals(3, result.size());
 		assertTrue(result.contains("InstantiationVerifierAbstractTestClass"));
@@ -79,7 +89,8 @@ public class TestCaseInstantiationVerifierTestCase extends TestCase {
 
 		classes.add("InstantiationVerifierTestClass");
 
-		HashSet<String> result = verifier.determineUnloadableTestClassNames(classes);
+		HashSet<String> result = verifier
+				.determineUnloadableTestClassNames(classes);
 
 		assertEquals(1, result.size());
 		assertTrue(result.contains("InstantiationVerifierTestClass"));
