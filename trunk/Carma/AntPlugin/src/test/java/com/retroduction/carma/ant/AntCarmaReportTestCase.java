@@ -50,7 +50,7 @@ public class AntCarmaReportTestCase extends TestCase {
 		}
 
 	}
-	
+
 
 
 	public void test_ProjectUnderTestWithNoDependencies_CarmaTestAndReportAntRun() throws IOException {
@@ -70,8 +70,14 @@ public class AntCarmaReportTestCase extends TestCase {
 
 		assertTrue(file.getCanonicalPath() + " file has not been written", file.exists());
 
-		FileAssert.assertEquals("Report.xml content unexpected", new File("src/test/it/it0001/target/report.xml"),
+		if ( System.getProperty("os.name").contains("Windows")) {
+			FileAssert.assertEquals("Report.xml content unexpected", new File("src/test/it/it0001/target/report_win32.xml"),
 				new File("target/report.xml"));
+			}
+		else {
+			FileAssert.assertEquals("Report.xml content unexpected", new File("src/test/it/it0001/target/report_unix.xml"),
+			new File("target/report.xml"));
+		}
 	}
 
 }

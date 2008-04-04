@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mutationRun>
+    <mutationRatio>
+        <mutationCount>3</mutationCount>
+        <survivorCount>2</survivorCount>
+    </mutationRatio>
+    <classUnderTest>
+        <className>App</className>
+        <packageName>com.mutation.sampleapp</packageName>
+        <mutationRatio>
+            <mutationCount>3</mutationCount>
+            <survivorCount>2</survivorCount>
+        </mutationRatio>
+        <baseClassFile>src\test\it\it0001\target\classes\com\mutation\sampleapp\App.class</baseClassFile>
+        <mutant>
+            <survived>true</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IF_ICMPLE_to_IF_ICMPGT</transition>
+            <baseSourceLine>27</baseSourceLine>
+        </mutant>
+        <mutant>
+            <survived>false</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IFEQ_to_IFNE</transition>
+            <baseSourceLine>11</baseSourceLine>
+            <killerTests>com.mutation.sampleapp.AppTest</killerTests>
+        </mutant>
+        <mutant>
+            <survived>true</survived>
+            <transitionGroup>ROR</transitionGroup>
+            <transition>IFEQ_to_IFNE</transition>
+            <baseSourceLine>19</baseSourceLine>
+        </mutant>
+        <executedTests>com.mutation.sampleapp.AppTest</executedTests>
+    </classUnderTest>
+</mutationRun>
