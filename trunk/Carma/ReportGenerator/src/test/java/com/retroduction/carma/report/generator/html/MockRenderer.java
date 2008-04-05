@@ -8,6 +8,7 @@
  */
 package com.retroduction.carma.report.generator.html;
 
+import java.io.File;
 import java.util.Map;
 
 import com.retroduction.carma.report.generator.IRenderer;
@@ -33,6 +34,9 @@ public class MockRenderer implements IRenderer {
 			throw this.exceptionToThrow;
 		}
 		
+	}
+	public File getOutputBaseDir() {
+		throw new  UnsupportedOperationException();
 	}
 
 }

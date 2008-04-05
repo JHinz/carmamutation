@@ -8,6 +8,7 @@
  */
 package com.retroduction.carma.report.generator.html.coverage;
 
+import java.io.File;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -43,7 +44,7 @@ public class OverviewReport implements ICoverageReport {
 	public void generateReport(MutationRun report, Project project,  IRenderer renderer)
 			throws RenderException {
 		
-		String coverageChartFile =  "coverageChart.png";
+		File coverageChartFile =  new File(renderer.getOutputBaseDir(), "coverageChart.png");
 
 		List<ClassUnderTest> cut = report.getClassUnderTest();
 		ClassInfoCreator infoCreator = new ClassInfoCreator(cut);

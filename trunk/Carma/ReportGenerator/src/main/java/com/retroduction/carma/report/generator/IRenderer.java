@@ -8,6 +8,8 @@
  */
 package com.retroduction.carma.report.generator;
 
+import java.io.File;
+
 /**
 * interface for report renderer engine
 * @author mike
@@ -22,4 +24,6 @@ public interface IRenderer {
 	 */
 	//TODO add title parameter which is logged by renderer
 	void render(String templateName, Object context, String outputFileName) throws RendererException;
+	File getOutputBaseDir();
+
 }
