@@ -12,7 +12,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.retroduction.carma</groupId>
-	<artifactId>CarmaReactor</artifactId>
+	<artifactId>Reactor</artifactId>
 	<packaging>pom</packaging>
 	<name>Retroduction Carma Reactor Project</name>
 
@@ -28,19 +28,19 @@
 
 	<modules>
 		<module>../MetaDefinition</module>
-		<module>../CarmaReportModel</module>
-		<module>../CarmaReportGenerator</module>
-		<module>../CarmaMaven2</module>
-		<module>../CarmaJavaApplication</module>
-		<module>../CarmaCore</module>
-		<module>../CarmaAnnotations</module>
-		<module>../CarmaUtilities</module>
-		<module>../CarmaTransformers</module>
-		<module>../CarmaEventListeners</module>
-		<module>../CarmaTestRunners</module>
-		<module>../CarmaResolvers</module>
-		<module>../CarmaAnt</module>
-		<module>../CarmaIntegration</module>
+		<module>../ReportModel</module>
+		<module>../ReportGenerator</module>
+		<module>../MavenPlugin</module>
+		<module>../JavaApplication</module>
+		<module>../Core</module>
+		<module>../Annotations</module>
+		<module>../Utilities</module>
+		<module>../Transformers</module>
+		<module>../EventListeners</module>
+		<module>../TestRunners</module>
+		<module>../Resolvers</module>
+		<module>../AntPlugin</module>
+		<module>../Integration</module>
 		<module>../Distribution</module>
 	</modules>
 	
