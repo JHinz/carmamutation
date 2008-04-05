@@ -10,10 +10,7 @@ a.dfn:active, a.dfn:link, a.dfn:visited {
 	text-decoration: none;
 }
 
-a.dfn:hover {
-	color: #0000ff;
-	text-decoration: none;
-}
+
 
 body {
 	font-family: verdana, arial, helvetica;

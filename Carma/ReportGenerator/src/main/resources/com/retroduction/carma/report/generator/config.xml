@@ -27,7 +27,6 @@
 			<list>
 				<ref bean="stylesheets"></ref>
 				<ref bean="icons"></ref>
-				<ref bean="javascript"></ref>
 				<ref bean="MochiKit"></ref>
 				<ref bean="tooltip"></ref>
 			</list>
@@ -41,7 +40,6 @@
 			<list>
 				<value>main.css</value>
 				<value>source-viewer.css</value>
-				<value>sortable_tables.css</value>
 			</list>
 		</property>
 	</bean>
@@ -56,15 +54,6 @@
 				<value>bad.gif</value>
 				<value>medium.gif</value>
 				<value>good.gif</value>
-			</list>
-		</property>
-	</bean>
-	<bean id="javascript"
-		class="com.retroduction.carma.report.generator.html.coverage.StyleSheetProvider">
-		<property name="baseDir" value="js"></property>
-		<property name="resources">
-			<list>
-				<value>sortable_tables.js</value>
 			</list>
 		</property>
 	</bean>
