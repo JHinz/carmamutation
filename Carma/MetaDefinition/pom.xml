@@ -10,15 +10,6 @@
 	<version>0.2-SNAPSHOT</version>
 	<name>Retroduction Carma Meta Definition Project</name>
 
-	<url>http://godhunter.homelinux.com:10080/Carma/MetaDefinition</url>
-
-	<distributionManagement>
-		<site>
-			<id>carma.retroduction.com</id>
-			<url>scp:192.168.1.5:222/Carma/MetaDefinition</url>
-		</site>
-	</distributionManagement>
-
 	<profiles>
 		<profile>
 			<id>Carma</id>
@@ -105,7 +96,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
+			<version>3.8.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
