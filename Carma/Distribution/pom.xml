@@ -12,69 +12,69 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.retroduction.carma</groupId>
-	<artifactId>CarmaDistribution</artifactId>
+	<artifactId>Distribution</artifactId>
 	<packaging>pom</packaging>
 	<name>Retroduction Carma Distribution Project</name>
 	
 	<dependencies>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
-			<artifactId>CarmaReportModel</artifactId>
+			<artifactId>ReportModel</artifactId>
 			<version>${version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
-			<artifactId>CarmaMaven2</artifactId>
+			<artifactId>MavenPlugin</artifactId>
 			<version>${version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
-			<artifactId>CarmaJava</artifactId>
+			<artifactId>JavaApplication</artifactId>
 			<version>${version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
-			<artifactId>CarmaCore</artifactId>
+			<artifactId>Core</artifactId>
 			<version>${version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
-			<artifactId>CarmaAnnotations</artifactId>
+			<artifactId>Annotations</artifactId>
 			<version>${version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
-			<artifactId>CarmaUtilities</artifactId>
+			<artifactId>Utilities</artifactId>
 			<version>${version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
-			<artifactId>CarmaTransformers</artifactId>
+			<artifactId>Transformers</artifactId>
 			<version>${version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
-			<artifactId>CarmaEventListeners</artifactId>
+			<artifactId>EventListeners</artifactId>
 			<version>${version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
-			<artifactId>CarmaTestRunners</artifactId>
+			<artifactId>TestRunners</artifactId>
 			<version>${version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
-			<artifactId>CarmaResolvers</artifactId>
+			<artifactId>Resolvers</artifactId>
 			<version>${version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
-			<artifactId>CarmaAnt</artifactId>
+			<artifactId>AntPlugin</artifactId>
 			<version>${version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
-			<artifactId>CarmaIntegration</artifactId>
+			<artifactId>Integration</artifactId>
 			<version>${version}</version>
 		</dependency>
 	</dependencies>
