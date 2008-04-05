@@ -1,0 +1,106 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+  http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>com.retroduction.carma</groupId>
+		<artifactId>MetaDefinition</artifactId>
+		<version>0.2-SNAPSHOT</version>
+		<relativePath>../MetaDefinition</relativePath>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.retroduction.carma</groupId>
+	<artifactId>CarmaDistribution</artifactId>
+	<packaging>pom</packaging>
+	<name>Retroduction Carma Distribution Project</name>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>CarmaReportModel</artifactId>
+			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>CarmaMaven2</artifactId>
+			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>CarmaJava</artifactId>
+			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>CarmaCore</artifactId>
+			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>CarmaAnnotations</artifactId>
+			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>CarmaUtilities</artifactId>
+			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>CarmaTransformers</artifactId>
+			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>CarmaEventListeners</artifactId>
+			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>CarmaTestRunners</artifactId>
+			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>CarmaResolvers</artifactId>
+			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>CarmaAnt</artifactId>
+			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>CarmaIntegration</artifactId>
+			<version>${version}</version>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptors>
+						<descriptor>src/main/assembly/src.xml</descriptor>
+					</descriptors>
+					</configuration>
+				    <executions>
+          			<execution>
+					<phase>package</phase>				
+			          <goals>
+				      <goal>single</goal>
+				    </goals>					
+
+
+          </execution>
+				</executions>          
+			</plugin>
+		</plugins>		
+	</build>
+
+	
+</project>
