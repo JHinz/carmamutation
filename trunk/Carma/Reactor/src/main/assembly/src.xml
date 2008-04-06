@@ -4,12 +4,16 @@
 		<format>zip</format>
 	</formats>
 	<includeBaseDirectory>false</includeBaseDirectory>
+	<moduleSets>
+		<moduleSet>
+			<binaries>
+				<includeDependencies>false</includeDependencies>
+				<outputDirectory>carma</outputDirectory>
+				<unpack>false</unpack>
+			</binaries>
+		</moduleSet>
+	</moduleSets>
 	<dependencySets>
-		<dependencySet>
-		<useProjectArtifact>false</useProjectArtifact>
-		<useTransitiveDependencies>false</useTransitiveDependencies>
-		<outputDirectory>carma</outputDirectory>
-		</dependencySet>
 		<dependencySet>
 		<useProjectArtifact>false</useProjectArtifact>
 		<useTransitiveDependencies>true</useTransitiveDependencies>
