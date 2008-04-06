@@ -6,7 +6,16 @@
 	<includeBaseDirectory>false</includeBaseDirectory>
 	<dependencySets>
 		<dependencySet>
+		<useProjectArtifact>false</useProjectArtifact>
+		<useTransitiveDependencies>false</useTransitiveDependencies>
+		<outputDirectory>carma</outputDirectory>
 		</dependencySet>
+		<dependencySet>
+		<useProjectArtifact>false</useProjectArtifact>
+		<useTransitiveDependencies>true</useTransitiveDependencies>
+		<outputDirectory>3rdpartylibs</outputDirectory>
+		<excludes><exclude>com.retroduction.carma:*</exclude></excludes>
+		</dependencySet>		
 	</dependencySets>
 
 </assembly>
