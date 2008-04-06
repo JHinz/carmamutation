@@ -7,7 +7,7 @@
 		<groupId>com.retroduction.carma</groupId>
 		<artifactId>MetaDefinition</artifactId>
 		<version>0.2-SNAPSHOT</version>
-		<relativePath>../MetaDefinition</relativePath>
+		<relativePath>../MetaDefinition/pom.xml</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -15,15 +15,6 @@
 	<artifactId>Resolvers</artifactId>
 	<packaging>jar</packaging>
 	<name>Retroduction Carma Resolvers</name>
-
-	<url>http://godhunter.homelinux.com:10080/Carma/Resolvers</url>
-
-	<distributionManagement>
-		<site>
-			<id>carma.retroduction.com</id>
-			<url>scp:192.168.1.5:222/Carma/Resolvers</url>
-		</site>
-	</distributionManagement>
 	
 	<dependencies>
 		<dependency>
@@ -36,7 +27,22 @@
 			<artifactId>Annotations</artifactId>
 			<version>${version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.2</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 </project>

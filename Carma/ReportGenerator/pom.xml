@@ -7,7 +7,7 @@
 		<groupId>com.retroduction.carma</groupId>
 		<artifactId>MetaDefinition</artifactId>
 		<version>0.2-SNAPSHOT</version>
-		<relativePath>../MetaDefinition</relativePath>
+		<relativePath>../MetaDefinition/pom.xml</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -15,17 +15,6 @@
 	<artifactId>ReportGenerator</artifactId>
 	<packaging>jar</packaging>
 	<name>Retroduction Carma Report Generator</name>
-
-	<url>
-		http://godhunter.homelinux.com:10080/Carma/ReportGenerator
-	</url>
-
-	<distributionManagement>
-		<site>
-			<id>carma.retroduction.com</id>
-			<url>scp:192.168.1.5:222/Carma/ReportGenerator</url>
-		</site>
-	</distributionManagement>
 
 	<dependencies>
 		<dependency>
@@ -48,6 +37,18 @@
 			<artifactId>jaxb-impl</artifactId>
 			<version>2.0.3</version>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit-addons</groupId>
+			<artifactId>junit-addons</artifactId>
+			<version>1.4</version>
+			<scope>test</scope>
+		</dependency>		
 
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
