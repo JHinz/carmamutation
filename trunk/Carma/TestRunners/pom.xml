@@ -7,7 +7,7 @@
 		<groupId>com.retroduction.carma</groupId>
 		<artifactId>MetaDefinition</artifactId>
 		<version>0.2-SNAPSHOT</version>
-		<relativePath>../MetaDefinition</relativePath>
+		<relativePath>../MetaDefinition/pom.xml</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -19,15 +19,6 @@
 		Retroduction Carma TestRunner project which integrates different
 		test suites for running testcases on mutated bytecode.a
 	</description>
-
-	<url>http://godhunter.homelinux.com:10080/Carma/TestRunners</url>
-
-	<distributionManagement>
-		<site>
-			<id>carma.retroduction.com</id>
-			<url>scp:192.168.1.5:222/Carma/TestRunners</url>
-		</site>
-	</distributionManagement>
 	
 	<dependencies>
 		<dependency>
@@ -40,6 +31,22 @@
 			<artifactId>junit</artifactId>
 			<version>3.8.2</version>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>junit-addons</groupId>
+			<artifactId>junit-addons</artifactId>
+			<version>1.4</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

@@ -7,7 +7,7 @@
 		<groupId>com.retroduction.carma</groupId>
 		<artifactId>MetaDefinition</artifactId>
 		<version>0.2-SNAPSHOT</version>
-		<relativePath>../MetaDefinition</relativePath>
+		<relativePath>../MetaDefinition/pom.xml</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -25,7 +25,8 @@
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>MavenPlugin</artifactId>
-			<version>${version}</version>
+			<version>0.2-SNAPSHOT</version>
+			<type>maven-plugin</type>
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
@@ -34,17 +35,17 @@
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
-			<artifactId>Core</artifactId>
+			<artifactId>Utilities</artifactId>
 			<version>${version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>Core</artifactId>
+			<version>${version}</version>
+		</dependency> 
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>Annotations</artifactId>
-			<version>${version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.retroduction.carma</groupId>
-			<artifactId>Utilities</artifactId>
 			<version>${version}</version>
 		</dependency>
 		<dependency>
@@ -92,7 +93,7 @@
           			<execution>
 					<phase>package</phase>				
 			          <goals>
-				      <goal>single</goal>
+				      <goal>attached</goal>
 				    </goals>					
 
 

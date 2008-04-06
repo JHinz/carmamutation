@@ -5,7 +5,8 @@
 	</formats>
 	<includeBaseDirectory>false</includeBaseDirectory>
 	<dependencySets>
-		<dependencySet></dependencySet>
+		<dependencySet>
+		</dependencySet>
 	</dependencySets>
 
 </assembly>

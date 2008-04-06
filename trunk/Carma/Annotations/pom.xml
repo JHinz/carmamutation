@@ -7,7 +7,7 @@
 		<groupId>com.retroduction.carma</groupId>
 		<artifactId>MetaDefinition</artifactId>
 		<version>0.2-SNAPSHOT</version>
-		<relativePath>../MetaDefinition</relativePath>
+		<relativePath>../MetaDefinition/pom.xml</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -16,8 +16,17 @@
 	<packaging>jar</packaging>
 	<name>Retroduction Carma Annotations Package</name>
 
-	<url>http://godhunter.homelinux.com:10080/Carma/Annotations</url>
 
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.2</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	
 	<distributionManagement>
 		<site>
 			<id>carma.retroduction.com</id>
