@@ -1,5 +1,5 @@
 <assembly>
-	<id>dist</id>
+	<id>Bundle</id>
 	<formats>
 		<format>zip</format>
 	</formats>
@@ -8,7 +8,7 @@
 		<moduleSet>
 			<binaries>
 				<includeDependencies>false</includeDependencies>
-				<outputDirectory>carma</outputDirectory>
+				<outputDirectory>libs</outputDirectory>
 				<unpack>false</unpack>
 			</binaries>
 		</moduleSet>
@@ -17,9 +17,27 @@
 		<dependencySet>
 		<useProjectArtifact>false</useProjectArtifact>
 		<useTransitiveDependencies>true</useTransitiveDependencies>
-		<outputDirectory>3rdpartylibs</outputDirectory>
+		<outputDirectory>extlibs</outputDirectory>
 		<excludes><exclude>com.retroduction.carma:*</exclude></excludes>
 		</dependencySet>		
 	</dependencySets>
+	<fileSets>
+		<fileSet>
+			<directory>src/main/packaging</directory>
+			<outputDirectory>./</outputDirectory>
+			<lineEnding>dos</lineEnding>
+			<includes>
+				<include>*</include>
+			</includes>
+		</fileSet>
+		<fileSet>
+			<directory>src/main/packaging/extlib</directory>
+			<outputDirectory>./extlib/</outputDirectory>
+			<lineEnding>dos</lineEnding>
+			<includes>
+				<include>*</include>
+			</includes>
+		</fileSet>		
+	</fileSets>
 
 </assembly>
