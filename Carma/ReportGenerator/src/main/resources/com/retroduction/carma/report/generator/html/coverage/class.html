@@ -5,10 +5,11 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 		<title>Mutation Class Report - ${coverage.fqName}</title>
 		<link title="Style" type="text/css" rel="stylesheet" href="css/main.css"/>
+		<link title="Style" type="text/css" rel="stylesheet" href="css/source-viewer.css"/>
 	</head>
 	<body>
 		<script type="text/javascript" src="js/tooltip/wz_tooltip.js"></script>
-		<h5>Mutation Class Report - ${coverage.fqName}</h5>
+		<h2>Mutation Class Report - ${coverage.fqName}</h2>
 		<div class="separator">&nbsp;</div>
 
 		<#assign percKilled = 100 * coverage.coverage >		
@@ -18,27 +19,23 @@
 		<table class="report">
 			<thead>
 				<tr>
-				  <td class="heading">Classes in this File</td>  
-				  <td class="heading" width="20%">Mutation Coverage</td>
+				  <td  class="titleCell">Classes in this File</td>  
+				  <td  class="titleCell" width="20%">Mutation Coverage</td>
 				</tr>
 			</thead>
 
 			<tr>
-				<td class="text"><a href="">${coverage.fqName}</a></td>
-				<td class="value">
-					<table cellpadding="0" cellspacing="0" align="right">
-						<tr>
-							<td>${percKilled}%&nbsp;</td>
-							<td>
-								<table class="percentGraph" cellpadding="0" cellspacing="0" width="100">
-									<tr>
-										<td class="covered" width="${percKilled}"></td>
-										<td class="uncovered" width="${percSurv}"></td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</table>
+				<td><a href="">${coverage.fqName}</a></td>
+				<td>
+			<table cellpadding="0" cellspacing="0" align="right">
+				<tr>
+					<div class="carmanotcovered" cellpadding="0" cellspacing="0">
+						<div class="carmacovered" style="width: ${percKilled}px">
+						<span >${percKilled}%</span>
+						</div>
+					</div>
+				</tr>
+			</table>
 				</td>
 			</tr>
 		</table>
@@ -46,7 +43,7 @@
 		<p>
 		
 
-		<table>
+		<table id="classStatistics">
 			<tr>
 				<td>Mutants:</td><td>${coverage.numMutants}</td>
 				<td>Survivors:</td><td>${coverage.numSurvivors}</td>
@@ -54,19 +51,20 @@
 			</tr>
 		</table>
 		
-		<table>
-			<th>Test Names</th>
+		<table id="testList">
+			<th class="titleCell">Test Names</th>
 			<#list clazz.executedTests as test >
 			<tr>
 				<td class="text">${test}</td>
 			</tr>
 			</#list>
 		</table>
-		<table>
-			<th>Mutant</th>
-			<th>Line No</th>
-			<th>Killed</th>
-			<th>Killer Tests</th>
+
+		<table id="mutationList">
+			<th class="titleCell">Mutant</th>
+			<th class="titleCell">Line No</th>
+			<th class="titleCell">Killed</th>
+			<th class="titleCell">Killer Tests</th>
 			
 			<#list clazz.getMutant() as mutant >
 				<#assign killed = (! mutant.isSurvived() ) >
@@ -84,12 +82,7 @@
 		</table>
 	</p>
 
-
-
-
-
-		<div class="separator">&nbsp;</div>
-		<table cellspacing="0" cellpadding="0" class="src">
+		<table id="sourceCode" cellspacing="0" cellpadding="0" class="src">
 			
 		<#assign mutId = 0 >
 		<#list sourceInfo as sourceLine>
