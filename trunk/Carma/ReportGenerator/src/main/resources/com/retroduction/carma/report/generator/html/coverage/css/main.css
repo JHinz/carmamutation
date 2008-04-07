@@ -49,19 +49,19 @@ table td.text {
 
 .bar {
 	border: #444444 1px solid;
-	height: 12px;
+	height: 14px;
 	empty-cells: show;
 }
 
 .carmacovered {
     background: #00ff00;
-	height: 10px;
+	height: 12px;
 	text-align: center;
 }
 
 .carmanotcovered {
     background: #ff0000;
-	height: 10px;
+	height: 12px;
 	width: 100px;
 	border: 1px solid #888888;
 }

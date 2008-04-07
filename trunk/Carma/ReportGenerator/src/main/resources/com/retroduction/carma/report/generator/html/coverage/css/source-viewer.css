@@ -2,6 +2,8 @@ pre.src {
     background: #ffffff;
     margin-top: 0px;
     margin-bottom: 0px;
+    font-family: Courier, verdana, arial, helvetica;
+    font-size: 9pt;
 }
 
 table.src {
