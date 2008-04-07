@@ -8,7 +8,7 @@
 </head>
 <body>
 <h2>Carma Report - Packages</h2>
-<p><a href="overview.html" target="_top">Overview</a></p>
+<p><a href="overview.html" target="_top">Switch to Project Overview</a></p>
 <h2>Packages</h2>
 
 <table id="report">
@@ -32,7 +32,7 @@
 			<td class="text">No Mutations</td>
 			
 <#else>
-			<td class="text">
+			<td style="height: 12px;" class="text">
 					<#assign mutCoveragePercent = package.coverage * 100 >
 					<#assign mutUnCoveragePercent = (1.0 - package.coverage) * 100 >
 					<div class="carmanotcovered" cellpadding="0" cellspacing="0">
