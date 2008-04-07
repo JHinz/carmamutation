@@ -10,6 +10,8 @@ a.dfn:active, a.dfn:link, a.dfn:visited {
 	text-decoration: none;
 }
 
+
+
 body {
 	font-family: verdana, arial, helvetica;
 }
@@ -49,23 +51,23 @@ table.report {
 }
 
 table.report td.heading {
-    background: #ffffff;
-	border: #000000 1px solid;
+    background: #dcecff;
+	border: #d0d0d0 1px solid;
 	font-weight: bold;
 	text-align: center;
 }
 
 table.report td.heading:hover {
-    background: #cccccc;
+    background: #c0ffc0;
 	cursor: pointer;
 }
 
 table.report td.text {
-	border: #000000 1px solid;
+	border: #d0d0d0 1px solid;
 }
 
 table.report td.value {
-	border: #000000 1px solid;
+	border: #d0d0d0 1px solid;
 	text-align: right;
 }
 
@@ -88,13 +90,4 @@ table.percentGraph td.uncovered {
 table.percentGraph td.NA {
     background: #eaeaea;
 	height: 10px;
-}
-
-
-#packageTable table {
-	color: #000000;
-  width: 100%;
-}
-
-#packageTable table tbody tr td {
 }
