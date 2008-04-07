@@ -7,25 +7,20 @@
 		<link title="Style" type="text/css" rel="stylesheet" href="css/main.css"/>
 	</head>
 	<body>
-		<h5>
-			Packages
-		</h5>
-		<div class="separator">&nbsp;</div>
-		<table width="100%">
-			<tbody>
-			<tr>
-				<td nowrap="nowrap"><a target="mcov_summary" href="summary.html">All</a></td>
-			</tr>
+		<div id="packageList">
+		<h2>Package Listing</h2>
+		
+<ul>
+	<li><a target="mcov_summary" href="summary.html">All</a></li>
 
 		<#list packageInfo.packageNames as packageName >
     		<#assign packageReportFileName ="summary-" +packageName +".html" >
-			<tr>
-				<td nowrap="nowrap"><a target="mcov_summary" href="${packageReportFileName}">${packageName}</a></td>
-			</tr>
+			<li>
+				<a target="mcov_summary" href="${packageReportFileName}">${packageName}</a>
+			</li>
 			
 		</#list>
-
-			</tbody>
-		</table>
+</ul>
+		</div>
 	</body>
 </html>

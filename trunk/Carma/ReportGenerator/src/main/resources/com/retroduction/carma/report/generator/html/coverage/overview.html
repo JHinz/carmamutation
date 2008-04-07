@@ -1,135 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html>
+
 <head>
-	<link href="css/sortable_tables.css" rel="stylesheet" type="text/css" /> 
-	<script type="text/javascript" src="js/MochiKit/MochiKit.js"></script> 
-	<script type="text/javascript" src="js/sortable_tables.js"></script> 
-<STYLE TYPE='text/css'>
-
-
-.worst {
-  background-color:#FF2222;
-  color:black; 
-  font-weight:bold;
-  text-align:right
-}
-
-
-.worst {
-  background-color:#FF2222;
-  color:black; 
-  font-weight:bold;
-  text-align:right
-}
-.bad {
-  background-color:#FFAAAA;
-  color:black; 
-  font-weight:bold;
-  text-align:right
-}
-.ok {
-  color:black; 
-  text-align:right
-}
-.best {
-  background-color:#AAFFAA;
-  color:black; 
-  font-weight:bold;
-  text-align:right
-}
-
-
-
-    </STYLE>
-    
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Carma Report - Overview</title>
+<link title="Style" type="text/css" rel="stylesheet" href="css/main.css"></link>
 </head>
+
 <body>
-<div id="title"><h1>Project Mutation Overview</h1></div>
+<div id="title"><h2>Carma Overview</h2></div>
+<div id="overviewLinks"><a href="index.html">Switch to Class Browser</a></div>
 
-<div id="menu">
-<table>
-<tr>
-<td><a href="index.html">ClassBrowser</a></td>
-</tr>
-</table>
-</div>
-
-<div id="overview">
-<table><tr><td>
-
-<table>
+<table id="overviewSummary">
 	<tr>
-		<td>No. of Classes:</td><td>${coverage.numClasses}</td>
+		<td># Processed Classes:</td><td>${coverage.numClasses}</td>
 	</tr>
 	<tr>
-		<td>No. created mutations:</td><td>${coverage.numMutants}</td>
+		<td># Created Mutations:</td><td>${coverage.numMutants}</td>
 	</tr>
 	<tr>
-		<td>No. survived mutations:</td><td>${coverage.numSurvivors}</td>
+		<td># Survived Mutations:</td><td>${coverage.numSurvivors}</td>
 	</tr>
-</table></td></tr>
 </table>
 
-</div>
+<table id="overviewClassListing">
 
-<table id="sortable_table" class="datagrid"> 
-	<thead> 
 		<tr> 
-			<th mochi:format="str">Mutated Class</th>
-			<th mochi:format="number">Mutations</th>
-			<th mochi:format="number">Survivors</th>
-			<th mochi:format="number">Coverage</th>
-			<th mochi:format="number">Percent %</th>
-			<th mochi:format="str">Mutated</th>
-			<th mochi:format="number">Tested</th>
-		</tr> 
-	</thead> 
-	<tfoot class="invisible"> 
-		<tr> 
-			<td colspan="0"></td> 
-		</tr> 
-	</tfoot> 
-	<tbody>
+			<td class="titleCell">Mutated Class</td>
+			<td class="titleCell"># Mutations</td>
+			<td class="titleCell"># Survivors</td>
+			<td class="titleCell">Coverage</td>
+			<td class="titleCell">Percent %</td>
+			<td class="titleCell"># Mutated</td>
+			<td class="titleCell"># Tested</td>
+		</tr>
+		
 		<#list classes as clazz>
+
 		<tr>
-		    <td><a href="${clazz.fqName}.html">${clazz.fqName}</a></td>
-		    <td>${clazz.numMutants}</td>
-		    <td>${clazz.numSurvivors}</td>
-		    <td>${clazz.coverage}</td>
+		    <td class="descriptionCell"><a href="${clazz.fqName}.html">${clazz.fqName}</a></td>
+
+		    <td class="valueCell">${clazz.numMutants}</td>
+		    <td class="valueCell">${clazz.numSurvivors}</td>
+		    <td class="valueCell">${clazz.coverage}</td>
 		    
 		    <#assign ratio = clazz.coverage * 100 >
 		
 		
 		    <#if  (1.0  =  clazz.coverage) >
-			    <td class="best">${ratio}</td>
+			    <td class="valueCell best">${ratio}</td>
 		    <#elseif  (0.0 = clazz.coverage) >
-			    <td class="worst">${ratio}</td>
+			    <td class="valueCell worst">${ratio}</td>
 		    <#elseif  (0.7 > clazz.coverage) >
-			    <td class="bad">${ratio}</td>
+			    <td class="valueCell bad">${ratio}</td>
 		    <#else>  
-			    <td class="ok">${ratio}</td>
+			    <td class="valueCell ok">${ratio}</td>
 		    </#if>
 		    
 		    <#if  (clazz.numMutants > 0) >
-			    <td>Yes</td>
+			    <td class="valueCell">Yes</td>
 		    <#else>  
-			    <td>No</td>
+			    <td class="valueCell">No</td>
 		    </#if>
 		    
 		    <#if  (clazz.numTests > 0) >
-			    <td>Yes</td>
+			    <td class="valueCell">Yes</td>
 		    <#else>  
-			    <td>No</td>
+			    <td class="valueCell">No</td>
 		    </#if>
 		    
 		    
 		</tr>
 		</#list>
-	</tbody>
 </table>
 
-<p>
-<img src="coverageChart.png" width="${chartWidth}" height="${chartHeight}" align="center" />
-</p>
+<div id="overviewCoverageChart">
+<img src="coverageChart.png" width="${chartWidth}" height="${chartHeight}" alt="Coverage Chart" />
+</div>
 
 </body>
 </html>
