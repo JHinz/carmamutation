@@ -96,7 +96,7 @@
 					<#assign mutId = mutId+1 >
 					<#if mutant.isSurvived() >
 					<tr>
-			  			<td class="numLineSurvived">&nbsp;${sourceLine.lineNo}</td>
+			  			<td class="numLineSurvived">${sourceLine.lineNo}</td>
 
 			  			<td class="src"><pre class="src"><span class="srcUncovered"><a <a onmouseover="TagToTip('Tooltip${mutId}', BGCOLOR, '#ffdddd')">&nbsp;${line}</a></span></pre></td>
 						<span id="Tooltip${mutId}">
