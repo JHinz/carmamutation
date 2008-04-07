@@ -3,29 +3,28 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-		<title>Mutation Coverage Report Packages</title>
+		<title>Carma Report Packages</title>
 		<link title="Style" type="text/css" rel="stylesheet" href="css/main.css"/>
 	</head>
 	<body>
-		<h5>
-			Packages
-		</h5>
-		<div class="separator">&nbsp;</div>
-		<table width="100%">
-			<tbody>
-			<tr>
-				<td nowrap="nowrap"><a target="mcov_summary" href="summary.html">All</a></td>
-			</tr>
+		<h5>Packages</h5>
+		<div id="packageTable">
+			<table>
+				<tbody>
+				<tr>
+					<td><a target="mcov_summary" href="summary.html">All</a></td>
+				</tr>
 
-		<#list packageInfo.packageNames as packageName >
-    		<#assign packageReportFileName ="summary-" +packageName +".html" >
-			<tr>
-				<td nowrap="nowrap"><a target="mcov_summary" href="${packageReportFileName}">${packageName}</a></td>
-			</tr>
-			
-		</#list>
+					<#list packageInfo.packageNames as packageName >
+    				<#assign packageReportFileName ="summary-" +packageName +".html" >
+					<tr>
+						<td><a target="mcov_summary" href="${packageReportFileName}">${packageName}</a></td>
+					</tr>
+				
+					</#list>
 
-			</tbody>
-		</table>
+				</tbody>
+			</table>
+		</div>
 	</body>
 </html>
