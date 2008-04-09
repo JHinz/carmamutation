@@ -7,7 +7,7 @@
 	<groupId>com.retroduction.carma</groupId>
 	<artifactId>MetaDefinition</artifactId>
 	<packaging>pom</packaging>
-	<version>0.2-SNAPSHOT</version>
+	<version>0.2</version>
 	<name>Retroduction Carma Meta Definition Project</name>
 
 	<profiles>

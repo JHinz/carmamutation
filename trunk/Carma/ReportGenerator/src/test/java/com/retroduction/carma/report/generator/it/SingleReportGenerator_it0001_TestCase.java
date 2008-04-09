@@ -51,7 +51,7 @@ public class SingleReportGenerator_it0001_TestCase extends TestCase {
 		
 		
 		this.assertFileMatch("css/main.css");
-		this.assertFileMatch("css/source-viewer.css");
+		this.assertFileMatch("css/sources.css");
 		this.assertFileMatch("index.html");
 		this.assertFileMatch("packages.html");
 		this.assertFileMatch("classlist.html");
