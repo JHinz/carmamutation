@@ -39,7 +39,7 @@
 		<property name="resources">
 			<list>
 				<value>main.css</value>
-				<value>source-viewer.css</value>
+				<value>sources.css</value>
 			</list>
 		</property>
 	</bean>
