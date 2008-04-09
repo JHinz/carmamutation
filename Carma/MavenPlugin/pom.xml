@@ -5,14 +5,14 @@
 	<parent>
 		<groupId>com.retroduction.carma</groupId>
 		<artifactId>MetaDefinition</artifactId>
-		<version>0.2-SNAPSHOT</version>
+		<version>0.2</version>
 		<relativePath>../MetaDefinition/pom.xml</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.retroduction.carma</groupId>
 	<artifactId>MavenPlugin</artifactId>
-	<version>0.2-SNAPSHOT</version>
+	<version>0.2</version>
 	<packaging>maven-plugin</packaging>
 	<name>Retroduction Carma Maven Plugin</name>
 
@@ -21,7 +21,7 @@
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>Integration</artifactId>
-			<version>0.2-SNAPSHOT</version>
+			<version>0.2</version>
 		</dependency>
 
 		<dependency>

@@ -7,7 +7,7 @@
 	<groupId>com.retroduction.test.resolvers</groupId>
 	<artifactId>it0002</artifactId>
 	<packaging>jar</packaging>
-	<version>0.2-SNAPSHOT</version>
+	<version>0.2</version>
 	<name>Resolver Integration Test 00002</name>
 
 	<build>
