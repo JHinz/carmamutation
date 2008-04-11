@@ -14,7 +14,7 @@
     	<repository>
       		<id>repo.retroduction.org</id>
       		<name>Retroduction Public Repository</name>
-      		<url>scp://retroduction.org/home/retroduc/www/repo/</url>
+      		<url>scp://retroduction.org/home/retroduc/www/repository/</url>
     	</repository>
   	</distributionManagement>
 
