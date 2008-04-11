@@ -9,6 +9,14 @@
 	<packaging>pom</packaging>
 	<version>0.2</version>
 	<name>Retroduction Carma Meta Definition Project</name>
+	
+	<distributionManagement>
+    	<repository>
+      		<id>repo.retroduction.org</id>
+      		<name>Retroduction Public Repository</name>
+      		<url>scp://retroduction.org/home/retroduc/www/repo/</url>
+    	</repository>
+  	</distributionManagement>
 
 	<profiles>
 		<profile>
