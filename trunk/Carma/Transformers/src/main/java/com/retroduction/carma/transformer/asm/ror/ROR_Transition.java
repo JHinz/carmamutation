@@ -76,8 +76,8 @@ public abstract class ROR_Transition extends AbstractASMTransition {
 	protected int targetInstruction;
 
 	@Override
-	protected void checkNode(ClassNode classNode, MethodNode methodNode, List<Mutant> result,
-			int currentInstructionLineNumber, AbstractInsnNode node) {
+	protected void checkNode(ClassNode classNode, MethodNode methodNode, List<Mutant> result, JCovInfo jcovInfo,
+			AbstractInsnNode node) {
 
 		if (node instanceof JumpInsnNode) {
 
@@ -91,7 +91,10 @@ public abstract class ROR_Transition extends AbstractASMTransition {
 				classNode.accept(writer);
 
 				SourceCodeMapping sourceMapping = new SourceCodeMapping();
-				sourceMapping.setLineNo(currentInstructionLineNumber);
+				sourceMapping.setLineStart(jcovInfo.getStartLine());
+				sourceMapping.setLineEnd(jcovInfo.getEndLine());
+				sourceMapping.setColumnStart(jcovInfo.getStartColumn());
+				sourceMapping.setColumnEnd(jcovInfo.getEndColumn());
 
 				Mutant mutant = new Mutant();
 				mutant.setByteCode(writer.toByteArray());

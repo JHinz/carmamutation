@@ -103,7 +103,10 @@ public class ReportEventListenerTestCase extends TestCase {
 
 			SourceCodeMapping sourceCodeMapping = new SourceCodeMapping();
 			sourceCodeMapping.setClassName("sourceCodeMappingClassName");
-			sourceCodeMapping.setLineNo(42);
+			sourceCodeMapping.setLineStart(42);
+			sourceCodeMapping.setLineEnd(43);
+			sourceCodeMapping.setColumnStart(44);
+			sourceCodeMapping.setColumnEnd(45);
 			sourceCodeMapping.setSourceFile("sourceFile");
 
 			mutant.setSourceMapping(sourceCodeMapping);
@@ -154,13 +157,18 @@ public class ReportEventListenerTestCase extends TestCase {
 		assertTrue(executedTestNames.contains("test2"));
 
 		assertEquals(1, listener.run.getClassUnderTest().get(0).getMutant().size());
-		assertEquals(42, listener.run.getClassUnderTest().get(0).getMutant().get(0).getBaseSourceLine());
+		assertEquals(42, listener.run.getClassUnderTest().get(0).getMutant().get(0).getBaseSourceLineStart());
+		assertEquals(43, listener.run.getClassUnderTest().get(0).getMutant().get(0).getBaseSourceLineEnd());
+		assertEquals(44, listener.run.getClassUnderTest().get(0).getMutant().get(0).getBaseSourceColumnStart());
+		assertEquals(45, listener.run.getClassUnderTest().get(0).getMutant().get(0).getBaseSourceColumnEnd());
 		assertEquals("mutantName", listener.run.getClassUnderTest().get(0).getMutant().get(0).getName());
-		assertEquals("MockTransition", listener.run.getClassUnderTest().get(0).getMutant().get(0).getTransition());
+		assertEquals("MockTransition", listener.run.getClassUnderTest().get(0).getMutant().get(0)
+				.getTransition());
 		assertEquals("MockTransitionGroup", listener.run.getClassUnderTest().get(0).getMutant().get(0)
 				.getTransitionGroup());
 		assertEquals(1, listener.run.getClassUnderTest().get(0).getMutant().get(0).getKillerTests().size());
-		assertEquals("test2", listener.run.getClassUnderTest().get(0).getMutant().get(0).getKillerTests().get(0));
+		assertEquals("test2", listener.run.getClassUnderTest().get(0).getMutant().get(0).getKillerTests()
+				.get(0));
 	}
 
 	public void test_TestSetNotSane() throws JAXBException {

@@ -129,7 +129,7 @@ public class AOR_Transition_TestCase extends TestCase {
 		assertEquals(1, mutants.size());
 
 		{
-			assertEquals(17, mutants.get(0).getSourceMapping().getLineNo());
+			assertEquals(17, mutants.get(0).getSourceMapping().getLineStart());
 
 			TestClassLoader loader = new TestClassLoader();
 
