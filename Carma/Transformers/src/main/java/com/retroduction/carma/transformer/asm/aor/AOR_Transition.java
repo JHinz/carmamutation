@@ -21,53 +21,53 @@ import com.retroduction.carma.core.api.testrunners.om.SourceCodeMapping;
 import com.retroduction.carma.transformer.asm.AbstractASMTransition;
 
 public abstract class AOR_Transition extends AbstractASMTransition {
-	
+
 	/*
 	 * 2 Integer byte code comparisons implemented:
 	 * 
-	 *      EQ   NE   LT   LE   GT   GE
+	 * EQ NE LT LE GT GE
 	 * 
-	 * EQ   --  impl  --   --   --   --
+	 * EQ -- impl -- -- -- --
 	 * 
-	 * NE   impl --   --   --   --   --
+	 * NE impl -- -- -- -- --
 	 * 
-	 * LT   --   --   --   --   --  impl
+	 * LT -- -- -- -- -- impl
 	 * 
-	 * LE   --   --   --   --   impl --
+	 * LE -- -- -- -- impl --
 	 * 
-	 * GT   --   --   --  impl  --   --
+	 * GT -- -- -- impl -- --
 	 * 
-	 * GE   --   --  impl  --   --   --
+	 * GE -- -- impl -- -- --
 	 * 
 	 */
-	
+
 	/*
 	 * Integer/Const value byte code comparisons implemented:
 	 * 
-	 *      EQ   NE   LT   LE   GT   GE
+	 * EQ NE LT LE GT GE
 	 * 
-	 * EQ   --  impl  --   --   --   --
+	 * EQ -- impl -- -- -- --
 	 * 
-	 * NE   impl --   --   --   --   --
+	 * NE impl -- -- -- -- --
 	 * 
-	 * LT   --   --   --   --   --  impl
+	 * LT -- -- -- -- -- impl
 	 * 
-	 * LE   --   --   --   --   impl --
+	 * LE -- -- -- -- impl --
 	 * 
-	 * GT   --   --   --  impl  --   --
+	 * GT -- -- -- impl -- --
 	 * 
-	 * GE   --   --  impl  --   --   --
+	 * GE -- -- impl -- -- --
 	 * 
 	 */
-	
+
 	/*
 	 * Reference byte code comparisons implemented:
 	 * 
-	 *      EQ   NE   
+	 * EQ NE
 	 * 
-	 * EQ   --  impl   
+	 * EQ -- impl
 	 * 
-	 * NE  impl  --  
+	 * NE impl --
 	 * 
 	 */
 
@@ -76,7 +76,7 @@ public abstract class AOR_Transition extends AbstractASMTransition {
 	protected int targetInstruction;
 
 	@Override
-	protected void checkNode(ClassNode classNode, MethodNode methodNode, List<Mutant> result, int currentInstructionLineNumber,
+	protected void checkNode(ClassNode classNode, MethodNode methodNode, List<Mutant> result, JCovInfo jcovInfo,
 			AbstractInsnNode node) {
 
 		if (node instanceof InsnNode) {
@@ -84,16 +84,19 @@ public abstract class AOR_Transition extends AbstractASMTransition {
 			InsnNode sourceNode = (InsnNode) node;
 
 			if (sourceNode.getOpcode() == this.sourceInstruction) {
-				
+
 				InsnNode targetNode = new InsnNode(this.targetInstruction);
-								
+
 				methodNode.instructions.set(sourceNode, targetNode);
-				
+
 				ClassWriter writer = new ClassWriter(0);
 				classNode.accept(writer);
 
 				SourceCodeMapping sourceMapping = new SourceCodeMapping();
-				sourceMapping.setLineNo(currentInstructionLineNumber);
+				sourceMapping.setLineStart(jcovInfo.getStartLine());
+				sourceMapping.setLineEnd(jcovInfo.getEndLine());
+				sourceMapping.setColumnStart(jcovInfo.getStartColumn());
+				sourceMapping.setColumnEnd(jcovInfo.getEndColumn());
 
 				Mutant mutant = new Mutant();
 				mutant.setByteCode(writer.toByteArray());
@@ -102,7 +105,7 @@ public abstract class AOR_Transition extends AbstractASMTransition {
 				mutant.setTransition(this);
 
 				result.add(mutant);
-				
+
 				methodNode.instructions.set(targetNode, sourceNode);
 
 			}

@@ -38,7 +38,10 @@
 			<xs:element name="transition" type="xs:string" />
 			<xs:element name="sourceInstruction" type="xs:string" />
 			<xs:element name="targetInstruction" type="xs:string" />
-			<xs:element name="baseSourceLine" type="xs:long" />
+			<xs:element name="baseSourceLineStart" type="xs:long" />
+			<xs:element name="baseSourceLineEnd" type="xs:long" />
+			<xs:element name="baseSourceColumnStart" type="xs:long" />
+			<xs:element name="baseSourceColumnEnd" type="xs:long" />
 			<xs:element name="killerTests" type="xs:string"
 				minOccurs="0" maxOccurs="unbounded" />
 		</xs:sequence>

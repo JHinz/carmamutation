@@ -19,6 +19,6 @@ public class ISUB_2_IADD_Transition extends AOR_Transition {
 	}
 
 	public String getName() {
-		return "ISUB_to_ISUB";
+		return "ISUB_to_IADD";
 	}
 }

@@ -16,20 +16,29 @@
             <survived>true</survived>
             <transitionGroup>ROR</transitionGroup>
             <transition>IF_ICMPLE_to_IF_ICMPGT</transition>
-            <baseSourceLine>27</baseSourceLine>
+            <baseSourceLineStart>27</baseSourceLineStart>
+            <baseSourceLineEnd>27</baseSourceLineEnd>
+            <baseSourceColumnStart>0</baseSourceColumnStart>
+            <baseSourceColumnEnd>0</baseSourceColumnEnd>
         </mutant>
         <mutant>
             <survived>false</survived>
             <transitionGroup>ROR</transitionGroup>
             <transition>IFEQ_to_IFNE</transition>
-            <baseSourceLine>11</baseSourceLine>
+            <baseSourceLineStart>11</baseSourceLineStart>
+            <baseSourceLineEnd>11</baseSourceLineEnd>
+            <baseSourceColumnStart>0</baseSourceColumnStart>
+            <baseSourceColumnEnd>0</baseSourceColumnEnd>
             <killerTests>com.mutation.sampleapp.AppTest</killerTests>
         </mutant>
         <mutant>
             <survived>true</survived>
             <transitionGroup>ROR</transitionGroup>
             <transition>IFEQ_to_IFNE</transition>
-            <baseSourceLine>19</baseSourceLine>
+            <baseSourceLineStart>19</baseSourceLineStart>
+            <baseSourceLineEnd>19</baseSourceLineEnd>
+            <baseSourceColumnStart>0</baseSourceColumnStart>
+            <baseSourceColumnEnd>0</baseSourceColumnEnd>
         </mutant>
         <executedTests>com.mutation.sampleapp.AppTest</executedTests>
     </classUnderTest>

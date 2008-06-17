@@ -17,6 +17,7 @@ import com.retroduction.carma.utilities.ClassNameUtil;
 import com.retroduction.carma.xmlreport.om.ClassUnderTest;
 
 public class ClassCoverageInfoCreator {
+	
 	public CoverageInfo createCoverageInfo(ClassUnderTest cut) {
 		String className = ClassNameUtil.getFqName(cut.getPackageName(), cut.getClassName());
 		int numMutants = (int) cut.getMutationRatio().getMutationCount();
@@ -25,9 +26,10 @@ public class ClassCoverageInfoCreator {
 		info.setNumTests(cut.getExecutedTests().size());
 		return info;
 	}
+
 	public List<CoverageInfo> createCoverageInfo(Collection<ClassUnderTest> cutList) {
 		List<CoverageInfo> classes = new ArrayList<CoverageInfo>(cutList.size());
-		for(ClassUnderTest cut : cutList){
+		for (ClassUnderTest cut : cutList) {
 			CoverageInfo info = this.createCoverageInfo(cut);
 			classes.add(info);
 		}

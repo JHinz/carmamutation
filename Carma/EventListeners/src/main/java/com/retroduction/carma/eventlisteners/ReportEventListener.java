@@ -57,7 +57,6 @@ public class ReportEventListener implements IEventListener {
 
 	private boolean writeTimingInfo;
 
-	
 	public ReportEventListener(String fileName) throws JAXBException {
 
 		this.log.info("Initializing XML report: " + fileName);
@@ -85,7 +84,8 @@ public class ReportEventListener implements IEventListener {
 
 		try {
 			if (this.writeTimingInfo) {
-				ProcessingInfo info = this.createTimingInformation(this.runProcessingStart, this.runProcessingEnd);
+				ProcessingInfo info = this.createTimingInformation(this.runProcessingStart,
+						this.runProcessingEnd);
 				this.run.setProcessingInfo(info);
 			}
 		} catch (DatatypeConfigurationException e) {
@@ -121,7 +121,8 @@ public class ReportEventListener implements IEventListener {
 		if (event instanceof ProcessingClassUnderTestFinished) {
 			try {
 				if (this.writeTimingInfo) {
-					ProcessingInfo info = this.createTimingInformation(this.classProcessingStart, System.currentTimeMillis());
+					ProcessingInfo info = this.createTimingInformation(this.classProcessingStart,
+							System.currentTimeMillis());
 					this.currentClassUnderTestSubReport.setProcessingInfo(info);
 				}
 			} catch (DatatypeConfigurationException e) {
@@ -132,10 +133,14 @@ public class ReportEventListener implements IEventListener {
 		}
 
 		if (event instanceof ProcessingMutant) {
-			com.retroduction.carma.core.api.testrunners.om.Mutant mutant = ((ProcessingMutant) event).getMutant();
+			com.retroduction.carma.core.api.testrunners.om.Mutant mutant = ((ProcessingMutant) event)
+					.getMutant();
 			Mutant mutantInfo = new Mutant();
 			mutantInfo.setName(mutant.getName());
-			mutantInfo.setBaseSourceLine(mutant.getSourceMapping().getLineNo());
+			mutantInfo.setBaseSourceLineStart(mutant.getSourceMapping().getLineStart());
+			mutantInfo.setBaseSourceLineEnd(mutant.getSourceMapping().getLineEnd());
+			mutantInfo.setBaseSourceColumnStart(mutant.getSourceMapping().getColumnStart());
+			mutantInfo.setBaseSourceColumnEnd(mutant.getSourceMapping().getColumnEnd());
 
 			if (mutant.getTransitionGroup() != null) {
 				mutantInfo.setTransitionGroup(mutant.getTransitionGroup().getName());
@@ -146,8 +151,8 @@ public class ReportEventListener implements IEventListener {
 			}
 			this.currentMutantReport = mutantInfo;
 			this.currentClassUnderTestSubReport.getMutant().add(this.currentMutantReport);
-			this.currentClassUnderTestSubReport.setBaseSourceFile(((ProcessingMutant) event).getMutant().getSourceMapping()
-					.getSourceFile());
+			this.currentClassUnderTestSubReport.setBaseSourceFile(((ProcessingMutant) event).getMutant()
+					.getSourceMapping().getSourceFile());
 			return;
 		}
 
@@ -156,10 +161,12 @@ public class ReportEventListener implements IEventListener {
 			TestsExecuted eventObj = (TestsExecuted) event;
 			this.currentMutantReport.setSurvived(eventObj.getMutant().isSurvived());
 			this.currentMutantReport.getKillerTests().addAll(eventObj.getMutant().getKillerTestNames());
-			// TODO not very beautiful here - is executed for each mutant for
+			// TODO not very beautiful here - is executed for each
+			// mutant for
 			// relevant for whole class
 			this.currentClassUnderTestSubReport.getExecutedTests().clear();
-			this.currentClassUnderTestSubReport.getExecutedTests().addAll(eventObj.getMutant().getExecutedTestsNames());
+			this.currentClassUnderTestSubReport.getExecutedTests().addAll(
+					eventObj.getMutant().getExecutedTestsNames());
 
 			return;
 
@@ -183,7 +190,7 @@ public class ReportEventListener implements IEventListener {
 		info.setEnd(DatatypeFactory.newInstance().newXMLGregorianCalendar(this.calendar));
 		return info;
 	}
-	
+
 	public boolean isWriteTimingInfo() {
 		return this.writeTimingInfo;
 	}
@@ -191,6 +198,5 @@ public class ReportEventListener implements IEventListener {
 	public void setWriteTimingInfo(boolean writeTimingInfo) {
 		this.writeTimingInfo = writeTimingInfo;
 	}
-
 
 }

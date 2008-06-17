@@ -75,6 +75,7 @@ public class SingleReportGenerator {
 				coverageReport.generateReport(report, project, outputDirectory);
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new ReportGeneratorException("Report Generation Failed: " + e.getMessage(), e);
 		}
 

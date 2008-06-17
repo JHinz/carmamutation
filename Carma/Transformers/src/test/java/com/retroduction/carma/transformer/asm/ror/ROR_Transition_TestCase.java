@@ -36,7 +36,7 @@ public class ROR_Transition_TestCase extends TestCase {
 		assertEquals(2, mutants.size());
 
 		{
-			assertEquals(17, mutants.get(0).getSourceMapping().getLineNo());
+			assertEquals(17, mutants.get(0).getSourceMapping().getLineStart());
 
 			TestClassLoader loader = new TestClassLoader();
 
@@ -62,7 +62,7 @@ public class ROR_Transition_TestCase extends TestCase {
 		}
 
 		{
-			assertEquals(18, mutants.get(1).getSourceMapping().getLineNo());
+			assertEquals(18, mutants.get(1).getSourceMapping().getLineStart());
 
 			TestClassLoader loader = new TestClassLoader();
 
@@ -105,7 +105,7 @@ public class ROR_Transition_TestCase extends TestCase {
 		assertEquals(1, mutants.size());
 
 		{
-			assertEquals(17, mutants.get(0).getSourceMapping().getLineNo());
+			assertEquals(17, mutants.get(0).getSourceMapping().getLineStart());
 
 			TestClassLoader loader = new TestClassLoader();
 
@@ -149,7 +149,7 @@ public class ROR_Transition_TestCase extends TestCase {
 		assertEquals(1, mutants.size());
 
 		{
-			assertEquals(17, mutants.get(0).getSourceMapping().getLineNo());
+			assertEquals(17, mutants.get(0).getSourceMapping().getLineStart());
 
 			TestClassLoader loader = new TestClassLoader();
 
@@ -193,7 +193,7 @@ public class ROR_Transition_TestCase extends TestCase {
 		assertEquals(1, mutants.size());
 
 		{
-			assertEquals(17, mutants.get(0).getSourceMapping().getLineNo());
+			assertEquals(17, mutants.get(0).getSourceMapping().getLineStart());
 
 			TestClassLoader loader = new TestClassLoader();
 
@@ -242,7 +242,7 @@ public class ROR_Transition_TestCase extends TestCase {
 		assertEquals(1, mutants.size());
 
 		{
-			assertEquals(17, mutants.get(0).getSourceMapping().getLineNo());
+			assertEquals(17, mutants.get(0).getSourceMapping().getLineStart());
 
 			TestClassLoader loader = new TestClassLoader();
 
@@ -291,7 +291,7 @@ public class ROR_Transition_TestCase extends TestCase {
 		assertEquals(1, mutants.size());
 
 		{
-			assertEquals(17, mutants.get(0).getSourceMapping().getLineNo());
+			assertEquals(17, mutants.get(0).getSourceMapping().getLineStart());
 
 			TestClassLoader loader = new TestClassLoader();
 
@@ -340,7 +340,7 @@ public class ROR_Transition_TestCase extends TestCase {
 		assertEquals(1, mutants.size());
 
 		{
-			assertEquals(17, mutants.get(0).getSourceMapping().getLineNo());
+			assertEquals(17, mutants.get(0).getSourceMapping().getLineStart());
 
 			TestClassLoader loader = new TestClassLoader();
 
@@ -389,7 +389,7 @@ public class ROR_Transition_TestCase extends TestCase {
 		assertEquals(1, mutants.size());
 
 		{
-			assertEquals(27, mutants.get(0).getSourceMapping().getLineNo());
+			assertEquals(27, mutants.get(0).getSourceMapping().getLineStart());
 
 			TestClassLoader loader = new TestClassLoader();
 
@@ -433,7 +433,7 @@ public class ROR_Transition_TestCase extends TestCase {
 		assertEquals(1, mutants.size());
 
 		{
-			assertEquals(27, mutants.get(0).getSourceMapping().getLineNo());
+			assertEquals(27, mutants.get(0).getSourceMapping().getLineStart());
 
 			TestClassLoader loader = new TestClassLoader();
 
@@ -477,7 +477,7 @@ public class ROR_Transition_TestCase extends TestCase {
 		assertEquals(1, mutants.size());
 
 		{
-			assertEquals(27, mutants.get(0).getSourceMapping().getLineNo());
+			assertEquals(27, mutants.get(0).getSourceMapping().getLineStart());
 
 			TestClassLoader loader = new TestClassLoader();
 
@@ -526,7 +526,7 @@ public class ROR_Transition_TestCase extends TestCase {
 		assertEquals(1, mutants.size());
 
 		{
-			assertEquals(27, mutants.get(0).getSourceMapping().getLineNo());
+			assertEquals(27, mutants.get(0).getSourceMapping().getLineStart());
 
 			TestClassLoader loader = new TestClassLoader();
 
@@ -575,7 +575,7 @@ public class ROR_Transition_TestCase extends TestCase {
 		assertEquals(1, mutants.size());
 
 		{
-			assertEquals(27, mutants.get(0).getSourceMapping().getLineNo());
+			assertEquals(27, mutants.get(0).getSourceMapping().getLineStart());
 
 			TestClassLoader loader = new TestClassLoader();
 
@@ -624,7 +624,7 @@ public class ROR_Transition_TestCase extends TestCase {
 		assertEquals(1, mutants.size());
 
 		{
-			assertEquals(27, mutants.get(0).getSourceMapping().getLineNo());
+			assertEquals(27, mutants.get(0).getSourceMapping().getLineStart());
 
 			TestClassLoader loader = new TestClassLoader();
 
@@ -673,7 +673,7 @@ public class ROR_Transition_TestCase extends TestCase {
 		assertEquals(1, mutants.size());
 
 		{
-			assertEquals(37, mutants.get(0).getSourceMapping().getLineNo());
+			assertEquals(37, mutants.get(0).getSourceMapping().getLineStart());
 
 			TestClassLoader loader = new TestClassLoader();
 
@@ -723,7 +723,7 @@ public class ROR_Transition_TestCase extends TestCase {
 		assertEquals(1, mutants.size());
 
 		{
-			assertEquals(37, mutants.get(0).getSourceMapping().getLineNo());
+			assertEquals(37, mutants.get(0).getSourceMapping().getLineStart());
 
 			TestClassLoader loader = new TestClassLoader();
 
@@ -773,7 +773,7 @@ public class ROR_Transition_TestCase extends TestCase {
 		assertEquals(1, mutants.size());
 
 		{
-			assertEquals(17, mutants.get(0).getSourceMapping().getLineNo());
+			assertEquals(17, mutants.get(0).getSourceMapping().getLineStart());
 
 			TestClassLoader loader = new TestClassLoader();
 
@@ -822,7 +822,7 @@ public class ROR_Transition_TestCase extends TestCase {
 		assertEquals(1, mutants.size());
 
 		{
-			assertEquals(17, mutants.get(0).getSourceMapping().getLineNo());
+			assertEquals(17, mutants.get(0).getSourceMapping().getLineStart());
 
 			TestClassLoader loader = new TestClassLoader();
 
