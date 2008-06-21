@@ -102,7 +102,8 @@ public class SourceDumpTestCase extends TestCase {
 		}
 
 		{
-			mutants = new ArrayList<Mutant>();
+			ArrayList<Mutant> mutants1 = new ArrayList<Mutant>();
+			ArrayList<Mutant> mutants2 = new ArrayList<Mutant>();
 
 			{
 				Mutant mutant = new Mutant();
@@ -113,12 +114,27 @@ public class SourceDumpTestCase extends TestCase {
 				mutant.setBaseSourceLineEnd(6);
 				mutant.setBaseSourceColumnStart(5);
 				mutant.setBaseSourceColumnEnd(2);
-				mutants.add(mutant);
+				mutants1.add(mutant);
+				mutants2.add(mutant);
 			}
 
-			sourceLineInfoList.add(new SourceLineInfo(4, "RSTUVW", mutants));
-			sourceLineInfoList.add(new SourceLineInfo(5, "XYZ", mutants));
-			sourceLineInfoList.add(new SourceLineInfo(6, "ABCDEFGH", mutants));
+			sourceLineInfoList.add(new SourceLineInfo(4, "RSTUVW", mutants1));
+
+			{
+				Mutant mutant = new Mutant();
+				mutant.setName("OverlappingMutant");
+				mutant.setSurvived(true);
+				mutant.setTransition("SomeTransition1");
+				mutant.setBaseSourceLineStart(5);
+				mutant.setBaseSourceLineEnd(5);
+				mutant.setBaseSourceColumnStart(2);
+				mutant.setBaseSourceColumnEnd(3);
+				mutants2.add(mutant);
+			}
+
+			sourceLineInfoList.add(new SourceLineInfo(5, "XYZ", mutants2));
+			sourceLineInfoList.add(new SourceLineInfo(6, "ABCDEFGH", mutants1));
+
 		}
 
 		sourceLineInfoList.add(new SourceLineInfo(7, "..............", null));
@@ -266,7 +282,7 @@ public class SourceDumpTestCase extends TestCase {
 		out.write("</body></html>");
 		out.flush();
 
-		//System.out.println(out.toString());
+		// System.out.println(out.toString());
 
 	}
 
