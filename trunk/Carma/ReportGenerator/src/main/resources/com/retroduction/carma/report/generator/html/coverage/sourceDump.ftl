@@ -2,10 +2,10 @@
 	<#assign mutId = 0 >
 	<#list sourceInfo as sourceLine>
 	<tr>
-		<td class="numLine">${sourceLine.lineNo}</td>
-		<td></td>
 		<#if sourceLine.mutantInfo??  >
 		<#list sourceLine.mutantInfo as mutant >
+		<td class="numLine">${sourceLine.lineNo}</td>
+		<td></td>
 		<#assign mutId = mutId + 1 >				
 		<td>
 		<#if mutant.baseSourceColumnStart == 0 || mutant.baseSourceColumnEnd == 0 >
@@ -69,6 +69,8 @@
 		</tr>
 		</#list>
 		<#else>
+			<td class="numLine">${sourceLine.lineNo}</td>
+			<td></td>
 			<td class="src">${sourceLine.text?html}</td>
 		</#if>		
 	</tr>
