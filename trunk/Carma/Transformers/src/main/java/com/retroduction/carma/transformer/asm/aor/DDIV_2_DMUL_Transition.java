@@ -14,8 +14,8 @@ public class DDIV_2_DMUL_Transition extends AOR_Transition {
 
 	public DDIV_2_DMUL_Transition() {
 		super();
-		this.sourceInstruction = Opcodes.DSUB;
-		this.targetInstruction = Opcodes.DADD;
+		this.sourceInstruction = Opcodes.DDIV;
+		this.targetInstruction = Opcodes.DMUL;
 	}
 
 	public String getName() {
