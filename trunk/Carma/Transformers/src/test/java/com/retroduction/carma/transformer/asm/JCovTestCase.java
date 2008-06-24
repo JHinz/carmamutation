@@ -14,6 +14,7 @@ import org.objectweb.asm.tree.MethodNode;
 
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
 import com.retroduction.carma.core.api.testrunners.om.SourceCodeMapping;
+import com.retroduction.carma.transformer.CRTEntry;
 import com.retroduction.carma.utilities.ByteCodeFileReader;
 
 public class JCovTestCase extends TestCase {
@@ -22,7 +23,7 @@ public class JCovTestCase extends TestCase {
 
 		@Override
 		protected void checkNode(ClassNode classNode, MethodNode methodNode, List<Mutant> result,
-				JCovInfo jcovInfo, AbstractInsnNode node) {
+				CRTEntry jcovInfo, AbstractInsnNode node) {
 
 			if (node instanceof InsnNode) {
 
@@ -57,9 +58,9 @@ public class JCovTestCase extends TestCase {
 
 		assertEquals(5, mutants.size());
 
-		assertEquals(3, mutants.get(0).getSourceMapping().getLineStart());
+		assertEquals(0, mutants.get(0).getSourceMapping().getLineStart());
 		assertEquals(0, mutants.get(0).getSourceMapping().getColumnStart());
-		assertEquals(3, mutants.get(0).getSourceMapping().getLineEnd());
+		assertEquals(0, mutants.get(0).getSourceMapping().getLineEnd());
 		assertEquals(0, mutants.get(0).getSourceMapping().getColumnEnd());
 
 		assertEquals(6, mutants.get(1).getSourceMapping().getLineStart());
