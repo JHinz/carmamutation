@@ -47,6 +47,8 @@ public class CharacterRangeTable extends Attribute {
 	@Override
 	protected Attribute read(ClassReader cr, int off, int len, char[] buf, int codeOff, Label[] labels) {
 
+		CharacterRangeTable crt = new CharacterRangeTable();
+		
 		ByteBuffer bb = ByteBuffer.wrap(cr.b, off, len);
 		bb.order(ByteOrder.BIG_ENDIAN);
 
@@ -70,7 +72,7 @@ public class CharacterRangeTable extends Attribute {
 
 		}
 
-		this.labelOffsets = new HashMap<Label, CRTEntry>();
+		crt.labelOffsets = new HashMap<Label, CRTEntry>();
 
 		for (CRTEntry entry : lookup.getEntries().values()) {
 
@@ -79,11 +81,11 @@ public class CharacterRangeTable extends Attribute {
 			if (labels[startPC] == null) {
 				labels[startPC] = new Label();
 			}
-			this.labelOffsets.put(labels[startPC], entry);
+			crt.labelOffsets.put(labels[startPC], entry);
 
 		}
 
-		return this;
+		return crt;
 	}
 
 	@Override

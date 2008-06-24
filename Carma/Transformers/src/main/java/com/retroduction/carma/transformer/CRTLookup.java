@@ -10,6 +10,14 @@ public class CRTLookup {
 
 		if (!entryList.containsKey(entry.getStartPC())) {
 			entryList.put(entry.getStartPC(), entry);
+		} else {
+			System.out.println("Conflicting CRTEntry");
+			CRTEntry originalEntry = entryList.get(entry.getStartPC());
+			if (entry.getEndPC() - entry.getStartPC() < originalEntry.getEndPC()
+					- originalEntry.getStartPC()) {
+				entryList.put(entry.getStartPC(), entry);
+			}
+
 		}
 
 	}
