@@ -16,7 +16,6 @@
 	</moduleSets>
 	<dependencySets>
 		<dependencySet>
-		<!--<useProjectArtifact>false</useProjectArtifact>-->
 		<useTransitiveDependencies>true</useTransitiveDependencies>
 		<outputDirectory>extlibs</outputDirectory>
 		<excludes><exclude>com.retroduction.carma:*</exclude></excludes>
