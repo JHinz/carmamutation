@@ -37,8 +37,6 @@ import com.retroduction.carma.transformer.CharacterRangeTable;
  */
 public abstract class AbstractASMTransition implements ITransition {
 
-	
-
 	public List<Mutant> applyTransitions(byte[] byteCode) {
 
 		ClassNode classNode = new ClassNode();
@@ -55,12 +53,13 @@ public abstract class AbstractASMTransition implements ITransition {
 
 			Iterator<AbstractInsnNode> instructionIterator = methodNode.instructions.iterator();
 
-			CharacterRangeTable crt = new CharacterRangeTable();
+			CharacterRangeTable crt = null;
 
 			if (methodNode.attrs != null) {
 				for (Attribute attr : (List<Attribute>) methodNode.attrs) {
 					if (attr instanceof CharacterRangeTable) {
 						crt = (CharacterRangeTable) attr;
+						System.out.println("CRT Size: " + crt.getLabelOffsets().size());
 					}
 				}
 			}
@@ -72,16 +71,17 @@ public abstract class AbstractASMTransition implements ITransition {
 				AbstractInsnNode node = instructionIterator.next();
 
 				if (node instanceof LineNumberNode) {
-					if (crt.getLabelOffsets() == null) {
+					if (crt == null) {
 						crtEntry.setStartPos(((LineNumberNode) node).line << 10);
 						crtEntry.setEndPos(((LineNumberNode) node).line << 10);
+						System.out.println("Using legacy LineNumber info:" + crtEntry.getStartPos());
 					}
 					continue;
 				}
 
 				if ((node instanceof LabelNode)) {
-			
-					if (crt.getLabelOffsets() == null)
+
+					if (crt == null)
 						continue;
 
 					if (crt.getLabelOffsets().containsKey(((LabelNode) node).getLabel())) {

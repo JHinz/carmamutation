@@ -96,6 +96,8 @@ public abstract class ROR_Transition extends AbstractASMTransition {
 				sourceMapping.setLineEnd(jcovInfo.getEndLine());
 				sourceMapping.setColumnStart(jcovInfo.getStartColumn());
 				sourceMapping.setColumnEnd(jcovInfo.getEndColumn());
+				
+				System.out.println("Start: " + jcovInfo.getStartLine());
 
 				Mutant mutant = new Mutant();
 				mutant.setByteCode(writer.toByteArray());
