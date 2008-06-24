@@ -18,6 +18,7 @@ import org.objectweb.asm.tree.MethodNode;
 
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
 import com.retroduction.carma.core.api.testrunners.om.SourceCodeMapping;
+import com.retroduction.carma.transformer.CRTEntry;
 import com.retroduction.carma.transformer.asm.AbstractASMTransition;
 
 public abstract class ROR_Transition extends AbstractASMTransition {
@@ -76,7 +77,7 @@ public abstract class ROR_Transition extends AbstractASMTransition {
 	protected int targetInstruction;
 
 	@Override
-	protected void checkNode(ClassNode classNode, MethodNode methodNode, List<Mutant> result, JCovInfo jcovInfo,
+	protected void checkNode(ClassNode classNode, MethodNode methodNode, List<Mutant> result, CRTEntry jcovInfo,
 			AbstractInsnNode node) {
 
 		if (node instanceof JumpInsnNode) {

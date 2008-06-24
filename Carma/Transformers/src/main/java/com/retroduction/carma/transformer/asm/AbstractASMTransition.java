@@ -14,7 +14,6 @@ import java.util.List;
 
 import org.objectweb.asm.Attribute;
 import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.Label;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.LabelNode;
@@ -23,7 +22,8 @@ import org.objectweb.asm.tree.MethodNode;
 
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
 import com.retroduction.carma.core.api.transitions.ITransition;
-import com.retroduction.carma.transformer.asm.CharacterRangeTable.Entry;
+import com.retroduction.carma.transformer.CRTEntry;
+import com.retroduction.carma.transformer.CharacterRangeTable;
 
 /**
  * 
@@ -37,44 +37,7 @@ import com.retroduction.carma.transformer.asm.CharacterRangeTable.Entry;
  */
 public abstract class AbstractASMTransition implements ITransition {
 
-	public class JCovInfo {
-		int startColumn = 0;
-		int endColumn = 0;
-		int startLine = 0;
-		int endLine = 0;
-
-		public int getStartColumn() {
-			return startColumn;
-		}
-
-		public void setStartColumn(int startColumn) {
-			this.startColumn = startColumn;
-		}
-
-		public int getEndColumn() {
-			return endColumn;
-		}
-
-		public void setEndColumn(int endColumn) {
-			this.endColumn = endColumn;
-		}
-
-		public int getStartLine() {
-			return startLine;
-		}
-
-		public void setStartLine(int startLine) {
-			this.startLine = startLine;
-		}
-
-		public int getEndLine() {
-			return endLine;
-		}
-
-		public void setEndLine(int endLine) {
-			this.endLine = endLine;
-		}
-	}
+	
 
 	public List<Mutant> applyTransitions(byte[] byteCode) {
 
@@ -102,39 +65,32 @@ public abstract class AbstractASMTransition implements ITransition {
 				}
 			}
 
-			int nodeCount = 0;
+			CRTEntry crtEntry = new CRTEntry();
 
-			JCovInfo jcovInfo = new JCovInfo();
-			int jcovLookupIndex = 0;
 			while (instructionIterator.hasNext()) {
 
 				AbstractInsnNode node = instructionIterator.next();
 
-				if ((node instanceof LineNumberNode)) {
-					jcovInfo.setStartLine(((LineNumberNode) node).line);
-					jcovInfo.setEndLine(((LineNumberNode) node).line);
-					continue;
-				}
-
-				if ((node instanceof LabelNode)) {
-					LabelNode labelNode = (LabelNode) node;
-					Label label = labelNode.getLabel();
-					if (label instanceof OffsetStartLabel) {
-						jcovLookupIndex = label.getOffset();
-
+				if (node instanceof LineNumberNode) {
+					if (crt.getLabelOffsets() == null) {
+						crtEntry.setStartPos(((LineNumberNode) node).line << 10);
+						crtEntry.setEndPos(((LineNumberNode) node).line << 10);
 					}
 					continue;
 				}
 
-				if (crt.getEntries().size() > nodeCount) {
-					Entry crtEntry = crt.getEntries().get(jcovLookupIndex);
-					if (crtEntry != null)
-						calculateLinesAndColumns(jcovInfo, crtEntry);
+				if ((node instanceof LabelNode)) {
+			
+					if (crt.getLabelOffsets() == null)
+						continue;
+
+					if (crt.getLabelOffsets().containsKey(((LabelNode) node).getLabel())) {
+						crtEntry = crt.getLabelOffsets().get(((LabelNode) node).getLabel());
+					}
+					continue;
 				}
 
-				this.checkNode(classNode, methodNode, result, jcovInfo, node);
-
-				nodeCount++;
+				this.checkNode(classNode, methodNode, result, crtEntry, node);
 
 			}
 			methodIndex++;
@@ -144,14 +100,7 @@ public abstract class AbstractASMTransition implements ITransition {
 		return result;
 	}
 
-	private void calculateLinesAndColumns(JCovInfo jcovInfo, Entry crtEntry) {
-		jcovInfo.setStartColumn(crtEntry.getStartPos() - (crtEntry.getStartPos() >> 10 << 10));
-		jcovInfo.setEndColumn(crtEntry.getEndPos() - (crtEntry.getEndPos() >> 10 << 10));
-		jcovInfo.setStartLine(crtEntry.getStartPos() >> 10);
-		jcovInfo.setEndLine(crtEntry.getEndPos() >> 10);
-	}
-
 	protected abstract void checkNode(ClassNode classNode, MethodNode methodNode, List<Mutant> result,
-			JCovInfo jcovInfo, AbstractInsnNode node);
+			CRTEntry jcovInfo, AbstractInsnNode node);
 
 }
