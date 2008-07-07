@@ -5,6 +5,7 @@ import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.objectweb.asm.Attribute;
 import org.objectweb.asm.ByteVector;
@@ -74,15 +75,18 @@ public class CharacterRangeTable extends Attribute {
 
 		crt.labelOffsets = new HashMap<Label, CRTEntry>();
 
-		for (CRTEntry entry : lookup.getEntries().values()) {
+		for (Map.Entry<Integer, CRTEntry> entry : lookup.getEntries().entrySet()) {
 
-			int startPC = entry.getStartPC();
+			int startPC = entry.getValue().getStartPC();
+			int endPC = entry.getValue().getEndPC();
 
-			if (labels[startPC] == null) {
-				labels[startPC] = new Label();
+			for (int pc = startPC; pc <= endPC; pc++) {
+
+				if (labels[pc] == null) {
+					labels[pc] = new Label();
+				}
+				crt.labelOffsets.put(labels[pc], entry.getValue());
 			}
-			crt.labelOffsets.put(labels[startPC], entry);
-
 		}
 
 		return crt;

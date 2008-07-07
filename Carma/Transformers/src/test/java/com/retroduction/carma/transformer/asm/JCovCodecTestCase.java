@@ -3,12 +3,15 @@ package com.retroduction.carma.transformer.asm;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import junit.framework.TestCase;
 
 import com.retroduction.carma.core.api.testrunners.om.Mutant;
 import com.retroduction.carma.transformer.asm.ror.IFEQ_2_IFNE_Transition;
+import com.retroduction.carma.transformer.asm.ror.IFNE_2_IFEQ_Transition;
 import com.retroduction.carma.utilities.ByteCodeFileReader;
 
 public class JCovCodecTestCase extends TestCase {
@@ -19,21 +22,74 @@ public class JCovCodecTestCase extends TestCase {
 
 		byte[] byteCode = new ByteCodeFileReader().readByteCodeFromDisk(new File(SAMPLE_CLASS_FILENAME));
 
-		IFEQ_2_IFNE_Transition asmTransformer = new IFEQ_2_IFNE_Transition();
-		List<Mutant> mutants = asmTransformer.applyTransitions(byteCode);
+		HashMap<Integer, List<Mutant>> mutantsPerLine = new HashMap<Integer, List<Mutant>>();
 
-		// assertEquals(5, mutants.size());
+		{
+			IFEQ_2_IFNE_Transition asmTransformer = new IFEQ_2_IFNE_Transition();
+			List<Mutant> mutants = asmTransformer.applyTransitions(byteCode);
 
-		assertEquals(101, mutants.get(0).getSourceMapping().getLineStart());
-		assertEquals(101, mutants.get(0).getSourceMapping().getLineEnd());
-		assertEquals(13, mutants.get(0).getSourceMapping().getColumnStart());
-		assertEquals(37, mutants.get(0).getSourceMapping().getColumnEnd());
-		
-		assertEquals(111, mutants.get(1).getSourceMapping().getLineStart());
-		assertEquals(111, mutants.get(1).getSourceMapping().getLineEnd());
-		assertEquals(13, mutants.get(1).getSourceMapping().getColumnStart());
-		assertEquals(31, mutants.get(1).getSourceMapping().getColumnEnd());
+			for (Mutant mutant : mutants) {
 
+				if (!mutantsPerLine.containsKey(mutant.getSourceMapping().getLineStart()))
+					mutantsPerLine.put(mutant.getSourceMapping().getLineStart(),
+							new ArrayList<Mutant>());
+
+				List<Mutant> mutantsAtLine = mutantsPerLine.get(mutant.getSourceMapping()
+						.getLineStart());
+
+				mutantsAtLine.add(mutant);
+			}
+		}
+
+		{
+			IFNE_2_IFEQ_Transition asmTransformer = new IFNE_2_IFEQ_Transition();
+			List<Mutant> mutants = asmTransformer.applyTransitions(byteCode);
+
+			for (Mutant mutant : mutants) {
+
+				if (!mutantsPerLine.containsKey(mutant.getSourceMapping().getLineStart()))
+					mutantsPerLine.put(mutant.getSourceMapping().getLineStart(),
+							new ArrayList<Mutant>());
+
+				List<Mutant> mutantsAtLine = mutantsPerLine.get(mutant.getSourceMapping()
+						.getLineStart());
+
+				mutantsAtLine.add(mutant);
+			}
+		}
+
+		Mutant mutant = null;
+
+		{
+
+			assertEquals(2, mutantsPerLine.get(101).size());
+
+			mutant = mutantsPerLine.get(101).get(0);
+
+			assertEquals(101, mutant.getSourceMapping().getLineStart());
+			assertEquals(101, mutant.getSourceMapping().getLineEnd());
+			assertEquals(13, mutant.getSourceMapping().getColumnStart());
+			assertEquals(37, mutant.getSourceMapping().getColumnEnd());
+
+			mutant = mutantsPerLine.get(101).get(1);
+
+			assertEquals(101, mutant.getSourceMapping().getLineStart());
+			assertEquals(101, mutant.getSourceMapping().getLineEnd());
+			assertEquals(13, mutant.getSourceMapping().getColumnStart());
+			assertEquals(63, mutant.getSourceMapping().getColumnEnd());
+		}
+
+		{
+
+			assertEquals(1, mutantsPerLine.get(111).size());
+
+			mutant = mutantsPerLine.get(111).get(0);
+
+			assertEquals(111, mutant.getSourceMapping().getLineStart());
+			assertEquals(111, mutant.getSourceMapping().getLineEnd());
+			assertEquals(13, mutant.getSourceMapping().getColumnStart());
+			assertEquals(31, mutant.getSourceMapping().getColumnEnd());
+		}
 	}
 
 }

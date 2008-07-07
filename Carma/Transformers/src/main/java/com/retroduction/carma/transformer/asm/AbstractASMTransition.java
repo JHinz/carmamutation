@@ -59,7 +59,6 @@ public abstract class AbstractASMTransition implements ITransition {
 				for (Attribute attr : (List<Attribute>) methodNode.attrs) {
 					if (attr instanceof CharacterRangeTable) {
 						crt = (CharacterRangeTable) attr;
-						System.out.println("CRT Size: " + crt.getLabelOffsets().size());
 					}
 				}
 			}
@@ -74,7 +73,6 @@ public abstract class AbstractASMTransition implements ITransition {
 					if (crt == null) {
 						crtEntry.setStartPos(((LineNumberNode) node).line << 10);
 						crtEntry.setEndPos(((LineNumberNode) node).line << 10);
-						System.out.println("Using legacy LineNumber info:" + crtEntry.getStartPos());
 					}
 					continue;
 				}
