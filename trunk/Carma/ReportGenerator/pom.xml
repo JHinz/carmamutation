@@ -56,11 +56,6 @@
 			<version>${version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.retroduction.carma</groupId>
-			<artifactId>Utilities</artifactId>
-			<version>${version}</version>
-		</dependency>
-		<dependency>
 			<groupId>junit-addons</groupId>
 			<artifactId>junit-addons</artifactId>
 			<version>1.4</version>

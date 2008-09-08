@@ -18,26 +18,15 @@
 
 	<modules>
 		<module>../Core</module>
-		<module>../ReportModel</module>
-		<module>../Utilities</module>
 		<module>../ReportGenerator</module>
 		<module>../MavenPlugin</module>
 		<module>../JavaApplication</module>
 		<module>../Annotations</module>
-		<module>../Transformers</module>
-		<module>../EventListeners</module>
-		<module>../TestRunners</module>
-		<module>../Resolvers</module>
 		<module>../AntPlugin</module>
 		<module>../Integration</module>
 	</modules>
 	
 	<dependencies>
-		<dependency>
-			<groupId>com.retroduction.carma</groupId>
-			<artifactId>ReportModel</artifactId>
-			<version>${version}</version>
-		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>MavenPlugin</artifactId>
@@ -47,11 +36,6 @@
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>JavaApplication</artifactId>
-			<version>${version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.retroduction.carma</groupId>
-			<artifactId>Utilities</artifactId>
 			<version>${version}</version>
 		</dependency>
 		<dependency>
@@ -66,22 +50,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
-			<artifactId>Transformers</artifactId>
-			<version>${version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.retroduction.carma</groupId>
 			<artifactId>EventListeners</artifactId>
-			<version>${version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.retroduction.carma</groupId>
-			<artifactId>TestRunners</artifactId>
-			<version>${version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.retroduction.carma</groupId>
-			<artifactId>Resolvers</artifactId>
 			<version>${version}</version>
 		</dependency>
 		<dependency>
