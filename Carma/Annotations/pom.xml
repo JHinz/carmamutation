@@ -15,10 +15,13 @@
 	<artifactId>Annotations</artifactId>
 	<packaging>jar</packaging>
 	<name>Retroduction Carma Annotations Package</name>
-
-
-
+	
 	<dependencies>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>Core</artifactId>
+			<version>0.2</version>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -26,11 +29,12 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	
+
 	<distributionManagement>
 		<site>
 			<id>carma.retroduction.com</id>
 			<url>scp:192.168.1.5:222/Carma/Annotations</url>
 		</site>
 	</distributionManagement>
+	
 </project>
