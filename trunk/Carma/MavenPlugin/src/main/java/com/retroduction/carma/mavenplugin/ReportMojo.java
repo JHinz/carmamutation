@@ -9,18 +9,15 @@
 package com.retroduction.carma.mavenplugin;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.bind.JAXBException;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
+import org.retroduction.carma.reportgenerator.ReportGenerator;
 
-import com.retroduction.carma.report.generator.SingleReportGenerator;
 import com.retroduction.carma.xmlreport.om.MutationRun;
 import com.retroduction.carma.xmlreport.utilities.ReportModelLoader;
 
@@ -43,12 +40,11 @@ public class ReportMojo extends AbstractMojo {
 	 */
 	private File sourceDir;
 
-
 	/**
 	 * The location for the mutation report
 	 * 
-	 * @parameter expression="${mutation.reportFile}"
-	 *            default-value="${project.reporting.outputDirectory}/mutationtest/mutationTestReport.xml"
+	 * @parameter expression="${mutation.reportFile}" default-value=
+	 *            "${project.reporting.outputDirectory}/mutationtest/mutationTestReport.xml"
 	 * @required
 	 */
 	private File reportFile;
@@ -68,23 +64,19 @@ public class ReportMojo extends AbstractMojo {
 		MutationRun mutationRun;
 		try {
 			mutationRun = loader.loadReportModel(this.reportFile);
-		} catch (FileNotFoundException e) {
-			
+			ReportGenerator reportGenerator = new ReportGenerator();
+
+			List<File> sourceDirectories = new ArrayList<File>();
+			sourceDirectories.add(this.sourceDir);
+			reportGenerator.perform(mutationRun, this.outputDirectory, sourceDirectories);
+
+			log.info("# --------------------------------------------------------------------------------");
+			log.info("# Mutation Site report generated. Output directory: " + this.outputDirectory);
+			log.info("# --------------------------------------------------------------------------------");
+		} catch (Exception e) {
 			log.error(e);
-			throw new MojoFailureException("Report File not found");
-		} catch (JAXBException e) {
-			log.error(e);
-			throw new MojoFailureException("Invalid Report File");
+			throw new MojoFailureException("Error during report generation");
 		}
-		SingleReportGenerator reportGenerator = new SingleReportGenerator();
-		
-		List<File> sourceDirectories = new ArrayList<File>();
-		sourceDirectories.add(this.sourceDir);
-		reportGenerator.perform(mutationRun, this.outputDirectory, sourceDirectories);
-		
-		log.info("# --------------------------------------------------------------------------------");
-		log.info("# Mutation Site report generated. Output directory: " +this.outputDirectory);
-		log.info("# --------------------------------------------------------------------------------");
 
 	}
 }
