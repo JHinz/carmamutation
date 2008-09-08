@@ -16,8 +16,9 @@ import java.util.List;
 import javax.xml.bind.JAXBException;
 
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
+import org.retroduction.carma.reportgenerator.ReportGenerator;
 
-import com.retroduction.carma.report.generator.SingleReportGenerator;
 import com.retroduction.carma.xmlreport.om.MutationRun;
 import com.retroduction.carma.xmlreport.utilities.ReportModelLoader;
 
@@ -73,7 +74,7 @@ public class AntCarmaReport extends org.apache.tools.ant.Task {
 				this.log(e, 2);
 				throw new BuildException("Invalid Report File");
 			}
-			SingleReportGenerator reportGenerator = new SingleReportGenerator();
+			ReportGenerator reportGenerator = new ReportGenerator();
 
 			List<File> sourceDirectories = new ArrayList<File>();
 			sourceDirectories.add(new File(this.sourceDir));
@@ -82,6 +83,9 @@ public class AntCarmaReport extends org.apache.tools.ant.Task {
 			this.log("# --------------------------------------------------------------------------------");
 			this.log("# Mutation Site report generated. Output directory: " + this.outputDirectory);
 			this.log("# --------------------------------------------------------------------------------");
+		} catch (Exception e) {
+			this.log(e, Project.MSG_WARN);
+			throw new BuildException("Error during writing report.");
 		} finally {
 			Thread.currentThread().setContextClassLoader(threadClassLoader);
 		}

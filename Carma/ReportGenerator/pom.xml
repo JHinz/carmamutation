@@ -1,21 +1,17 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
   http://maven.apache.org/maven-v4_0_0.xsd">
-
 	<parent>
 		<groupId>com.retroduction.carma</groupId>
 		<artifactId>MetaDefinition</artifactId>
 		<version>0.2</version>
 		<relativePath>../MetaDefinition/pom.xml</relativePath>
 	</parent>
-
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.retroduction.carma</groupId>
 	<artifactId>ReportGenerator</artifactId>
 	<packaging>jar</packaging>
 	<name>Retroduction Carma Report Generator</name>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.freemarker</groupId>
@@ -48,8 +44,7 @@
 			<artifactId>junit-addons</artifactId>
 			<version>1.4</version>
 			<scope>test</scope>
-		</dependency>		
-
+		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>ReportModel</artifactId>
@@ -65,7 +60,16 @@
 			<artifactId>Utilities</artifactId>
 			<version>${version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>junit-addons</groupId>
+			<artifactId>junit-addons</artifactId>
+			<version>1.4</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>htmlunit</groupId>
+			<artifactId>htmlunit</artifactId>
+			<version>1.14</version>
+		</dependency>
 	</dependencies>
-
 </project>
