@@ -27,6 +27,8 @@ import com.retroduction.carma.xmlreport.om.Mutant;
 
 public class ClassSnippetReporterTestCase extends TestCase {
 
+	private final String EOF_CHAR = System.getProperty("line.separator");
+
 	public void test_NoJCov() throws RendererException, IOException {
 
 		ClassUnderTest classUnderTest = new ClassUnderTest();
@@ -69,140 +71,154 @@ public class ClassSnippetReporterTestCase extends TestCase {
 
 		String resource = "descriptionKey=Description";
 
-		PropertyResourceBundle bundle = new PropertyResourceBundle(new StringBufferInputStream(resource));
-		
+		PropertyResourceBundle bundle = new PropertyResourceBundle(
+				new StringBufferInputStream(resource));
+
 		HashMap<String, Object> context = new HashMap<String, Object>();
 		context.put("ingoreExternalTemplates", new Object());
 
 		ClassSnippetReporter snippetReporter = new ClassSnippetReporter(context);
 
-		snippetReporter.createReport(classUnderTest, sourceFile, outputWriter, bundle);
+		snippetReporter.createReport(classUnderTest, sourceFile, outputWriter,
+				bundle);
 
 		StringBuffer expectedResult = new StringBuffer();
-		expectedResult.append("<html>").append("\n");
-		expectedResult.append("<head>").append("\n");
-		expectedResult.append("</head>").append("\n");
-		expectedResult.append("<body>").append("\n");
-		expectedResult.append("<table>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("2").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"uncovered\">").append("\n");
-		expectedResult.append("2 xxxxxx").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("3").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"uncovered\">").append("\n");
-		expectedResult.append("3 xxxxxx").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("4").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"covered_survived\">").append("\n");
-		expectedResult.append("4 xxxxxx").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("5").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"covered_survived\">").append("\n");
-		expectedResult.append("5 xxxxxx").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("6").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"uncovered\">").append("\n");
-		expectedResult.append("6 xxxxxx").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("7").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"uncovered\">").append("\n");
-		expectedResult.append("7 xxxxxx").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("</table>").append("\n");
-		expectedResult.append("<table class=\"descriptionTable\">").append("\n");
-		expectedResult.append("<tr><td>ID: NoName</td></tr>").append("\n");
-		expectedResult.append("<tr><td>Transition: descriptionKey</td></tr>").append("\n");
-		expectedResult.append("<tr><td>Transition: Description</td></tr>").append("\n");
-		expectedResult.append("<tr><td>Defeating Tests: </td></tr>").append("\n");
-		expectedResult.append("</table>").append("\n");
-		expectedResult.append("<table>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("5").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"uncovered\">").append("\n");
-		expectedResult.append("5 xxxxxx").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("6").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"uncovered\">").append("\n");
-		expectedResult.append("6 xxxxxx").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("7").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"covered_killed\">").append("\n");
-		expectedResult.append("7 xxxxxx").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("8").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"uncovered\">").append("\n");
-		expectedResult.append("8 xxxxxx").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("</table>").append("\n");
-		expectedResult.append("<table class=\"descriptionTable\">").append("\n");
-		expectedResult.append("<tr><td>ID: NoName</td></tr>").append("\n");
-		expectedResult.append("<tr><td>Transition: descriptionKey</td></tr>").append("\n");
-		expectedResult.append("<tr><td>Transition: Description</td></tr>").append("\n");
-		expectedResult.append("<tr><td>Defeating Tests: </td></tr>").append("\n");
-		expectedResult.append("</table>").append("\n");
-		expectedResult.append("</body>").append("\n");
-		expectedResult.append("</html>").append("\n");
+		expectedResult.append("<html>").append(EOF_CHAR);
+		expectedResult.append("<head>").append(EOF_CHAR);
+		expectedResult.append("</head>").append(EOF_CHAR);
+		expectedResult.append("<body>").append(EOF_CHAR);
+		expectedResult.append("<table>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("2").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
+		expectedResult.append("2 xxxxxx").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("3").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
+		expectedResult.append("3 xxxxxx").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("4").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"covered_survived\">").append(
+				EOF_CHAR);
+		expectedResult.append("4 xxxxxx").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("5").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"covered_survived\">").append(
+				EOF_CHAR);
+		expectedResult.append("5 xxxxxx").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("6").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
+		expectedResult.append("6 xxxxxx").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("7").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
+		expectedResult.append("7 xxxxxx").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("</table>").append(EOF_CHAR);
+		expectedResult.append("<table class=\"descriptionTable\">").append(
+				EOF_CHAR);
+		expectedResult.append("<tr><td>ID: NoName</td></tr>").append(EOF_CHAR);
+		expectedResult.append("<tr><td>Transition: descriptionKey</td></tr>")
+				.append(EOF_CHAR);
+		expectedResult.append("<tr><td>Transition: Description</td></tr>")
+				.append(EOF_CHAR);
+		expectedResult.append("<tr><td>Defeating Tests: </td></tr>").append(
+				"\n");
+		expectedResult.append("</table>").append(EOF_CHAR);
+		expectedResult.append("<table>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("5").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
+		expectedResult.append("5 xxxxxx").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("6").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
+		expectedResult.append("6 xxxxxx").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("7").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"covered_killed\">")
+				.append(EOF_CHAR);
+		expectedResult.append("7 xxxxxx").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("8").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
+		expectedResult.append("8 xxxxxx").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("</table>").append(EOF_CHAR);
+		expectedResult.append("<table class=\"descriptionTable\">").append(
+				EOF_CHAR);
+		expectedResult.append("<tr><td>ID: NoName</td></tr>").append(EOF_CHAR);
+		expectedResult.append("<tr><td>Transition: descriptionKey</td></tr>")
+				.append(EOF_CHAR);
+		expectedResult.append("<tr><td>Transition: Description</td></tr>")
+				.append(EOF_CHAR);
+		expectedResult.append("<tr><td>Defeating Tests: </td></tr>").append(
+				"\n");
+		expectedResult.append("</table>").append(EOF_CHAR);
+		expectedResult.append("</body>").append(EOF_CHAR);
+		expectedResult.append("</html>").append(EOF_CHAR);
 
-		assertEquals("Output mismatch", expectedResult.toString(), outputWriter.toString());
+		assertEquals("Output mismatch", expectedResult.toString(), outputWriter
+				.toString());
 
 	}
 }

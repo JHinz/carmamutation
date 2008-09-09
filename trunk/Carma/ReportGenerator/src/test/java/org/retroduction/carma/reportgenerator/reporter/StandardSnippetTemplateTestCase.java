@@ -27,11 +27,14 @@ import freemarker.template.Configuration;
 
 public class StandardSnippetTemplateTestCase extends TestCase {
 
+	private final String EOF_CHAR = System.getProperty("line.separator");
+
 	public void test_1line() {
 
 		Configuration cfg = new Configuration();
 
-		FreeMarkerRenderer renderer = new FreeMarkerRenderer("standardSnippet.ftl", "/templates/classReport");
+		FreeMarkerRenderer renderer = new FreeMarkerRenderer(
+				"standardSnippet.ftl", "/templates/classReport");
 		renderer.setConfig(cfg);
 
 		Writer outputWriter = new StringWriter();
@@ -57,20 +60,22 @@ public class StandardSnippetTemplateTestCase extends TestCase {
 		renderer.render(info, outputWriter);
 
 		StringBuffer expectedResult = new StringBuffer();
-		expectedResult.append("<table>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("7").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"covered_survived\">").append("\n");
-		expectedResult.append("me is code").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("</table>").append("\n");
+		expectedResult.append("<table>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("7").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"covered_survived\">").append(
+				EOF_CHAR);
+		expectedResult.append("me is code").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("</table>").append(EOF_CHAR);
 
-		assertEquals("Output mismatch", expectedResult.toString(), outputWriter.toString());
+		assertEquals("Output mismatch", expectedResult.toString(), outputWriter
+				.toString());
 		System.out.println(outputWriter.toString());
 
 	}
@@ -79,7 +84,8 @@ public class StandardSnippetTemplateTestCase extends TestCase {
 
 		Configuration cfg = new Configuration();
 
-		FreeMarkerRenderer renderer = new FreeMarkerRenderer("standardSnippet.ftl", "/templates/classReport");
+		FreeMarkerRenderer renderer = new FreeMarkerRenderer(
+				"standardSnippet.ftl", "/templates/classReport");
 		renderer.setConfig(cfg);
 
 		Writer outputWriter = new StringWriter();
@@ -106,30 +112,34 @@ public class StandardSnippetTemplateTestCase extends TestCase {
 		renderer.render(info, outputWriter);
 
 		StringBuffer expectedResult = new StringBuffer();
-		expectedResult.append("<table>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("42").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"covered_survived\">").append("\n");
-		expectedResult.append("me is code").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("43").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"covered_survived\">").append("\n");
-		expectedResult.append("me thinks as well").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("</table>").append("\n");
 
-		assertEquals("Output mismatch", expectedResult.toString(), outputWriter.toString());
+		expectedResult.append("<table>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("42").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"covered_survived\">").append(
+				EOF_CHAR);
+		expectedResult.append("me is code").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("43").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"covered_survived\">").append(
+				EOF_CHAR);
+		expectedResult.append("me thinks as well").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("</table>").append(EOF_CHAR);
+
+		assertEquals("Output mismatch", expectedResult.toString(), outputWriter
+				.toString());
 		System.out.println(outputWriter.toString());
 	}
 
@@ -137,7 +147,8 @@ public class StandardSnippetTemplateTestCase extends TestCase {
 
 		Configuration cfg = new Configuration();
 
-		FreeMarkerRenderer renderer = new FreeMarkerRenderer("standardSnippet.ftl", "/templates/classReport");
+		FreeMarkerRenderer renderer = new FreeMarkerRenderer(
+				"standardSnippet.ftl", "/templates/classReport");
 		renderer.setConfig(cfg);
 
 		Writer outputWriter = new StringWriter();
@@ -164,30 +175,33 @@ public class StandardSnippetTemplateTestCase extends TestCase {
 		renderer.render(info, outputWriter);
 
 		StringBuffer expectedResult = new StringBuffer();
-		expectedResult.append("<table>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("42").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"covered_killed\">").append("\n");
-		expectedResult.append("me is code").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("43").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"covered_killed\">").append("\n");
-		expectedResult.append("me thinks as well").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("</table>").append("\n");
+		expectedResult.append("<table>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("42").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"covered_killed\">")
+				.append(EOF_CHAR);
+		expectedResult.append("me is code").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("43").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"covered_killed\">")
+				.append(EOF_CHAR);
+		expectedResult.append("me thinks as well").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("</table>").append(EOF_CHAR);
 
-		assertEquals("Output mismatch", expectedResult.toString(), outputWriter.toString());
+		assertEquals("Output mismatch", expectedResult.toString(), outputWriter
+				.toString());
 		System.out.println(outputWriter.toString());
 	}
 
@@ -195,7 +209,8 @@ public class StandardSnippetTemplateTestCase extends TestCase {
 
 		Configuration cfg = new Configuration();
 
-		FreeMarkerRenderer renderer = new FreeMarkerRenderer("standardSnippet.ftl", "/templates/classReport");
+		FreeMarkerRenderer renderer = new FreeMarkerRenderer(
+				"standardSnippet.ftl", "/templates/classReport");
 		renderer.setConfig(cfg);
 
 		Writer outputWriter = new StringWriter();
@@ -224,50 +239,53 @@ public class StandardSnippetTemplateTestCase extends TestCase {
 		renderer.render(info, outputWriter);
 
 		StringBuffer expectedResult = new StringBuffer();
-		expectedResult.append("<table>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("42").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"uncovered\">").append("\n");
-		expectedResult.append("me is code").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("43").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"covered_killed\">").append("\n");
-		expectedResult.append("me thinks as well").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("44").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"covered_killed\">").append("\n");
-		expectedResult.append("more code").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("45").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"uncovered\">").append("\n");
-		expectedResult.append("no more code").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("</table>").append("\n");
+		expectedResult.append("<table>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("42").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
+		expectedResult.append("me is code").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("43").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"covered_killed\">")
+				.append(EOF_CHAR);
+		expectedResult.append("me thinks as well").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("44").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"covered_killed\">")
+				.append(EOF_CHAR);
+		expectedResult.append("more code").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("45").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
+		expectedResult.append("no more code").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("</table>").append(EOF_CHAR);
 
-		assertEquals("Output mismatch", expectedResult.toString(), outputWriter.toString());
+		assertEquals("Output mismatch", expectedResult.toString(), outputWriter
+				.toString());
 		System.out.println(outputWriter.toString());
 	}
 
@@ -275,7 +293,8 @@ public class StandardSnippetTemplateTestCase extends TestCase {
 
 		Configuration cfg = new Configuration();
 
-		FreeMarkerRenderer renderer = new FreeMarkerRenderer("standardSnippet.ftl", "/templates/classReport");
+		FreeMarkerRenderer renderer = new FreeMarkerRenderer(
+				"standardSnippet.ftl", "/templates/classReport");
 		renderer.setConfig(cfg);
 
 		Writer outputWriter = new StringWriter();
@@ -304,50 +323,55 @@ public class StandardSnippetTemplateTestCase extends TestCase {
 		renderer.render(info, outputWriter);
 
 		StringBuffer expectedResult = new StringBuffer();
-		expectedResult.append("<table>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("42").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"covered_killed\">").append("\n");
-		expectedResult.append("me is code").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("43").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"covered_killed\">").append("\n");
-		expectedResult.append("me thinks as well").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("44").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"covered_killed\">").append("\n");
-		expectedResult.append("more code").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("45").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("<td>").append("\n");
-		expectedResult.append("<div class=\"covered_killed\">").append("\n");
-		expectedResult.append("no more code").append("\n");
-		expectedResult.append("</div>").append("\n");
-		expectedResult.append("</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("</table>").append("\n");
+		expectedResult.append("<table>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("42").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"covered_killed\">")
+				.append(EOF_CHAR);
+		expectedResult.append("me is code").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("43").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"covered_killed\">")
+				.append(EOF_CHAR);
+		expectedResult.append("me thinks as well").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("44").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"covered_killed\">")
+				.append(EOF_CHAR);
+		expectedResult.append("more code").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("45").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"covered_killed\">")
+				.append(EOF_CHAR);
+		expectedResult.append("no more code").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("</table>").append(EOF_CHAR);
 
-		assertEquals("Output mismatch", expectedResult.toString(), outputWriter.toString());
+		assertEquals("Output mismatch", expectedResult.toString(), outputWriter
+				.toString());
 		System.out.println(outputWriter.toString());
 	}
 

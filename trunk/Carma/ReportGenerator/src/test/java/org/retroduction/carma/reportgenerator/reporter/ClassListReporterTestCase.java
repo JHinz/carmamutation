@@ -20,6 +20,8 @@ import com.retroduction.carma.xmlreport.om.MutationRun;
 
 public class ClassListReporterTestCase extends TestCase {
 
+	private final String EOF_CHAR = System.getProperty("line.separator");
+
 	public void test_NoClasses() {
 
 		HashMap<String, Object> context = new HashMap<String, Object>();
@@ -35,28 +37,28 @@ public class ClassListReporterTestCase extends TestCase {
 
 		StringBuffer expectedResult = new StringBuffer();
 
-		expectedResult.append("<html>").append("\n");
-		expectedResult.append("<body>").append("\n");
-		expectedResult.append("<table>").append("\n");
-		expectedResult.append("<thead>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>Class</td>").append("\n");
-		expectedResult.append("<td>Coverage Level</td>").append("\n");
-		expectedResult.append("<td>Mutation Count</td>").append("\n");
-		expectedResult.append("<td>Survived Mutations Count</td>").append("\n");
-		expectedResult.append("<td>Defeated Mutations Count</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("</thead>").append("\n");
-		expectedResult.append("<tbody>").append("\n");
-		expectedResult.append("</tbody>").append("\n");
-		expectedResult.append("</table>").append("\n");
-		expectedResult.append("</body>").append("\n");
-		expectedResult.append("</html>").append("\n");
+		expectedResult.append("<html>").append(EOF_CHAR);
+		expectedResult.append("<body>").append(EOF_CHAR);
+		expectedResult.append("<table>").append(EOF_CHAR);
+		expectedResult.append("<thead>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>Class</td>").append(EOF_CHAR);
+		expectedResult.append("<td>Coverage Level</td>").append(EOF_CHAR);
+		expectedResult.append("<td>Mutation Count</td>").append(EOF_CHAR);
+		expectedResult.append("<td>Survived Mutations Count</td>").append(
+				EOF_CHAR);
+		expectedResult.append("<td>Defeated Mutations Count</td>").append(
+				EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("</thead>").append(EOF_CHAR);
+		expectedResult.append("<tbody>").append(EOF_CHAR);
+		expectedResult.append("</tbody>").append(EOF_CHAR);
+		expectedResult.append("</table>").append(EOF_CHAR);
+		expectedResult.append("</body>").append(EOF_CHAR);
+		expectedResult.append("</html>").append(EOF_CHAR);
 
 		assertEquals(expectedResult.toString(), outputWriter.toString());
 	}
-	
-	
 
 	public void test_1Class() {
 
@@ -87,34 +89,38 @@ public class ClassListReporterTestCase extends TestCase {
 
 		StringBuffer expectedResult = new StringBuffer();
 
-		expectedResult.append("<html>").append("\n");
-		expectedResult.append("<body>").append("\n");
-		expectedResult.append("<table>").append("\n");
-		expectedResult.append("<thead>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>Class</td>").append("\n");
-		expectedResult.append("<td>Coverage Level</td>").append("\n");
-		expectedResult.append("<td>Mutation Count</td>").append("\n");
-		expectedResult.append("<td>Survived Mutations Count</td>").append("\n");
-		expectedResult.append("<td>Defeated Mutations Count</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("</thead>").append("\n");
-		expectedResult.append("<tbody>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td><a href=\"package1.MyClass.html\">MyClass</a></td>").append("\n");
-		expectedResult.append("<td>50 %</td>").append("\n");
-		expectedResult.append("<td>42</td>").append("\n");
-		expectedResult.append("<td>21</td>").append("\n");
-		expectedResult.append("<td>21</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("</tbody>").append("\n");
-		expectedResult.append("</table>").append("\n");
-		expectedResult.append("</body>").append("\n");
-		expectedResult.append("</html>").append("\n");
+		expectedResult.append("<html>").append(EOF_CHAR);
+		expectedResult.append("<body>").append(EOF_CHAR);
+		expectedResult.append("<table>").append(EOF_CHAR);
+		expectedResult.append("<thead>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>Class</td>").append(EOF_CHAR);
+		expectedResult.append("<td>Coverage Level</td>").append(EOF_CHAR);
+		expectedResult.append("<td>Mutation Count</td>").append(EOF_CHAR);
+		expectedResult.append("<td>Survived Mutations Count</td>").append(
+				EOF_CHAR);
+		expectedResult.append("<td>Defeated Mutations Count</td>").append(
+				EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("</thead>").append(EOF_CHAR);
+		expectedResult.append("<tbody>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append(
+				"<td><a href=\"package1.MyClass.html\">MyClass</a></td>")
+				.append(EOF_CHAR);
+		expectedResult.append("<td>50 %</td>").append(EOF_CHAR);
+		expectedResult.append("<td>42</td>").append(EOF_CHAR);
+		expectedResult.append("<td>21</td>").append(EOF_CHAR);
+		expectedResult.append("<td>21</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("</tbody>").append(EOF_CHAR);
+		expectedResult.append("</table>").append(EOF_CHAR);
+		expectedResult.append("</body>").append(EOF_CHAR);
+		expectedResult.append("</html>").append(EOF_CHAR);
 
 		assertEquals(expectedResult.toString(), outputWriter.toString());
 	}
-	
+
 	public void test_1Class_NoMutations() {
 
 		HashMap<String, Object> context = new HashMap<String, Object>();
@@ -144,30 +150,34 @@ public class ClassListReporterTestCase extends TestCase {
 
 		StringBuffer expectedResult = new StringBuffer();
 
-		expectedResult.append("<html>").append("\n");
-		expectedResult.append("<body>").append("\n");
-		expectedResult.append("<table>").append("\n");
-		expectedResult.append("<thead>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>Class</td>").append("\n");
-		expectedResult.append("<td>Coverage Level</td>").append("\n");
-		expectedResult.append("<td>Mutation Count</td>").append("\n");
-		expectedResult.append("<td>Survived Mutations Count</td>").append("\n");
-		expectedResult.append("<td>Defeated Mutations Count</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("</thead>").append("\n");
-		expectedResult.append("<tbody>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td><a href=\"package1.MyClass.html\">MyClass</a></td>").append("\n");
-		expectedResult.append("<td>n/a</td>").append("\n");
-		expectedResult.append("<td>0</td>").append("\n");
-		expectedResult.append("<td>0</td>").append("\n");
-		expectedResult.append("<td>0</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("</tbody>").append("\n");
-		expectedResult.append("</table>").append("\n");
-		expectedResult.append("</body>").append("\n");
-		expectedResult.append("</html>").append("\n");
+		expectedResult.append("<html>").append(EOF_CHAR);
+		expectedResult.append("<body>").append(EOF_CHAR);
+		expectedResult.append("<table>").append(EOF_CHAR);
+		expectedResult.append("<thead>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>Class</td>").append(EOF_CHAR);
+		expectedResult.append("<td>Coverage Level</td>").append(EOF_CHAR);
+		expectedResult.append("<td>Mutation Count</td>").append(EOF_CHAR);
+		expectedResult.append("<td>Survived Mutations Count</td>").append(
+				EOF_CHAR);
+		expectedResult.append("<td>Defeated Mutations Count</td>").append(
+				EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("</thead>").append(EOF_CHAR);
+		expectedResult.append("<tbody>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append(
+				"<td><a href=\"package1.MyClass.html\">MyClass</a></td>")
+				.append(EOF_CHAR);
+		expectedResult.append("<td>n/a</td>").append(EOF_CHAR);
+		expectedResult.append("<td>0</td>").append(EOF_CHAR);
+		expectedResult.append("<td>0</td>").append(EOF_CHAR);
+		expectedResult.append("<td>0</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("</tbody>").append(EOF_CHAR);
+		expectedResult.append("</table>").append(EOF_CHAR);
+		expectedResult.append("</body>").append(EOF_CHAR);
+		expectedResult.append("</html>").append(EOF_CHAR);
 
 		assertEquals(expectedResult.toString(), outputWriter.toString());
 	}
@@ -201,23 +211,25 @@ public class ClassListReporterTestCase extends TestCase {
 
 		StringBuffer expectedResult = new StringBuffer();
 
-		expectedResult.append("<html>").append("\n");
-		expectedResult.append("<body>").append("\n");
-		expectedResult.append("<table>").append("\n");
-		expectedResult.append("<thead>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>Class</td>").append("\n");
-		expectedResult.append("<td>Coverage Level</td>").append("\n");
-		expectedResult.append("<td>Mutation Count</td>").append("\n");
-		expectedResult.append("<td>Survived Mutations Count</td>").append("\n");
-		expectedResult.append("<td>Defeated Mutations Count</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("</thead>").append("\n");
-		expectedResult.append("<tbody>").append("\n");
-		expectedResult.append("</tbody>").append("\n");
-		expectedResult.append("</table>").append("\n");
-		expectedResult.append("</body>").append("\n");
-		expectedResult.append("</html>").append("\n");
+		expectedResult.append("<html>").append(EOF_CHAR);
+		expectedResult.append("<body>").append(EOF_CHAR);
+		expectedResult.append("<table>").append(EOF_CHAR);
+		expectedResult.append("<thead>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>Class</td>").append(EOF_CHAR);
+		expectedResult.append("<td>Coverage Level</td>").append(EOF_CHAR);
+		expectedResult.append("<td>Mutation Count</td>").append(EOF_CHAR);
+		expectedResult.append("<td>Survived Mutations Count</td>").append(
+				EOF_CHAR);
+		expectedResult.append("<td>Defeated Mutations Count</td>").append(
+				EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("</thead>").append(EOF_CHAR);
+		expectedResult.append("<tbody>").append(EOF_CHAR);
+		expectedResult.append("</tbody>").append(EOF_CHAR);
+		expectedResult.append("</table>").append(EOF_CHAR);
+		expectedResult.append("</body>").append(EOF_CHAR);
+		expectedResult.append("</html>").append(EOF_CHAR);
 
 		assertEquals(expectedResult.toString(), outputWriter.toString());
 	}
@@ -279,44 +291,52 @@ public class ClassListReporterTestCase extends TestCase {
 
 		StringBuffer expectedResult = new StringBuffer();
 
-		expectedResult.append("<html>").append("\n");
-		expectedResult.append("<body>").append("\n");
-		expectedResult.append("<table>").append("\n");
-		expectedResult.append("<thead>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td>Class</td>").append("\n");
-		expectedResult.append("<td>Coverage Level</td>").append("\n");
-		expectedResult.append("<td>Mutation Count</td>").append("\n");
-		expectedResult.append("<td>Survived Mutations Count</td>").append("\n");
-		expectedResult.append("<td>Defeated Mutations Count</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("</thead>").append("\n");
-		expectedResult.append("<tbody>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td><a href=\"package1.MyClass1.html\">MyClass1</a></td>").append("\n");
-		expectedResult.append("<td>50 %</td>").append("\n");
-		expectedResult.append("<td>42</td>").append("\n");
-		expectedResult.append("<td>21</td>").append("\n");
-		expectedResult.append("<td>21</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td><a href=\"package1.MyClass2.html\">MyClass2</a></td>").append("\n");
-		expectedResult.append("<td>0 %</td>").append("\n");
-		expectedResult.append("<td>1</td>").append("\n");
-		expectedResult.append("<td>1</td>").append("\n");
-		expectedResult.append("<td>0</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("<tr>").append("\n");
-		expectedResult.append("<td><a href=\"package1.MyClass3.html\">MyClass3</a></td>").append("\n");
-		expectedResult.append("<td>100 %</td>").append("\n");
-		expectedResult.append("<td>1</td>").append("\n");
-		expectedResult.append("<td>0</td>").append("\n");
-		expectedResult.append("<td>1</td>").append("\n");
-		expectedResult.append("</tr>").append("\n");
-		expectedResult.append("</tbody>").append("\n");
-		expectedResult.append("</table>").append("\n");
-		expectedResult.append("</body>").append("\n");
-		expectedResult.append("</html>").append("\n");
+		expectedResult.append("<html>").append(EOF_CHAR);
+		expectedResult.append("<body>").append(EOF_CHAR);
+		expectedResult.append("<table>").append(EOF_CHAR);
+		expectedResult.append("<thead>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append("<td>Class</td>").append(EOF_CHAR);
+		expectedResult.append("<td>Coverage Level</td>").append(EOF_CHAR);
+		expectedResult.append("<td>Mutation Count</td>").append(EOF_CHAR);
+		expectedResult.append("<td>Survived Mutations Count</td>").append(
+				EOF_CHAR);
+		expectedResult.append("<td>Defeated Mutations Count</td>").append(
+				EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("</thead>").append(EOF_CHAR);
+		expectedResult.append("<tbody>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append(
+				"<td><a href=\"package1.MyClass1.html\">MyClass1</a></td>")
+				.append(EOF_CHAR);
+		expectedResult.append("<td>50 %</td>").append(EOF_CHAR);
+		expectedResult.append("<td>42</td>").append(EOF_CHAR);
+		expectedResult.append("<td>21</td>").append(EOF_CHAR);
+		expectedResult.append("<td>21</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append(
+				"<td><a href=\"package1.MyClass2.html\">MyClass2</a></td>")
+				.append(EOF_CHAR);
+		expectedResult.append("<td>0 %</td>").append(EOF_CHAR);
+		expectedResult.append("<td>1</td>").append(EOF_CHAR);
+		expectedResult.append("<td>1</td>").append(EOF_CHAR);
+		expectedResult.append("<td>0</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("<tr>").append(EOF_CHAR);
+		expectedResult.append(
+				"<td><a href=\"package1.MyClass3.html\">MyClass3</a></td>")
+				.append(EOF_CHAR);
+		expectedResult.append("<td>100 %</td>").append(EOF_CHAR);
+		expectedResult.append("<td>1</td>").append(EOF_CHAR);
+		expectedResult.append("<td>0</td>").append(EOF_CHAR);
+		expectedResult.append("<td>1</td>").append(EOF_CHAR);
+		expectedResult.append("</tr>").append(EOF_CHAR);
+		expectedResult.append("</tbody>").append(EOF_CHAR);
+		expectedResult.append("</table>").append(EOF_CHAR);
+		expectedResult.append("</body>").append(EOF_CHAR);
+		expectedResult.append("</html>").append(EOF_CHAR);
 
 		assertEquals(expectedResult.toString(), outputWriter.toString());
 	}
