@@ -94,7 +94,7 @@ public class PackageDetailsReporterTestCase extends TestCase {
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>All Packages</td>").append(EOF_CHAR);
 		expectedResult.append("<td>3</td>").append(EOF_CHAR);
-		expectedResult.append("<td>26.667 %</td>").append(EOF_CHAR);
+		expectedResult.append("<td>27 %</td>").append(EOF_CHAR);
 		expectedResult.append("<td>15</td>").append(EOF_CHAR);
 		expectedResult.append("<td>11</td>").append(EOF_CHAR);
 		expectedResult.append("<td>4</td>").append(EOF_CHAR);
