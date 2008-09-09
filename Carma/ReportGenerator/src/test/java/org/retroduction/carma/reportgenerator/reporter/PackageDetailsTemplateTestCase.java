@@ -87,8 +87,10 @@ public class PackageDetailsTemplateTestCase extends junit.framework.TestCase {
 		expectedResult.append("<td>Class Count</td>").append(EOF_CHAR);
 		expectedResult.append("<td>Coverage Level</td>").append(EOF_CHAR);
 		expectedResult.append("<td>Mutation Count</td>").append(EOF_CHAR);
-		expectedResult.append("<td>Survived Mutations Count</td>").append(EOF_CHAR);
-		expectedResult.append("<td>Defeated Mutations Count</td>").append(EOF_CHAR);
+		expectedResult.append("<td>Survived Mutations Count</td>").append(
+				EOF_CHAR);
+		expectedResult.append("<td>Defeated Mutations Count</td>").append(
+				EOF_CHAR);
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("</thead>").append(EOF_CHAR);
 		expectedResult.append("<tbody>").append(EOF_CHAR);
@@ -105,7 +107,7 @@ public class PackageDetailsTemplateTestCase extends junit.framework.TestCase {
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append(
 				"<td><a href=\"pkg1.sub2.html\">pkg1.sub2</a></td>").append(
-				"\n");
+				EOF_CHAR);
 		expectedResult.append("<td>12</td>").append(EOF_CHAR);
 		expectedResult.append("<td>40 %</td>").append(EOF_CHAR);
 		expectedResult.append("<td>9</td>").append(EOF_CHAR);

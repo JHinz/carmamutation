@@ -158,8 +158,7 @@ public class ClassSnippetReporterTestCase extends TestCase {
 				.append(EOF_CHAR);
 		expectedResult.append("<tr><td>Transition: Description</td></tr>")
 				.append(EOF_CHAR);
-		expectedResult.append("<tr><td>Defeating Tests: </td></tr>").append(
-				"\n");
+		expectedResult.append("<tr><td>Defeating Tests: </td></tr>").append(EOF_CHAR);
 		expectedResult.append("</table>").append(EOF_CHAR);
 		expectedResult.append("<table>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
@@ -211,8 +210,7 @@ public class ClassSnippetReporterTestCase extends TestCase {
 				.append(EOF_CHAR);
 		expectedResult.append("<tr><td>Transition: Description</td></tr>")
 				.append(EOF_CHAR);
-		expectedResult.append("<tr><td>Defeating Tests: </td></tr>").append(
-				"\n");
+		expectedResult.append("<tr><td>Defeating Tests: </td></tr>").append(EOF_CHAR);
 		expectedResult.append("</table>").append(EOF_CHAR);
 		expectedResult.append("</body>").append(EOF_CHAR);
 		expectedResult.append("</html>").append(EOF_CHAR);
