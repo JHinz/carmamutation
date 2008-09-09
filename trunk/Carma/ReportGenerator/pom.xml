@@ -47,12 +47,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
-			<artifactId>ReportModel</artifactId>
-			<version>${version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.retroduction.carma</groupId>
-			<artifactId>Annotations</artifactId>
+			<artifactId>Core</artifactId>
 			<version>${version}</version>
 		</dependency>
 		<dependency>
@@ -62,7 +57,7 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>htmlunit</groupId>
+			<groupId>net.sourceforge.htmlunit</groupId>
 			<artifactId>htmlunit</artifactId>
 			<version>1.14</version>
 		</dependency>
