@@ -18,9 +18,11 @@ import junit.framework.TestCase;
 
 public class BruteForceResolverTestCase extends TestCase {
 
-	public void testGetClassesWithoutExcludeFilterButWithIncludeFilterSet() throws MalformedURLException {
+	public void testGetClassesWithoutExcludeFilterButWithIncludeFilterSet()
+			throws MalformedURLException {
 
-		File testClassPath = new File("src/test/it/it0001/testclasses/");
+		File testClassPath = new File(
+				"src/test/it/org/retroduction/carma/resolvers/it0001/testclasses/");
 
 		BruteForceResolver resolver = new BruteForceResolver();
 		resolver.setTestClassesPath(new File[] { testClassPath });
@@ -42,8 +44,10 @@ public class BruteForceResolverTestCase extends TestCase {
 
 		assertTrue(result.get("package1.class1").contains("TestClass1"));
 		assertTrue(result.get("package2.class2").contains("TestClass1"));
-		assertTrue(result.get("package1.class1").contains("sub1.sub2.TestClass2"));
-		assertTrue(result.get("package2.class2").contains("sub1.sub2.TestClass2"));
+		assertTrue(result.get("package1.class1").contains(
+				"sub1.sub2.TestClass2"));
+		assertTrue(result.get("package2.class2").contains(
+				"sub1.sub2.TestClass2"));
 
 	}
 }

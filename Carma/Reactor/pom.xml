@@ -19,7 +19,7 @@
 	<modules>
 		<module>../Core</module>
 		<module>../ReportGenerator</module>
-		<module>../MavenPlugin</module>
+		<!--<module>../MavenPlugin</module>-->
 		<module>../JavaApplication</module>
 		<module>../Annotations</module>
 		<module>../AntPlugin</module>
