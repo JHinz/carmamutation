@@ -23,7 +23,6 @@
 		<module>../JavaApplication</module>
 		<module>../Annotations</module>
 		<module>../AntPlugin</module>
-		<module>../Integration</module>
 	</modules>
 	
 	<dependencies>
@@ -50,11 +49,6 @@
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>AntPlugin</artifactId>
-			<version>${version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.retroduction.carma</groupId>
-			<artifactId>Integration</artifactId>
 			<version>${version}</version>
 		</dependency>
 	</dependencies>
