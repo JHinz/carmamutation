@@ -40,7 +40,7 @@ public class CarmaDriverSetup {
 
 	public CarmaDriverSetup() throws CarmaException {
 		// add base configuration from classpath
-		this.beanDefinitionResources.add("classpath:com/retroduction/carma/config/carma-config.xml");
+		this.beanDefinitionResources.add("classpath:org/retroduction/carma/integration/carma-config.xml");
 
 		try {
 			// default settings
@@ -92,7 +92,8 @@ public class CarmaDriverSetup {
 
 	private Properties getDefaultConfiguration() throws IOException {
 		Properties p = new Properties();
-		p.load(CarmaDriverSetup.class.getResourceAsStream("/com/retroduction/carma/config/carma-defaults.properties"));
+		p.load(CarmaDriverSetup.class
+				.getResourceAsStream("/org/retroduction/carma/integration/carma-defaults.properties"));
 		return p;
 	}
 }

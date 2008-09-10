@@ -29,9 +29,9 @@ import com.retroduction.carma.utilities.LoggerFactory;
 
 /**
  * Goal which executes mutationtests.
- *
+ * 
  * @goal mtest
- *
+ * 
  * @phase test
  */
 
@@ -41,7 +41,7 @@ public class MutationTestMojo extends AbstractMojo {
 
 	/**
 	 * The location of the generated class files
-	 *
+	 * 
 	 * @parameter expression="${mutation.classesDir}"
 	 *            default-value="${project.build.outputDirectory}"
 	 * @required
@@ -50,7 +50,7 @@ public class MutationTestMojo extends AbstractMojo {
 
 	/**
 	 * The location of the generated unit test class files
-	 *
+	 * 
 	 * @parameter expression="${mutation.testClassesDir}"
 	 *            default-value="${project.build.testOutputDirectory}"
 	 * @required
@@ -59,7 +59,7 @@ public class MutationTestMojo extends AbstractMojo {
 
 	/**
 	 * The target location for the mutation report
-	 *
+	 * 
 	 * @parameter expression="${mutation.reportFile}"
 	 *            default-value="${project.reporting.outputDirectory}/mutationtest/mutationTestReport.xml"
 	 * @required
@@ -68,7 +68,7 @@ public class MutationTestMojo extends AbstractMojo {
 
 	/**
 	 * The target location for the mutation report
-	 *
+	 * 
 	 * @parameter expression="${carma.config}"
 	 *            default-value="${basedir}/src/test/carma/carma.properties"
 	 * @required
@@ -77,7 +77,7 @@ public class MutationTestMojo extends AbstractMojo {
 
 	/**
 	 * The set of dependencies required by the project
-	 *
+	 * 
 	 * @parameter default-value="${project.artifacts}"
 	 * @required
 	 * @readonly
