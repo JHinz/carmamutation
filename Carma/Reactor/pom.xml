@@ -31,7 +31,6 @@
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>MavenPlugin</artifactId>
 			<version>0.2</version>
-			<type>maven-plugin</type>
 		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>

@@ -1,11 +1,3 @@
-/**
- *
- *   Copyright Alexander Rau, Mike Groezinger, Retroduction.org - All rights reserved
- *
- *   This file is part of Carma. Carma is licensed under the OSL 3.0. The OSL 3.0 is
- *   available here: http://www.opensource.org/licenses/osl-3.0.php
- *
- */
 package com.retroduction.carma.ant;
 
 import java.io.File;
@@ -23,9 +15,9 @@ import com.retroduction.carma.xmlreport.om.MutationRun;
 import com.retroduction.carma.xmlreport.utilities.ReportModelLoader;
 
 /**
- * Target which generates site reports.
+ * @author arau
+ * 
  */
-
 public class AntCarmaReport extends org.apache.tools.ant.Task {
 
 	/**
@@ -69,10 +61,10 @@ public class AntCarmaReport extends org.apache.tools.ant.Task {
 				mutationRun = loader.loadReportModel(new File(this.reportFile));
 			} catch (FileNotFoundException e) {
 				this.log(e, 2);
-				throw new BuildException("Report File not found");
+				throw new BuildException("Report File not found", e);
 			} catch (JAXBException e) {
 				this.log(e, 2);
-				throw new BuildException("Invalid Report File");
+				throw new BuildException("Invalid Report File", e);
 			}
 			ReportGenerator reportGenerator = new ReportGenerator();
 
@@ -84,8 +76,8 @@ public class AntCarmaReport extends org.apache.tools.ant.Task {
 			this.log("# Mutation Site report generated. Output directory: " + this.outputDirectory);
 			this.log("# --------------------------------------------------------------------------------");
 		} catch (Exception e) {
-			this.log(e, Project.MSG_WARN);
-			throw new BuildException("Error during writing report.");
+			this.log(e, Project.MSG_ERR);
+			throw new BuildException("Error during writing report.", e);
 		} finally {
 			Thread.currentThread().setContextClassLoader(threadClassLoader);
 		}
