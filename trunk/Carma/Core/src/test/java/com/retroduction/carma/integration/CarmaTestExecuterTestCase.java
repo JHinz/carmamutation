@@ -23,12 +23,12 @@ public class CarmaTestExecuterTestCase extends TestCase {
 	public void testExecuteTests() throws MalformedURLException {
 		CarmaTestExecuter executer = new CarmaTestExecuter();
 
-		File reportFile = new File("target/it/it0001/org/retroduction/carma/integration/log/Report.xml");
+		File reportFile = new File("target/it/org/retroduction/carma/integration/it0001/log/Report.xml");
 		File projectbaseDir = new File("./");
-		executer.setClassesDir(new File(projectbaseDir, "src/test/it/it0001/org/retroduction/carma/integration/target/classes"));
-		executer.setTestClassesDir(new File(projectbaseDir, "src/test/it/it0001/org/retroduction/carma/integration/target/test-classes"));
+		executer.setClassesDir(new File(projectbaseDir, "src/test/it/org/retroduction/carma/integration/it0001/target/classes"));
+		executer.setTestClassesDir(new File(projectbaseDir, "src/test/it/org/retroduction/carma/integration/it0001/target/test-classes"));
 		executer.setReportFile(reportFile);
-		executer.setConfigFile(new File("src/test/it/it0001/org/retroduction/carma/integration/carma.properties"));
+		executer.setConfigFile(new File("src/test/it/org/retroduction/carma/integration/it0001/carma.properties"));
 		executer.setDependencyClassPathUrls(new ArrayList<URL>());
 
 		if (reportFile.exists()) {
