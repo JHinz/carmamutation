@@ -19,11 +19,19 @@
 	<modules>
 		<module>../Core</module>
 		<module>../ReportGenerator</module>
+		<module>../MavenPlugin</module>
 		<module>../JavaApplication</module>
+		<module>../Annotations</module>
+		<module>../AntPlugin</module>
 		<module>../Integration</module>
 	</modules>
 	
 	<dependencies>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>MavenPlugin</artifactId>
+			<version>0.2</version>
+		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>JavaApplication</artifactId>
@@ -34,6 +42,16 @@
 			<artifactId>Core</artifactId>
 			<version>${version}</version>
 		</dependency> 
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>Annotations</artifactId>
+			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>AntPlugin</artifactId>
+			<version>${version}</version>
+		</dependency>
 		<dependency>
 			<groupId>com.retroduction.carma</groupId>
 			<artifactId>Integration</artifactId>
