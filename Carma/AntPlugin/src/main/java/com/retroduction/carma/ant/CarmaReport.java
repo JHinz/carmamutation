@@ -18,7 +18,7 @@ import com.retroduction.carma.xmlreport.utilities.ReportModelLoader;
  * @author arau
  * 
  */
-public class AntCarmaReport extends org.apache.tools.ant.Task {
+public class CarmaReport extends org.apache.tools.ant.Task {
 
 	/**
 	 * The location of the generated class files
