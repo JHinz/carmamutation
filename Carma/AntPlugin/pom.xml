@@ -18,9 +18,14 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>${groupId}</groupId>
-			<artifactId>Integration</artifactId>
-			<version>${version}</version>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>Core</artifactId>
+			<version>0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.retroduction.carma</groupId>
+			<artifactId>ReportGenerator</artifactId>
+			<version>0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.ant</groupId>
