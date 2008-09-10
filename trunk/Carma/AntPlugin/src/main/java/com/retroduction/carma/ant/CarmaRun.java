@@ -26,7 +26,7 @@ import org.apache.tools.ant.types.CommandlineJava.SysProperties;
 import com.retroduction.carma.application.CarmaTestExecuter;
 import com.retroduction.carma.eventlisteners.SummaryCreatorEventListener.Summary;
 
-public class AntCarmaTest extends Task {
+public class CarmaRun extends Task {
 
 	private SysProperties sysProperties = new SysProperties();
 

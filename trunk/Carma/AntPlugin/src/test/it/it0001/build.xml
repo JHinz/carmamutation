@@ -8,7 +8,7 @@
 	<target name="carmatest">
 
 		<taskdef name="carmatest"
-			classname="com.retroduction.carma.ant.AntCarmaTest" />
+			classname="com.retroduction.carma.ant.CarmaRun" />
 
 		<carmatest classesDir="src/test/it/it0001/target/classes/"
 			testClassesDir="src/test/it/it0001/target/test-classes/" reportFile="target/report.xml"
@@ -21,7 +21,7 @@
 	<target name="carmareport">
 	
 		<taskdef name="carmareport"
-			classname="com.retroduction.carma.ant.AntCarmaReport" />
+			classname="com.retroduction.carma.ant.CarmaReport" />
 			
 		<carmareport sourceDir="src/test/it/it0001/src/main/java"
 			reportFile="target/report.xml" outputDirectory="target/carmareport/" />
