@@ -34,7 +34,7 @@ import com.retroduction.carma.xmlreport.om.MutationRun;
 		projectBean.setNumberOfClasses(0);
 		projectBean.setNumberOfDefeatedMutations(0);
 		projectBean.setNumberOfSurvivedMutations(0);
-		projectBean.setCoverageLevel(Double.NaN);
+		projectBean.setCoverageLevel(null);
 
 		for (ClassUnderTest clazz : report.getClassUnderTest()) {
 
@@ -44,7 +44,7 @@ import com.retroduction.carma.xmlreport.om.MutationRun;
 				bean.setNumberOfClasses(0);
 				bean.setNumberOfDefeatedMutations(0);
 				bean.setNumberOfSurvivedMutations(0);
-				bean.setCoverageLevel(Double.NaN);
+				bean.setCoverageLevel(null);
 				packageDetailBeanMap.put(bean.getFqName(), bean);
 			}
 
@@ -64,7 +64,7 @@ import com.retroduction.carma.xmlreport.om.MutationRun;
 						/ (double) (bean.getNumberOfDefeatedMutations() + (double) bean
 								.getNumberOfSurvivedMutations()));
 			} else {
-				bean.setCoverageLevel(Double.NaN);
+				bean.setCoverageLevel(null);
 			}
 
 		}
@@ -86,7 +86,7 @@ import com.retroduction.carma.xmlreport.om.MutationRun;
 								/ (double) (projectBean.getNumberOfDefeatedMutations() + (double) projectBean
 										.getNumberOfSurvivedMutations()));
 			} else {
-				projectBean.setCoverageLevel(Double.NaN);
+				projectBean.setCoverageLevel(null);
 			}
 		}
 		
