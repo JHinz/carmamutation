@@ -22,7 +22,7 @@ public class PackageDetailBean {
 
 	private long numberOfDefeatedMutations;
 
-	private double coverageLevel;
+	private Double coverageLevel;
 
 	public long getNumberOfClasses() {
 		return numberOfClasses;
@@ -48,11 +48,11 @@ public class PackageDetailBean {
 		this.numberOfDefeatedMutations = numberOfDefeatedMutations;
 	}
 
-	public double getCoverageLevel() {
+	public Double getCoverageLevel() {
 		return coverageLevel;
 	}
 
-	public void setCoverageLevel(double coverageLevel) {
+	public void setCoverageLevel(Double coverageLevel) {
 		this.coverageLevel = coverageLevel;
 	}
 

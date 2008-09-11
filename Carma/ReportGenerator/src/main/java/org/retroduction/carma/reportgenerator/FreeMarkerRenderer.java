@@ -51,7 +51,7 @@ public class FreeMarkerRenderer implements IRenderer {
 			try {
 				templ.process(context, writer);
 			} catch (TemplateException e) {
-				throw new RendererException("Failed to render template: " + templateName);
+				throw new RendererException("Failed to render template: " + templateName, e);
 			}
 		} catch (IOException e) {
 			throw new RendererException("Failed loading template: " + templateName, e);
