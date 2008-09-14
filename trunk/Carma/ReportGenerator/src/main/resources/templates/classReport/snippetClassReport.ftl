@@ -1,5 +1,5 @@
 <#list snippets as snippet>
 <#assign codeEntries = snippet.codeEntries >
-<#include "standardSnippet.ftl">
+<#if extendedJcovInfoAvailable?exists && extendedJcovInfoAvailable><#include "extendedSnippet.ftl"><#else><#include "standardSnippet.ftl"></#if>
 <#include "snippetDescription.ftl">
 </#list>

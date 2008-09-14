@@ -25,15 +25,20 @@ import com.retroduction.carma.xmlreport.om.Mutant;
 
 import freemarker.template.Configuration;
 
+/**
+ * @author arau
+ *
+ */
 public class ExtendedSnippetTemplateTestCase extends TestCase {
-	
+
 	private final String EOF_CHAR = System.getProperty("line.separator");
 
 	public void test_1line() {
 
 		Configuration cfg = new Configuration();
 
-		FreeMarkerRenderer renderer = new FreeMarkerRenderer("extendedSnippet.ftl", "/templates/classReport");
+		FreeMarkerRenderer renderer = new FreeMarkerRenderer(
+				"extendedSnippet.ftl", "/templates/classReport");
 		renderer.setConfig(cfg);
 
 		Writer outputWriter = new StringWriter();
@@ -62,14 +67,17 @@ public class ExtendedSnippetTemplateTestCase extends TestCase {
 		expectedResult.append("<table>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("7").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"code\">").append(EOF_CHAR);
 		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
 		expectedResult.append("<pre>me</pre>").append(EOF_CHAR);
 		expectedResult.append("</div>").append(EOF_CHAR);
-		expectedResult.append("<div class=\"covered_killed\">").append(EOF_CHAR);
+		expectedResult.append("<div class=\"covered_killed\">")
+				.append(EOF_CHAR);
 		expectedResult.append("<pre> is</pre>").append(EOF_CHAR);
 		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
@@ -80,7 +88,8 @@ public class ExtendedSnippetTemplateTestCase extends TestCase {
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("</table>").append(EOF_CHAR);
 
-		assertEquals("Output mismatch", expectedResult.toString(), outputWriter.toString());
+		assertEquals("Output mismatch", expectedResult.toString(), outputWriter
+				.toString());
 
 	}
 
@@ -88,7 +97,8 @@ public class ExtendedSnippetTemplateTestCase extends TestCase {
 
 		Configuration cfg = new Configuration();
 
-		FreeMarkerRenderer renderer = new FreeMarkerRenderer("extendedSnippet.ftl", "/templates/classReport");
+		FreeMarkerRenderer renderer = new FreeMarkerRenderer(
+				"extendedSnippet.ftl", "/templates/classReport");
 		renderer.setConfig(cfg);
 
 		Writer outputWriter = new StringWriter();
@@ -118,14 +128,17 @@ public class ExtendedSnippetTemplateTestCase extends TestCase {
 		expectedResult.append("<table>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("7").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"code\">").append(EOF_CHAR);
 		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
 		expectedResult.append("<pre>me</pre>").append(EOF_CHAR);
 		expectedResult.append("</div>").append(EOF_CHAR);
-		expectedResult.append("<div class=\"covered_killed\">").append(EOF_CHAR);
+		expectedResult.append("<div class=\"covered_killed\">")
+				.append(EOF_CHAR);
 		expectedResult.append("<pre> is code</pre>").append(EOF_CHAR);
 		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
@@ -136,14 +149,17 @@ public class ExtendedSnippetTemplateTestCase extends TestCase {
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("8").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"code\">").append(EOF_CHAR);
 		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
 		expectedResult.append("<pre></pre>").append(EOF_CHAR);
 		expectedResult.append("</div>").append(EOF_CHAR);
-		expectedResult.append("<div class=\"covered_killed\">").append(EOF_CHAR);
+		expectedResult.append("<div class=\"covered_killed\">")
+				.append(EOF_CHAR);
 		expectedResult.append("<pre>me is</pre>").append(EOF_CHAR);
 		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
@@ -154,7 +170,8 @@ public class ExtendedSnippetTemplateTestCase extends TestCase {
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("</table>").append(EOF_CHAR);
 
-		assertEquals("Output mismatch", expectedResult.toString(), outputWriter.toString());
+		assertEquals("Output mismatch", expectedResult.toString(), outputWriter
+				.toString());
 
 	}
 
@@ -162,7 +179,8 @@ public class ExtendedSnippetTemplateTestCase extends TestCase {
 
 		Configuration cfg = new Configuration();
 
-		FreeMarkerRenderer renderer = new FreeMarkerRenderer("extendedSnippet.ftl", "/templates/classReport");
+		FreeMarkerRenderer renderer = new FreeMarkerRenderer(
+				"extendedSnippet.ftl", "/templates/classReport");
 		renderer.setConfig(cfg);
 
 		Writer outputWriter = new StringWriter();
@@ -193,14 +211,17 @@ public class ExtendedSnippetTemplateTestCase extends TestCase {
 		expectedResult.append("<table>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("7").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"code\">").append(EOF_CHAR);
 		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
 		expectedResult.append("<pre>m</pre>").append(EOF_CHAR);
 		expectedResult.append("</div>").append(EOF_CHAR);
-		expectedResult.append("<div class=\"covered_killed\">").append(EOF_CHAR);
+		expectedResult.append("<div class=\"covered_killed\">")
+				.append(EOF_CHAR);
 		expectedResult.append("<pre>e is code</pre>").append(EOF_CHAR);
 		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
@@ -211,15 +232,19 @@ public class ExtendedSnippetTemplateTestCase extends TestCase {
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("8").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"code\">").append(EOF_CHAR);
 		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
 		expectedResult.append("<pre></pre>").append(EOF_CHAR);
 		expectedResult.append("</div>").append(EOF_CHAR);
-		expectedResult.append("<div class=\"covered_killed\">").append(EOF_CHAR);
-		expectedResult.append("<pre>me is the overcoder</pre>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"covered_killed\">")
+				.append(EOF_CHAR);
+		expectedResult.append("<pre>me is the overcoder</pre>")
+				.append(EOF_CHAR);
 		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
 		expectedResult.append("<pre></pre>").append(EOF_CHAR);
@@ -229,14 +254,17 @@ public class ExtendedSnippetTemplateTestCase extends TestCase {
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("9").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"code\">").append(EOF_CHAR);
 		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
 		expectedResult.append("<pre></pre>").append(EOF_CHAR);
 		expectedResult.append("</div>").append(EOF_CHAR);
-		expectedResult.append("<div class=\"covered_killed\">").append(EOF_CHAR);
+		expectedResult.append("<div class=\"covered_killed\">")
+				.append(EOF_CHAR);
 		expectedResult.append("<pre>smarta</pre>").append(EOF_CHAR);
 		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
@@ -248,7 +276,8 @@ public class ExtendedSnippetTemplateTestCase extends TestCase {
 		expectedResult.append("</table>").append(EOF_CHAR);
 
 		System.out.println(expectedResult);
-		assertEquals("Output mismatch", expectedResult.toString(), outputWriter.toString());
+		assertEquals("Output mismatch", expectedResult.toString(), outputWriter
+				.toString());
 
 	}
 

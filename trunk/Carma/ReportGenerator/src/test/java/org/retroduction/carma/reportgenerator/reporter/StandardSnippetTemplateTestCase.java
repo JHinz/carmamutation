@@ -25,6 +25,10 @@ import com.retroduction.carma.xmlreport.om.Mutant;
 
 import freemarker.template.Configuration;
 
+/**
+ * @author arau
+ *
+ */
 public class StandardSnippetTemplateTestCase extends TestCase {
 
 	private final String EOF_CHAR = System.getProperty("line.separator");
@@ -63,7 +67,9 @@ public class StandardSnippetTemplateTestCase extends TestCase {
 		expectedResult.append("<table>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("7").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"covered_survived\">").append(
@@ -116,7 +122,9 @@ public class StandardSnippetTemplateTestCase extends TestCase {
 		expectedResult.append("<table>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("42").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"covered_survived\">").append(
@@ -127,12 +135,15 @@ public class StandardSnippetTemplateTestCase extends TestCase {
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("43").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"covered_survived\">").append(
 				EOF_CHAR);
-		expectedResult.append("me thinks as well").append(EOF_CHAR);
+		expectedResult.append("me thinks as well").append(
+				EOF_CHAR);
 		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("</tr>").append(EOF_CHAR);
@@ -178,7 +189,9 @@ public class StandardSnippetTemplateTestCase extends TestCase {
 		expectedResult.append("<table>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("42").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"covered_killed\">")
@@ -189,12 +202,15 @@ public class StandardSnippetTemplateTestCase extends TestCase {
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("43").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"covered_killed\">")
 				.append(EOF_CHAR);
-		expectedResult.append("me thinks as well").append(EOF_CHAR);
+		expectedResult.append("me thinks as well").append(
+				EOF_CHAR);
 		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("</tr>").append(EOF_CHAR);
@@ -242,7 +258,9 @@ public class StandardSnippetTemplateTestCase extends TestCase {
 		expectedResult.append("<table>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("42").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
@@ -252,18 +270,23 @@ public class StandardSnippetTemplateTestCase extends TestCase {
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("43").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"covered_killed\">")
 				.append(EOF_CHAR);
-		expectedResult.append("me thinks as well").append(EOF_CHAR);
+		expectedResult.append("me thinks as well").append(
+				EOF_CHAR);
 		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("44").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"covered_killed\">")
@@ -274,7 +297,9 @@ public class StandardSnippetTemplateTestCase extends TestCase {
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("45").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
@@ -326,7 +351,9 @@ public class StandardSnippetTemplateTestCase extends TestCase {
 		expectedResult.append("<table>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("42").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"covered_killed\">")
@@ -337,18 +364,23 @@ public class StandardSnippetTemplateTestCase extends TestCase {
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("43").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"covered_killed\">")
 				.append(EOF_CHAR);
-		expectedResult.append("me thinks as well").append(EOF_CHAR);
+		expectedResult.append("me thinks as well").append(
+				EOF_CHAR);
 		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("44").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"covered_killed\">")
@@ -359,7 +391,9 @@ public class StandardSnippetTemplateTestCase extends TestCase {
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("45").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"covered_killed\">")

@@ -24,7 +24,7 @@ import freemarker.template.Configuration;
 
 /**
  * @author arau
- *
+ * 
  */
 public class ClassSnippetReporter {
 
@@ -40,15 +40,26 @@ public class ClassSnippetReporter {
 		this.context = context;
 	}
 
-	public void createReport(ClassUnderTest classReport, SourceFile sourceFile, Writer writer,
-			ResourceBundle resources) throws RendererException, IOException {
+	public void createReport(ClassUnderTest classReport, SourceFile sourceFile,
+			Writer writer, ResourceBundle resources) throws RendererException,
+			IOException {
 
 		SnippetBuilder builder = new SnippetBuilder(classReport, sourceFile);
 
+//		boolean extendedJCovInfoAvailable = false;
+
+//		if (classReport.getMutant().size() > 0
+//				&& classReport.getMutant().get(0).getBaseSourceColumnStart() > 0) {
+//			extendedJCovInfoAvailable = true;
+//		}
+
 		context.put("snippets", builder.getSnippets());
 		context.put("i18nTransition", resources);
+//		context.put("extendedJcovInfoAvailable", new Boolean(
+//				extendedJCovInfoAvailable));
 
-		FreeMarkerRenderer renderer = new FreeMarkerRenderer("classReport/classReport.ftl", "/templates/");
+		FreeMarkerRenderer renderer = new FreeMarkerRenderer(
+				"classReport/classReport.ftl", "/templates/");
 		renderer.setConfig(new Configuration());
 
 		renderer.render(context, writer);

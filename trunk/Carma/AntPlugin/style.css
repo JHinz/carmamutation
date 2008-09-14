@@ -1,0 +1,8 @@
+<style type="text/css">
+body { font-family: Courier;}
+table { font-family: Courier; font-size:75%;}
+.covered_killed {background-color: green;float:left; }
+.covered_survived {background-color: red;float:left; }
+.uncovered {background-color: lightgrey;float:left; }
+.code {background-color: blue; float:block; }
+</style>

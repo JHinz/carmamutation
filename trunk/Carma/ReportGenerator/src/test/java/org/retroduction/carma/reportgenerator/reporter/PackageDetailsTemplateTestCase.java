@@ -19,6 +19,10 @@ import org.retroduction.carma.reportgenerator.beans.PackageDetailBean;
 
 import freemarker.template.Configuration;
 
+/**
+ * @author arau
+ *
+ */
 public class PackageDetailsTemplateTestCase extends junit.framework.TestCase {
 
 	private final String EOF_CHAR = System.getProperty("line.separator");

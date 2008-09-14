@@ -25,6 +25,10 @@ import com.retroduction.carma.report.om.SourceFile;
 import com.retroduction.carma.xmlreport.om.ClassUnderTest;
 import com.retroduction.carma.xmlreport.om.Mutant;
 
+/**
+ * @author arau
+ *
+ */
 public class ClassSnippetReporterTestCase extends TestCase {
 
 	private final String EOF_CHAR = System.getProperty("line.separator");
@@ -90,7 +94,9 @@ public class ClassSnippetReporterTestCase extends TestCase {
 		expectedResult.append("<table>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("2").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
@@ -100,7 +106,9 @@ public class ClassSnippetReporterTestCase extends TestCase {
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("3").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
@@ -110,7 +118,9 @@ public class ClassSnippetReporterTestCase extends TestCase {
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("4").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"covered_survived\">").append(
@@ -121,7 +131,9 @@ public class ClassSnippetReporterTestCase extends TestCase {
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("5").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"covered_survived\">").append(
@@ -132,7 +144,9 @@ public class ClassSnippetReporterTestCase extends TestCase {
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("6").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
@@ -142,7 +156,9 @@ public class ClassSnippetReporterTestCase extends TestCase {
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("7").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
@@ -158,12 +174,15 @@ public class ClassSnippetReporterTestCase extends TestCase {
 				.append(EOF_CHAR);
 		expectedResult.append("<tr><td>Transition: Description</td></tr>")
 				.append(EOF_CHAR);
-		expectedResult.append("<tr><td>Defeating Tests: </td></tr>").append(EOF_CHAR);
+		expectedResult.append("<tr><td>Defeating Tests: </td></tr>").append(
+				EOF_CHAR);
 		expectedResult.append("</table>").append(EOF_CHAR);
 		expectedResult.append("<table>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("5").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
@@ -173,7 +192,9 @@ public class ClassSnippetReporterTestCase extends TestCase {
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("6").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
@@ -183,7 +204,9 @@ public class ClassSnippetReporterTestCase extends TestCase {
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("7").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"covered_killed\">")
@@ -194,7 +217,9 @@ public class ClassSnippetReporterTestCase extends TestCase {
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
 		expectedResult.append("8").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"uncovered\">").append(EOF_CHAR);
@@ -210,7 +235,8 @@ public class ClassSnippetReporterTestCase extends TestCase {
 				.append(EOF_CHAR);
 		expectedResult.append("<tr><td>Transition: Description</td></tr>")
 				.append(EOF_CHAR);
-		expectedResult.append("<tr><td>Defeating Tests: </td></tr>").append(EOF_CHAR);
+		expectedResult.append("<tr><td>Defeating Tests: </td></tr>").append(
+				EOF_CHAR);
 		expectedResult.append("</table>").append(EOF_CHAR);
 		expectedResult.append("</body>").append(EOF_CHAR);
 		expectedResult.append("</html>").append(EOF_CHAR);
