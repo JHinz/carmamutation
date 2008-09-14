@@ -2,7 +2,9 @@
 <#list codeEntries as codeEntry >
 <tr>
 <td>
+<div class="lineNo">
 ${codeEntry.lineNumber?html}
+</div>
 </td>
 <td>
 <div class="code">
@@ -14,20 +16,20 @@ ${codeEntry.lineNumber?html}
 <#if snippet.mutant.baseSourceLineStart == codeEntry.lineNumber>
 <#if snippet.mutant.baseSourceLineEnd == codeEntry.lineNumber>
 <div class="uncovered">
-<pre>${codeEntry.code?substring(0,snippet.mutant.baseSourceColumnStart-1)?html}</pre>
+<pre>${codeEntry.code?substring(0,snippet.mutant.baseSourceColumnStart-1)?html?replace("  ", "&nbsp;&nbsp;")}</pre>
 </div>
 <div class="${coverageFlag}">
-<pre>${codeEntry.code?substring(snippet.mutant.baseSourceColumnStart-1, snippet.mutant.baseSourceColumnEnd)?html}</pre>
+<pre>${codeEntry.code?substring(snippet.mutant.baseSourceColumnStart-1, snippet.mutant.baseSourceColumnEnd)?replace("  ", "&nbsp;&nbsp;")}</pre>
 </div>
 <div class="uncovered">
-<pre>${codeEntry.code?substring(snippet.mutant.baseSourceColumnEnd)?html}</pre>
+<pre>${codeEntry.code?substring(snippet.mutant.baseSourceColumnEnd)?replace("  ", "&nbsp;&nbsp;")}</pre>
 </div>
 <#else>
 <div class="uncovered">
-<pre>${codeEntry.code?substring(0,snippet.mutant.baseSourceColumnStart-1)?html}</pre>
+<pre>${codeEntry.code?substring(0,snippet.mutant.baseSourceColumnStart-1)?replace("  ", "&nbsp;&nbsp;")}</pre>
 </div>
 <div class="${coverageFlag}">
-<pre>${codeEntry.code?substring(snippet.mutant.baseSourceColumnStart-1)?html}</pre>
+<pre>${codeEntry.code?substring(snippet.mutant.baseSourceColumnStart-1)?replace("  ", "&nbsp;&nbsp;")}</pre>
 </div>
 <div class="uncovered">
 <pre></pre>
@@ -39,17 +41,17 @@ ${codeEntry.lineNumber?html}
 <pre></pre>
 </div>
 <div class="${coverageFlag}">
-<pre>${codeEntry.code?substring(0, snippet.mutant.baseSourceColumnEnd)?html}</pre>
+<pre>${codeEntry.code?substring(0, snippet.mutant.baseSourceColumnEnd)?replace("  ", "&nbsp;&nbsp;")}</pre>
 </div>
 <div class="uncovered">
-<pre>${codeEntry.code?substring(snippet.mutant.baseSourceColumnEnd)?html}</pre>
+<pre>${codeEntry.code?substring(snippet.mutant.baseSourceColumnEnd)?replace("  ", "&nbsp;&nbsp;")}</pre>
 </div>
 <#else>
 <div class="uncovered">
 <pre></pre>
 </div>
 <div class="${coverageFlag}">
-<pre>${codeEntry.code?html}</pre>
+<pre>${codeEntry.code?replace("  ", "&nbsp;&nbsp;")}</pre>
 </div>
 <div class="uncovered">
 <pre></pre>

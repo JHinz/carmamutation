@@ -15,6 +15,10 @@ import org.retroduction.carma.reportgenerator.beans.SourceCodeEntryBean;
 
 import com.retroduction.carma.xmlreport.om.Mutant;
 
+/**
+ * @author arau
+ *
+ */
 public class SourceCodeBeanBuilderTestCase extends TestCase {
 
 	public void test() {

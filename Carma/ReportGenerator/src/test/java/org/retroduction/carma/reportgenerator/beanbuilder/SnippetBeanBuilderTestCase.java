@@ -19,6 +19,10 @@ import com.retroduction.carma.report.om.SourceFile;
 import com.retroduction.carma.xmlreport.om.ClassUnderTest;
 import com.retroduction.carma.xmlreport.om.Mutant;
 
+/**
+ * @author arau
+ *
+ */
 public class SnippetBeanBuilderTestCase extends TestCase {
 
 	public void test_SourceCodeRanges_MultipleLineMutant() {

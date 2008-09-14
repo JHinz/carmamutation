@@ -18,6 +18,10 @@ import com.retroduction.carma.xmlreport.om.ClassUnderTest;
 import com.retroduction.carma.xmlreport.om.MutationRatio;
 import com.retroduction.carma.xmlreport.om.MutationRun;
 
+/**
+ * @author arau
+ *
+ */
 public class PackageDetailBeanBuilderTestCase extends TestCase {
 
 	public void test_WithSorting() {

@@ -17,6 +17,10 @@ import com.retroduction.carma.xmlreport.om.ClassUnderTest;
 import com.retroduction.carma.xmlreport.om.MutationRatio;
 import com.retroduction.carma.xmlreport.om.MutationRun;
 
+/**
+ * @author arau
+ *
+ */
 public class PackageDetailsReporterTestCase extends TestCase {
 
 	private final String EOF_CHAR = System.getProperty("line.separator");

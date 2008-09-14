@@ -2,7 +2,9 @@
 <#list codeEntries as codeEntry >
 <tr>
 <td>
+<div class="lineNo">
 ${codeEntry.lineNumber?html}
+</div>
 </td>
 <td>
 <#if (snippet.mutant.baseSourceLineStart <= codeEntry.lineNumber) &&
@@ -15,7 +17,7 @@ ${codeEntry.lineNumber?html}
 <#else>
 <div class="uncovered">
 </#if>
-${codeEntry.code?html}
+${codeEntry.code?html?replace("  ", "&nbsp;&nbsp;")}
 </div>
 </td>
 </tr>
