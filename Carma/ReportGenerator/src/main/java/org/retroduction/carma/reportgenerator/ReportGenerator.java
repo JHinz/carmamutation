@@ -15,16 +15,17 @@ import java.io.Writer;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.retroduction.carma.reportgenerator.beanbuilder.PackageDetailBeanBuilder;
 import org.retroduction.carma.reportgenerator.beanbuilder.ProjectBuilder;
 import org.retroduction.carma.reportgenerator.beans.PackageDetailBean;
+import org.retroduction.carma.reportgenerator.beans.ProjectDetailBean;
 import org.retroduction.carma.reportgenerator.reporter.ClassListReporter;
 import org.retroduction.carma.reportgenerator.reporter.ClassSnippetReporter;
 import org.retroduction.carma.reportgenerator.reporter.PackageDetailReporter;
 import org.retroduction.carma.reportgenerator.reporter.StyleSheetReporter;
 
-import com.retroduction.carma.report.om.Project;
 import com.retroduction.carma.report.om.SourceFile;
 import com.retroduction.carma.xmlreport.om.ClassUnderTest;
 import com.retroduction.carma.xmlreport.om.MutationRun;
@@ -40,8 +41,11 @@ public class ReportGenerator {
 	public void perform(MutationRun report, File outputDirectory,
 			List<File> sourceFolders) throws ReportingException,
 			RendererException, IOException {
+		
+		FileUtils.forceMkdir(outputDirectory);
+		FileUtils.cleanDirectory(outputDirectory);
 
-		createStyleSheet();
+		createStyleSheet(outputDirectory);
 
 		createClassDetailsReport(report, outputDirectory, sourceFolders);
 
@@ -51,8 +55,9 @@ public class ReportGenerator {
 
 	}
 
-	private void createStyleSheet() throws IOException {
-		Writer outputWriter = new FileWriter("style.css");
+	private void createStyleSheet(File outputDirectory) throws IOException {
+		Writer outputWriter = new FileWriter(outputDirectory.getAbsolutePath()
+				+ "/" + "style.css");
 		StyleSheetReporter reporter = new StyleSheetReporter();
 		reporter.generateReport(outputWriter);
 	}
@@ -89,7 +94,7 @@ public class ReportGenerator {
 		try {
 
 			ProjectBuilder builder = new ProjectBuilder();
-			Project project = builder.buildProject(sourceFolders);
+			ProjectDetailBean project = builder.buildProject(sourceFolders);
 
 			if (!(outputDirectory.exists())) {
 				outputDirectory.mkdirs();

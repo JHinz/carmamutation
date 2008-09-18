@@ -27,7 +27,7 @@ import com.retroduction.carma.xmlreport.om.Mutant;
 
 /**
  * @author arau
- *
+ * 
  */
 public class ClassSnippetReporterTestCase extends TestCase {
 
@@ -91,7 +91,7 @@ public class ClassSnippetReporterTestCase extends TestCase {
 		expectedResult.append("<head>").append(EOF_CHAR);
 		expectedResult.append("</head>").append(EOF_CHAR);
 		expectedResult.append("<body>").append(EOF_CHAR);
-		expectedResult.append("<table>").append(EOF_CHAR);
+		expectedResult.append("<table class=\"codeTable\">").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
@@ -177,7 +177,8 @@ public class ClassSnippetReporterTestCase extends TestCase {
 		expectedResult.append("<tr><td>Defeating Tests: </td></tr>").append(
 				EOF_CHAR);
 		expectedResult.append("</table>").append(EOF_CHAR);
-		expectedResult.append("<table>").append(EOF_CHAR);
+		expectedResult.append("<br>").append(EOF_CHAR);
+		expectedResult.append("<table class=\"codeTable\">").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
@@ -238,6 +239,7 @@ public class ClassSnippetReporterTestCase extends TestCase {
 		expectedResult.append("<tr><td>Defeating Tests: </td></tr>").append(
 				EOF_CHAR);
 		expectedResult.append("</table>").append(EOF_CHAR);
+		expectedResult.append("<br>").append(EOF_CHAR);
 		expectedResult.append("</body>").append(EOF_CHAR);
 		expectedResult.append("</html>").append(EOF_CHAR);
 
