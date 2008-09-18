@@ -1,4 +1,4 @@
-<table>
+<table class="codeTable">
 <#list codeEntries as codeEntry >
 <tr>
 <td>
