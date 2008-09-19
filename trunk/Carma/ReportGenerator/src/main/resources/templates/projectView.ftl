@@ -1,6 +1,7 @@
 <html>
 <#if ! ingoreExternalTemplates?exists><#include "./header.ftl"></#if>
 <body>
+<#if ! ingoreExternalTemplates?exists><#include "./breadcrumb.ftl"></#if>
 <div class="projectStatistics">
 <table>
 <thead>

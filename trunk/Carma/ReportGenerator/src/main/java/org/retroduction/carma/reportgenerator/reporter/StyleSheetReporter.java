@@ -8,7 +8,9 @@
  */
 package org.retroduction.carma.reportgenerator.reporter;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Writer;
 
 import org.retroduction.carma.reportgenerator.RendererException;
@@ -32,12 +34,16 @@ public class StyleSheetReporter {
 			".descriptionTable { font-size: 50%; background-color: white; border-width: 1px 0px 1px 0px; border-style: solid; float:block; }",//
 			".footer { font-size:50%; width: 150pt; margin-left: auto; margin-right: auto; }\n" };
 
-	public void generateReport(Writer outputWriter) throws RendererException,
-			IOException {
+	public void generateReport(Writer outputWriter) throws RendererException, IOException {
 
-		for (String line : styleSheetCode) {
-			outputWriter.append(line);
-		}
+		String styleSheetCode = "";
+
+		BufferedReader reader = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader()
+				.getResourceAsStream("templates/style.css")));
+
+		String inputLine = null;
+		while ((inputLine = reader.readLine()) != null)
+			outputWriter.append(inputLine);
 
 		outputWriter.close();
 

@@ -2,6 +2,7 @@
 <#if ! ingoreExternalTemplates?exists><#include "../header.ftl"></#if>
 <body>
 <#if ! ingoreExternalTemplates?exists><#include "../breadcrumb.ftl"></#if>
+<div class="classListing">
 <table>
 <thead>
 <tr>
@@ -24,6 +25,7 @@
 </#list>
 </tbody>
 </table>
+</div>
 <#if ! ingoreExternalTemplates?exists><#include "../footer.ftl"></#if>
 </body>
 </html>

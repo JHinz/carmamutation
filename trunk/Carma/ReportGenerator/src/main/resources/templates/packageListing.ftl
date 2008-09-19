@@ -1,3 +1,4 @@
+<div class="packageListing">
 <table>
 <thead>
 <tr>
@@ -22,3 +23,4 @@
 </#list>
 </tbody>
 </table>
+</div>
