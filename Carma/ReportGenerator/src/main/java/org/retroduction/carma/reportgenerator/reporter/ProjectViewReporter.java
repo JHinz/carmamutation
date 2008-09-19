@@ -14,8 +14,10 @@ import java.util.List;
 
 import org.retroduction.carma.reportgenerator.FreeMarkerRenderer;
 import org.retroduction.carma.reportgenerator.RendererException;
-import org.retroduction.carma.reportgenerator.beanbuilder.PackageDetailBeanBuilder;
+import org.retroduction.carma.reportgenerator.beanbuilder.PackageListingBeanBuilder;
+import org.retroduction.carma.reportgenerator.beanbuilder.ProjectStatisticsBeanBuilder;
 import org.retroduction.carma.reportgenerator.beans.PackageDetailBean;
+import org.retroduction.carma.reportgenerator.beans.ProjectStatisticsBean;
 
 import com.retroduction.carma.xmlreport.om.MutationRun;
 
@@ -23,34 +25,33 @@ import freemarker.template.Configuration;
 
 /**
  * @author arau
- *
+ * 
  */
-public class PackageDetailReporter {
+public class ProjectViewReporter {
 
 	private HashMap<String, Object> context;
 
-	public PackageDetailReporter() {
+	public ProjectViewReporter() {
 		super();
 		this.context = new HashMap<String, Object>();
 	}
 
-	public PackageDetailReporter(HashMap<String, Object> context) {
+	public ProjectViewReporter(HashMap<String, Object> context) {
 		super();
 		this.context = context;
 	}
 
 	public void generateReport(MutationRun report, Writer outputWriter) throws RendererException {
 
-		PackageDetailBeanBuilder builder = new PackageDetailBeanBuilder();
+		ProjectStatisticsBean projectStatisticsBean = new ProjectStatisticsBeanBuilder().get(report);
 
-		List<PackageDetailBean> packageDetailBeans = builder.get(report);
+		List<PackageDetailBean> packageDetailBeans = new PackageListingBeanBuilder().get(report);
 
-		PackageDetailBean projectDetailBean = (PackageDetailBean) packageDetailBeans.remove(0);
+		context.put("projectStatisticsBean", projectStatisticsBean);
+		context.put("projectDetailBean", packageDetailBeans.get(0));
+		context.put("packageDetailBeans", packageDetailBeans.subList(1, packageDetailBeans.size()));
 
-		context.put("projectDetailBean", projectDetailBean);
-		context.put("packageDetailBeans", packageDetailBeans);
-
-		FreeMarkerRenderer renderer = new FreeMarkerRenderer("packageDetails.ftl", "/templates/");
+		FreeMarkerRenderer renderer = new FreeMarkerRenderer("projectView.ftl", "/templates/");
 		renderer.setConfig(new Configuration());
 
 		renderer.render(context, outputWriter);

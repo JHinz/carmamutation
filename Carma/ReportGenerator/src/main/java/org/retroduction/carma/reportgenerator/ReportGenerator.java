@@ -17,13 +17,14 @@ import java.util.ResourceBundle;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.retroduction.carma.reportgenerator.beanbuilder.PackageDetailBeanBuilder;
-import org.retroduction.carma.reportgenerator.beanbuilder.ProjectBuilder;
+import org.retroduction.carma.reportgenerator.beanbuilder.PackageListingBeanBuilder;
+import org.retroduction.carma.reportgenerator.beanbuilder.ProjectSourceCodeFileListBeanBuilder;
 import org.retroduction.carma.reportgenerator.beans.PackageDetailBean;
-import org.retroduction.carma.reportgenerator.beans.ProjectDetailBean;
+import org.retroduction.carma.reportgenerator.beans.ProjectSourceCodeFileListBean;
 import org.retroduction.carma.reportgenerator.reporter.ClassListReporter;
 import org.retroduction.carma.reportgenerator.reporter.ClassSnippetReporter;
-import org.retroduction.carma.reportgenerator.reporter.PackageDetailReporter;
+import org.retroduction.carma.reportgenerator.reporter.PackageViewReporter;
+import org.retroduction.carma.reportgenerator.reporter.ProjectViewReporter;
 import org.retroduction.carma.reportgenerator.reporter.StyleSheetReporter;
 
 import com.retroduction.carma.report.om.SourceFile;
@@ -38,63 +39,53 @@ public class ReportGenerator {
 
 	private Logger logger = Logger.getLogger(ReportGenerator.class.getName());
 
-	public void perform(MutationRun report, File outputDirectory,
-			List<File> sourceFolders) throws ReportingException,
+	public void perform(MutationRun report, File outputDirectory, List<File> sourceFolders) throws ReportingException,
 			RendererException, IOException {
-		
+
 		FileUtils.forceMkdir(outputDirectory);
 		FileUtils.cleanDirectory(outputDirectory);
 
 		createStyleSheet(outputDirectory);
 
-		createClassDetailsReport(report, outputDirectory, sourceFolders);
-
 		createProjectReport(report, outputDirectory);
+
+		createClassDetailsReport(report, outputDirectory, sourceFolders);
 
 		createPackageReports(report, outputDirectory);
 
 	}
 
 	private void createStyleSheet(File outputDirectory) throws IOException {
-		Writer outputWriter = new FileWriter(outputDirectory.getAbsolutePath()
-				+ "/" + "style.css");
+		Writer outputWriter = new FileWriter(outputDirectory.getAbsolutePath() + "/" + "style.css");
 		StyleSheetReporter reporter = new StyleSheetReporter();
 		reporter.generateReport(outputWriter);
 	}
 
-	private void createPackageReports(MutationRun report, File outputDirectory)
-			throws IOException {
-		PackageDetailBeanBuilder packageDetailBeanBuilder = new PackageDetailBeanBuilder();
-		List<PackageDetailBean> packageDetailBeans = packageDetailBeanBuilder
-				.get(report);
+	private void createPackageReports(MutationRun report, File outputDirectory) throws IOException {
+		PackageListingBeanBuilder packageDetailBeanBuilder = new PackageListingBeanBuilder();
+		List<PackageDetailBean> packageDetailBeans = packageDetailBeanBuilder.get(report);
 
 		for (PackageDetailBean packageBean : packageDetailBeans) {
 			ClassListReporter classListReporter = new ClassListReporter();
-			FileWriter classListOutputWriter = new FileWriter(outputDirectory
-					.getAbsolutePath()
-					+ "/" + packageBean.getFqName() + ".html");
-			classListReporter.generateReport(report, packageBean.getFqName(),
-					classListOutputWriter);
+			FileWriter classListOutputWriter = new FileWriter(outputDirectory.getAbsolutePath() + "/"
+					+ packageBean.getFqName() + ".html");
+			classListReporter.generateReport(report, packageBean.getFqName(), classListOutputWriter);
 		}
 	}
 
-	private void createProjectReport(MutationRun report, File outputDirectory)
-			throws IOException {
-		PackageDetailReporter reporter = new PackageDetailReporter();
-		FileWriter outputWriter = new FileWriter(outputDirectory
-				.getAbsolutePath()
-				+ "/" + "index.html");
+	private void createProjectReport(MutationRun report, File outputDirectory) throws IOException {
+		ProjectViewReporter reporter = new ProjectViewReporter();
+		FileWriter outputWriter = new FileWriter(outputDirectory.getAbsolutePath() + "/" + "index.html");
 		reporter.generateReport(report, outputWriter);
 		outputWriter.close();
 	}
 
-	private void createClassDetailsReport(MutationRun report,
-			File outputDirectory, List<File> sourceFolders)
+	private void createClassDetailsReport(MutationRun report, File outputDirectory, List<File> sourceFolders)
 			throws ReportingException {
 		try {
 
-			ProjectBuilder builder = new ProjectBuilder();
-			ProjectDetailBean project = builder.buildProject(sourceFolders);
+			ProjectSourceCodeFileListBeanBuilder builder = new ProjectSourceCodeFileListBeanBuilder();
+			ProjectSourceCodeFileListBean project = builder.getSourceCodeFileList(report, sourceFolders);
 
 			if (!(outputDirectory.exists())) {
 				outputDirectory.mkdirs();
@@ -104,25 +95,20 @@ public class ReportGenerator {
 			ClassSnippetReporter classSnippetReporter = new ClassSnippetReporter();
 
 			for (ClassUnderTest clazz : report.getClassUnderTest()) {
-				SourceFile sourceFile = project.getSourceFile(clazz
-						.getPackageName(), clazz.getClassName());
+				SourceFile sourceFile = project.getSourceFile(clazz.getPackageName(), clazz.getClassName());
 
 				if (sourceFile == null) {
-					this.logger.warn("Missing source code file for: "
-							+ clazz.getPackageName() + "."
+					this.logger.warn("Missing source code file for: " + clazz.getPackageName() + "."
 							+ clazz.getClassName());
 					continue;
 				}
 
-				String reportFile = clazz.getPackageName() + "."
-						+ clazz.getClassName() + ".html";
+				String reportFile = clazz.getPackageName() + "." + clazz.getClassName() + ".html";
 
-				FileWriter writer = new FileWriter(outputDirectory
-						.getAbsolutePath()
-						+ "/" + reportFile);
+				FileWriter writer = new FileWriter(outputDirectory.getAbsolutePath() + "/" + reportFile);
 
-				classSnippetReporter.createReport(clazz, sourceFile, writer,
-						ResourceBundle.getBundle("i18nTransition"));
+				classSnippetReporter
+						.createReport(clazz, sourceFile, writer, ResourceBundle.getBundle("i18nTransition"));
 
 			}
 

@@ -26,7 +26,7 @@ import freemarker.template.Configuration;
 
 /**
  * @author arau
- *
+ * 
  */
 public class ClassListReporter {
 
@@ -42,8 +42,7 @@ public class ClassListReporter {
 		this.context = context;
 	}
 
-	public void generateReport(MutationRun report, String fqPackageName, Writer outputWriter)
-			throws RendererException {
+	public void generateReport(MutationRun report, String fqPackageName, Writer outputWriter) throws RendererException {
 
 		List<ClassLevelCoverage> classesUnderTest = new ArrayList<ClassLevelCoverage>();
 
@@ -52,12 +51,12 @@ public class ClassListReporter {
 			if (!classUnderTest.getPackageName().equalsIgnoreCase(fqPackageName))
 				continue;
 
-			String fqClassName = ClassNameUtil.getFqName(classUnderTest.getPackageName(), classUnderTest
-					.getClassName());
+			String fqClassName = ClassNameUtil
+					.getFqName(classUnderTest.getPackageName(), classUnderTest.getClassName());
 
 			ClassLevelCoverage info = new ClassLevelCoverage(fqClassName, classUnderTest.getClassName(),
-					(classUnderTest.getMutationRatio().getMutationCount()), (classUnderTest
-							.getMutationRatio().getSurvivorCount()));
+					(classUnderTest.getMutationRatio().getMutationCount()), (classUnderTest.getMutationRatio()
+							.getSurvivorCount()));
 
 			info.getNumberOfTests(classUnderTest.getExecutedTests().size());
 
@@ -67,6 +66,9 @@ public class ClassListReporter {
 		Collections.sort(classesUnderTest);
 
 		context.put("classesUnderTest", classesUnderTest);
+		context.put("showPackageBreadCrumb", new Object());
+		context.put("packageName", fqPackageName);
+		
 		FreeMarkerRenderer renderer = new FreeMarkerRenderer("classReport/classlisting.ftl", "/templates/");
 		renderer.setConfig(new Configuration());
 
