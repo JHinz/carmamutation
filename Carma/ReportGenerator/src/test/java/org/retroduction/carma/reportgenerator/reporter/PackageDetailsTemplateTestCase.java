@@ -81,6 +81,7 @@ public class PackageDetailsTemplateTestCase extends junit.framework.TestCase {
 
 		StringBuffer expectedResult = new StringBuffer();
 
+		expectedResult.append("<div class=\"packageListing\">").append(EOF_CHAR);
 		expectedResult.append("<table>").append(EOF_CHAR);
 		expectedResult.append("<thead>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
@@ -113,11 +114,11 @@ public class PackageDetailsTemplateTestCase extends junit.framework.TestCase {
 		expectedResult.append("</tr>").append(EOF_CHAR);
 
 		expectedResult.append("</tbody>").append(EOF_CHAR);
-		expectedResult.append("</table>");
+		expectedResult.append("</table>").append(EOF_CHAR);
+		expectedResult.append("</div>");
 
 		assertEquals("Output mismatch", expectedResult.toString(), outputWriter.toString());
 		System.out.println(outputWriter.toString());
 
 	}
-
 }
