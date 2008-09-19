@@ -8,24 +8,25 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.retroduction.carma.reportgenerator.beans.ProjectDetailBean;
+import org.retroduction.carma.reportgenerator.beans.ProjectSourceCodeFileListBean;
 
 import com.retroduction.carma.report.om.SourceFile;
 import com.retroduction.carma.utilities.Logger;
 import com.retroduction.carma.utilities.LoggerFactory;
+import com.retroduction.carma.xmlreport.om.MutationRun;
 
 /**
  * @author arau
  * 
  */
-public class ProjectBuilder {
+public class ProjectSourceCodeFileListBeanBuilder {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 	@SuppressWarnings("unchecked")
-	public ProjectDetailBean buildProject(List<File> sourceFolders) {
+	public ProjectSourceCodeFileListBean getSourceCodeFileList(MutationRun report, List<File> sourceFolders) {
 
-		ProjectDetailBean project = new ProjectDetailBean();
+		ProjectSourceCodeFileListBean project = new ProjectSourceCodeFileListBean();
 
 		for (File folderName : sourceFolders) {
 
@@ -50,13 +51,13 @@ public class ProjectBuilder {
 						sourceFile.setSourceText(FileUtils.readLines(new File(sourceFileUrl.getPath())));
 						project.addSourceFile(sourceFile);
 					} catch (IOException e) {
-						System.err.println("Source folder " + folderName + " is invalid. Skipping ...");
+						logger.warn("Source folder " + folderName + " is invalid. Skipping ...");
 						continue;
 					}
 
 				}
 			} catch (IOException e) {
-				System.err.println("Source folder " + folderName + " is invalid. Skipping ...");
+				logger.warn("Source folder " + folderName + " is invalid. Skipping ...");
 				continue;
 			}
 
@@ -70,7 +71,6 @@ public class ProjectBuilder {
 
 		String file = FilenameUtils.getPathNoEndSeparator(sourceFileUrl.toString());
 		String sourceFolder = FilenameUtils.getPathNoEndSeparator(sourceFolderUrl.toString());
-
 		return file.substring(sourceFolder.length() + 1).replaceAll("/", ".");
 
 	}

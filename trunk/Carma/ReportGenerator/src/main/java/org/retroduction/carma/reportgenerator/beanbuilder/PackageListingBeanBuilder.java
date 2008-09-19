@@ -23,7 +23,7 @@ import com.retroduction.carma.xmlreport.om.MutationRun;
 /**
  * @author arau
  *
- */public class PackageDetailBeanBuilder {
+ */public class PackageListingBeanBuilder {
 
 	public List<PackageDetailBean> get(MutationRun report) {
 

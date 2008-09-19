@@ -26,7 +26,7 @@ public class PackageDetailBeanBuilderTestCase extends TestCase {
 
 	public void test_WithSorting() {
 
-		PackageDetailBeanBuilder builder = new PackageDetailBeanBuilder();
+		PackageListingBeanBuilder builder = new PackageListingBeanBuilder();
 
 		MutationRun report = new MutationRun();
 

@@ -21,7 +21,7 @@ import freemarker.template.Configuration;
 
 /**
  * @author arau
- *
+ * 
  */
 public class PackageDetailsTemplateTestCase extends junit.framework.TestCase {
 
@@ -31,8 +31,7 @@ public class PackageDetailsTemplateTestCase extends junit.framework.TestCase {
 
 		Configuration cfg = new Configuration();
 
-		FreeMarkerRenderer renderer = new FreeMarkerRenderer(
-				"packageDetails.ftl", "/templates/");
+		FreeMarkerRenderer renderer = new FreeMarkerRenderer("packageListing.ftl", "/templates/");
 		renderer.setConfig(cfg);
 
 		Writer outputWriter = new StringWriter();
@@ -82,8 +81,6 @@ public class PackageDetailsTemplateTestCase extends junit.framework.TestCase {
 
 		StringBuffer expectedResult = new StringBuffer();
 
-		expectedResult.append("<html>").append(EOF_CHAR);
-		expectedResult.append("<body>").append(EOF_CHAR);
 		expectedResult.append("<table>").append(EOF_CHAR);
 		expectedResult.append("<thead>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
@@ -91,27 +88,14 @@ public class PackageDetailsTemplateTestCase extends junit.framework.TestCase {
 		expectedResult.append("<td>Class Count</td>").append(EOF_CHAR);
 		expectedResult.append("<td>Coverage Level</td>").append(EOF_CHAR);
 		expectedResult.append("<td>Mutation Count</td>").append(EOF_CHAR);
-		expectedResult.append("<td>Survived Mutations Count</td>").append(
-				EOF_CHAR);
-		expectedResult.append("<td>Defeated Mutations Count</td>").append(
-				EOF_CHAR);
+		expectedResult.append("<td>Survived Mutations Count</td>").append(EOF_CHAR);
+		expectedResult.append("<td>Defeated Mutations Count</td>").append(EOF_CHAR);
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("</thead>").append(EOF_CHAR);
 		expectedResult.append("<tbody>").append(EOF_CHAR);
 
 		expectedResult.append("<tr>").append(EOF_CHAR);
-		expectedResult.append("<td>All Packages</td>").append(EOF_CHAR);
-		expectedResult.append("<td>5</td>").append(EOF_CHAR);
-		expectedResult.append("<td>75 %</td>").append(EOF_CHAR);
-		expectedResult.append("<td>4</td>").append(EOF_CHAR);
-		expectedResult.append("<td>1</td>").append(EOF_CHAR);
-		expectedResult.append("<td>3</td>").append(EOF_CHAR);
-		expectedResult.append("</tr>").append(EOF_CHAR);
-
-		expectedResult.append("<tr>").append(EOF_CHAR);
-		expectedResult.append(
-				"<td><a href=\"pkg1.sub2.html\">pkg1.sub2</a></td>").append(
-				EOF_CHAR);
+		expectedResult.append("<td><a href=\"pkg1.sub2.html\">pkg1.sub2</a></td>").append(EOF_CHAR);
 		expectedResult.append("<td>12</td>").append(EOF_CHAR);
 		expectedResult.append("<td>40 %</td>").append(EOF_CHAR);
 		expectedResult.append("<td>9</td>").append(EOF_CHAR);
@@ -120,9 +104,7 @@ public class PackageDetailsTemplateTestCase extends junit.framework.TestCase {
 		expectedResult.append("</tr>").append(EOF_CHAR);
 
 		expectedResult.append("<tr>").append(EOF_CHAR);
-		expectedResult.append(
-				"<td><a href=\"apkg.sub2.sub3.html\">apkg.sub2.sub3</a></td>")
-				.append(EOF_CHAR);
+		expectedResult.append("<td><a href=\"apkg.sub2.sub3.html\">apkg.sub2.sub3</a></td>").append(EOF_CHAR);
 		expectedResult.append("<td>2</td>").append(EOF_CHAR);
 		expectedResult.append("<td>20 %</td>").append(EOF_CHAR);
 		expectedResult.append("<td>6</td>").append(EOF_CHAR);
@@ -131,12 +113,9 @@ public class PackageDetailsTemplateTestCase extends junit.framework.TestCase {
 		expectedResult.append("</tr>").append(EOF_CHAR);
 
 		expectedResult.append("</tbody>").append(EOF_CHAR);
-		expectedResult.append("</table>").append(EOF_CHAR);
-		expectedResult.append("</body>").append(EOF_CHAR);
-		expectedResult.append("</html>").append(EOF_CHAR);
+		expectedResult.append("</table>");
 
-		assertEquals("Output mismatch", expectedResult.toString(), outputWriter
-				.toString());
+		assertEquals("Output mismatch", expectedResult.toString(), outputWriter.toString());
 		System.out.println(outputWriter.toString());
 
 	}
