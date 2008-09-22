@@ -21,8 +21,7 @@ a {
 	font-size: 75%;
 	color: white;
 	background-color: black;
-	padding: 5 5 5 5;
-	margin: 0 0 25 0;
+	margin: 0 0 20px 0;
 }
 
 table {
@@ -65,7 +64,6 @@ table thead {
 	background-color: #333333;
 	border-width: 1px 1px 1px 1px;
 	border-style: solid;
-	margin-top: 3px;
 	width: 75%;
 	margin-left: auto;
 	margin-right: auto;
