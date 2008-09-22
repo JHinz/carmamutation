@@ -1,4 +1,5 @@
-<table class="codeTable">
+<div class="codeTable">
+<table>
 <#list codeEntries as codeEntry >
 <tr>
 <td>
@@ -23,3 +24,4 @@ ${codeEntry.code?html?replace("  ", "&nbsp;&nbsp;")}
 </tr>
 </#list>
 </table>
+</div>

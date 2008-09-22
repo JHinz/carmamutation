@@ -75,23 +75,22 @@ public class ClassSnippetReporterTestCase extends TestCase {
 
 		String resource = "descriptionKey=Description";
 
-		PropertyResourceBundle bundle = new PropertyResourceBundle(
-				new StringBufferInputStream(resource));
+		PropertyResourceBundle bundle = new PropertyResourceBundle(new StringBufferInputStream(resource));
 
 		HashMap<String, Object> context = new HashMap<String, Object>();
 		context.put("ingoreExternalTemplates", new Object());
 
 		ClassSnippetReporter snippetReporter = new ClassSnippetReporter(context);
 
-		snippetReporter.createReport(classUnderTest, sourceFile, outputWriter,
-				bundle);
+		snippetReporter.createReport(classUnderTest, sourceFile, outputWriter, bundle);
 
 		StringBuffer expectedResult = new StringBuffer();
 		expectedResult.append("<html>").append(EOF_CHAR);
 		expectedResult.append("<head>").append(EOF_CHAR);
 		expectedResult.append("</head>").append(EOF_CHAR);
 		expectedResult.append("<body>").append(EOF_CHAR);
-		expectedResult.append("<table class=\"codeTable\">").append(EOF_CHAR);
+		expectedResult.append("<div class=\"codeTable\">").append(EOF_CHAR);
+		expectedResult.append("<table>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
@@ -123,8 +122,7 @@ public class ClassSnippetReporterTestCase extends TestCase {
 		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
-		expectedResult.append("<div class=\"covered_survived\">").append(
-				EOF_CHAR);
+		expectedResult.append("<div class=\"covered_survived\">").append(EOF_CHAR);
 		expectedResult.append("4 xxxxxx").append(EOF_CHAR);
 		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
@@ -136,8 +134,7 @@ public class ClassSnippetReporterTestCase extends TestCase {
 		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
-		expectedResult.append("<div class=\"covered_survived\">").append(
-				EOF_CHAR);
+		expectedResult.append("<div class=\"covered_survived\">").append(EOF_CHAR);
 		expectedResult.append("5 xxxxxx").append(EOF_CHAR);
 		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
@@ -167,18 +164,18 @@ public class ClassSnippetReporterTestCase extends TestCase {
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("</table>").append(EOF_CHAR);
-		expectedResult.append("<table class=\"descriptionTable\">").append(
-				EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"descriptionTable\">").append(EOF_CHAR);
+		expectedResult.append("<table>").append(EOF_CHAR);
 		expectedResult.append("<tr><td>ID: NoName</td></tr>").append(EOF_CHAR);
-		expectedResult.append("<tr><td>Transition: descriptionKey</td></tr>")
-				.append(EOF_CHAR);
-		expectedResult.append("<tr><td>Transition: Description</td></tr>")
-				.append(EOF_CHAR);
-		expectedResult.append("<tr><td>Defeating Tests: </td></tr>").append(
-				EOF_CHAR);
+		expectedResult.append("<tr><td>Transition: descriptionKey</td></tr>").append(EOF_CHAR);
+		expectedResult.append("<tr><td>Transition: Description</td></tr>").append(EOF_CHAR);
+		expectedResult.append("<tr><td>Defeating Tests: </td></tr>").append(EOF_CHAR);
 		expectedResult.append("</table>").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("<br>").append(EOF_CHAR);
-		expectedResult.append("<table class=\"codeTable\">").append(EOF_CHAR);
+		expectedResult.append("<div class=\"codeTable\">").append(EOF_CHAR);
+		expectedResult.append("<table>").append(EOF_CHAR);
 		expectedResult.append("<tr>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
 		expectedResult.append("<div class=\"lineNo\">").append(EOF_CHAR);
@@ -210,8 +207,7 @@ public class ClassSnippetReporterTestCase extends TestCase {
 		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("<td>").append(EOF_CHAR);
-		expectedResult.append("<div class=\"covered_killed\">")
-				.append(EOF_CHAR);
+		expectedResult.append("<div class=\"covered_killed\">").append(EOF_CHAR);
 		expectedResult.append("7 xxxxxx").append(EOF_CHAR);
 		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("</td>").append(EOF_CHAR);
@@ -229,22 +225,20 @@ public class ClassSnippetReporterTestCase extends TestCase {
 		expectedResult.append("</td>").append(EOF_CHAR);
 		expectedResult.append("</tr>").append(EOF_CHAR);
 		expectedResult.append("</table>").append(EOF_CHAR);
-		expectedResult.append("<table class=\"descriptionTable\">").append(
-				EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
+		expectedResult.append("<div class=\"descriptionTable\">").append(EOF_CHAR);
+		expectedResult.append("<table>").append(EOF_CHAR);
 		expectedResult.append("<tr><td>ID: NoName</td></tr>").append(EOF_CHAR);
-		expectedResult.append("<tr><td>Transition: descriptionKey</td></tr>")
-				.append(EOF_CHAR);
-		expectedResult.append("<tr><td>Transition: Description</td></tr>")
-				.append(EOF_CHAR);
-		expectedResult.append("<tr><td>Defeating Tests: </td></tr>").append(
-				EOF_CHAR);
+		expectedResult.append("<tr><td>Transition: descriptionKey</td></tr>").append(EOF_CHAR);
+		expectedResult.append("<tr><td>Transition: Description</td></tr>").append(EOF_CHAR);
+		expectedResult.append("<tr><td>Defeating Tests: </td></tr>").append(EOF_CHAR);
 		expectedResult.append("</table>").append(EOF_CHAR);
+		expectedResult.append("</div>").append(EOF_CHAR);
 		expectedResult.append("<br>").append(EOF_CHAR);
 		expectedResult.append("</body>").append(EOF_CHAR);
 		expectedResult.append("</html>").append(EOF_CHAR);
 
-		assertEquals("Output mismatch", expectedResult.toString(), outputWriter
-				.toString());
+		assertEquals("Output mismatch", expectedResult.toString(), outputWriter.toString());
 
 	}
 }
