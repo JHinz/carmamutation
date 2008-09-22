@@ -27,9 +27,7 @@ a {
 
 table {
 	font-size: 100%;
-	width: 75%;
-	margin-left: auto;
-	margin-right: auto;
+	width: 100%;
 }
 
 table thead {
@@ -58,24 +56,74 @@ table thead {
 
 .lineNo {
 	font-family: Courier;
-	background-color: silver;
+	background-color: black;
 	float:block;
 }
 
 .codeTable {
-	background-color: lightgrey;
 	font-family: Courier;
-	border-width: 1px 0px 0px 0px;
+	background-color: #333333;
+	border-width: 1px 1px 1px 1px;
 	border-style: solid;
-	float:block;
+	margin-top: 3px;
+	width: 75%;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .descriptionTable {
-	font-size: 50%;
-	background-color: white;
-	border-width: 1px 0px 1px 0px;
-	border-style: solid; float:block;
-	}
+	font-size: 75%;
+	background-color: #333333;
+	border-width: 0px 1px 1px 1px;
+	border-style: solid;
+	width: 75%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.packageListing {
+	font-size: 75%;
+	background-color: #333333;
+	border-width: 0px 1px 1px 1px;
+	border-style: solid;
+	width: 75%;
+	margin-left: auto;
+	margin-right: auto;
+
+}
+
+.classListing {
+	font-size: 75%;
+	background-color: #333333;
+	border-width: 0px 1px 1px 1px;
+	border-style: solid;
+	width: 75%;
+	margin-left: auto;
+	margin-right: auto;
+
+}
+
+.projectCoverageSummary {
+	font-size: 75%;
+	background-color: #333333;
+	border-width: 0px 1px 1px 1px;
+	border-style: solid;
+	width: 75%;
+	margin-left: auto;
+	margin-right: auto;
+
+}
+
+.projectStatistics {
+	font-size: 75%;
+	background-color: #333333;
+	border-width: 0px 1px 1px 1px;
+	border-style: solid;
+	width: 75%;
+	margin-left: auto;
+	margin-right: auto;
+
+}
 
 .footer {
 	background-color: black;
