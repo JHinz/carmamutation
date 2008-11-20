@@ -1,6 +1,8 @@
 <#list snippets as snippet>
 <#assign codeEntries = snippet.codeEntries >
-<#if extendedJcovInfoAvailable?exists && extendedJcovInfoAvailable><#include "extendedSnippet.ftl"><#else><#include "standardSnippet.ftl"></#if>
+<#assign mymutant = snippet.mutant >
+<div class="snippet">
 <#include "snippetDescription.ftl">
-<br>
+<#if extendedJcovInfoAvailable?exists && extendedJcovInfoAvailable><#include "extendedSnippet.ftl"><#else><#include "standardSnippet.ftl"></#if>
+</div>
 </#list>

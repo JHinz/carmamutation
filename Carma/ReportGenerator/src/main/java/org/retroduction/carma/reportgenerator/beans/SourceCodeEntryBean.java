@@ -37,7 +37,7 @@ public class SourceCodeEntryBean {
 			break;
 
 		}
-		this.code = code; // .substring(cutoffIndex);
+		this.code = code;
 		this.lineNumber = lineNumber;
 	}
 
