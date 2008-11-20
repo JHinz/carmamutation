@@ -77,6 +77,7 @@ public class CarmaReport extends org.apache.tools.ant.Task {
 			this.log("# --------------------------------------------------------------------------------");
 		} catch (Exception e) {
 			this.log(e, Project.MSG_ERR);
+			e.printStackTrace();
 			throw new BuildException("Error during writing report.", e);
 		} finally {
 			Thread.currentThread().setContextClassLoader(threadClassLoader);

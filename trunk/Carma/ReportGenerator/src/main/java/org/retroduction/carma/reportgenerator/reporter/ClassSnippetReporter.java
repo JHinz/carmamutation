@@ -45,12 +45,11 @@ public class ClassSnippetReporter {
 
 		SnippetBuilder builder = new SnippetBuilder(classReport, sourceFile);
 
-		// boolean extendedJCovInfoAvailable = false;
+		boolean extendedJCovInfoAvailable = false;
 
-		// if (classReport.getMutant().size() > 0
-		// && classReport.getMutant().get(0).getBaseSourceColumnStart() > 0) {
-		// extendedJCovInfoAvailable = true;
-		// }
+		if (classReport.getMutant().size() > 0 && classReport.getMutant().get(0).getBaseSourceColumnStart() > 0) {
+			extendedJCovInfoAvailable = true;
+		}
 
 		context.put("snippets", builder.getSnippets());
 		context.put("i18nTransition", resources);
@@ -59,8 +58,7 @@ public class ClassSnippetReporter {
 		context.put("packageName", classReport.getPackageName());
 		context.put("className", classReport.getClassName());
 
-		// context.put("extendedJcovInfoAvailable", new Boolean(
-		// extendedJCovInfoAvailable));
+		context.put("extendedJcovInfoAvailable", new Boolean(extendedJCovInfoAvailable));
 
 		FreeMarkerRenderer renderer = new FreeMarkerRenderer("classReport/classReport.ftl", "/templates/");
 		renderer.setConfig(new Configuration());

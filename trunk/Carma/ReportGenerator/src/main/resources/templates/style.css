@@ -1,7 +1,7 @@
 html { 
-	background-color: grey;
-	font-family: Verdana;
-	font-size:75%;
+	background-color: white;
+	font-family: Sans-serif;
+	font-size: 75%;
 	width: 100%;
 }
 
@@ -18,7 +18,7 @@ a {
 }
 
 .breadcrumb {
-	font-size: 75%;
+	font-size: 100%;
 	color: white;
 	background-color: black;
 	margin: 0 0 20px 0;
@@ -30,57 +30,83 @@ table {
 }
 
 table thead {
-	background-color: black;
+	background-color: grey;
 }
 
 .covered_killed {
 	background-color: green;
-	float:left;
+	display: inline;
+	padding: 0px;
+	margin: 0px;
 }
 
 .covered_survived {
 	background-color: red;
-	float:left;
+	display: inline;
+	padding: 0px;
+	margin: 0px;
 }
 
 .uncovered {
-	float:left;
+	display: inline;
+	padding: 0px;
+	margin: 0px;
 }
 
 .code {
 	font-family: Courier;
-	background-color: blue;
-	float:block;
+	background-color: #EEEEEE;
+	color: black;
 }
 
 .lineNo {
 	font-family: Courier;
-	background-color: black;
-	float:block;
+	background-color: #F0F0F0;
+	color: black;
 }
 
 .codeTable {
 	font-family: Courier;
-	background-color: #333333;
-	border-width: 1px 1px 1px 1px;
+	border-width: 0px 1px 1px 1px;
 	border-style: solid;
-	width: 75%;
+	border-color: black;
+	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
+	margin-bottom: 15px;
+}
+
+.codeTable tbody tr td {
+	padding: 0px;
+	margin: 0px;
+}
+
+.content {
+	margin-left:auto;
+	margin-right:auto;
+	width:75%;
+}
+
+.report {
+	width: 100%;
+}
+
+.snippet {
 }
 
 .descriptionTable {
-	font-size: 75%;
-	background-color: #333333;
-	border-width: 0px 1px 1px 1px;
+	background-color: lightgrey;
+	color: black;
+	border-width: 1px 1px 1px 1px;
 	border-style: solid;
-	width: 75%;
+	border-color: black;
+	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
 }
 
 .packageListing {
-	font-size: 75%;
+	font-size: 100%;
 	background-color: #333333;
 	border-width: 0px 1px 1px 1px;
 	border-style: solid;
@@ -91,18 +117,38 @@ table thead {
 }
 
 .classListing {
-	font-size: 75%;
+	font-size: 100%;
 	background-color: #333333;
-	border-width: 0px 1px 1px 1px;
+	border-width: 1px 1px 1px 1px;
 	border-style: solid;
 	width: 75%;
 	margin-left: auto;
 	margin-right: auto;
+}
 
+.classListing table {
+	background-color: #333333;
+	border-width: 1px 1px 1px 1px;
+	border-style: solid;
+	border-color: black;
+}
+
+.packageListing table {
+	background-color: #333333;
+	border-width: 1px 1px 1px 1px;
+	border-style: solid;
+	border-color: black;
+}
+
+.projectCoverageSummary table {
+	background-color: #333333;
+	border-width: 1px 1px 1px 1px;
+	border-style: solid;
+	border-color: black;
 }
 
 .projectCoverageSummary {
-	font-size: 75%;
+	font-size: 100%;
 	background-color: #333333;
 	border-width: 0px 1px 1px 1px;
 	border-style: solid;
@@ -113,20 +159,68 @@ table thead {
 }
 
 .projectStatistics {
-	font-size: 75%;
+	font-size: 100%;
 	background-color: #333333;
-	border-width: 0px 1px 1px 1px;
+	border-width: 0px 0px 0px 0px;
 	border-style: solid;
 	width: 75%;
 	margin-left: auto;
 	margin-right: auto;
+}
 
+table {
+	padding: 0px;
+	margin: 0px;
+	border-width: 0px 0px 0px 0px;
+	border-style: none;
+	border-spacing: 0px;
+	background-color: #F0F0F0;
+	color: black;
+}
+
+thead tr td {
+	padding: 2px;
+	margin: 0px;
+	border-width: 0px 0px 0px 0px;
+	border-style: none;
+	background-color: black;
+	color: white;
+}
+
+tbody tr td {
+	padding: 2px;
+	margin: 2px;
+	border-width: 0px 0px 0px 0px;
+	border-style: none;
+	background-color: #F0F0F0;
+	color: black;
+}
+
+.covered_survived td {
+	background-color: red;
+}
+
+.covered_killed td {
+	background-color: green;
+}
+
+.uncovered td {
+	background-color: silver;
+}
+
+tbody tr td a {
+	padding: 2px;
+	margin: 2px;
+	border-width: 0px 0px 0px 0px;
+	border-style: none;
+	background-color: #F0F0F0;
+	color: black;
 }
 
 .footer {
 	background-color: black;
 	color: white;
-	font-size:75%;
+	font-size:80%;
 	width: 100%;
 	padding: 5 5 5 5;
 	margin: 25 0 0 0;
