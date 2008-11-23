@@ -1,0 +1,5 @@
+This folder contains several 3rd party libraries redistributed with Carma. These libraries are not
+developed, maintained, supported by Retroduction (Retroduction.org) nor do we hold the copyright on these
+libraries. Most libraries are licensed under the Apache Software License 2.0. ASM is licensed under
+a (free) proprietary license by Objectweb.org. For license details please contact the respective
+project owners. The LICENSE text file in this folder contains copies of these licenses.
