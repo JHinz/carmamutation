@@ -1,6 +1,0 @@
-Retroduction Carma - End User License Agreement
-http://retroduction.org
-
-- The software available on this website is provided AS IS and WITHOUT ANY WARRANTY. Use it on your own risk.
-- The software must not be altered, changed, transformed, rebundled, reverse-engineered, sold, provided as a service or redistributed for any purposes except with explicitly granted and written permission by Retroduction.org.
-- Any violation of this agreement revokes any permission to use our software.

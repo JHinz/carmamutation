@@ -1,7 +1,6 @@
 <assembly>
 	<id>Bundle</id>
 	<formats>
-		<format>tar.gz</format>
 		<format>zip</format>
 	</formats>
 	<includeBaseDirectory>false</includeBaseDirectory>
@@ -11,17 +10,17 @@
 				<includeDependencies>false</includeDependencies>
 				<outputDirectory>libs</outputDirectory>
 				<unpack>false</unpack>
-			</binaries>
-		</moduleSet>
-	</moduleSets>
-	<dependencySets>
+<dependencySets>
 		<dependencySet>
-		<useTransitiveDependencies>true</useTransitiveDependencies>
+	<!--	<useTransitiveDependencies>true</useTransitiveDependencies>-->
 		<outputDirectory>extlibs</outputDirectory>
-		<excludes><exclude>com.retroduction.carma:*</exclude></excludes>
+		<!--<excludes><exclude>com.retroduction.carma:*</exclude></excludes>-->
 		</dependencySet>		
 	</dependencySets>
-	<fileSets>
+				</binaries>
+		</moduleSet>
+</moduleSets>
+	!--	<fileSets>
 		<fileSet>
 			<directory>src/main/packaging</directory>
 			<outputDirectory>./</outputDirectory>
@@ -39,5 +38,5 @@
 			</includes>
 		</fileSet>		
 	</fileSets>
-
+-->
 </assembly>

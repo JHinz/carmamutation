@@ -2,25 +2,25 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
   http://maven.apache.org/maven-v4_0_0.xsd">
+	<version>${parent.version}</version>
 
 	<parent>
-		<groupId>com.retroduction.carma</groupId>
-		<artifactId>MetaDefinition</artifactId>
+		<groupId>org.retroduction.carma</groupId>
+		<artifactId>Carma</artifactId>
 		<version>0.2</version>
-		<relativePath>../MetaDefinition/pom.xml</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.retroduction.carma</groupId>
+	<groupId>org.retroduction.carma</groupId>
 	<artifactId>Annotations</artifactId>
 	<packaging>jar</packaging>
-	<name>Retroduction Carma Annotations Package</name>
+	<name>Carma Annotations Package</name>
 	
 	<dependencies>
 		<dependency>
-			<groupId>com.retroduction.carma</groupId>
+			<groupId>org.retroduction.carma</groupId>
 			<artifactId>Core</artifactId>
-			<version>0.2</version>
+			<version>${version}</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
