@@ -120,7 +120,7 @@ public class JUnitRunner implements ITestRunner {
 					mutant.setSurvived(true);
 				}
 
-			} catch (Exception e) {
+			} catch (Throwable e) {
 				this.logger.warn(e.getMessage());
 			}
 		}

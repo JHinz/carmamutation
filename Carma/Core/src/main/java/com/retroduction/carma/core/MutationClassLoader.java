@@ -11,6 +11,10 @@ package com.retroduction.carma.core;
 import java.net.URL;
 import java.net.URLClassLoader;
 
+import com.retroduction.carma.resolvers.Resolver;
+import com.retroduction.carma.utilities.Logger;
+import com.retroduction.carma.utilities.LoggerFactory;
+
 /**
  * This class loader loads unit test and mutant.
  * 
@@ -22,42 +26,50 @@ import java.net.URLClassLoader;
  */
 public class MutationClassLoader extends URLClassLoader {
 
+	private Logger logger = LoggerFactory.getLogger(MutationClassLoader.class);
+
 	private byte[] mutantByteCode;
 
 	private String mutantClassName;
 
-	public MutationClassLoader(URL[] urls, String mutantClassName, byte[] mutantByteCode, ClassLoader parent) {
+	public MutationClassLoader(URL[] urls, String mutantClassName,
+			byte[] mutantByteCode, ClassLoader parent) {
 		super(urls, parent);
 		this.mutantClassName = mutantClassName;
 		this.mutantByteCode = mutantByteCode;
 
+		logger.debug("Created new custom class loader with urls: ");
+		for (URL url : urls)
+			logger.debug("  " + url.toString());
 	}
 
 	@Override
 	public Class<?> loadClass(String name) throws ClassNotFoundException {
 
-	
+		logger.debug("Resolving class with custom classloader: " + name
+				+ " ClassLoaderID: " + this);
+
 		// TODO is that needed for all mutation dependencies? Find a better
 		// solution (mike)
 
 		// TODO: should be configurable via spring i think (alex) ->
-		if (name.startsWith("junit")) {
+		if (name.startsWith("junit.")) {
 			return super.loadClass(name, false);
 		}
 
-		if (name.startsWith("org.w3c")) {
+		if (name.startsWith("org.w3c.")) {
 			return super.loadClass(name, false);
 		}
 
-		if (name.startsWith("org.xml")) {
+		if (name.startsWith("org.xml.")) {
 			return super.loadClass(name, false);
 		}
 
-		if (name.startsWith("com.sun")) {
+		if (name.startsWith("com.sun.")) {
 			return super.loadClass(name, false);
 		}
 
-		if (name.startsWith("java")) {
+		if (name.startsWith("java.")) {
 			return super.loadClass(name, false);
 		}
 

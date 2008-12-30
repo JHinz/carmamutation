@@ -100,16 +100,21 @@ public class MutantJUnitRunner extends BaseTestRunner implements IMutantJUnitRun
 	}
 
 	private int runTest(String testCase) {
+		
+		int errors = 0;
+		int failures = 0;
+		
 		try {
 			Test suite = this.getTest(testCase);
 			TestResult result = this.doRun(suite);
 
-			int errors = result.errorCount();
-			int failures = result.failureCount();
+			errors+= result.errorCount();
+			failures+= result.failureCount();
 			return errors + failures;
-		} catch (RuntimeException e) {
+		} catch (Throwable e) {
 			this.restoreReplacedClassLoader();
-			throw e;
+			logger.warn(e);
+			return errors + failures + 1;
 		}
 	}
 

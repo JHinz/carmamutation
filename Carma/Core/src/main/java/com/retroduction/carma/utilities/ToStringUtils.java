@@ -93,6 +93,7 @@ public final class ToStringUtils {
 						if (value == null) {
 							value = "null";
 						}
+                        if ( value instanceof String )
 						result.put((String) name, (String) value);
 					} catch (IllegalAccessException iae) {
 						/* ignore */
