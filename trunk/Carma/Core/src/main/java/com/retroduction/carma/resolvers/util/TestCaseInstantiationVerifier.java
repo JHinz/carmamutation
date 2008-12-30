@@ -29,6 +29,8 @@ public class TestCaseInstantiationVerifier implements ITestCaseInstantiationVeri
 
 	private Set<File> testClassPath;
 
+	private Set<URL> dependencyClassPath;
+
 	private URLClassLoader loader;
 
 	private void reinitPrivateClassLoader() {
@@ -43,9 +45,19 @@ public class TestCaseInstantiationVerifier implements ITestCaseInstantiationVeri
 			combinedClassPathSet.addAll(this.getTestClassPath());
 		}
 
+		if (this.getDependencyClassPath() != null) {
+
+			for (URL url : this.getDependencyClassPath()) {
+				File file = new File(url.getFile());
+				combinedClassPathSet.add(file);
+			}
+
+		}
+
 		Set<URL> validURLs = this.filterInvalidURLs(combinedClassPathSet);
 
-		this.setLoader(new URLClassLoader(validURLs.toArray(new URL[0]), this.getClass().getClassLoader()));
+		this.setLoader(new URLClassLoader(validURLs.toArray(new URL[0]), this
+				.getClass().getClassLoader()));
 	}
 
 	Set<URL> filterInvalidURLs(Set<File> classPathEntries) {
@@ -58,7 +70,8 @@ public class TestCaseInstantiationVerifier implements ITestCaseInstantiationVeri
 					try {
 						result.add(file.toURL());
 					} catch (MalformedURLException e) {
-						this.log.warn("Invalid class path entry: " + file.toString());
+						this.log.warn("Invalid class path entry: "
+								+ file.toString());
 					}
 				}
 			}
@@ -92,7 +105,17 @@ public class TestCaseInstantiationVerifier implements ITestCaseInstantiationVeri
 		this.reinitPrivateClassLoader();
 	}
 
-	public HashSet<String> determineUnloadableTestClassNames(Set<String> fqTestClassNames) {
+	public void setDependencyClassPath(Set<URL> dependencyClassPath) {
+		this.dependencyClassPath = dependencyClassPath;
+		this.reinitPrivateClassLoader();
+	}
+
+	private Set<URL> getDependencyClassPath() {
+		return dependencyClassPath;
+	}
+
+	public HashSet<String> determineUnloadableTestClassNames(
+			Set<String> fqTestClassNames) {
 
 		HashSet<String> unloadableClasses = new HashSet<String>();
 
@@ -109,7 +132,16 @@ public class TestCaseInstantiationVerifier implements ITestCaseInstantiationVeri
 				}
 
 			} catch (Exception e) {
-				this.log.warn("Skipping class in test set due to class loading problem:" + testClassName);
+				this.log
+						.warn("Skipping class in test set due to class loading problem:"
+								+ testClassName);
+				this.log.debug(e);
+				unloadableClasses.add(testClassName);
+				continue;
+			} catch (NoClassDefFoundError e) {
+				this.log
+						.warn("Skipping class in test set due to class loading problem:"
+								+ testClassName);
 				this.log.debug(e);
 				unloadableClasses.add(testClassName);
 				continue;

@@ -96,6 +96,7 @@
 		class="com.retroduction.carma.resolvers.util.TestCaseInstantiationVerifier">
 		<property name="classPath" ref="${project.classesdir.source}" />
 		<property name="testClassPath" ref="${project.testclassesdir.source}" />
+		<property name="dependencyClassPath" ref="${project.libraries.source}" />
 	</bean>
 
 	<bean id="classFilterConfiguration"

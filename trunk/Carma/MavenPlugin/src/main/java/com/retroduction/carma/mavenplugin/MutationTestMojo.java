@@ -32,6 +32,8 @@ import com.retroduction.carma.utilities.LoggerFactory;
  * 
  * @goal mtest
  * 
+ * @requiresDependencyResolution test
+ * 
  * @phase test
  */
 
